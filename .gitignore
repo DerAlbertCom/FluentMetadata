@@ -1,0 +1,11 @@
+
+*.user
+*.obj
+*.lib
+*.suo
+*.ncb
+[Oo]bj
+[Bb]in
+[Db]ebug
+[Rr]elease
+_ReSharper*/
