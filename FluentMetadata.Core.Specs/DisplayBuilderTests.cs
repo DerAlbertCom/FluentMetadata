@@ -5,7 +5,7 @@ namespace FluentMetadata.Specs
     public class DisplayBuilderTests
     {
         private readonly MetaData metaData;
-        private IDisplayProperty builder;
+        private readonly IDisplayProperty builder;
 
         public DisplayBuilderTests()
         {

@@ -4,7 +4,7 @@
     {
         public static IProperty WithMaxSize(this IProperty property)
         {
-            return property.Length(20000);
+            return property.Length(2^31);
         }
     }
 }

@@ -1,13 +1,18 @@
 using System;
+using System.Collections.Generic;
+using FluentMetadata.Rules;
 
 namespace FluentMetadata
 {
     public class MetaData
     {
+        private readonly List<IRule> rules;
+
         public MetaData()
         {
             ShowDisplay = true;
             ShowEditor = true;
+            rules = new List<IRule>();
         }
 
         public MetaData(MetaData metaData, Type containerType) : this()
@@ -25,6 +30,10 @@ namespace FluentMetadata
             TemplateHint = metaData.TemplateHint;
             NullDisplayText = metaData.NullDisplayText;
             DisplayName = metaData.DisplayName;
+            foreach (var rule in metaData.Rules)
+            {
+                AddRule(rule);
+            }
         }
 
         public bool Required { get; set; }
@@ -55,5 +64,15 @@ namespace FluentMetadata
         public bool Hidden { get; set; }
 
         public string DataTypeName { get; set; }
+
+        public IEnumerable<IRule> Rules
+        {
+            get { return rules; }
+        }
+
+        public void AddRule(IRule rule)
+        {
+            rules.Add(rule);
+        }
     }
 }

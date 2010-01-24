@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using FluentMetadata.Rules;
 
 namespace FluentMetadata
 {
@@ -25,6 +26,7 @@ namespace FluentMetadata
         public IProperty Length(int length)
         {
             metaData.StringLength = length;
+            metaData.AddRule(new StringLengthRule(length));
             return this;
         }
 

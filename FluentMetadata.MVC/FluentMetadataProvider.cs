@@ -32,7 +32,7 @@ namespace FluentMetadata.MVC
         private ModelMetadata CreateModelMetaData(Type containerType, PropertyInfo propertyInfo,
                                                   TypeMetadataBuilder builder, Func<object> modelAccessor)
         {
-            FluentMetadata.MetaData metaData = builder.MetaDataFor(propertyInfo.Name);
+            MetaData metaData = builder.MetaDataFor(propertyInfo.Name);
             if (metaData != null)
             {
                 return CreateModelMetaData(metaData, modelAccessor);
@@ -41,7 +41,7 @@ namespace FluentMetadata.MVC
                                      propertyInfo.Name);
         }
 
-        private ModelMetadata CreateModelMetaData(FluentMetadata.MetaData metaData,
+        private ModelMetadata CreateModelMetaData(MetaData metaData,
                                                   Func<object> modelAccessor)
         {
             return new ModelMetadata(this, metaData.ContainerType, modelAccessor, metaData.ModelType,
@@ -63,7 +63,7 @@ namespace FluentMetadata.MVC
                        };
         }
 
-        private static string GetDataTypeName(FluentMetadata.MetaData metaData)
+        private static string GetDataTypeName(MetaData metaData)
         {
             if (metaData.Hidden)
             {

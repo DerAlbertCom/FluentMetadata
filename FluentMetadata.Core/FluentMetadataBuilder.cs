@@ -38,6 +38,11 @@ namespace FluentMetadata
         public static void ForAssembly(string assemblyName)
         {
             Assembly assembly = Assembly.Load(assemblyName);
+            ForAssembly(assembly);
+        }
+
+        private static void ForAssembly(Assembly assembly)
+        {
             List<Type> types =
                 assembly.GetTypes().Where(t => typeof (ClassMetadata).IsAssignableFrom(t) && !t.IsAbstract).
                     ToList();
@@ -45,6 +50,11 @@ namespace FluentMetadata
             {
                 Activator.CreateInstance(type);
             }
+        }
+
+        public static void ForAssemblyOfType<T>()
+        {
+            ForAssembly(typeof(T).Assembly);
         }
     }
 }

@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FluentMetadataProvider.cs" />
+    <Compile Include="FluentValidationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuleModelValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FluentMetadata.Core\FluentMetadata.Core.csproj">
