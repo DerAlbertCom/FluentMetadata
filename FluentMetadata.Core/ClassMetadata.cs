@@ -17,6 +17,12 @@ namespace FluentMetadata
             return builder.MapProperty(expression);
         }
 
+        protected IProperty The(T value)
+        {
+            TypeMetadataBuilder<T> builder = GetBuilder<T>();
+            return builder.MapEnum(value, typeof (T));
+        }
+
         protected void CopyMetadataFrom<TBaseType>()
         {
             TypeMetadataBuilder<T> builder = GetBuilder<T>();

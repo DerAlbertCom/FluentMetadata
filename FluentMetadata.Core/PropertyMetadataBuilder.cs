@@ -18,6 +18,13 @@ namespace FluentMetadata
             this.metaData = metaData;
         }
 
+        public PropertyMetadataBuilder(Type type, string propertyName):this()
+        {
+            MetaData.ContainerType = null;
+            MetaData.PropertyName = propertyName;
+            MetaData.ModelType = type;
+        }
+
         public MetaData MetaData
         {
             get { return metaData; }

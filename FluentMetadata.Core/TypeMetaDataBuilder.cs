@@ -59,5 +59,21 @@ namespace FluentMetadata
                 properties.Add(builder);
             }
         }
+
+        public IProperty MapEnum(object value, Type type)
+        {
+            string propertyName = Enum.GetName(type, value);
+
+            foreach (PropertyMetadataBuilder builder in properties)
+            {
+                if (builder.MetaData.PropertyName == propertyName)
+                {
+                    return builder;
+                }
+            }
+            var metadataBuilder= new PropertyMetadataBuilder(type,propertyName);
+            properties.Add(metadataBuilder);
+            return metadataBuilder;
+        }
     }
 }

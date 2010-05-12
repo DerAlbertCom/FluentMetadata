@@ -5,7 +5,7 @@ namespace FluentMetadata.Specs
     public class AsBuilderTests
     {
         private readonly MetaData metaData;
-        private IAsProperty asBuilder;
+        private readonly IAsProperty asBuilder;
 
         public AsBuilderTests()
         {
