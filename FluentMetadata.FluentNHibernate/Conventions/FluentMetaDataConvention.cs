@@ -21,7 +21,7 @@ namespace FluentMetadata.FluentNHibernate.Conventions
             ApplyStringLength(meta.StringLength, instance);
         }
 
-        private void ApplyStringLength(int stringLength, IPropertyInstance target)
+        private static void ApplyStringLength(int stringLength, IPropertyInstance target)
         {
             if (stringLength > 0)
             {
@@ -29,7 +29,7 @@ namespace FluentMetadata.FluentNHibernate.Conventions
             }
         }
 
-        private void ApplyRequired(bool required, IPropertyInstance target)
+        private static void ApplyRequired(bool required, IPropertyInstance target)
         {
             if (required)
             {
