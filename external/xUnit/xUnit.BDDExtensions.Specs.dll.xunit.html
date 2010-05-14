@@ -1,0 +1,492 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>xUnit.net Test Results - C:\Code\xunitbdd\Bin\xUnit.BDDExtensions.Specs.DLL</title>
+    <style type="text/css">
+          body { font-family: Calibri, Verdana, Arial, sans-serif; background-color: White; color: Black; }
+          h2,h3,h5 { margin: 0; padding: 0; }
+          h2 { border-top: solid 1px #f0f5fa; padding-top: 0.5em; }
+          h3 { font-weight: normal; }
+          h5 { font-weight: normal; font-style: italic; margin-bottom: 0.75em; }
+          pre { font-family: Consolas; font-size: 85%; margin: 0 0 0 1em; padding: 0; }
+          .row, .altrow { padding: 0.1em 0.3em; }
+          .row { background-color: #f0f5fa; }
+          .altrow { background-color: #e1ebf4; }
+          .success, .failure, .skipped { font-family: Arial Unicode MS; font-weight: normal; float: left; width: 1em; display: block; }
+          .success { color: #0c0; }
+          .failure { color: #c00; }
+          .skipped { color: #cc0; }
+          .timing { float: right; }
+          .indent { margin: 0.25em 0 0.5em 2em; }
+          .clickable { cursor: pointer; }
+          .testcount { font-size: 85%; }
+        </style><script language="javascript">
+          function ToggleClass(id) {
+            var elem = document.getElementById(id);
+            if (elem.style.display == "none")
+              elem.style.display = "block";
+            else
+              elem.style.display = "none";
+          }
+        </script></head>
+  <body>
+    <h3><b>Results for C:\Code\xunitbdd\Bin\xUnit.BDDExtensions.Specs.DLL</b></h3>
+    <div>
+          Tests run: <a href="#all"><b>66</b></a>  
+          Failures: <a href="#failures"><b>3</b></a>,
+          Skipped: <a href="#skipped"><b>0</b></a>,
+          Run time: <b>2.029s</b></div><br><h2><a name="failures"></a>Failed tests</h2>
+    <div class="row"><span class="timing">0.000s</span><span class="failure">✘</span>
+       Xunit.Specs.When_an_instance_with_a_dependency_on_a_generic__IEnumerable__is_resolved_and_the_item_type_can_be_stubbed.Should_be_accessible_via_the__The__accessor : Assert.Same() Failure
+Position: First difference is at position 0
+Expected: System.Collections.Generic.List`1[Xunit.Specs.IDependency]
+Actual:   Xunit.Specs.IDependency[] { Castle.Proxies.IDependencyProxy7bed78de788f45ee9e2a4379a68adf9d, Castle.Proxies.IDependencyProxy7bed78de788f45ee9e2a4379a68adf9d, Castle.Proxies.IDependencyProxy7bed78de788f45ee9e2a4379a68adf9d }<br clear="all"><pre>   at Xunit.BDDExtensions.ShouldBeTheSame[T](T item, T other) in c:\Code\xunitbdd\Source\xUnit.BDDExtensions\BDDExtensions.cs:line 171
+   at Xunit.Specs.When_an_instance_with_a_dependency_on_a_generic__IEnumerable__is_resolved_and_the_item_type_can_be_stubbed.Should_be_accessible_via_the__The__accessor() in c:\Code\xunitbdd\Source\xUnit.BDDExtensions.Specs\InstanceContextSpecificationSpecs.cs:line 83</pre>
+    </div>
+    <div class="altrow"><span class="timing">0.000s</span><span class="failure">✘</span>
+       Xunit.Specs.When_an_instance_with_a_dependency_on_a_generic__IEnumerable__is_resolved_and_the_item_type_can_be_stubbed.Should_populate_the_enumerable_with_three_items : Assert.Equal() Failure
+Expected: 3
+Actual:   0<br clear="all"><pre>   at Xunit.BDDExtensions.ShouldBeEqualTo[T](T item, T other) in c:\Code\xunitbdd\Source\xUnit.BDDExtensions\BDDExtensions.cs:line 135
+   at Xunit.Specs.When_an_instance_with_a_dependency_on_a_generic__IEnumerable__is_resolved_and_the_item_type_can_be_stubbed.Should_populate_the_enumerable_with_three_items() in c:\Code\xunitbdd\Source\xUnit.BDDExtensions.Specs\InstanceContextSpecificationSpecs.cs:line 89</pre>
+    </div>
+    <div class="row"><span class="timing">0.000s</span><span class="failure">✘</span>
+       Xunit.Specs.When_an_instance_with_a_dependency_on_a_generic__IEnumerable__is_resolved_and_the_item_type_cannt_be_stubbed.Should_be_accessible_via_the__The__accessor : Assert.Same() Failure
+Position: First difference is at position 0
+Expected: System.Collections.Generic.List`1[System.String]
+Actual:   System.String[] {  }<br clear="all"><pre>   at Xunit.BDDExtensions.ShouldBeTheSame[T](T item, T other) in c:\Code\xunitbdd\Source\xUnit.BDDExtensions\BDDExtensions.cs:line 171
+   at Xunit.Specs.When_an_instance_with_a_dependency_on_a_generic__IEnumerable__is_resolved_and_the_item_type_cannt_be_stubbed.Should_be_accessible_via_the__The__accessor() in c:\Code\xunitbdd\Source\xUnit.BDDExtensions.Specs\InstanceContextSpecificationSpecs.cs:line 106</pre>
+    </div><br><h2><a name="all"></a>All tests</h2>
+    <h5>Click test class name to expand/collapse test details</h5>
+    <h3><span class="timing">0.001s</span><span class="clickable" onclick="ToggleClass('class1')" ondblclick="ToggleClass('class1')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_a__Comparable__is_expected_to_be_greater_than_a_second_one_and_it_actually_is_not
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class1">
+      <div class="row"><span class="timing">0.001s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_a__Comparable__is_expected_to_be_greater_than_a_second_one_and_it_actually_is_not.Should_throw_a__AssertException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.001s</span><span class="clickable" onclick="ToggleClass('class2')" ondblclick="ToggleClass('class2')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_a__Comparable__is_expected_to_be_greater_than_a_smaller_second_one
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class2">
+      <div class="row"><span class="timing">0.001s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_a__Comparable__is_expected_to_be_greater_than_a_smaller_second_one.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.001s</span><span class="clickable" onclick="ToggleClass('class3')" ondblclick="ToggleClass('class3')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_a__Comparable__is_expected_to_be_greater_than_itself
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class3">
+      <div class="row"><span class="timing">0.001s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_a__Comparable__is_expected_to_be_greater_than_itself.Should_throw_an__AssertException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.001s</span><span class="clickable" onclick="ToggleClass('class4')" ondblclick="ToggleClass('class4')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_a_string_should_be_equal_to_a_differently_cased_string_and_casing_is_ignored
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class4">
+      <div class="row"><span class="timing">0.001s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_a_string_should_be_equal_to_a_differently_cased_string_and_casing_is_ignored.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.004s</span><span class="clickable" onclick="ToggleClass('class5')" ondblclick="ToggleClass('class5')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_an__Exception__is_expected_to_be_thrown_and_is_actually_thrown
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class5">
+      <div class="row"><span class="timing">0.004s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_an__Exception__is_expected_to_be_thrown_and_is_actually_thrown.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class6')" ondblclick="ToggleClass('class6')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_an_instance_is_expected_to_assignable_to_a_related__Type__
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class6">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_an_instance_is_expected_to_assignable_to_a_related__Type__.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class7')" ondblclick="ToggleClass('class7')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_an_instance_is_expected_to_be__null__and_is_actually__null__
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class7">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_an_instance_is_expected_to_be__null__and_is_actually__null__.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class8')" ondblclick="ToggleClass('class8')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_an_instance_is_expected_to_be__null__but_it_is_not
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class8">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_an_instance_is_expected_to_be__null__but_it_is_not.Should_throw_a__NullException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.006s</span><span class="clickable" onclick="ToggleClass('class9')" ondblclick="ToggleClass('class9')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_an_instance_is_expected_to_be_contained_in_a_collection_and_it_actually_is
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class9">
+      <div class="row"><span class="timing">0.006s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_an_instance_is_expected_to_be_contained_in_a_collection_and_it_actually_is.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class10')" ondblclick="ToggleClass('class10')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_an_instance_is_expected_to_be_contained_in_a_collection_and_it_actually_is_not
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class10">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_an_instance_is_expected_to_be_contained_in_a_collection_and_it_actually_is_not.Should_throw_a__ContainsException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.001s</span><span class="clickable" onclick="ToggleClass('class11')" ondblclick="ToggleClass('class11')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_an_instance_is_expected_to_be_not__null__
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class11">
+      <div class="row"><span class="timing">0.001s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_an_instance_is_expected_to_be_not__null__.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.010s</span><span class="clickable" onclick="ToggleClass('class12')" ondblclick="ToggleClass('class12')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_an_instance_is_expected_to_be_of_an_unrelated__Type__
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class12">
+      <div class="row"><span class="timing">0.010s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_an_instance_is_expected_to_be_of_an_unrelated__Type__.Should_throw_a__IsAssignableFromException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class13')" ondblclick="ToggleClass('class13')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting__False__to_be__False__
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class13">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting__False__to_be__False__.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.001s</span><span class="clickable" onclick="ToggleClass('class14')" ondblclick="ToggleClass('class14')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting__False__to_be__True__
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class14">
+      <div class="row"><span class="timing">0.001s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting__False__to_be__True__.Should_throw_a__TrueException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class15')" ondblclick="ToggleClass('class15')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting__True__to_be__False__
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class15">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting__True__to_be__False__.Should_throw_a__FalseException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.001s</span><span class="clickable" onclick="ToggleClass('class16')" ondblclick="ToggleClass('class16')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting__True__to_be__True__
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class16">
+      <div class="row"><span class="timing">0.001s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting__True__to_be__True__.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.001s</span><span class="clickable" onclick="ToggleClass('class17')" ondblclick="ToggleClass('class17')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_a__string___to_be_equal_to_itself_ignoring_the_casing
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class17">
+      <div class="row"><span class="timing">0.001s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_a__string___to_be_equal_to_itself_ignoring_the_casing.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class18')" ondblclick="ToggleClass('class18')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_a_collection_to_contain_only_a_particular_ordered_set_of_items_and_more_are_present
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class18">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_a_collection_to_contain_only_a_particular_ordered_set_of_items_and_more_are_present.Should_throw_an__AssertException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class19')" ondblclick="ToggleClass('class19')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_a_collection_to_contain_only_a_particular_ordered_set_of_items_on_a_set_that_matches_the_criteria
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class19">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_a_collection_to_contain_only_a_particular_ordered_set_of_items_on_a_set_that_matches_the_criteria.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.011s</span><span class="clickable" onclick="ToggleClass('class20')" ondblclick="ToggleClass('class20')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_a_collection_to_contain_only_a_particular_ordered_set_of_items_ordering_does_not_match
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class20">
+      <div class="row"><span class="timing">0.011s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_a_collection_to_contain_only_a_particular_ordered_set_of_items_ordering_does_not_match.Should_throw_an__AssertException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.003s</span><span class="clickable" onclick="ToggleClass('class21')" ondblclick="ToggleClass('class21')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_a_collection_to_contain_only_a_particular_set_in_a_particular_order_and_different_set_is_present
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class21">
+      <div class="row"><span class="timing">0.003s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_a_collection_to_contain_only_a_particular_set_in_a_particular_order_and_different_set_is_present.Should_throw_an__AssertException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.004s</span><span class="clickable" onclick="ToggleClass('class22')" ondblclick="ToggleClass('class22')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_a_collection_to_contain_only_a_particular_set_of_items_and_a_different_set_is_present
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class22">
+      <div class="row"><span class="timing">0.004s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_a_collection_to_contain_only_a_particular_set_of_items_and_a_different_set_is_present.Should_throw_an__AssertException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class23')" ondblclick="ToggleClass('class23')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_a_collection_to_contain_only_a_particular_set_of_items_and_more_are_present
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class23">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_a_collection_to_contain_only_a_particular_set_of_items_and_more_are_present.Should_throw_an__AssertException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class24')" ondblclick="ToggleClass('class24')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_a_collection_to_contain_only_the_items_it_actually_contains
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class24">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_a_collection_to_contain_only_the_items_it_actually_contains.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class25')" ondblclick="ToggleClass('class25')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_a_non_empty_collection_to_be_empty
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class25">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_a_non_empty_collection_to_be_empty.Should_throw_an__EmptyException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.003s</span><span class="clickable" onclick="ToggleClass('class26')" ondblclick="ToggleClass('class26')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_a_non_empty_collection_to_contain_items
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class26">
+      <div class="row"><span class="timing">0.003s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_a_non_empty_collection_to_contain_items.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.003s</span><span class="clickable" onclick="ToggleClass('class27')" ondblclick="ToggleClass('class27')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_a_particular__Exception__to_be_thrown_and_a_different__Exception__was_thrown
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class27">
+      <div class="row"><span class="timing">0.003s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_a_particular__Exception__to_be_thrown_and_a_different__Exception__was_thrown.Should_throw_a__ThrowsException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.003s</span><span class="clickable" onclick="ToggleClass('class28')" ondblclick="ToggleClass('class28')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_a_particular__Exception__to_be_thrown_and_no__Exception__was_thrown
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class28">
+      <div class="row"><span class="timing">0.003s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_a_particular__Exception__to_be_thrown_and_no__Exception__was_thrown.Should_throw_a__ThrowsException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class29')" ondblclick="ToggleClass('class29')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_an_empty_collection_not_to_be_empty
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class29">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_an_empty_collection_not_to_be_empty.Should_throw_a__NotEmptyException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.001s</span><span class="clickable" onclick="ToggleClass('class30')" ondblclick="ToggleClass('class30')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_an_empty_collection_to_be_empty
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class30">
+      <div class="row"><span class="timing">0.001s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_an_empty_collection_to_be_empty.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class31')" ondblclick="ToggleClass('class31')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_an_instance_not_to_be_equal_to_itself
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class31">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_an_instance_not_to_be_equal_to_itself.Should_throw_an__NotEqualException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.001s</span><span class="clickable" onclick="ToggleClass('class32')" ondblclick="ToggleClass('class32')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_an_instance_to_be_equal_to_itself
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class32">
+      <div class="row"><span class="timing">0.001s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_an_instance_to_be_equal_to_itself.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.001s</span><span class="clickable" onclick="ToggleClass('class33')" ondblclick="ToggleClass('class33')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_an_instance_to_be_of_its_own__Type__
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class33">
+      <div class="row"><span class="timing">0.001s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_an_instance_to_be_of_its_own__Type__.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class34')" ondblclick="ToggleClass('class34')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_null_to_be_not__null__
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class34">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_null_to_be_not__null__.Should_throw_an__NotNullException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.003s</span><span class="clickable" onclick="ToggleClass('class35')" ondblclick="ToggleClass('class35')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_to_differnt_instances_not_to_be_equal
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class35">
+      <div class="row"><span class="timing">0.003s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_to_differnt_instances_not_to_be_equal.Should_not_throw_and__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class36')" ondblclick="ToggleClass('class36')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_two_different_instances_to_be_equal
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class36">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_two_different_instances_to_be_equal.Should_throw_an__EqualException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.002s</span><span class="clickable" onclick="ToggleClass('class37')" ondblclick="ToggleClass('class37')"><span class="success">✔</span>
+         Xunit.Specs.BDDExtensions.When_expecting_two_differnt__strings__to_be_equal_ignoring_the_casing
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class37">
+      <div class="row"><span class="timing">0.002s</span><span class="success">✔</span>
+       Xunit.Specs.BDDExtensions.When_expecting_two_differnt__strings__to_be_equal_ignoring_the_casing.Should_throw_an__EqualException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.547s</span><span class="clickable" onclick="ToggleClass('class38')" ondblclick="ToggleClass('class38')"><span class="success">✔</span>
+         Xunit.Specs.When_a_an_external_instance_is_used_in_a_specification
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class38">
+      <div class="row"><span class="timing">0.547s</span><span class="success">✔</span>
+       Xunit.Specs.When_a_an_external_instance_is_used_in_a_specification.Should_inject_the_external_instance_into_the_sut<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.031s</span><span class="clickable" onclick="ToggleClass('class39')" ondblclick="ToggleClass('class39')"><span class="success">✔</span>
+         Xunit.Specs.When_a_behavior_configuration_is_used_to_setup_behaviors
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class39">
+      <div class="row"><span class="timing">0.031s</span><span class="success">✔</span>
+       Xunit.Specs.When_a_behavior_configuration_is_used_to_setup_behaviors.It_should_pass_the_accessor_for_dependencies_into_the_configuration_before_the_because_method_is_run<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.004s</span><span class="clickable" onclick="ToggleClass('class40')" ondblclick="ToggleClass('class40')"><span class="success">✔</span>
+         Xunit.Specs.When_a_method_is_expected_to_be_called_more_often_than_it_actually_has_been_called
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class40">
+      <div class="row"><span class="timing">0.004s</span><span class="success">✔</span>
+       Xunit.Specs.When_a_method_is_expected_to_be_called_more_often_than_it_actually_has_been_called.Should_throw_an__ExpectationViolationException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.005s</span><span class="clickable" onclick="ToggleClass('class41')" ondblclick="ToggleClass('class41')"><span class="success">✔</span>
+         Xunit.Specs.When_a_method_is_expected_to_be_called_only_once_and_the_method_was_called_at_least_twice
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class41">
+      <div class="row"><span class="timing">0.005s</span><span class="success">✔</span>
+       Xunit.Specs.When_a_method_is_expected_to_be_called_only_once_and_the_method_was_called_at_least_twice.Should_throw_an__ExpectationViolationException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.003s</span><span class="clickable" onclick="ToggleClass('class42')" ondblclick="ToggleClass('class42')"><span class="success">✔</span>
+         Xunit.Specs.When_a_method_is_expected_to_be_called_twice_and_the_method_was_called_twice
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class42">
+      <div class="row"><span class="timing">0.003s</span><span class="success">✔</span>
+       Xunit.Specs.When_a_method_is_expected_to_be_called_twice_and_the_method_was_called_twice.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.007s</span><span class="clickable" onclick="ToggleClass('class43')" ondblclick="ToggleClass('class43')"><span class="success">✔</span>
+         Xunit.Specs.When_a_method_was_not_expected_to_be_called_and_it_was_not_called
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class43">
+      <div class="row"><span class="timing">0.007s</span><span class="success">✔</span>
+       Xunit.Specs.When_a_method_was_not_expected_to_be_called_and_it_was_not_called.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.007s</span><span class="clickable" onclick="ToggleClass('class44')" ondblclick="ToggleClass('class44')"><span class="success">✔</span>
+         Xunit.Specs.When_a_method_was_not_expected_to_be_called_but_it_actually_was_
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class44">
+      <div class="row"><span class="timing">0.007s</span><span class="success">✔</span>
+       Xunit.Specs.When_a_method_was_not_expected_to_be_called_but_it_actually_was_.Should_throw_an__ExpectationViolationException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.091s</span><span class="clickable" onclick="ToggleClass('class45')" ondblclick="ToggleClass('class45')"><span class="success">✔</span>
+         Xunit.Specs.When_a_specification_test_command_is_executed_and_the_test_object_does_not_implement_ISpecification
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class45">
+      <div class="row"><span class="timing">0.091s</span><span class="success">✔</span>
+       Xunit.Specs.When_a_specification_test_command_is_executed_and_the_test_object_does_not_implement_ISpecification.Should_throw_an_invalid_operation_exception<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.107s</span><span class="clickable" onclick="ToggleClass('class46')" ondblclick="ToggleClass('class46')"><span class="success">✔</span>
+         Xunit.Specs.When_a_specification_test_command_is_executed_on_a_ITestSpecification_implementer
+         <span class="testcount">(4 tests)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class46">
+      <div class="row"><span class="timing">0.003s</span><span class="success">✔</span>
+       Xunit.Specs.When_a_specification_test_command_is_executed_on_a_ITestSpecification_implementer.Should_ask_the_test_specification_to_cleanup<br clear="all"></div>
+      <div class="altrow"><span class="timing">0.095s</span><span class="success">✔</span>
+       Xunit.Specs.When_a_specification_test_command_is_executed_on_a_ITestSpecification_implementer.Should_ask_the_test_specification_to_initialize<br clear="all"></div>
+      <div class="row"><span class="timing">0.006s</span><span class="success">✔</span>
+       Xunit.Specs.When_a_specification_test_command_is_executed_on_a_ITestSpecification_implementer.Should_pass_the_test_specification_to_the_inner_test_command<br clear="all"></div>
+      <div class="altrow"><span class="timing">0.003s</span><span class="success">✔</span>
+       Xunit.Specs.When_a_specification_test_command_is_executed_on_a_ITestSpecification_implementer.Should_return_the_test_result_from_the_inner_test_command<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.000s</span><span class="clickable" onclick="ToggleClass('class47')" ondblclick="ToggleClass('class47')"><span class="failure">✘</span>
+         Xunit.Specs.When_an_instance_with_a_dependency_on_a_generic__IEnumerable__is_resolved_and_the_item_type_can_be_stubbed
+         <span class="testcount">(2 tests)</span></span><br clear="all"></h3>
+    <div class="indent" id="class47">
+      <div class="row"><span class="timing">0.000s</span><span class="failure">✘</span>
+       Xunit.Specs.When_an_instance_with_a_dependency_on_a_generic__IEnumerable__is_resolved_and_the_item_type_can_be_stubbed.Should_be_accessible_via_the__The__accessor : Assert.Same() Failure
+Position: First difference is at position 0
+Expected: System.Collections.Generic.List`1[Xunit.Specs.IDependency]
+Actual:   Xunit.Specs.IDependency[] { Castle.Proxies.IDependencyProxy7bed78de788f45ee9e2a4379a68adf9d, Castle.Proxies.IDependencyProxy7bed78de788f45ee9e2a4379a68adf9d, Castle.Proxies.IDependencyProxy7bed78de788f45ee9e2a4379a68adf9d }<br clear="all"><pre>   at Xunit.BDDExtensions.ShouldBeTheSame[T](T item, T other) in c:\Code\xunitbdd\Source\xUnit.BDDExtensions\BDDExtensions.cs:line 171
+   at Xunit.Specs.When_an_instance_with_a_dependency_on_a_generic__IEnumerable__is_resolved_and_the_item_type_can_be_stubbed.Should_be_accessible_via_the__The__accessor() in c:\Code\xunitbdd\Source\xUnit.BDDExtensions.Specs\InstanceContextSpecificationSpecs.cs:line 83</pre>
+      </div>
+      <div class="altrow"><span class="timing">0.000s</span><span class="failure">✘</span>
+       Xunit.Specs.When_an_instance_with_a_dependency_on_a_generic__IEnumerable__is_resolved_and_the_item_type_can_be_stubbed.Should_populate_the_enumerable_with_three_items : Assert.Equal() Failure
+Expected: 3
+Actual:   0<br clear="all"><pre>   at Xunit.BDDExtensions.ShouldBeEqualTo[T](T item, T other) in c:\Code\xunitbdd\Source\xUnit.BDDExtensions\BDDExtensions.cs:line 135
+   at Xunit.Specs.When_an_instance_with_a_dependency_on_a_generic__IEnumerable__is_resolved_and_the_item_type_can_be_stubbed.Should_populate_the_enumerable_with_three_items() in c:\Code\xunitbdd\Source\xUnit.BDDExtensions.Specs\InstanceContextSpecificationSpecs.cs:line 89</pre>
+      </div>
+    </div>
+    <h3><span class="timing">0.008s</span><span class="clickable" onclick="ToggleClass('class48')" ondblclick="ToggleClass('class48')"><span class="failure">✘</span>
+         Xunit.Specs.When_an_instance_with_a_dependency_on_a_generic__IEnumerable__is_resolved_and_the_item_type_cannt_be_stubbed
+         <span class="testcount">(2 tests)</span></span><br clear="all"></h3>
+    <div class="indent" id="class48">
+      <div class="row"><span class="timing">0.000s</span><span class="failure">✘</span>
+       Xunit.Specs.When_an_instance_with_a_dependency_on_a_generic__IEnumerable__is_resolved_and_the_item_type_cannt_be_stubbed.Should_be_accessible_via_the__The__accessor : Assert.Same() Failure
+Position: First difference is at position 0
+Expected: System.Collections.Generic.List`1[System.String]
+Actual:   System.String[] {  }<br clear="all"><pre>   at Xunit.BDDExtensions.ShouldBeTheSame[T](T item, T other) in c:\Code\xunitbdd\Source\xUnit.BDDExtensions\BDDExtensions.cs:line 171
+   at Xunit.Specs.When_an_instance_with_a_dependency_on_a_generic__IEnumerable__is_resolved_and_the_item_type_cannt_be_stubbed.Should_be_accessible_via_the__The__accessor() in c:\Code\xunitbdd\Source\xUnit.BDDExtensions.Specs\InstanceContextSpecificationSpecs.cs:line 106</pre>
+      </div>
+      <div class="altrow"><span class="timing">0.008s</span><span class="success">✔</span>
+       Xunit.Specs.When_an_instance_with_a_dependency_on_a_generic__IEnumerable__is_resolved_and_the_item_type_cannt_be_stubbed.Should_not_populate_the_injected_enumerable<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.003s</span><span class="clickable" onclick="ToggleClass('class49')" ondblclick="ToggleClass('class49')"><span class="success">✔</span>
+         Xunit.Specs.When_an_instance_with_a_dependency_on_some_interface_type_is_resolved
+         <span class="testcount">(2 tests)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class49">
+      <div class="row"><span class="timing">0.003s</span><span class="success">✔</span>
+       Xunit.Specs.When_an_instance_with_a_dependency_on_some_interface_type_is_resolved.Should_be_accessible_via_the__The__accessor<br clear="all"></div>
+      <div class="altrow"><span class="timing">0.000s</span><span class="success">✔</span>
+       Xunit.Specs.When_an_instance_with_a_dependency_on_some_interface_type_is_resolved.Should_inject_a_stub_object_for_the_dependency<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.004s</span><span class="clickable" onclick="ToggleClass('class50')" ondblclick="ToggleClass('class50')"><span class="success">✔</span>
+         Xunit.Specs.When_an_instance_with_two_dependencies_on_the_same_interface_type_is_resolved
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class50">
+      <div class="row"><span class="timing">0.004s</span><span class="success">✔</span>
+       Xunit.Specs.When_an_instance_with_two_dependencies_on_the_same_interface_type_is_resolved.It_is_a_situation_which_is_not_properly_handled_currently_because_the_same_instance_is_injected_twice<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.005s</span><span class="clickable" onclick="ToggleClass('class51')" ondblclick="ToggleClass('class51')"><span class="success">✔</span>
+         Xunit.Specs.When_configuring_an__Exception__to_be_thrown_when_an_interaction_is_executed
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class51">
+      <div class="row"><span class="timing">0.005s</span><span class="success">✔</span>
+       Xunit.Specs.When_configuring_an__Exception__to_be_thrown_when_an_interaction_is_executed.Should_throw_the_configured__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.217s</span><span class="clickable" onclick="ToggleClass('class52')" ondblclick="ToggleClass('class52')"><span class="success">✔</span>
+         Xunit.Specs.When_method_was_expected_to_be_called_and_it_actually_has_been_called
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class52">
+      <div class="row"><span class="timing">0.217s</span><span class="success">✔</span>
+       Xunit.Specs.When_method_was_expected_to_be_called_and_it_actually_has_been_called.Should_not_throw_an__Exception__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.014s</span><span class="clickable" onclick="ToggleClass('class53')" ondblclick="ToggleClass('class53')"><span class="success">✔</span>
+         Xunit.Specs.When_method_was_expected_to_be_called_and_it_actually_has_not_been_called
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class53">
+      <div class="row"><span class="timing">0.014s</span><span class="success">✔</span>
+       Xunit.Specs.When_method_was_expected_to_be_called_and_it_actually_has_not_been_called.Should_throw_an__ExpectationViolationException__<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.599s</span><span class="clickable" onclick="ToggleClass('class54')" ondblclick="ToggleClass('class54')"><span class="success">✔</span>
+         Xunit.Specs.When_raising_an_event
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class54">
+      <div class="row"><span class="timing">0.599s</span><span class="success">✔</span>
+       Xunit.Specs.When_raising_an_event.Should_raise_event<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.076s</span><span class="clickable" onclick="ToggleClass('class55')" ondblclick="ToggleClass('class55')"><span class="success">✔</span>
+         Xunit.Specs.When_setting_up_a_method_result_on_a_generated__Stub__
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class55">
+      <div class="row"><span class="timing">0.076s</span><span class="success">✔</span>
+       Xunit.Specs.When_setting_up_a_method_result_on_a_generated__Stub__.Should_behave_like_it_has_been_configured<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.063s</span><span class="clickable" onclick="ToggleClass('class56')" ondblclick="ToggleClass('class56')"><span class="success">✔</span>
+         Xunit.Specs.When_setting_up_a_property_result_on_a_generated__Stub__
+         <span class="testcount">(1 test)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class56">
+      <div class="row"><span class="timing">0.063s</span><span class="success">✔</span>
+       Xunit.Specs.When_setting_up_a_property_result_on_a_generated__Stub__.Should_behave_like_it_has_been_configured<br clear="all"></div>
+    </div>
+    <h3><span class="timing">0.145s</span><span class="clickable" onclick="ToggleClass('class57')" ondblclick="ToggleClass('class57')"><span class="success">✔</span>
+         Xunit.Specs.When_stubbing_properties
+         <span class="testcount">(4 tests)</span></span><br clear="all"></h3>
+    <div class="indent" style="display: none;" id="class57">
+      <div class="row"><span class="timing">0.005s</span><span class="success">✔</span>
+       Xunit.Specs.When_stubbing_properties.Interface_type_properties_should_have_stub_behavior<br clear="all"></div>
+      <div class="altrow"><span class="timing">0.123s</span><span class="success">✔</span>
+       Xunit.Specs.When_stubbing_properties.Should_auto_mock_interface_type_properties<br clear="all"></div>
+      <div class="row"><span class="timing">0.012s</span><span class="success">✔</span>
+       Xunit.Specs.When_stubbing_properties.Should_have_stub_behavior<br clear="all"></div>
+      <div class="altrow"><span class="timing">0.005s</span><span class="success">✔</span>
+       Xunit.Specs.When_stubbing_properties.Should_not_generate_stubs_for_properties_of_properties<br clear="all"></div>
+    </div><br><h5>Results generated 2010-05-14 at 08:02:14</h5>
+  </body>
+</html>
