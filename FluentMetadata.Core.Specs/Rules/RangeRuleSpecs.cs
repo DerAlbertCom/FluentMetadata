@@ -12,7 +12,7 @@ namespace FluentMetadata.Specs.Rules
         }
     }
 
-    public class When_The_Range_Is_Between_100_and_200 : ConcernOfRangeRule
+    public class When_the_range_is_between_100_and_200 : ConcernOfRangeRule
     {
         protected override RangeRule CreateSut()
         {
@@ -62,7 +62,7 @@ namespace FluentMetadata.Specs.Rules
         }
     }
 
-    public class When_The_Range_Is_Between_100_0_and_200_0 : ConcernOfRangeRule
+    public class When_the_range_is_between_100_0_and_200_0 : ConcernOfRangeRule
     {
         protected override RangeRule CreateSut()
         {
@@ -112,7 +112,7 @@ namespace FluentMetadata.Specs.Rules
         }
     }
 
-    public class When_The_Range_Is_Between_1_1_2010_and_5_5_2010 : ConcernOfRangeRule
+    public class When_the_range_is_between_1_1_2010_and_5_5_2010 : ConcernOfRangeRule
     {
         protected override RangeRule CreateSut()
         {

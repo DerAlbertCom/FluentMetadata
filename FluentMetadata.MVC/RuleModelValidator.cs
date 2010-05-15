@@ -22,9 +22,9 @@ namespace FluentMetadata.MVC
                 yield break;
             }
             yield return
-                new ModelValidationResult()
+                new ModelValidationResult
                     {
-                        MemberName = this.Metadata.PropertyName,
+                        MemberName = Metadata.PropertyName,
                         Message = rule.FormatErrorMessage(Metadata.GetDisplayName())
                     };
         }
@@ -32,7 +32,7 @@ namespace FluentMetadata.MVC
         private static object GetPropertyValue(object container, string propertyName)
         {
             var info = container.GetType().GetProperty(propertyName);
-            return info.GetValue(container, new object[] {});
+            return info.GetValue(container, null);
         }
     }
 }

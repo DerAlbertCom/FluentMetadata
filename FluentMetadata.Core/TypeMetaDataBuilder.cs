@@ -7,11 +7,11 @@ namespace FluentMetadata
 {
     public abstract class TypeMetadataBuilder
     {
-        protected readonly List<PropertyMetadataBuilder> properties = new List<PropertyMetadataBuilder>();
+        protected readonly List<PropertyMetadataBuilder> Properties = new List<PropertyMetadataBuilder>();
 
         public IEnumerable<MetaData> MetaDataProperties
         {
-            get { return from p in properties select p.MetaData; }
+            get { return from p in Properties select p.MetaData; }
         }
 
         public MetaData MetaDataFor(string propertyName)
@@ -21,7 +21,7 @@ namespace FluentMetadata
 
         internal PropertyMetadataBuilder BuilderFor(string propertyName)
         {
-            return properties.Where(p => p.MetaData.PropertyName == propertyName).FirstOrDefault();
+            return Properties.Where(p => p.MetaData.PropertyName == propertyName).FirstOrDefault();
         }
     }
 
@@ -36,7 +36,7 @@ namespace FluentMetadata
         {
             string propertyName = ExpressionHelper.GetPropertyName(expression);
 
-            foreach (PropertyMetadataBuilder builder in properties)
+            foreach (PropertyMetadataBuilder builder in Properties)
             {
                 if (builder.MetaData.PropertyName == propertyName)
                 {
@@ -44,19 +44,18 @@ namespace FluentMetadata
                 }
             }
             var metaDataBuilder = new PropertyMetaDataBuilder<T>(expression);
-            properties.Add(metaDataBuilder);
+            Properties.Add(metaDataBuilder);
             return metaDataBuilder;
         }
 
         public void MapProperty(Type containerType, string propertyName, MetaData metaData)
         {
-            var newMetaData = new MetaData(metaData, containerType);
-            newMetaData.PropertyName = propertyName;
+            var newMetaData = new MetaData(metaData, containerType) {PropertyName = propertyName};
             PropertyMetadataBuilder builder = BuilderFor(propertyName);
             if (builder == null)
             {
                 builder = new PropertyMetadataBuilder(newMetaData);
-                properties.Add(builder);
+                Properties.Add(builder);
             }
         }
 
@@ -64,7 +63,7 @@ namespace FluentMetadata
         {
             string propertyName = Enum.GetName(type, value);
 
-            foreach (PropertyMetadataBuilder builder in properties)
+            foreach (PropertyMetadataBuilder builder in Properties)
             {
                 if (builder.MetaData.PropertyName == propertyName)
                 {
@@ -72,7 +71,7 @@ namespace FluentMetadata
                 }
             }
             var metadataBuilder= new PropertyMetadataBuilder(type,propertyName);
-            properties.Add(metadataBuilder);
+            Properties.Add(metadataBuilder);
             return metadataBuilder;
         }
     }

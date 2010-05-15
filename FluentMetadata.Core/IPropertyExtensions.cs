@@ -1,6 +1,6 @@
 ﻿namespace FluentMetadata
 {
-    public static class IPropertyExtensions
+    public static class PropertyExtensions
     {
         public static IProperty WithMaxSize(this IProperty property)
         {

@@ -5,7 +5,7 @@ using Xunit;
 namespace FluentMetadata.Specs.Rules
 {
     [Concern(typeof (RequiredRule))]
-    public class RequiredRuleSpecs : InstanceContextSpecification<RequiredRule>
+    public class Required_rule_specs : InstanceContextSpecification<RequiredRule>
     {
         protected override void Because()
         {
@@ -17,13 +17,13 @@ namespace FluentMetadata.Specs.Rules
         }
 
         [Observation]
-        public void NULL_is_not_Valid()
+        public void Null_is_not_valid()
         {
             Sut.IsValid(null).ShouldBeFalse();
         }
 
         [Observation]
-        public void EmptyString_is_not_Valid()
+        public void Empty_string_is_not_valid()
         {
             Sut.IsValid("").ShouldBeFalse();
         }

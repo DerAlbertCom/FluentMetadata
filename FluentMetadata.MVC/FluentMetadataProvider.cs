@@ -9,30 +9,30 @@ namespace FluentMetadata.MVC
     {
         public override IEnumerable<ModelMetadata> GetMetadataForProperties(object container, Type containerType)
         {
-            TypeMetadataBuilder builder = FluentMetadataBuilder.GetTypeBuilder(containerType);
-            PropertyInfo[] propertyInfos = containerType.GetProperties();
+            var typeBuilder = FluentMetadataBuilder.GetTypeBuilder(containerType);
+            var propertyInfos = containerType.GetProperties();
             foreach (PropertyInfo propertyInfo in propertyInfos)
             {
-                yield return CreateModelMetaData(containerType, propertyInfo, builder, null);
+                yield return CreateModelMetaData(containerType, propertyInfo, typeBuilder, null);
             }
         }
 
         public override ModelMetadata GetMetadataForProperty(Func<object> modelAccessor, Type containerType,
                                                              string propertyName)
         {
-            PropertyInfo propertyInfo = containerType.GetProperty(propertyName);
+            var propertyInfo = containerType.GetProperty(propertyName);
             if (propertyInfo == null)
             {
                 return null;
             }
-            TypeMetadataBuilder builder = FluentMetadataBuilder.GetTypeBuilder(containerType);
-            return CreateModelMetaData(containerType, propertyInfo, builder, modelAccessor);
+            var typeBuilder = FluentMetadataBuilder.GetTypeBuilder(containerType);
+            return CreateModelMetaData(containerType, propertyInfo, typeBuilder, modelAccessor);
         }
 
         private ModelMetadata CreateModelMetaData(Type containerType, PropertyInfo propertyInfo,
                                                   TypeMetadataBuilder builder, Func<object> modelAccessor)
         {
-            MetaData metaData = builder.MetaDataFor(propertyInfo.Name);
+            var metaData = builder.MetaDataFor(propertyInfo.Name);
             if (metaData != null)
             {
                 return CreateModelMetaData(metaData, modelAccessor);

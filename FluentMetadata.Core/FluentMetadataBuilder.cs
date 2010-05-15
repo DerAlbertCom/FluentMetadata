@@ -7,18 +7,18 @@ namespace FluentMetadata
 {
     public static class FluentMetadataBuilder
     {
-        private static readonly Dictionary<Type, TypeMetadataBuilder> metaData =
+        private static readonly Dictionary<Type, TypeMetadataBuilder> MetaData =
             new Dictionary<Type, TypeMetadataBuilder>();
 
         public static void Reset()
         {
-            metaData.Clear();
+            MetaData.Clear();
         }
 
         public static TypeMetadataBuilder GetTypeBuilder(Type type)
         {
             TypeMetadataBuilder data;
-            metaData.TryGetValue(type, out data);
+            MetaData.TryGetValue(type, out data);
             return data;
         }
 
@@ -28,7 +28,7 @@ namespace FluentMetadata
             if (builder == null)
             {
                 builder = new TypeMetadataBuilder<T>();
-                metaData[typeof (T)] = builder;
+                MetaData[typeof (T)] = builder;
             }
             return (TypeMetadataBuilder<T>) builder;
         }

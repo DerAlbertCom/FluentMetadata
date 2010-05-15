@@ -5,9 +5,9 @@ namespace FluentMetadata.Rules
 {
     public class RangeRule : Rule
     {
-        private object Minimum;
-        private object Maximum;
-        private Func<object, object> Conversion;
+        private Func<object, object> valueConversion;
+        private object valueMaximum;
+        private object valueMinimum;
 
         private RangeRule()
         {
@@ -39,9 +39,9 @@ namespace FluentMetadata.Rules
                                                                     "the minimum vallue {1} is higher then the maximum value {0}",
                                                                     minimum, maximum));
             }
-            Minimum = minimum;
-            Maximum = maximum;
-            Conversion = conversion;
+            valueMinimum = minimum;
+            valueMaximum = maximum;
+            valueConversion = conversion;
         }
 
         public override bool IsValid(object value)
@@ -54,15 +54,15 @@ namespace FluentMetadata.Rules
             {
                 return true;
             }
-            object currentValue = Conversion(value);
-            var minimum = (IComparable) Minimum;
-            var maximum = (IComparable) Maximum;
-            return ((minimum.CompareTo(currentValue) <= 0) && (maximum.CompareTo(currentValue) >= 0));
+            object currentValue = valueConversion(value);
+            var min = (IComparable) valueMinimum;
+            var max = (IComparable) valueMaximum;
+            return ((min.CompareTo(currentValue) <= 0) && (max.CompareTo(currentValue) >= 0));
         }
 
         public override string FormatErrorMessage(string name)
         {
-            return string.Format(CultureInfo.CurrentCulture, ErrorMessageFormat, name, Minimum, Maximum);
+            return string.Format(CultureInfo.CurrentCulture, ErrorMessageFormat, name, valueMinimum, valueMaximum);
         }
     }
 }
