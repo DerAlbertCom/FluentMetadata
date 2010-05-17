@@ -8,10 +8,16 @@ namespace FluentMetadata
     public abstract class TypeMetadataBuilder
     {
         protected readonly List<PropertyMetadataBuilder> Properties = new List<PropertyMetadataBuilder>();
+        private MetaData metaData = new MetaData();
 
         public IEnumerable<MetaData> MetaDataProperties
         {
             get { return from p in Properties select p.MetaData; }
+        }
+
+        public MetaData MetaData
+        {
+            get { return metaData; }
         }
 
         public MetaData MetaDataFor(string propertyName)

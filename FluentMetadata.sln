@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentMetadata.Core", "FluentMetadata.Core\FluentMetadata.Core.csproj", "{C73F37FA-D859-4714-8335-35069322176A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentMetadata.Core.Specs", "FluentMetadata.Core.Specs\FluentMetadata.Core.Specs.csproj", "{A699E2AB-B62B-4F0D-90C4-C39500430A70}"
@@ -8,6 +8,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentMetadata.FluentNHibernate", "FluentMetadata.FluentNHibernate\FluentMetadata.FluentNHibernate.csproj", "{E38E05E3-6A51-4853-B0D7-09549B9199F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentMetadata.MVC", "FluentMetadata.MVC\FluentMetadata.MVC.csproj", "{36C0A3A5-7B0D-4F89-B9BC-C11D0C6A34B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentMetadata.MVC.Specs", "FluentMetadata.MVC.Specs\FluentMetadata.MVC.Specs.csproj", "{EB81FC78-9EAC-4664-989C-83A81F8D9D3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{36C0A3A5-7B0D-4F89-B9BC-C11D0C6A34B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36C0A3A5-7B0D-4F89-B9BC-C11D0C6A34B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36C0A3A5-7B0D-4F89-B9BC-C11D0C6A34B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB81FC78-9EAC-4664-989C-83A81F8D9D3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB81FC78-9EAC-4664-989C-83A81F8D9D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB81FC78-9EAC-4664-989C-83A81F8D9D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB81FC78-9EAC-4664-989C-83A81F8D9D3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

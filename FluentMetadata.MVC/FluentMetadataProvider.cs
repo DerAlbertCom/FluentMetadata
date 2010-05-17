@@ -44,7 +44,7 @@ namespace FluentMetadata.MVC
         private ModelMetadata CreateModelMetaData(MetaData metaData,
                                                   Func<object> modelAccessor)
         {
-            return new ModelMetadata(this, metaData.ContainerType, modelAccessor, metaData.ModelType,
+            return new FluentModelMetadata(metaData,this, metaData.ContainerType, modelAccessor, metaData.ModelType,
                                      metaData.PropertyName)
                        {
                            DisplayName = metaData.DisplayName,
@@ -74,7 +74,8 @@ namespace FluentMetadata.MVC
 
         public override ModelMetadata GetMetadataForType(Func<object> modelAccessor, Type modelType)
         {
-            return new ModelMetadata(this, null, modelAccessor, modelType, "");
+            var builder = FluentMetadataBuilder.GetTypeBuilder(modelType);
+            return new FluentModelMetadata(builder.MetaData, this, null, modelAccessor, modelType, "");
         }
     }
 }

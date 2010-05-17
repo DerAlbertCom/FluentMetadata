@@ -10,8 +10,8 @@ namespace FluentMetadata.Rules
         private object valueMinimum;
 
         private RangeRule()
+            : base("the value of {0} must be between {0} and {1}")
         {
-            ErrorMessageFormat = "the value of {0} must be between {0} and {1}";
         }
 
         public RangeRule(double minimum, double maximum) : this()

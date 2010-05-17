@@ -17,9 +17,17 @@ namespace FluentMetadata
 
         public static TypeMetadataBuilder GetTypeBuilder(Type type)
         {
-            TypeMetadataBuilder data;
-            MetaData.TryGetValue(type, out data);
-            return data;
+            if (type == null)
+                return null;
+            TypeMetadataBuilder builder;
+            MetaData.TryGetValue(type, out builder);
+            if (builder==null)
+            {
+                var builderType = typeof(TypeMetadataBuilder<>).MakeGenericType(type);
+                builder = (TypeMetadataBuilder) Activator.CreateInstance(builderType);
+                MetaData[type] = builder;
+            }
+            return builder;
         }
 
         public static TypeMetadataBuilder<T> GetTypeBuilder<T>()
@@ -46,8 +54,8 @@ namespace FluentMetadata
 
         private static void ForAssembly(Assembly assembly)
         {
-            var types = GetPublicClassMetadataTypes(assembly);
-            foreach (var type in types)
+            IEnumerable<Type> types = GetPublicClassMetadataTypes(assembly);
+            foreach (Type type in types)
             {
                 Activator.CreateInstance(type);
             }

@@ -2,9 +2,13 @@
 {
     public abstract class Rule : IRule
     {
+        public Rule(string errorMessageFormat)
+        {
+            ErrorMessageFormat = errorMessageFormat;
+        }
         public abstract bool IsValid(object value);
 
-        public string ErrorMessageFormat { get; set; }
+        protected string ErrorMessageFormat { get; set; }
 
         public abstract string FormatErrorMessage(string name);
     }

@@ -5,8 +5,8 @@ namespace FluentMetadata.Rules
     public class RequiredRule : Rule
     {
         public RequiredRule()
+            : base("a value for {0} is required")
         {
-            ErrorMessageFormat = "a value for {0} is required";
         }
 
         public override bool IsValid(object value)

@@ -5,9 +5,9 @@ namespace FluentMetadata.Rules
         private readonly int maxLength;
 
         public StringLengthRule(int maxLength)
+            : base("the string for {0} should be longer than {1} characters")
         {
             this.maxLength = maxLength;
-            ErrorMessageFormat = "the string for {0} should be longer than {1} characters";
         }
 
         public override bool IsValid(object value)

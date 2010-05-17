@@ -5,7 +5,7 @@ using FluentMetadata.Rules;
 
 namespace FluentMetadata.MVC
 {
-    public class RuleModelValidator : ModelValidator
+    internal class RuleModelValidator : ModelValidator
     {
         private readonly IRule rule;
 
@@ -24,7 +24,6 @@ namespace FluentMetadata.MVC
             yield return
                 new ModelValidationResult
                     {
-                        MemberName = Metadata.PropertyName,
                         Message = rule.FormatErrorMessage(Metadata.GetDisplayName())
                     };
         }
