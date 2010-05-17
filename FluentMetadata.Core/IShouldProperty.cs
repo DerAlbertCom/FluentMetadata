@@ -1,15 +1,15 @@
 ﻿namespace FluentMetadata
 {
-    public interface IShouldNotProperty
+    public interface IShouldNotProperty<T, TResult>
     {
-        IProperty HiddenInput();
-        IProperty ShowInDisplay();
-        IProperty ShowInEditor();
-        IProperty HideSurroundingHtml();
+        IProperty<T,TResult> HiddenInput();
+        IProperty<T,TResult> ShowInDisplay();
+        IProperty<T,TResult> ShowInEditor();
+        IProperty<T,TResult> HideSurroundingHtml();
     }
 
-    public interface IShouldProperty : IShouldNotProperty
+    public interface IShouldProperty<T, TResult> : IShouldNotProperty<T, TResult>
     {
-        IShouldNotProperty Not { get; }
+        IShouldNotProperty<T, TResult> Not { get; }
     }
 }

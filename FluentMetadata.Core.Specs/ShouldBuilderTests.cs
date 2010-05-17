@@ -4,13 +4,13 @@ namespace FluentMetadata.Specs
 {
     public class ShouldBuilderTests
     {
-        private readonly IShouldProperty shouldBuilder;
+        private readonly IShouldProperty<DummyClass, string> shouldBuilder;
         private readonly MetaData metaData;
 
         public ShouldBuilderTests()
         {
             metaData = new MetaData();
-            shouldBuilder = new ShouldBuilder(new PropertyMetadataBuilder(metaData));
+            shouldBuilder = new ShouldBuilder<DummyClass, string>(new PropertyMetadataBuilder<DummyClass, string>(metaData));
         }
 
         [Fact]

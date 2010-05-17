@@ -1,12 +1,12 @@
 ﻿namespace FluentMetadata
 {
-    public interface IAsProperty
+    public interface IAsProperty<T, TResult>
     {
-        IProperty EmailAddress();
-        IProperty Url();
-        IProperty Html();
-        IProperty Text();
-        IProperty MultilineText();
-        IProperty Password();
+        IProperty<T,TResult> EmailAddress();
+        IProperty<T,TResult> Url();
+        IProperty<T,TResult> Html();
+        IProperty<T,TResult> Text();
+        IProperty<T,TResult> MultilineText();
+        IProperty<T,TResult> Password();
     }
 }

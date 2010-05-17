@@ -1,16 +1,16 @@
 ﻿namespace FluentMetadata
 {
-    public interface IProperty
+    public interface IProperty<T,TResult>
     {
-        IProperty Length(int length);
-        IProperty TemplateHint(string templateHint);
+        IProperty<T,TResult> Length(int length);
+        IProperty<T,TResult> TemplateHint(string templateHint);
 
-        IProperty Description(string description);
+        IProperty<T,TResult> Description(string description);
 
-        IEditorProperty Editor { get; }
-        IDisplayProperty Display { get; }
-        IAsProperty As { get; }
-        IIsProperty Is { get; }
-        IShouldProperty Should { get; }
+        IEditorProperty<T,TResult> Editor { get; }
+        IDisplayProperty<T,TResult> Display { get; }
+        IAsProperty<T, TResult> As { get; }
+        IIsProperty<T, TResult> Is { get; }
+        IShouldProperty<T, TResult> Should { get; }
     }
 }

@@ -4,7 +4,6 @@ namespace FluentMetadata.MVC.Specs
 {
     public class FluentMetadataFixture
     {
-//        private static readonly ModelValidatorProvider Validator = new FluentValidationProvider();
         private static readonly ModelMetadataProvider Metadata = new FluentMetadataProvider();
 
         public FluentMetadataFixture()
@@ -13,8 +12,6 @@ namespace FluentMetadata.MVC.Specs
             FluentMetadataBuilder.ForAssemblyOfType<FluentMetadataFixture>();
  
             ModelMetadataProviders.Current = Metadata;
- //           if (!ModelValidatorProviders.Providers.Contains(Validator))
-    //           ModelValidatorProviders.Providers.Add(Validator);
         }
     }
 }

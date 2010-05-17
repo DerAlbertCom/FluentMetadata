@@ -1,13 +1,16 @@
-﻿namespace FluentMetadata
+﻿using System;
+using System.Linq.Expressions;
+
+namespace FluentMetadata
 {
-    public interface IIsProperty : IIsNotProperty
+    public interface IIsProperty<T, TResult> : IIsNotProperty<T, TResult>
     {
-        IIsNotProperty Not { get; }
+        IIsNotProperty<T, TResult> Not { get; }
     }
 
-    public interface IIsNotProperty
+    public interface IIsNotProperty<T,TResult>
     {
-        IProperty Required();
-        IProperty ReadOnly();
+        IProperty<T,TResult> Required();
+        IProperty<T,TResult> ReadOnly();
     }
 }

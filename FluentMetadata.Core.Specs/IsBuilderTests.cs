@@ -4,13 +4,13 @@ namespace FluentMetadata.Specs
 {
     public class IsBuilderTests
     {
-        private readonly IIsProperty isBuilder;
+        private readonly IIsProperty<DummyClass, string> isBuilder;
         private readonly MetaData metaData;
 
         public IsBuilderTests()
         {
             metaData = new MetaData();
-            isBuilder = new IsBuilder(new PropertyMetadataBuilder(metaData));
+            isBuilder = new IsBuilder<DummyClass, string>(new PropertyMetadataBuilder<DummyClass, string>(metaData));
         }
 
         [Fact]

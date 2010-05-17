@@ -10,17 +10,17 @@ namespace FluentMetadata
 
     public abstract class ClassMetadata<T> : ClassMetadata
     {
-        protected IProperty The(Expression<Func<T, object>> expression)
+        protected IProperty<T,TResult> The<TResult>(Expression<Func<T, TResult>> expression)
         {
             TypeMetadataBuilder<T> builder = GetBuilder<T>();
 
-            return builder.MapProperty(expression);
+            return builder.MapProperty<TResult>(expression);
         }
 
-        protected IProperty The(T value)
+        protected IProperty<T,TResult> The<TResult>(T value)
         {
             TypeMetadataBuilder<T> builder = GetBuilder<T>();
-            return builder.MapEnum(value, typeof (T));
+            return builder.MapEnum<TResult>(value);
         }
 
         protected void CopyMetadataFrom<TBaseType>()

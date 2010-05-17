@@ -1,3 +1,5 @@
+using System;
+
 namespace FluentMetadata.Rules
 {
     public class StringLengthRule : Rule
@@ -23,6 +25,23 @@ namespace FluentMetadata.Rules
         public override string FormatErrorMessage(string name)
         {
             return string.Format(ErrorMessageFormat, name, maxLength);
+        }
+    }
+
+    public class EqualToRule : Rule
+    {
+        public EqualToRule(string errorMessageFormat) : base(errorMessageFormat)
+        {
+        }
+
+        public override bool IsValid(object value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string FormatErrorMessage(string name)
+        {
+            throw new NotImplementedException();
         }
     }
 }

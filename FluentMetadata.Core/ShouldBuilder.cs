@@ -1,18 +1,18 @@
 ﻿namespace FluentMetadata
 {
-    public class ShouldBuilder : IShouldProperty
+    public class ShouldBuilder<T, TResult> : IShouldProperty<T, TResult>
     {
-        private readonly PropertyMetadataBuilder propertyMetaDataBuilder;
+        private readonly PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder;
         private bool notted;
 
-        public ShouldBuilder(PropertyMetadataBuilder propertyMetaDataBuilder)
+        public ShouldBuilder(PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder)
         {
             this.propertyMetaDataBuilder = propertyMetaDataBuilder;
         }
 
         private MetaData MetaData { get { return propertyMetaDataBuilder.MetaData; } }
- 
-        public IProperty HiddenInput()
+
+        public IProperty<T,TResult> HiddenInput()
         {
             MetaData.Hidden = !notted;
             MetaData.HideSurroundingHtml = !notted;
@@ -20,28 +20,28 @@
             return propertyMetaDataBuilder;
         }
 
-        public IProperty ShowInDisplay()
+        public IProperty<T,TResult> ShowInDisplay()
         {
             MetaData.ShowDisplay = !notted;
             notted = false;
             return propertyMetaDataBuilder;
         }
 
-        public IProperty ShowInEditor()
+        public IProperty<T,TResult> ShowInEditor()
         {
             MetaData.ShowEditor = !notted;
             notted = false;
             return propertyMetaDataBuilder;
         }
 
-        public IProperty HideSurroundingHtml()
+        public IProperty<T,TResult> HideSurroundingHtml()
         {
             MetaData.HideSurroundingHtml = !notted;
             notted = false;
             return propertyMetaDataBuilder;
         }
 
-        public IShouldNotProperty Not
+        public IShouldNotProperty<T, TResult> Not
         {
             get
             {

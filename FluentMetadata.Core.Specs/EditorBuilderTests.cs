@@ -5,12 +5,12 @@ namespace FluentMetadata.Specs
     public class EditorBuilderTests
     {
         private readonly MetaData metaData;
-        private IEditorProperty builder;
+        private IEditorProperty<DummyClass, string> builder;
 
         public EditorBuilderTests()
         {
             metaData = new MetaData();
-            builder = new EditorBuilder(new PropertyMetadataBuilder(metaData));
+            builder = new EditorBuilder<DummyClass, string>(new PropertyMetadataBuilder<DummyClass, string>(metaData));
         }
 
         [Fact]

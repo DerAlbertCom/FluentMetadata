@@ -1,10 +1,10 @@
 ﻿namespace FluentMetadata
 {
-    public interface IEditorProperty
+    public interface IEditorProperty<T,TResult>
     {
-        IProperty ErrorMessage(string errorMessage);
+        IProperty<T,TResult> ErrorMessage(string errorMessage);
 
-        IProperty Format(string editorFormat);
-        IProperty Watermark(string watermark);
+        IProperty<T,TResult> Format(string editorFormat);
+        IProperty<T,TResult> Watermark(string watermark);
     }
 }
