@@ -11,7 +11,7 @@ namespace FluentMetadata.MVC
         {
             var typeBuilder = FluentMetadataBuilder.GetTypeBuilder(containerType);
             var propertyInfos = containerType.GetProperties();
-            foreach (PropertyInfo propertyInfo in propertyInfos)
+            foreach (var propertyInfo in propertyInfos)
             {
                 yield return CreateModelMetaData(containerType, propertyInfo, typeBuilder, null);
             }
