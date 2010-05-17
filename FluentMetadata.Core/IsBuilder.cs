@@ -1,10 +1,12 @@
-﻿using FluentMetadata.Rules;
+﻿using System;
+using System.Linq.Expressions;
+using FluentMetadata.Rules;
 
 namespace FluentMetadata
 {
-    public class IsBuilder : IIsProperty
+    public class IsBuilder<T, TResult> : IIsProperty<T, TResult>
     {
-        private readonly PropertyMetadataBuilder propertyMetaDataBuilder;
+        private readonly PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder;
         private bool notted;
 
         private MetaData MetaData
@@ -12,12 +14,12 @@ namespace FluentMetadata
             get { return propertyMetaDataBuilder.MetaData; }
         }
 
-        public IsBuilder(PropertyMetadataBuilder propertyMetaDataBuilder)
+        public IsBuilder(PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder)
         {
             this.propertyMetaDataBuilder = propertyMetaDataBuilder;
         }
 
-        public IProperty Required()
+        public IProperty<T,TResult> Required()
         {
             MetaData.Required = !notted;
             notted = false;
@@ -28,14 +30,15 @@ namespace FluentMetadata
             return propertyMetaDataBuilder;
         }
 
-        public IProperty ReadOnly()
+        public IProperty<T,TResult> ReadOnly()
         {
             MetaData.Readonly = !notted;
             notted = false;
             return propertyMetaDataBuilder;
         }
 
-        public IIsNotProperty Not
+
+        public IIsNotProperty<T, TResult> Not
         {
             get
             {

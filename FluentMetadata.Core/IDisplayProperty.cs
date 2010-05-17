@@ -1,9 +1,9 @@
 ﻿namespace FluentMetadata
 {
-    public interface IDisplayProperty
+    public interface IDisplayProperty<T,TResult>
     {
-        IProperty NullText(string nullDisplayText);
-        IProperty Name(string displayName);
-        IProperty Format(string displayFormat);
+        IProperty<T,TResult> NullText(string nullDisplayText);
+        IProperty<T,TResult> Name(string displayName);
+        IProperty<T,TResult> Format(string displayFormat);
     }
 }

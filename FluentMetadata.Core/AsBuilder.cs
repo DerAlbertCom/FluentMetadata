@@ -2,16 +2,16 @@
 
 namespace FluentMetadata
 {
-    public class AsBuilder : IAsProperty
+    public class AsBuilder<T, TResult> : IAsProperty<T, TResult>
     {
-        private readonly PropertyMetadataBuilder propertyMetaDataBuilder;
+        private readonly PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder;
 
-        public AsBuilder(PropertyMetadataBuilder propertyMetaDataBuilder)
+        public AsBuilder(PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder)
         {
             this.propertyMetaDataBuilder = propertyMetaDataBuilder;
         }
 
-        public IProperty EmailAddress()
+        public IProperty<T,TResult> EmailAddress()
         {
             SetDataTypeName(DataType.EmailAddress);
             return propertyMetaDataBuilder;
@@ -22,31 +22,31 @@ namespace FluentMetadata
             propertyMetaDataBuilder.MetaData.DataTypeName = dataType.ToString();
         }
 
-        public IProperty Url()
+        public IProperty<T,TResult> Url()
         {
             SetDataTypeName(DataType.Url);
             return propertyMetaDataBuilder;
         }
 
-        public IProperty Html()
+        public IProperty<T,TResult> Html()
         {
             SetDataTypeName(DataType.Html);
             return propertyMetaDataBuilder;
         }
 
-        public IProperty Text()
+        public IProperty<T,TResult> Text()
         {
             SetDataTypeName(DataType.Text);
             return propertyMetaDataBuilder;
         }
 
-        public IProperty MultilineText()
+        public IProperty<T,TResult> MultilineText()
         {
             SetDataTypeName(DataType.MultilineText);
             return propertyMetaDataBuilder;
         }
 
-        public IProperty Password()
+        public IProperty<T,TResult> Password()
         {
             SetDataTypeName(DataType.Password);
             return propertyMetaDataBuilder;

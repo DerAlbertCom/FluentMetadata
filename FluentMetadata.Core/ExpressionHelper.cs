@@ -6,19 +6,19 @@ namespace FluentMetadata
 {
     internal static class ExpressionHelper
     {
-        public static string GetPropertyName<T>(Expression<Func<T, object>> expression)
+        public static string GetPropertyName<T, TResult>(Expression<Func<T, TResult>> expression)
         {
             MemberInfo memberExpression = GetMemberInfo(expression);
             return memberExpression.Name;
         }
 
-        public static Type GetPropertyType<T>(Expression<Func<T, object>> expression)
+        public static Type GetPropertyType<T, TResult>(Expression<Func<T, TResult>> expression)
         {
             var memberExpression = (PropertyInfo) GetMemberInfo(expression);
             return memberExpression.PropertyType;
         }
 
-        private static MemberInfo GetMemberInfo<T>(Expression<Func<T, object>> expression)
+        private static MemberInfo GetMemberInfo<T, TResult>(Expression<Func<T, TResult>> expression)
         {
             return GetMemberInfoFromExpression(expression.Body);
         }

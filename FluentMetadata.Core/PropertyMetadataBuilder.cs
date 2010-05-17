@@ -4,84 +4,88 @@ using FluentMetadata.Rules;
 
 namespace FluentMetadata
 {
-    public class PropertyMetadataBuilder : IProperty
+    public abstract class PropertyMetadataBuilder
     {
         private readonly MetaData metaData;
 
-        protected PropertyMetadataBuilder()
+        protected PropertyMetadataBuilder() : this(new MetaData())
         {
-            metaData = new MetaData();
         }
 
-        public PropertyMetadataBuilder(MetaData metaData)
+        protected PropertyMetadataBuilder(MetaData metaData)
         {
             this.metaData = metaData;
-        }
-
-        public PropertyMetadataBuilder(Type type, string propertyName):this()
-        {
-            MetaData.ContainerType = null;
-            MetaData.PropertyName = propertyName;
-            MetaData.ModelType = type;
         }
 
         public MetaData MetaData
         {
             get { return metaData; }
         }
-
-        public IProperty Length(int length)
-        {
-            metaData.StringLength = length;
-            metaData.AddRule(new StringLengthRule(length));
-            return this;
-        }
-
-        public IProperty TemplateHint(string templateHint)
-        {
-            metaData.TemplateHint = templateHint;
-            return this;
-        }
-
-        public IProperty Description(string description)
-        {
-            metaData.Description = description;
-            return this;
-        }
-
-        public IEditorProperty Editor
-        {
-            get { return new EditorBuilder(this); }
-        }
-
-        public IDisplayProperty Display
-        {
-            get { return new DisplayBuilder(this); }
-        }
-
-        public IAsProperty As
-        {
-            get { return new AsBuilder(this); }
-        }
-
-        public IIsProperty Is
-        {
-            get { return new IsBuilder(this); }
-        }
-
-        public IShouldProperty Should
-        {
-            get { return new ShouldBuilder(this); }
-        }
     }
 
-    public class PropertyMetaDataBuilder<T> : PropertyMetadataBuilder
+    public class PropertyMetadataBuilder<T,TResult> : PropertyMetadataBuilder, IProperty<T,TResult>
     {
-        public PropertyMetaDataBuilder(Expression<Func<T, object>> expression)
+        public PropertyMetadataBuilder(Expression<Func<T, TResult>> expression)
         {
             MetaData.ContainerType = typeof (T);
             MetaData.PropertyName = ExpressionHelper.GetPropertyName(expression);
             MetaData.ModelType = ExpressionHelper.GetPropertyType(expression);
+        }
+
+        public PropertyMetadataBuilder(MetaData metaData) : base(metaData)
+        {
+        }
+
+        public PropertyMetadataBuilder(string propertyName)
+        {
+            MetaData.ContainerType = null;
+            MetaData.PropertyName = propertyName;
+            MetaData.ModelType = typeof (T);
+        }
+
+
+        public IProperty<T,TResult> Length(int length)
+        {
+            MetaData.StringLength = length;
+            MetaData.AddRule(new StringLengthRule(length));
+            return this;
+        }
+
+        public IProperty<T,TResult> TemplateHint(string templateHint)
+        {
+            MetaData.TemplateHint = templateHint;
+            return this;
+        }
+
+        public IProperty<T,TResult> Description(string description)
+        {
+            MetaData.Description = description;
+            return this;
+        }
+
+        public IEditorProperty<T,TResult> Editor
+        {
+            get { return new EditorBuilder<T, TResult>(this); }
+        }
+
+        public IDisplayProperty<T,TResult> Display
+        {
+            get { return new DisplayBuilder<T, TResult>(this); }
+        }
+
+        public IAsProperty<T, TResult> As
+        {
+            get { return new AsBuilder<T, TResult>(this); }
+        }
+
+        public IIsProperty<T, TResult> Is
+        {
+            get { return new IsBuilder<T, TResult>(this); }
+        }
+
+        public IShouldProperty<T, TResult> Should
+        {
+            get { return new ShouldBuilder<T, TResult>(this); }
         }
     }
 }

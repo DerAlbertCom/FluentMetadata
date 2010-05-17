@@ -5,12 +5,12 @@ namespace FluentMetadata.Specs
     public class AsBuilderTests
     {
         private readonly MetaData metaData;
-        private readonly IAsProperty asBuilder;
+        private readonly IAsProperty<DummyClass, string> asBuilder;
 
         public AsBuilderTests()
         {
             metaData = new MetaData();
-            asBuilder = new AsBuilder(new PropertyMetadataBuilder(metaData));
+            asBuilder = new AsBuilder<DummyClass, string>(new PropertyMetadataBuilder<DummyClass, string>(metaData));
         }
 
         [Fact]

@@ -5,12 +5,12 @@ namespace FluentMetadata.Specs
     public class DisplayBuilderTests
     {
         private readonly MetaData metaData;
-        private readonly IDisplayProperty builder;
+        private readonly IDisplayProperty<DummyClass, string> builder;
 
         public DisplayBuilderTests()
         {
             metaData = new MetaData();
-            builder = new DisplayBuilder(new PropertyMetadataBuilder(metaData));
+            builder = new DisplayBuilder<DummyClass, string>(new PropertyMetadataBuilder<DummyClass, string>(metaData));
         }
 
         [Fact]

@@ -8,7 +8,7 @@ namespace FluentMetadata
     public abstract class TypeMetadataBuilder
     {
         protected readonly List<PropertyMetadataBuilder> Properties = new List<PropertyMetadataBuilder>();
-        private MetaData metaData = new MetaData();
+        private readonly MetaData metaData = new MetaData();
 
         public IEnumerable<MetaData> MetaDataProperties
         {
@@ -33,12 +33,12 @@ namespace FluentMetadata
 
     public class TypeMetadataBuilder<T> : TypeMetadataBuilder
     {
-        public IProperty MapProperty(Expression<Func<T, object>> expression)
+        public IProperty<T,TResult> MapProperty<TResult>(Expression<Func<T, TResult>> expression)
         {
-            return GetBuilder(expression);
+            return (IProperty<T,TResult>)GetBuilder(expression);
         }
 
-        private PropertyMetadataBuilder GetBuilder(Expression<Func<T, object>> expression)
+        private PropertyMetadataBuilder<T,TResult> GetBuilder<TResult>(Expression<Func<T, TResult>> expression)
         {
             string propertyName = ExpressionHelper.GetPropertyName(expression);
 
@@ -46,10 +46,10 @@ namespace FluentMetadata
             {
                 if (builder.MetaData.PropertyName == propertyName)
                 {
-                    return builder;
+                    return (PropertyMetadataBuilder<T, TResult>) builder;
                 }
             }
-            var metaDataBuilder = new PropertyMetaDataBuilder<T>(expression);
+            var metaDataBuilder = new PropertyMetadataBuilder<T, TResult>(expression);
             Properties.Add(metaDataBuilder);
             return metaDataBuilder;
         }
@@ -60,23 +60,24 @@ namespace FluentMetadata
             PropertyMetadataBuilder builder = BuilderFor(propertyName);
             if (builder == null)
             {
-                builder = new PropertyMetadataBuilder(newMetaData);
+                var builderType = typeof(PropertyMetadataBuilder<,>).MakeGenericType(containerType, metaData.ModelType);
+                builder = (PropertyMetadataBuilder) Activator.CreateInstance(builderType, newMetaData);
                 Properties.Add(builder);
             }
         }
 
-        public IProperty MapEnum(object value, Type type)
+        public IProperty<T,TResult> MapEnum<TResult>(object value)
         {
-            string propertyName = Enum.GetName(type, value);
+            string propertyName = Enum.GetName(typeof(TResult), value);
 
             foreach (PropertyMetadataBuilder builder in Properties)
             {
                 if (builder.MetaData.PropertyName == propertyName)
                 {
-                    return builder;
+                    return (IProperty<T,TResult>) builder;
                 }
             }
-            var metadataBuilder= new PropertyMetadataBuilder(type,propertyName);
+            var metadataBuilder = new PropertyMetadataBuilder<T,TResult>(propertyName);
             Properties.Add(metadataBuilder);
             return metadataBuilder;
         }
