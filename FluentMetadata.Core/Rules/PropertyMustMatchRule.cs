@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace FluentMetadata.Rules
 {
-    public class PropertyMustMatchRule<T, TResult> : ClassRule<T>
+    public class PropertyMustMatchRule<T> : ClassRule<T>
     {
         private const string DefaultErrorMessage = "'{0}' and '{1}' do not match.";
 
@@ -13,8 +13,8 @@ namespace FluentMetadata.Rules
         private readonly string confirmPropertyName;
         private object currentInstance;
 
-        public PropertyMustMatchRule(Expression<Func<T, TResult>> expression,
-                                     Expression<Func<T, TResult>> confirmExpression) : base(DefaultErrorMessage)
+        public PropertyMustMatchRule(Expression<Func<T, object >> expression,
+                                     Expression<Func<T, object>> confirmExpression) : base(DefaultErrorMessage)
         {
             originalPropertyName = ExpressionHelper.GetPropertyName(expression);
             confirmPropertyName = ExpressionHelper.GetPropertyName(confirmExpression);
