@@ -36,10 +36,10 @@ namespace FluentMetadata
     {
         public IProperty<T, TResult> MapProperty<TResult>(Expression<Func<T, TResult>> expression)
         {
-            return GetBuilder(expression);
+            return (IProperty<T,TResult>)GetBuilder(expression);
         }
 
-        private PropertyMetadataBuilder<T, TResult> GetBuilder<TResult>(Expression<Func<T, TResult>> expression)
+        private PropertyMetadataBuilder<T,TResult> GetBuilder<TResult>(Expression<Func<T, TResult>> expression)
         {
             string propertyName = ExpressionHelper.GetPropertyName(expression);
 
@@ -73,7 +73,6 @@ namespace FluentMetadata
         public IProperty<T, TResult> MapEnum<TResult>(object value)
         {
             string propertyName = Enum.GetName(typeof (TResult), value);
-
             PropertyMetadataBuilder builder;
             if (!TryGetPropertyBuilder(propertyName, out builder))
             {
