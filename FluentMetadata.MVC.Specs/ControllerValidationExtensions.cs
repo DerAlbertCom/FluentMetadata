@@ -16,7 +16,7 @@ namespace FluentMetadata.MVC.Specs
                 throw new ArgumentNullException("model");
             }
             EnsureControllerContext(controller);
-            foreach (var validationResult in model.GetModelValidator(controller).Validate(null))
+            foreach (var validationResult in model.GetModelValidator(controller).Validate(model))
             {
                 controller.AddModelError(prefix, validationResult);
             }

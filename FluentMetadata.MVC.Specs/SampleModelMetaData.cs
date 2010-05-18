@@ -4,7 +4,7 @@ namespace FluentMetadata.MVC.Specs
     {
         public SampleModelMetaData()
         {
-            The(s => s.VornameRequired).Is.Required();
+            Property(s => s.VornameRequired).Is.Required();
         }
     }
 }

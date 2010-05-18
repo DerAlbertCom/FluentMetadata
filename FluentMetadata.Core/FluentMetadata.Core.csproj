@@ -88,12 +88,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyMetadataBuilder.cs" />
     <Compile Include="PropertyNameMetadataBuilder.cs" />
+    <Compile Include="Rules\ClassRule.cs" />
+    <Compile Include="Rules\IClassRule.cs" />
     <Compile Include="Rules\IRule.cs" />
+    <Compile Include="Rules\PropertyMustMatchRule.cs" />
     <Compile Include="Rules\RangeRule.cs" />
     <Compile Include="Rules\RequiredRule.cs" />
     <Compile Include="Rules\Rule.cs" />
     <Compile Include="Rules\StringLengthRule.cs" />
     <Compile Include="ShouldBuilder.cs" />
+    <Compile Include="TypeExtensions.cs" />
     <Compile Include="TypeMetaDataBuilder.cs" />
   </ItemGroup>
   <ItemGroup>

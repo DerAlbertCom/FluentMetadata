@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using FluentMetadata.Rules;
 
 namespace FluentMetadata.MVC
 {
@@ -18,7 +19,14 @@ namespace FluentMetadata.MVC
         {
             foreach (var rule in metaData.Rules)
             {
-                yield return new RuleModelValidator(rule, this, context);
+                if (rule is IClassRule)
+                {
+                    yield return new ClassRuleModelValidator((IClassRule) rule, this, context);
+                }
+                else
+                {
+                    yield return new RuleModelValidator(rule, this, context);
+                }
             } 
         }
     }

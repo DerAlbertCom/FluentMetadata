@@ -34,4 +34,29 @@ namespace FluentMetadata.MVC
             return info.GetValue(container, null);
         }
     }
+
+    internal class ClassRuleModelValidator : ModelValidator
+    {
+        private readonly IClassRule rule;
+
+        public ClassRuleModelValidator(IClassRule rule, ModelMetadata metadata, ControllerContext controllerContext)
+            : base(metadata, controllerContext)
+        {
+            this.rule = rule;
+        }
+
+        public override IEnumerable<ModelValidationResult> Validate(object container)
+        {
+            if (rule.IsValid(container))
+            {
+                yield break;
+            }
+            yield return
+                new ModelValidationResult
+                {
+                    Message = rule.FormatErrorMessage(Metadata.GetDisplayName())
+                };
+        }
+    }
+
 }

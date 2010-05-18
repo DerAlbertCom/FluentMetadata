@@ -23,8 +23,7 @@ namespace FluentMetadata
             MetaData.TryGetValue(type, out builder);
             if (builder==null)
             {
-                var builderType = typeof(TypeMetadataBuilder<>).MakeGenericType(type);
-                builder = (TypeMetadataBuilder) Activator.CreateInstance(builderType);
+                builder = (TypeMetadataBuilder) typeof (TypeMetadataBuilder<>).CreateGenericInstance(type);
                 MetaData[type] = builder;
             }
             return builder;

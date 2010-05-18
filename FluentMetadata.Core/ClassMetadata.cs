@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using FluentMetadata.Rules;
 
 namespace FluentMetadata
 {
@@ -10,36 +11,39 @@ namespace FluentMetadata
 
     public abstract class ClassMetadata<T> : ClassMetadata
     {
-        protected IProperty<T,TResult> The<TResult>(Expression<Func<T, TResult>> expression)
+        protected IProperty<T,TResult> Property<TResult>(Expression<Func<T, TResult>> expression)
         {
-            TypeMetadataBuilder<T> builder = GetBuilder<T>();
-
-            return builder.MapProperty<TResult>(expression);
+            return GetTypeBuilder<T>().MapProperty(expression);
         }
 
-        protected IProperty<T,TResult> The<TResult>(T value)
+        protected IProperty<T,TResult> Property<TResult>(T value)
         {
-            TypeMetadataBuilder<T> builder = GetBuilder<T>();
-            return builder.MapEnum<TResult>(value);
+            return GetTypeBuilder<T>().MapEnum<TResult>(value);
+        }
+
+        protected void ClassRule(IClassRule<T> classRule)
+        {
+            var typeBuilder = GetTypeBuilder<T>();
+            typeBuilder.MetaData.AddRule(classRule);
         }
 
         protected void CopyMetadataFrom<TBaseType>()
         {
-            TypeMetadataBuilder<T> builder = GetBuilder<T>();
+            var typeBuilder = GetTypeBuilder<T>();
             
             var nameBuilder = new PropertyNameMetadataBuilder(typeof (TBaseType));
 
             foreach (var namedMetaData in nameBuilder.NamedMetaData)
             {
-                PropertyInfo propertyInfo = typeof (T).GetProperty(namedMetaData.PropertyName);
+                var propertyInfo = typeof (T).GetProperty(namedMetaData.PropertyName);
                 if (propertyInfo != null)
                 {
-                    builder.MapProperty(typeof (T), propertyInfo.Name, namedMetaData.MetaData);
+                    typeBuilder.MapProperty(typeof (T), propertyInfo.Name, namedMetaData.MetaData);
                 }
             }
         }
 
-        private static TypeMetadataBuilder<TBuilder> GetBuilder<TBuilder>()
+        private static TypeMetadataBuilder<TBuilder> GetTypeBuilder<TBuilder>()
         {
             return FluentMetadataBuilder.GetTypeBuilder<TBuilder>();
         }

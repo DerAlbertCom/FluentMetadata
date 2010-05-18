@@ -7,12 +7,12 @@ namespace FluentMetadata
 {
     public abstract class TypeMetadataBuilder
     {
-        protected readonly List<PropertyMetadataBuilder> Properties = new List<PropertyMetadataBuilder>();
+        protected readonly List<PropertyMetadataBuilder> PropertyBuilders = new List<PropertyMetadataBuilder>();
         private readonly MetaData metaData = new MetaData();
 
-        public IEnumerable<MetaData> MetaDataProperties
+        private IEnumerable<MetaData> MetaDataProperties
         {
-            get { return from p in Properties select p.MetaData; }
+            get { return from p in PropertyBuilders select p.MetaData; }
         }
 
         public MetaData MetaData
@@ -22,64 +22,65 @@ namespace FluentMetadata
 
         public MetaData MetaDataFor(string propertyName)
         {
-            return MetaDataProperties.FirstOrDefault(metaData => metaData.PropertyName == propertyName);
+            return MetaDataProperties.SingleOrDefault(md => md.PropertyName == propertyName);
         }
 
-        internal PropertyMetadataBuilder BuilderFor(string propertyName)
+        protected bool TryGetPropertyBuilder(string propertyName, out PropertyMetadataBuilder propertyMetadataBuilder)
         {
-            return Properties.Where(p => p.MetaData.PropertyName == propertyName).FirstOrDefault();
+            propertyMetadataBuilder = PropertyBuilders.SingleOrDefault(p => p.MetaData.PropertyName == propertyName);
+            return propertyMetadataBuilder != null;
         }
     }
 
     public class TypeMetadataBuilder<T> : TypeMetadataBuilder
     {
-        public IProperty<T,TResult> MapProperty<TResult>(Expression<Func<T, TResult>> expression)
+        public IProperty<T, TResult> MapProperty<TResult>(Expression<Func<T, TResult>> expression)
         {
-            return (IProperty<T,TResult>)GetBuilder(expression);
+            return GetBuilder(expression);
         }
 
-        private PropertyMetadataBuilder<T,TResult> GetBuilder<TResult>(Expression<Func<T, TResult>> expression)
+        private PropertyMetadataBuilder<T, TResult> GetBuilder<TResult>(Expression<Func<T, TResult>> expression)
         {
             string propertyName = ExpressionHelper.GetPropertyName(expression);
 
-            foreach (PropertyMetadataBuilder builder in Properties)
+            PropertyMetadataBuilder propertyBuilder;
+            if (!TryGetPropertyBuilder(propertyName, out propertyBuilder))
             {
-                if (builder.MetaData.PropertyName == propertyName)
-                {
-                    return (PropertyMetadataBuilder<T, TResult>) builder;
-                }
+                propertyBuilder = new PropertyMetadataBuilder<T, TResult>(expression);
+                PropertyBuilders.Add(propertyBuilder);
             }
-            var metaDataBuilder = new PropertyMetadataBuilder<T, TResult>(expression);
-            Properties.Add(metaDataBuilder);
-            return metaDataBuilder;
+            return (PropertyMetadataBuilder<T, TResult>) propertyBuilder;
         }
 
         public void MapProperty(Type containerType, string propertyName, MetaData metaData)
         {
             var newMetaData = new MetaData(metaData, containerType) {PropertyName = propertyName};
-            PropertyMetadataBuilder builder = BuilderFor(propertyName);
-            if (builder == null)
+            PropertyMetadataBuilder propertyBuilder;
+            if (!TryGetPropertyBuilder(propertyName, out propertyBuilder))
             {
-                var builderType = typeof(PropertyMetadataBuilder<,>).MakeGenericType(containerType, metaData.ModelType);
-                builder = (PropertyMetadataBuilder) Activator.CreateInstance(builderType, newMetaData);
-                Properties.Add(builder);
+                propertyBuilder = CreatePropertyMetaDataBuilder(metaData, containerType, newMetaData);
+                PropertyBuilders.Add(propertyBuilder);
             }
         }
 
-        public IProperty<T,TResult> MapEnum<TResult>(object value)
+        private PropertyMetadataBuilder CreatePropertyMetaDataBuilder(MetaData metaData, Type containerType,
+                                                                      MetaData newMetaData)
         {
-            string propertyName = Enum.GetName(typeof(TResult), value);
+            return (PropertyMetadataBuilder) typeof (PropertyMetadataBuilder<,>)
+                                                 .CreateGenericInstance(containerType, metaData.ModelType, newMetaData);
+        }
 
-            foreach (PropertyMetadataBuilder builder in Properties)
+        public IProperty<T, TResult> MapEnum<TResult>(object value)
+        {
+            string propertyName = Enum.GetName(typeof (TResult), value);
+
+            PropertyMetadataBuilder builder;
+            if (!TryGetPropertyBuilder(propertyName, out builder))
             {
-                if (builder.MetaData.PropertyName == propertyName)
-                {
-                    return (IProperty<T,TResult>) builder;
-                }
+                builder = new PropertyMetadataBuilder<T, TResult>(propertyName);
+                PropertyBuilders.Add(builder);
             }
-            var metadataBuilder = new PropertyMetadataBuilder<T,TResult>(propertyName);
-            Properties.Add(metadataBuilder);
-            return metadataBuilder;
+            return (IProperty<T, TResult>) builder;
         }
     }
 }

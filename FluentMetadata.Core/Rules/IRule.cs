@@ -1,3 +1,5 @@
+using System;
+
 namespace FluentMetadata.Rules
 {
     public interface IRule
