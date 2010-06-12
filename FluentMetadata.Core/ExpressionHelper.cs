@@ -8,7 +8,7 @@ namespace FluentMetadata
     {
         public static string GetPropertyName<T, TResult>(Expression<Func<T, TResult>> expression)
         {
-            MemberInfo memberExpression = GetMemberInfo(expression);
+            var memberExpression = GetMemberInfo(expression);
             return memberExpression.Name;
         }
 
@@ -39,7 +39,7 @@ namespace FluentMetadata
 
         public static Type GetDeclaringType(Expression<Func<object, object>> expression)
         {
-            MemberInfo memberExpression = GetMemberInfo(expression);
+            var memberExpression = GetMemberInfo(expression);
             return memberExpression.DeclaringType;
         }
     }

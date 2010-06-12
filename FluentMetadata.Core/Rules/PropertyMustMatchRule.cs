@@ -4,16 +4,16 @@ using System.Linq.Expressions;
 
 namespace FluentMetadata.Rules
 {
-    public class PropertyMustMatchRule<T> : ClassRule<T>
+    public class PropertyMustMatchRule<T> : ClassRule<T> where T : class 
     {
         private const string DefaultErrorMessage = "'{0}' and '{1}' do not match.";
 
 
         private readonly string originalPropertyName;
         private readonly string confirmPropertyName;
-        private object currentInstance;
+        private Type currentType;
 
-        public PropertyMustMatchRule(Expression<Func<T, object >> expression,
+        public PropertyMustMatchRule(Expression<Func<T, object>> expression,
                                      Expression<Func<T, object>> confirmExpression) : base(DefaultErrorMessage)
         {
             originalPropertyName = ExpressionHelper.GetPropertyName(expression);
@@ -31,24 +31,22 @@ namespace FluentMetadata.Rules
 
         private string GetPropertyDisplayName(string propertyName)
         {
+            var metaData = FluentMetadataBuilder.GetTypeBuilder(currentType).MetaDataFor(propertyName);
+            if (metaData != null)
+            {
+                propertyName = string.IsNullOrEmpty(metaData.DisplayName) ? propertyName : metaData.DisplayName;
+            }
             return propertyName;
-            //var displayName = GetMetaDataFor(currentInstance).Properties
-            //    .Where(s => s.PropertyName == propertyName)
-            //    .Single().DisplayName;
-            //return string.IsNullOrEmpty(displayName) ? propertyName : displayName;
         }
-
-        //private static MetaData GetMetaDataFor(T instance)
-        //{
-        //    return ModelMetadataProviders.Current.GetMetadataForType(() => instance, instance.GetType());
-        //}
 
         public override bool IsValid(T instance)
         {
-            currentInstance = instance;
+            if (instance == null)
+                return true;
+            currentType = instance.GetType();
 
-            return Equals(GetValueFromProperty(currentInstance, originalPropertyName),
-                          GetValueFromProperty(currentInstance, confirmPropertyName));
+            return Equals(GetValueFromProperty(instance, originalPropertyName),
+                          GetValueFromProperty(instance, confirmPropertyName));
         }
 
         private static object GetValueFromProperty(object instance, string propertyName)

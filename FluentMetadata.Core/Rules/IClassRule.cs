@@ -4,7 +4,7 @@
     {
         
     }
-    public interface IClassRule<T> : IClassRule
+    public interface IClassRule<in T> : IClassRule
     {
         bool IsValid(T instance);
     }

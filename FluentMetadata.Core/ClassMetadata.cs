@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq.Expressions;
-using System.Reflection;
 using FluentMetadata.Rules;
 
 namespace FluentMetadata

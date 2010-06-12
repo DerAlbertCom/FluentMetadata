@@ -4,7 +4,7 @@ namespace FluentMetadata.Rules
 {
     public abstract class ClassRule<T> : IClassRule<T>
     {
-        public ClassRule(string errorMessageFormat)
+        protected ClassRule(string errorMessageFormat)
         {
             ErrorMessageFormat = errorMessageFormat;
         }

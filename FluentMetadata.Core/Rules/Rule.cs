@@ -6,6 +6,7 @@
         {
             ErrorMessageFormat = errorMessageFormat;
         }
+
         public abstract bool IsValid(object value);
 
         protected string ErrorMessageFormat { get; set; }

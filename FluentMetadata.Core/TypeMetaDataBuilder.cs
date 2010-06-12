@@ -36,7 +36,7 @@ namespace FluentMetadata
     {
         public IProperty<T, TResult> MapProperty<TResult>(Expression<Func<T, TResult>> expression)
         {
-            return (IProperty<T,TResult>)GetBuilder(expression);
+            return GetBuilder(expression);
         }
 
         private PropertyMetadataBuilder<T,TResult> GetBuilder<TResult>(Expression<Func<T, TResult>> expression)
