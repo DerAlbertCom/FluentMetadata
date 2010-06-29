@@ -45,14 +45,14 @@ task Docu -depends Test,  {
    exec { & $build_dir\ReportGenerator.exe /generator:HTML /assembly:'$build_dir\FluentMetadata.Core.Specs.dll' /assembly:'$build_dir\FluentMetadata.MVC.Specs.dll'  }
 }
 
-task Release -depends Test, Docu {
+task Release -depends Compile {
     
     exec {
     
       & $tools_dir\Zip\zip.exe -9 -A -j `
         $release_dir\FluentMetadata.$version.zip `
-        $build_dir\FluentMeta.Core.dll `
-        $build_dir\FluentMeta.MVC.dll `
-        $build_dir\FluentMeta.NHibernate.dll 
+        $build_dir\FluentMetadata.Core.dll `
+        $build_dir\FluentMetadata.MVC.dll `
+        $build_dir\FluentMetadata.FluentNHibernate.dll 
     }
 }

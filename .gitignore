@@ -3,6 +3,7 @@
 *.lib
 *.suo
 *.ncb
+*.cache
 [Oo]bj
 [Bb]in
 [Bb]uild
