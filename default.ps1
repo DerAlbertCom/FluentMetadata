@@ -1,9 +1,10 @@
 properties { 
   $base_dir  = resolve-path .
+  $lib_dir = "$base_dir\external"
   $build_dir = "$base_dir\Build" 
   $buildartifacts_dir = "$build_dir\" 
   $sln_file = "$base_dir\Source\FluentMetadata.sln" 
-  $version = "0.5.1"
+  $version = "0.2.1"
   $tools_dir = "$base_dir\Tools"
   $release_dir = "$base_dir\Release"
 } 
@@ -31,21 +32,25 @@ task Init -depends Clean {
     new-item $buildartifacts_dir -itemType directory 
 } 
 
+task CopyExternals
+{
+   exec { Copy-Item $lib_dir\xUnit\*.* $buildartifacts_dir }
+}
 task Compile -depends Init { 
   exec { msbuild "/p:OutDir=$buildartifacts_dir" "/p:Platform=Any CPU" "$sln_file" }
 } 
 
-task Test -depends Compile {
+task Test -depends Compile  {
   exec { & $tools_dir\xUnit\xunit.console.exe $build_dir\FluentMetadata.Core.Specs.dll }
   exec { & $tools_dir\xUnit\xunit.console.exe $build_dir\FluentMetadata.MVC.Specs.dll }
 }
 
 
-task Docu -depends Test,  {
-   exec { & $build_dir\ReportGenerator.exe /generator:HTML /assembly:'$build_dir\FluentMetadata.Core.Specs.dll' /assembly:'$build_dir\FluentMetadata.MVC.Specs.dll'  }
+task Docu -depends Test {
+   exec { & $lib_dir\xUnit\ReportGenerator.exe /generator:HTML /path:$build_dir /assembly:$build_dir\FluentMetadata.Core.Specs.dll /assembly:$build_dir\FluentMetadata.MVC.Specs.dll  }
 }
 
-task Release -depends Compile {
+task Release -depends Docu {
     
     exec {
     
