@@ -1,4 +1,3 @@
-
 *.user
 *.obj
 *.lib
@@ -6,6 +5,7 @@
 *.ncb
 [Oo]bj
 [Bb]in
+[Bb]uild
 [Db]ebug
 [Rr]elease
 _ReSharper*/
