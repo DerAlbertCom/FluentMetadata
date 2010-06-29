@@ -2,7 +2,7 @@ properties {
   $base_dir  = resolve-path .
   $build_dir = "$base_dir\Build" 
   $buildartifacts_dir = "$build_dir\" 
-  $sln_file = "$base_dir\FluentMetadata.sln" 
+  $sln_file = "$base_dir\Source\FluentMetadata.sln" 
   $version = "0.5.1"
   $tools_dir = "$base_dir\Tools"
   $release_dir = "$base_dir\Release"
@@ -19,7 +19,7 @@ task Init -depends Clean {
     . .\psake_ext.ps1
     
     Generate-Assembly-Info `
-        -file "$base_dir\GlobalAssemblyInfo.cs" `
+        -file "$base_dir\Source\GlobalAssemblyInfo.cs" `
         -title "FluentMetadata $version" `
         -description "A Metadata Framework for ASP.MVC and FluentNHibernate" `
         -product "FluentMetadata $version" `
