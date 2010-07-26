@@ -4,7 +4,7 @@ properties {
   $build_dir = "$base_dir\Build" 
   $buildartifacts_dir = "$build_dir\" 
   $sln_file = "$base_dir\Source\FluentMetadata.sln" 
-  $version = "0.2.1"
+  $version = "0.3.2"
   $tools_dir = "$base_dir\Tools"
   $release_dir = "$base_dir\Release"
 } 
@@ -37,7 +37,7 @@ task CopyExternals
    exec { Copy-Item $lib_dir\xUnit\*.* $buildartifacts_dir }
 }
 task Compile -depends Init { 
-  exec { msbuild "/p:OutDir=$buildartifacts_dir" "/p:Platform=Any CPU" "$sln_file" }
+  exec { msbuild /t:Rebuild /verbosity:minimal "/p:OutDir=$buildartifacts_dir" "/p:Platform=Any CPU" "$sln_file" }
 } 
 
 task Test -depends Compile  {

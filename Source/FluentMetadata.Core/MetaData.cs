@@ -10,8 +10,8 @@ namespace FluentMetadata
 
         public MetaData()
         {
-            ShowDisplay = true;
-            ShowEditor = true;
+//            ShowDisplay = true;
+   //         ShowEditor = true;
             rules = new List<IRule>();
         }
 
@@ -36,15 +36,15 @@ namespace FluentMetadata
             }
         }
 
-        public bool Required { get; set; }
+        public bool? Required { get; set; }
         public Type ContainerType { get; set; }
         public Type ModelType { get; set; }
-        public int StringLength { get; set; }
+        public int? StringLength { get; set; }
         public string PropertyName { get; set; }
         public string ErrorMessage { get; set; }
-        public bool Readonly { get; set; }
-        public bool ShowDisplay { get; set; }
-        public bool ShowEditor { get; set; }
+        public bool? Readonly { get; set; }
+        public bool? ShowDisplay { get; set; }
+        public bool? ShowEditor { get; set; }
 
         public string TemplateHint { get; set; }
 
@@ -59,9 +59,9 @@ namespace FluentMetadata
 
         public string Watermark { get; set; }
 
-        public bool HideSurroundingHtml { get; set; }
+        public bool? HideSurroundingHtml { get; set; }
 
-        public bool Hidden { get; set; }
+        public bool? Hidden { get; set; }
 
         public string DataTypeName { get; set; }
 

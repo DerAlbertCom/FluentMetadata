@@ -15,6 +15,11 @@ namespace FluentMetadata
             MetaData.Clear();
         }
 
+        public static bool HasTypeBuilder(Type type)
+        {
+            return MetaData.ContainsKey(type);
+        }
+
         public static TypeMetadataBuilder GetTypeBuilder(Type type)
         {
             if (type == null)
@@ -31,13 +36,7 @@ namespace FluentMetadata
 
         public static TypeMetadataBuilder<T> GetTypeBuilder<T>()
         {
-            TypeMetadataBuilder builder = GetTypeBuilder(typeof (T));
-            if (builder == null)
-            {
-                builder = new TypeMetadataBuilder<T>();
-                MetaData[typeof (T)] = builder;
-            }
-            return (TypeMetadataBuilder<T>) builder;
+            return (TypeMetadataBuilder<T>) GetTypeBuilder(typeof (T));
         }
 
         public static void ForAssembly(string assemblyName)

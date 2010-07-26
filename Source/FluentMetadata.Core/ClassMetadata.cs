@@ -10,12 +10,12 @@ namespace FluentMetadata
 
     public abstract class ClassMetadata<T> : ClassMetadata
     {
-        protected IProperty<T,TResult> Property<TResult>(Expression<Func<T, TResult>> expression)
+        protected IProperty<T, TResult> Property<TResult>(Expression<Func<T, TResult>> expression)
         {
             return GetTypeBuilder<T>().MapProperty(expression);
         }
 
-        protected IProperty<T,TResult> Property<TResult>(T value)
+        protected IProperty<T, TResult> Property<TResult>(T value)
         {
             return GetTypeBuilder<T>().MapEnum<TResult>(value);
         }
@@ -28,18 +28,7 @@ namespace FluentMetadata
 
         protected void CopyMetadataFrom<TBaseType>()
         {
-            var typeBuilder = GetTypeBuilder<T>();
-            
-            var nameBuilder = new PropertyNameMetadataBuilder(typeof (TBaseType));
-
-            foreach (var namedMetaData in nameBuilder.NamedMetaData)
-            {
-                var propertyInfo = typeof (T).GetProperty(namedMetaData.PropertyName);
-                if (propertyInfo != null)
-                {
-                    typeBuilder.MapProperty(typeof (T), propertyInfo.Name, namedMetaData.MetaData);
-                }
-            }
+            GetTypeBuilder<T>().CopyMetadataFrom<T, TBaseType>();
         }
 
         private static TypeMetadataBuilder<TBuilder> GetTypeBuilder<TBuilder>()

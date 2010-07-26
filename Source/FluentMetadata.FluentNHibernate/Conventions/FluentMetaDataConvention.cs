@@ -17,8 +17,14 @@ namespace FluentMetadata.FluentNHibernate.Conventions
             {
                 return;
             }
-            ApplyRequired(meta.Required, instance);
-            ApplyStringLength(meta.StringLength, instance);
+            if (meta.Required.HasValue)
+            {
+                ApplyRequired(meta.Required.Value, instance);
+            }
+            if (meta.StringLength.HasValue)
+            {
+                ApplyStringLength(meta.StringLength.Value, instance);
+            }
         }
 
         private static void ApplyStringLength(int stringLength, IPropertyInstance target)

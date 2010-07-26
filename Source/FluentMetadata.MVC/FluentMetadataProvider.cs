@@ -7,13 +7,35 @@ namespace FluentMetadata.MVC
 {
     public class FluentMetadataProvider : ModelMetadataProvider
     {
+        private readonly ModelMetadataProvider fallback;
+
+        public FluentMetadataProvider(ModelMetadataProvider fallback)
+        {
+            this.fallback = fallback;
+        }
+
         public override IEnumerable<ModelMetadata> GetMetadataForProperties(object container, Type containerType)
         {
-            var typeBuilder = FluentMetadataBuilder.GetTypeBuilder(containerType);
-            var propertyInfos = containerType.GetProperties();
-            foreach (var propertyInfo in propertyInfos)
+            if (!FluentMetadataBuilder.HasTypeBuilder(containerType))
             {
-                yield return CreateModelMetaData(containerType, propertyInfo, typeBuilder, null);
+                foreach (var metadata in fallback.GetMetadataForProperties(container, containerType))
+                {
+                    yield return metadata;
+                }
+            }
+            else
+            {
+                var typeBuilder = FluentMetadataBuilder.GetTypeBuilder(containerType);
+                var propertyInfos = containerType.GetProperties();
+                foreach (var propertyInfo in propertyInfos)
+                {
+                    ModelMetadata modelMetadata = CreateModelMetaData(propertyInfo, typeBuilder, () => container);
+                    if (modelMetadata == null)
+                    {
+                        modelMetadata = GetMetadataForProperty(() => container, containerType, propertyInfo.Name);
+                    }
+                    yield return modelMetadata;
+                }
             }
         }
 
@@ -25,11 +47,19 @@ namespace FluentMetadata.MVC
             {
                 return null;
             }
-            var typeBuilder = FluentMetadataBuilder.GetTypeBuilder(containerType);
-            return CreateModelMetaData(containerType, propertyInfo, typeBuilder, modelAccessor);
+            ModelMetadata metadataForProperty = null;
+            if (FluentMetadataBuilder.HasTypeBuilder(containerType))
+            {
+                var typeBuilder = FluentMetadataBuilder.GetTypeBuilder(containerType);
+                metadataForProperty = CreateModelMetaData(propertyInfo, typeBuilder, modelAccessor);
+            }
+            return
+                metadataForProperty
+                ??
+                fallback.GetMetadataForProperty(modelAccessor, containerType, propertyName);
         }
 
-        private ModelMetadata CreateModelMetaData(Type containerType, PropertyInfo propertyInfo,
+        private ModelMetadata CreateModelMetaData(PropertyInfo propertyInfo,
                                                   TypeMetadataBuilder builder, Func<object> modelAccessor)
         {
             var metaData = builder.MetaDataFor(propertyInfo.Name);
@@ -37,35 +67,46 @@ namespace FluentMetadata.MVC
             {
                 return CreateModelMetaData(metaData, modelAccessor);
             }
-            return new ModelMetadata(this, containerType, modelAccessor, propertyInfo.PropertyType,
-                                     propertyInfo.Name);
+            return null;
         }
 
         private ModelMetadata CreateModelMetaData(MetaData metaData,
                                                   Func<object> modelAccessor)
         {
-            return new FluentModelMetadata(metaData,this, metaData.ContainerType, modelAccessor, metaData.ModelType,
-                                     metaData.PropertyName)
-                       {
-                           DisplayName = metaData.DisplayName,
-                           ShowForDisplay = metaData.ShowDisplay,
-                           ShowForEdit = metaData.ShowEditor,
-                           TemplateHint = metaData.TemplateHint,
-                           IsReadOnly = metaData.Readonly,
-                           DataTypeName = GetDataTypeName(metaData),
-                           NullDisplayText = metaData.NullDisplayText,
-                           DisplayFormatString = metaData.DisplayFormat,
-                           EditFormatString = metaData.EditorFormat,
-                           Description = metaData.Description,
-                           IsRequired = metaData.Required,
-                           Watermark = metaData.Watermark,
-                           HideSurroundingHtml = metaData.HideSurroundingHtml
-                       };
+            var modelMetaData = new FluentModelMetadata(metaData, this, metaData.ContainerType, modelAccessor,
+                                                        metaData.ModelType, metaData.PropertyName);
+            if (metaData.DisplayName!=null)
+            {
+                modelMetaData.DisplayName = metaData.DisplayName;
+            }
+            if (metaData.ShowDisplay.HasValue)
+            {
+                modelMetaData.ShowForDisplay = metaData.ShowDisplay.Value;
+            }
+            return modelMetaData;
+            //return new FluentModelMetadata(metaData, this, metaData.ContainerType, modelAccessor, metaData.ModelType,
+            //                               metaData.PropertyName)
+            //           {
+
+            //               DisplayName = metaData.DisplayName,
+            //               ShowForDisplay = metaData.ShowDisplay.Value,
+            //               ShowForEdit = metaData.ShowEditor,
+            //               TemplateHint = metaData.TemplateHint,
+            //               IsReadOnly = metaData.Readonly,
+            //               DataTypeName = GetDataTypeName(metaData),
+            //               NullDisplayText = metaData.NullDisplayText,
+            //               DisplayFormatString = metaData.DisplayFormat,
+            //               EditFormatString = metaData.EditorFormat,
+            //               Description = metaData.Description,
+            //               IsRequired = metaData.Required,
+            //               Watermark = metaData.Watermark,
+            //               HideSurroundingHtml = metaData.HideSurroundingHtml
+            //           };
         }
 
         private static string GetDataTypeName(MetaData metaData)
         {
-            if (metaData.Hidden)
+            if (metaData.Hidden.HasValue && metaData.Hidden.Value)
             {
                 return "HiddenInput";
             }
@@ -74,8 +115,12 @@ namespace FluentMetadata.MVC
 
         public override ModelMetadata GetMetadataForType(Func<object> modelAccessor, Type modelType)
         {
-            var builder = FluentMetadataBuilder.GetTypeBuilder(modelType);
-            return new FluentModelMetadata(builder.MetaData, this, null, modelAccessor, modelType, "");
+            if (FluentMetadataBuilder.HasTypeBuilder(modelType))
+            {
+                var builder = FluentMetadataBuilder.GetTypeBuilder(modelType);
+                return new FluentModelMetadata(builder.MetaData, this, null, modelAccessor, modelType, "");
+            }
+            return fallback.GetMetadataForType(modelAccessor, modelType);
         }
     }
 }

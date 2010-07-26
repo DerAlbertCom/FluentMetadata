@@ -99,6 +99,7 @@
     <Compile Include="ShouldBuilder.cs" />
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="TypeMetaDataBuilder.cs" />
+    <Compile Include="TypeMetadataBuilderExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

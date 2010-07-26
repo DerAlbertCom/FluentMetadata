@@ -4,7 +4,7 @@ namespace FluentMetadata.MVC.Specs
 {
     public class FluentMetadataFixture
     {
-        private static readonly ModelMetadataProvider Metadata = new FluentMetadataProvider();
+        private static readonly ModelMetadataProvider Metadata = new FluentMetadataProvider(new DataAnnotationsModelMetadataProvider());
 
         public FluentMetadataFixture()
         {
