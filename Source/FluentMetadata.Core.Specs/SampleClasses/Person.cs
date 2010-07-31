@@ -1,0 +1,10 @@
+using System;
+
+namespace FluentMetadata.Specs.SampleClasses
+{
+    public class Person
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
+}

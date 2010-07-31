@@ -4,33 +4,33 @@ using FluentMetadata.Rules;
 
 namespace FluentMetadata
 {
-    public class MetaData
+    public class Metadata
     {
         private readonly List<IRule> rules;
 
-        public MetaData()
+        public Metadata()
         {
 //            ShowDisplay = true;
    //         ShowEditor = true;
             rules = new List<IRule>();
         }
 
-        public MetaData(MetaData metaData, Type containerType) : this()
+        public Metadata(Metadata metadata, Type containerType) : this()
         {
-            Required = metaData.Required;
+            Required = metadata.Required;
             ContainerType = containerType;
-            ModelType = metaData.ModelType;
-            StringLength = metaData.StringLength;
-            PropertyName = metaData.PropertyName;
-            ErrorMessage = metaData.ErrorMessage;
-            DataTypeName = metaData.DataTypeName;
-            Readonly = metaData.Readonly;
-            ShowDisplay = metaData.ShowDisplay;
-            ShowEditor = metaData.ShowEditor;
-            TemplateHint = metaData.TemplateHint;
-            NullDisplayText = metaData.NullDisplayText;
-            DisplayName = metaData.DisplayName;
-            foreach (var rule in metaData.Rules)
+            ModelType = metadata.ModelType;
+            StringLength = metadata.StringLength;
+            ModelName = metadata.ModelName;
+            ErrorMessage = metadata.ErrorMessage;
+            DataTypeName = metadata.DataTypeName;
+            Readonly = metadata.Readonly;
+            ShowDisplay = metadata.ShowDisplay;
+            ShowEditor = metadata.ShowEditor;
+            TemplateHint = metadata.TemplateHint;
+            NullDisplayText = metadata.NullDisplayText;
+            DisplayName = metadata.DisplayName;
+            foreach (var rule in metadata.Rules)
             {
                 AddRule(rule);
             }
@@ -40,7 +40,7 @@ namespace FluentMetadata
         public Type ContainerType { get; set; }
         public Type ModelType { get; set; }
         public int? StringLength { get; set; }
-        public string PropertyName { get; set; }
+        public string ModelName { get; set; }
         public string ErrorMessage { get; set; }
         public bool? Readonly { get; set; }
         public bool? ShowDisplay { get; set; }

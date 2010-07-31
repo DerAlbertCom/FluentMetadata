@@ -1,6 +1,6 @@
-﻿namespace FluentMetadata
+﻿namespace FluentMetadata.Builder
 {
-    public class EditorBuilder<T,TResult> : IEditorProperty<T,TResult>
+    internal class EditorBuilder<T,TResult> : IEditorProperty<T,TResult>
     {
         private readonly PropertyMetadataBuilder<T,TResult> propertyMetaDataBuilder;
 
@@ -11,20 +11,20 @@
 
         public IProperty<T,TResult> ErrorMessage(string errorMessage)
         {
-            propertyMetaDataBuilder.MetaData.ErrorMessage = errorMessage;
+            propertyMetaDataBuilder.Metadata.ErrorMessage = errorMessage;
             return propertyMetaDataBuilder;
         }
 
 
         public IProperty<T,TResult> Format(string editorFormat)
         {
-            propertyMetaDataBuilder.MetaData.EditorFormat = editorFormat;
+            propertyMetaDataBuilder.Metadata.EditorFormat = editorFormat;
             return propertyMetaDataBuilder;
         }
 
         public IProperty<T,TResult> Watermark(string watermark)
         {
-            propertyMetaDataBuilder.MetaData.Watermark = watermark;
+            propertyMetaDataBuilder.Metadata.Watermark = watermark;
             return propertyMetaDataBuilder;
         }
     }

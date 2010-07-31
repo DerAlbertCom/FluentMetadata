@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Web.Mvc;
+using FluentMetadata.Builder;
 
 namespace FluentMetadata.MVC
 {
@@ -60,7 +61,7 @@ namespace FluentMetadata.MVC
         }
 
         private ModelMetadata CreateModelMetaData(PropertyInfo propertyInfo,
-                                                  TypeMetadataBuilder builder, Func<object> modelAccessor)
+                                                  ITypeMetadataBuilder builder, Func<object> modelAccessor)
         {
             var metaData = builder.MetaDataFor(propertyInfo.Name);
             if (metaData != null)
@@ -70,18 +71,18 @@ namespace FluentMetadata.MVC
             return null;
         }
 
-        private ModelMetadata CreateModelMetaData(MetaData metaData,
+        private ModelMetadata CreateModelMetaData(Metadata metadata,
                                                   Func<object> modelAccessor)
         {
-            var modelMetaData = new FluentModelMetadata(metaData, this, metaData.ContainerType, modelAccessor,
-                                                        metaData.ModelType, metaData.PropertyName);
-            if (metaData.DisplayName!=null)
+            var modelMetaData = new FluentModelMetadata(metadata, this, metadata.ContainerType, modelAccessor,
+                                                        metadata.ModelType, metadata.ModelName);
+            if (metadata.DisplayName!=null)
             {
-                modelMetaData.DisplayName = metaData.DisplayName;
+                modelMetaData.DisplayName = metadata.DisplayName;
             }
-            if (metaData.ShowDisplay.HasValue)
+            if (metadata.ShowDisplay.HasValue)
             {
-                modelMetaData.ShowForDisplay = metaData.ShowDisplay.Value;
+                modelMetaData.ShowForDisplay = metadata.ShowDisplay.Value;
             }
             return modelMetaData;
             //return new FluentModelMetadata(metaData, this, metaData.ContainerType, modelAccessor, metaData.ModelType,
@@ -104,13 +105,13 @@ namespace FluentMetadata.MVC
             //           };
         }
 
-        private static string GetDataTypeName(MetaData metaData)
+        private static string GetDataTypeName(Metadata metadata)
         {
-            if (metaData.Hidden.HasValue && metaData.Hidden.Value)
+            if (metadata.Hidden.HasValue && metadata.Hidden.Value)
             {
                 return "HiddenInput";
             }
-            return metaData.DataTypeName;
+            return metadata.DataTypeName;
         }
 
         public override ModelMetadata GetMetadataForType(Func<object> modelAccessor, Type modelType)
@@ -118,7 +119,7 @@ namespace FluentMetadata.MVC
             if (FluentMetadataBuilder.HasTypeBuilder(modelType))
             {
                 var builder = FluentMetadataBuilder.GetTypeBuilder(modelType);
-                return new FluentModelMetadata(builder.MetaData, this, null, modelAccessor, modelType, "");
+                return new FluentModelMetadata(builder.Metadata, this, null, modelAccessor, modelType, "");
             }
             return fallback.GetMetadataForType(modelAccessor, modelType);
         }

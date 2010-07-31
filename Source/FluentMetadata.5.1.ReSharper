@@ -78,6 +78,7 @@
           <Kind Name="xunit.bddextension.concern" />
         </ElementKinds>
       </UserRule>
+      <Abbreviation Text="UI" />
     </Naming2>
   </CodeStyleSettings>
 </Configuration>

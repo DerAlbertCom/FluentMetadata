@@ -1,59 +1,60 @@
-﻿using Xunit;
+﻿using FluentMetadata.Builder;
+using Xunit;
 
-namespace FluentMetadata.Specs
+namespace FluentMetadata.Specs.Builder
 {
     public class EditorBuilderTests
     {
-        private readonly MetaData metaData;
+        private readonly Metadata metadata;
         private IEditorProperty<DummyClass, string> builder;
 
         public EditorBuilderTests()
         {
-            metaData = new MetaData();
-            builder = new EditorBuilder<DummyClass, string>(new PropertyMetadataBuilder<DummyClass, string>(metaData));
+            metadata = new Metadata();
+            builder = new EditorBuilder<DummyClass, string>(new PropertyMetadataBuilder<DummyClass, string>(metadata));
         }
 
         [Fact]
         public void EditorBuilder_Ctor_ErrorMessage_IsNull()
         {
-            Assert.Null(metaData.ErrorMessage);
+            Assert.Null(metadata.ErrorMessage);
         }
 
         [Fact]
         public void EditorBuilder_Ctor_Format_IsNull()
         {
-            Assert.Null(metaData.EditorFormat);
+            Assert.Null(metadata.EditorFormat);
         }
 
         [Fact]
         public void EditorBuilder_Ctor_Watermark_IsNull()
         {
-            Assert.Null(metaData.Watermark);
+            Assert.Null(metadata.Watermark);
         }
 
         [Fact]
         public void EditorBuilder_ErrorMessage_ErrorMessage_IsValue()
         {
             builder.ErrorMessage("TheNullText");
-            Assert.Equal("TheNullText", metaData.ErrorMessage);
-            Assert.Null(metaData.EditorFormat);
-            Assert.Null(metaData.Watermark);
+            Assert.Equal("TheNullText", metadata.ErrorMessage);
+            Assert.Null(metadata.EditorFormat);
+            Assert.Null(metadata.Watermark);
         }
 
         [Fact]
         public void EditorBuilder_Name_Name_IsValue()
         {
             builder.Watermark("TheNameText");
-            Assert.Equal("TheNameText", metaData.Watermark);
-            Assert.Null(metaData.EditorFormat);
+            Assert.Equal("TheNameText", metadata.Watermark);
+            Assert.Null(metadata.EditorFormat);
         }
 
         [Fact]
         public void EditorBuilder_Format_Format_IsValue()
         {
             builder.Format("TheFormatText");
-            Assert.Equal("TheFormatText", metaData.EditorFormat);
-            Assert.Null(metaData.Watermark);
+            Assert.Equal("TheFormatText", metadata.EditorFormat);
+            Assert.Null(metadata.Watermark);
         }
     }
 }

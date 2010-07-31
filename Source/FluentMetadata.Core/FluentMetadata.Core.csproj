@@ -54,13 +54,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions">
@@ -70,24 +65,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsBuilder.cs" />
+    <Compile Include="Builder\AsBuilder.cs" />
+    <Compile Include="Builder\ClassMetadataBuilder.cs" />
     <Compile Include="ClassMetadata.cs" />
-    <Compile Include="DisplayBuilder.cs" />
-    <Compile Include="EditorBuilder.cs" />
+    <Compile Include="Builder\DisplayBuilder.cs" />
+    <Compile Include="Builder\EditorBuilder.cs" />
     <Compile Include="ExpressionHelper.cs" />
     <Compile Include="FluentMetadataBuilder.cs" />
+    <Compile Include="IClassBuilder.cs" />
+    <Compile Include="IDisplayClass.cs" />
+    <Compile Include="QueryFluentMetadata.cs" />
     <Compile Include="IAsProperty.cs" />
     <Compile Include="IDisplayProperty.cs" />
     <Compile Include="IEditorProperty.cs" />
     <Compile Include="IIsProperty.cs" />
     <Compile Include="IProperty.cs" />
     <Compile Include="IPropertyExtensions.cs" />
-    <Compile Include="IsBuilder.cs" />
+    <Compile Include="Builder\IsBuilder.cs" />
     <Compile Include="IShouldProperty.cs" />
     <Compile Include="MetaData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyMetadataBuilder.cs" />
-    <Compile Include="PropertyNameMetadataBuilder.cs" />
+    <Compile Include="Builder\PropertyMetadataBuilder.cs" />
+    <Compile Include="Builder\PropertyNameMetadataBuilder.cs" />
     <Compile Include="Rules\ClassRule.cs" />
     <Compile Include="Rules\IClassRule.cs" />
     <Compile Include="Rules\IRule.cs" />
@@ -96,9 +95,9 @@
     <Compile Include="Rules\RequiredRule.cs" />
     <Compile Include="Rules\Rule.cs" />
     <Compile Include="Rules\StringLengthRule.cs" />
-    <Compile Include="ShouldBuilder.cs" />
+    <Compile Include="Builder\ShouldBuilder.cs" />
     <Compile Include="TypeExtensions.cs" />
-    <Compile Include="TypeMetaDataBuilder.cs" />
+    <Compile Include="Builder\TypeMetaDataBuilder.cs" />
     <Compile Include="TypeMetadataBuilderExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

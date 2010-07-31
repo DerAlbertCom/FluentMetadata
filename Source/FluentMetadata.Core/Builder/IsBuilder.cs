@@ -1,17 +1,15 @@
-﻿using System;
-using System.Linq.Expressions;
-using FluentMetadata.Rules;
+﻿using FluentMetadata.Rules;
 
-namespace FluentMetadata
+namespace FluentMetadata.Builder
 {
-    public class IsBuilder<T, TResult> : IIsProperty<T, TResult>
+    internal class IsBuilder<T, TResult> : IIsProperty<T, TResult>
     {
         private readonly PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder;
         private bool notted;
 
-        private MetaData MetaData
+        private Metadata Metadata
         {
-            get { return propertyMetaDataBuilder.MetaData; }
+            get { return propertyMetaDataBuilder.Metadata; }
         }
 
         public IsBuilder(PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder)
@@ -21,18 +19,18 @@ namespace FluentMetadata
 
         public IProperty<T,TResult> Required()
         {
-            MetaData.Required = !notted;
+            Metadata.Required = !notted;
             notted = false;
-            if (MetaData.Required.HasValue && MetaData.Required.Value)
+            if (Metadata.Required.HasValue && Metadata.Required.Value)
             {
-                MetaData.AddRule(new RequiredRule());
+                Metadata.AddRule(new RequiredRule());
             }
             return propertyMetaDataBuilder;
         }
 
         public IProperty<T,TResult> ReadOnly()
         {
-            MetaData.Readonly = !notted;
+            Metadata.Readonly = !notted;
             notted = false;
             return propertyMetaDataBuilder;
         }

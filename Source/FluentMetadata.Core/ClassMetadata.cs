@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using FluentMetadata.Builder;
 using FluentMetadata.Rules;
 
 namespace FluentMetadata
@@ -10,6 +11,11 @@ namespace FluentMetadata
 
     public abstract class ClassMetadata<T> : ClassMetadata
     {
+        protected ClassMetadata()
+        {
+            GetTypeBuilder<T>().ClassBuilder();
+        }
+
         protected IProperty<T, TResult> Property<TResult>(Expression<Func<T, TResult>> expression)
         {
             return GetTypeBuilder<T>().MapProperty(expression);
@@ -20,10 +26,15 @@ namespace FluentMetadata
             return GetTypeBuilder<T>().MapEnum<TResult>(value);
         }
 
+        protected IClassBuilder<T> Class
+        {
+            get { return GetTypeBuilder<T>().ClassBuilder(); }
+        }
+
         protected void ClassRule(IClassRule<T> classRule)
         {
             var typeBuilder = GetTypeBuilder<T>();
-            typeBuilder.MetaData.AddRule(classRule);
+            typeBuilder.Metadata.AddRule(classRule);
         }
 
         protected void CopyMetadataFrom<TBaseType>()
@@ -33,7 +44,7 @@ namespace FluentMetadata
 
         private static TypeMetadataBuilder<TBuilder> GetTypeBuilder<TBuilder>()
         {
-            return FluentMetadataBuilder.GetTypeBuilder<TBuilder>();
+            return (TypeMetadataBuilder<TBuilder>) FluentMetadataBuilder.GetTypeBuilder<TBuilder>();
         }
     }
 }

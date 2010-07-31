@@ -7,16 +7,16 @@ namespace FluentMetadata.MVC
 {
     public class FluentModelMetadata : ModelMetadata
     {
-        private readonly MetaData metaData;
+        private readonly Metadata metadata;
         
-        public FluentModelMetadata(MetaData metaData , ModelMetadataProvider provider, Type containerType, Func<object> modelAccessor, Type modelType, string propertyName) : base(provider, containerType, modelAccessor, modelType, propertyName)
+        public FluentModelMetadata(Metadata metadata , ModelMetadataProvider provider, Type containerType, Func<object> modelAccessor, Type modelType, string propertyName) : base(provider, containerType, modelAccessor, modelType, propertyName)
         {
-            this.metaData = metaData;
+            this.metadata = metadata;
         }
 
         public override IEnumerable<ModelValidator> GetValidators(ControllerContext context)
         {
-            foreach (var rule in metaData.Rules)
+            foreach (var rule in metadata.Rules)
             {
                 if (rule is IClassRule)
                 {

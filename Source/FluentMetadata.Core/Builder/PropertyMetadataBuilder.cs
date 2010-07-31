@@ -2,64 +2,64 @@
 using System.Linq.Expressions;
 using FluentMetadata.Rules;
 
-namespace FluentMetadata
+namespace FluentMetadata.Builder
 {
-    public abstract class PropertyMetadataBuilder
+    internal abstract class PropertyMetadataBuilder
     {
-        private readonly MetaData metaData;
+        private readonly Metadata metadata;
 
-        protected PropertyMetadataBuilder() : this(new MetaData())
+        protected PropertyMetadataBuilder() : this(new Metadata())
         {
         }
 
-        protected PropertyMetadataBuilder(MetaData metaData)
+        protected PropertyMetadataBuilder(Metadata metadata)
         {
-            this.metaData = metaData;
+            this.metadata = metadata;
         }
 
-        public MetaData MetaData
+        public Metadata Metadata
         {
-            get { return metaData; }
+            get { return metadata; }
         }
     }
 
-    public class PropertyMetadataBuilder<T,TResult> : PropertyMetadataBuilder, IProperty<T,TResult>
+    internal class PropertyMetadataBuilder<T,TResult> : PropertyMetadataBuilder, IProperty<T,TResult>
     {
         public PropertyMetadataBuilder(Expression<Func<T, TResult>> expression)
         {
-            MetaData.ContainerType = typeof (T);
-            MetaData.PropertyName = ExpressionHelper.GetPropertyName(expression);
-            MetaData.ModelType = ExpressionHelper.GetPropertyType(expression);
+            Metadata.ContainerType = typeof (T);
+            Metadata.ModelName = ExpressionHelper.GetPropertyName(expression);
+            Metadata.ModelType = ExpressionHelper.GetPropertyType(expression);
         }
 
-        public PropertyMetadataBuilder(MetaData metaData) : base(metaData)
+        public PropertyMetadataBuilder(Metadata metadata) : base(metadata)
         {
         }
 
         public PropertyMetadataBuilder(string propertyName)
         {
-            MetaData.ContainerType = null;
-            MetaData.PropertyName = propertyName;
-            MetaData.ModelType = typeof (T);
+            Metadata.ContainerType = null;
+            Metadata.ModelName = propertyName;
+            Metadata.ModelType = typeof (T);
         }
 
 
         public IProperty<T,TResult> Length(int length)
         {
-            MetaData.StringLength = length;
-            MetaData.AddRule(new StringLengthRule(length));
+            Metadata.StringLength = length;
+            Metadata.AddRule(new StringLengthRule(length));
             return this;
         }
 
-        public IProperty<T,TResult> TemplateHint(string templateHint)
+        public IProperty<T,TResult> UIHint(string templateHint)
         {
-            MetaData.TemplateHint = templateHint;
+            Metadata.TemplateHint = templateHint;
             return this;
         }
 
         public IProperty<T,TResult> Description(string description)
         {
-            MetaData.Description = description;
+            Metadata.Description = description;
             return this;
         }
 

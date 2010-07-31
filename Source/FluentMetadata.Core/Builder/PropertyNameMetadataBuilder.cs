@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace FluentMetadata
+namespace FluentMetadata.Builder
 {
     public class PropertyNameMetadataBuilder
     {
@@ -28,13 +28,13 @@ namespace FluentMetadata
             {
                 if (IsSimpleType(propertyInfo.PropertyType))
                 {
-                    TypeMetadataBuilder builder = FluentMetadataBuilder.GetTypeBuilder(type);
+                    ITypeMetadataBuilder builder = FluentMetadataBuilder.GetTypeBuilder(type);
                     if (builder != null)
                     {
-                        MetaData metaData = builder.MetaDataFor(propertyInfo.Name);
-                        if (metaData != null)
+                        Metadata metadata = builder.MetaDataFor(propertyInfo.Name);
+                        if (metadata != null)
                         {
-                            yield return new NameMetaData(prefix + propertyInfo.Name, metaData);
+                            yield return new NameMetaData(prefix + propertyInfo.Name, metadata);
                         }
                     }
                 }
@@ -72,14 +72,14 @@ namespace FluentMetadata
 
         public class NameMetaData
         {
-            public NameMetaData(string propertyName, MetaData metaData)
+            public NameMetaData(string propertyName, Metadata metadata)
             {
                 PropertyName = propertyName;
-                MetaData = metaData;
+                Metadata = metadata;
             }
 
             public string PropertyName { get; private set; }
-            public MetaData MetaData { get; private set; }
+            public Metadata Metadata { get; private set; }
         }
 
         #endregion

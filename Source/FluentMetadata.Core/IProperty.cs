@@ -3,7 +3,7 @@
     public interface IProperty<T,TResult>
     {
         IProperty<T,TResult> Length(int length);
-        IProperty<T,TResult> TemplateHint(string templateHint);
+        IProperty<T,TResult> UIHint(string templateHint);
 
         IProperty<T,TResult> Description(string description);
 

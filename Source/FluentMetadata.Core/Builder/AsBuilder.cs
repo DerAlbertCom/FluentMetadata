@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FluentMetadata
+namespace FluentMetadata.Builder
 {
-    public class AsBuilder<T, TResult> : IAsProperty<T, TResult>
+    internal class AsBuilder<T, TResult> : IAsProperty<T, TResult>
     {
         private readonly PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder;
 
@@ -19,7 +19,7 @@ namespace FluentMetadata
 
         private void SetDataTypeName(DataType dataType)
         {
-            propertyMetaDataBuilder.MetaData.DataTypeName = dataType.ToString();
+            propertyMetaDataBuilder.Metadata.DataTypeName = dataType.ToString();
         }
 
         public IProperty<T,TResult> Url()

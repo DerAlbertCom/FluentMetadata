@@ -1,8 +1,10 @@
+using FluentMetadata.Builder;
+
 namespace FluentMetadata
 {
     public static class TypeMetadataBuilderExtensions
     {
-        public static void CopyMetadataFrom<T, TBaseType>(this TypeMetadataBuilder<T> typeBuilder)
+        public static void CopyMetadataFrom<T, TBaseType>(this ITypeMetadataBuilder<T> typeBuilder)
         {
             var nameBuilder = new PropertyNameMetadataBuilder(typeof (TBaseType));
 
@@ -11,7 +13,7 @@ namespace FluentMetadata
                 var propertyInfo = typeof (T).GetProperty(namedMetaData.PropertyName);
                 if (propertyInfo != null)
                 {
-                    typeBuilder.MapProperty(typeof (T), propertyInfo.Name, namedMetaData.MetaData);
+                    typeBuilder.MapProperty(typeof (T), propertyInfo.Name, namedMetaData.Metadata);
                 }
             }
         }

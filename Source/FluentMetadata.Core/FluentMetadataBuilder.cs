@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using FluentMetadata.Builder;
 
 namespace FluentMetadata
 {
@@ -20,13 +21,13 @@ namespace FluentMetadata
             return MetaData.ContainsKey(type);
         }
 
-        public static TypeMetadataBuilder GetTypeBuilder(Type type)
+        public static ITypeMetadataBuilder GetTypeBuilder(Type type)
         {
             if (type == null)
                 return null;
             TypeMetadataBuilder builder;
             MetaData.TryGetValue(type, out builder);
-            if (builder==null)
+            if (builder == null)
             {
                 builder = (TypeMetadataBuilder) typeof (TypeMetadataBuilder<>).CreateGenericInstance(type);
                 MetaData[type] = builder;
@@ -34,15 +35,9 @@ namespace FluentMetadata
             return builder;
         }
 
-        public static TypeMetadataBuilder<T> GetTypeBuilder<T>()
+        public static ITypeMetadataBuilder<T> GetTypeBuilder<T>()
         {
-            return (TypeMetadataBuilder<T>) GetTypeBuilder(typeof (T));
-        }
-
-        public static void ForAssembly(string assemblyName)
-        {
-            Assembly assembly = Assembly.Load(assemblyName);
-            ForAssembly(assembly);
+            return (ITypeMetadataBuilder<T>) GetTypeBuilder(typeof (T));
         }
 
         public static void ForAssemblyOfType<T>()
