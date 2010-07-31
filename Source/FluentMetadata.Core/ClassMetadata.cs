@@ -5,11 +5,11 @@ using FluentMetadata.Rules;
 
 namespace FluentMetadata
 {
-    public abstract class ClassMetadata
+    internal interface IClassMetadata
     {
     }
 
-    public abstract class ClassMetadata<T> : ClassMetadata
+    public abstract class ClassMetadata<T> : IClassMetadata
     {
         protected ClassMetadata()
         {
@@ -39,7 +39,7 @@ namespace FluentMetadata
 
         protected void CopyMetadataFrom<TBaseType>()
         {
-            GetTypeBuilder<T>().CopyMetadataFrom<T, TBaseType>();
+            MetadataHelper.CopyMetadata(typeof (TBaseType), typeof (T));
         }
 
         private static TypeMetadataBuilder<TBuilder> GetTypeBuilder<TBuilder>()

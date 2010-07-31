@@ -30,12 +30,4 @@ namespace FluentMetadata.Specs.SampleClasses
             Assert.Equal("Benutzer", classMetadata.DisplayName);
         }
     }
-
-    public class Propertymedata_with_Person : MetadataTestBase
-    {
-        public Propertymedata_with_Person()
-        {
-            
-        }
-    }
 }

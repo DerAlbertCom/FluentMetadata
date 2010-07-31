@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Builder\AsBuilder.cs" />
     <Compile Include="Builder\ClassMetadataBuilder.cs" />
+    <Compile Include="Builder\ITypeMetadataBuilder.cs" />
     <Compile Include="ClassMetadata.cs" />
     <Compile Include="Builder\DisplayBuilder.cs" />
     <Compile Include="Builder\EditorBuilder.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="FluentMetadataBuilder.cs" />
     <Compile Include="IClassBuilder.cs" />
     <Compile Include="IDisplayClass.cs" />
+    <Compile Include="PropertiesMetadata.cs" />
     <Compile Include="QueryFluentMetadata.cs" />
     <Compile Include="IAsProperty.cs" />
     <Compile Include="IDisplayProperty.cs" />

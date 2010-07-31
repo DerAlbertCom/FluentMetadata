@@ -71,7 +71,7 @@
     <Compile Include="FluentMetadataProvider.cs" />
     <Compile Include="FluentModelMetadata.cs" />
     <Compile Include="FluentValidationProvider.cs" />
-    <Compile Include="MergeFluentMetadataProvider.cs" />
+    <Compile Include="MetadataMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuleModelValidator.cs" />
   </ItemGroup>

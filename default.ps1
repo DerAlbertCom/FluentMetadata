@@ -4,7 +4,7 @@ properties {
   $build_dir = "$base_dir\Build" 
   $buildartifacts_dir = "$build_dir\" 
   $sln_file = "$base_dir\Source\FluentMetadata.sln" 
-  $version = "0.3.2"
+  $version = "0.4.0"
   $tools_dir = "$base_dir\Tools"
   $release_dir = "$base_dir\Release"
 } 

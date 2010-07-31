@@ -28,7 +28,7 @@ namespace FluentMetadata.Builder
             {
                 if (IsSimpleType(propertyInfo.PropertyType))
                 {
-                    ITypeMetadataBuilder builder = FluentMetadataBuilder.GetTypeBuilder(type);
+                    TypeMetadataBuilder builder = FluentMetadataBuilder.GetTypeBuilder(type);
                     if (builder != null)
                     {
                         Metadata metadata = builder.MetaDataFor(propertyInfo.Name);

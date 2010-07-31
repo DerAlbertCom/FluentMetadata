@@ -8,36 +8,30 @@ namespace FluentMetadata
 {
     public static class FluentMetadataBuilder
     {
-        private static readonly Dictionary<Type, TypeMetadataBuilder> MetaData =
+        private static readonly Dictionary<Type, TypeMetadataBuilder> TypeBuilders =
             new Dictionary<Type, TypeMetadataBuilder>();
 
         public static void Reset()
         {
-            MetaData.Clear();
+            TypeBuilders.Clear();
         }
 
-        public static bool HasTypeBuilder(Type type)
-        {
-            return MetaData.ContainsKey(type);
-        }
-
-        public static ITypeMetadataBuilder GetTypeBuilder(Type type)
+        internal static TypeMetadataBuilder GetTypeBuilder(Type type)
         {
             if (type == null)
                 return null;
             TypeMetadataBuilder builder;
-            MetaData.TryGetValue(type, out builder);
-            if (builder == null)
+            if (!TypeBuilders.TryGetValue(type, out builder))
             {
                 builder = (TypeMetadataBuilder) typeof (TypeMetadataBuilder<>).CreateGenericInstance(type);
-                MetaData[type] = builder;
+                TypeBuilders[type] = builder;
             }
             return builder;
         }
 
-        public static ITypeMetadataBuilder<T> GetTypeBuilder<T>()
+        internal static TypeMetadataBuilder<T> GetTypeBuilder<T>()
         {
-            return (ITypeMetadataBuilder<T>) GetTypeBuilder(typeof (T));
+            return (TypeMetadataBuilder<T>) GetTypeBuilder(typeof (T));
         }
 
         public static void ForAssemblyOfType<T>()
@@ -47,16 +41,15 @@ namespace FluentMetadata
 
         private static void ForAssembly(Assembly assembly)
         {
-            IEnumerable<Type> types = GetPublicClassMetadataTypes(assembly);
-            foreach (Type type in types)
+            foreach (Type type in PublicMetadataDefinitionsFrom(assembly))
             {
                 Activator.CreateInstance(type);
             }
         }
 
-        private static IEnumerable<Type> GetPublicClassMetadataTypes(Assembly assembly)
+        private static IEnumerable<Type> PublicMetadataDefinitionsFrom(Assembly assembly)
         {
-            return assembly.GetTypes().Where(t => typeof (ClassMetadata).IsAssignableFrom(t) && !t.IsAbstract);
+            return assembly.GetTypes().Where(t => typeof (IClassMetadata).IsAssignableFrom(t) && !t.IsAbstract);
         }
     }
 }

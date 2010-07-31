@@ -21,7 +21,7 @@ namespace FluentMetadata.Builder
         {
             Metadata.Required = !notted;
             notted = false;
-            if (Metadata.Required.HasValue && Metadata.Required.Value)
+            if (Metadata.Required)
             {
                 Metadata.AddRule(new RequiredRule());
             }

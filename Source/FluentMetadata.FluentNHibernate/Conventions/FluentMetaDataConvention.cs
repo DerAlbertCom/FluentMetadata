@@ -5,21 +5,13 @@ namespace FluentMetadata.FluentNHibernate.Conventions
 {
     public class FluentMetaDataConvention : IPropertyConvention
     {
+        private readonly QueryFluentMetadata query = new QueryFluentMetadata();
         public void Apply(IPropertyInstance instance)
         {
-            var builder = FluentMetadataBuilder.GetTypeBuilder(instance.EntityType);
-            if (builder == null)
+            var meta = query.GetMetadataFor(instance.EntityType,instance.Property.Name);
+            if (meta.Required)
             {
-                return;
-            }
-            var meta = builder.MetaDataFor(instance.Property.Name);
-            if (meta == null)
-            {
-                return;
-            }
-            if (meta.Required.HasValue)
-            {
-                ApplyRequired(meta.Required.Value, instance);
+                ApplyRequired(meta.Required, instance);
             }
             if (meta.StringLength.HasValue)
             {

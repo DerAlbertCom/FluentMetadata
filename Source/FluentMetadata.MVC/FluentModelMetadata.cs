@@ -9,7 +9,7 @@ namespace FluentMetadata.MVC
     {
         private readonly Metadata metadata;
         
-        public FluentModelMetadata(Metadata metadata , ModelMetadataProvider provider, Type containerType, Func<object> modelAccessor, Type modelType, string propertyName) : base(provider, containerType, modelAccessor, modelType, propertyName)
+        public FluentModelMetadata(Metadata metadata , ModelMetadataProvider provider, Func<object> modelAccessor) : base(provider, metadata.ContainerType, modelAccessor, metadata.ModelType, metadata.ModelName)
         {
             this.metadata = metadata;
         }

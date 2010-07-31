@@ -7,12 +7,14 @@ namespace FluentMetadata
     public class Metadata
     {
         private readonly List<IRule> rules;
+        private readonly PropertiesMetadata properties;
 
         public Metadata()
         {
-//            ShowDisplay = true;
-   //         ShowEditor = true;
+            ShowDisplay = true;
+            ShowEditor = true;
             rules = new List<IRule>();
+            properties=new PropertiesMetadata();
         }
 
         public Metadata(Metadata metadata, Type containerType) : this()
@@ -36,15 +38,15 @@ namespace FluentMetadata
             }
         }
 
-        public bool? Required { get; set; }
+        public bool Required { get; set; }
         public Type ContainerType { get; set; }
         public Type ModelType { get; set; }
         public int? StringLength { get; set; }
         public string ModelName { get; set; }
         public string ErrorMessage { get; set; }
-        public bool? Readonly { get; set; }
-        public bool? ShowDisplay { get; set; }
-        public bool? ShowEditor { get; set; }
+        public bool Readonly { get; set; }
+        public bool ShowDisplay { get; set; }
+        public bool ShowEditor { get; set; }
 
         public string TemplateHint { get; set; }
 
@@ -74,5 +76,7 @@ namespace FluentMetadata
         {
             rules.Add(rule);
         }
+
+        public PropertiesMetadata Properties { get { return properties; } }
     }
 }

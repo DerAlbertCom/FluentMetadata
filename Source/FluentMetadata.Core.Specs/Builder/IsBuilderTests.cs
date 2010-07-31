@@ -17,41 +17,41 @@ namespace FluentMetadata.Specs.Builder
         [Fact]
         public void IsBuilder_Ctor_IsNotRequired()
         {
-            Assert.False(metadata.Required.HasValue);
+            Assert.False(metadata.Required);
         }
 
         [Fact]
         public void IsBuilder_Ctor_IsNotReadOnly()
         {
-            Assert.False(metadata.Readonly.HasValue);
+            Assert.False(metadata.Readonly);
         }
 
         [Fact]
         public void IsBuilder_Required_IsRequired()
         {
             isBuilder.Required();
-            Assert.True(metadata.Required.Value);
+            Assert.True(metadata.Required);
         }
 
         [Fact]
         public void IsBuilder_Not_Required_IsNotRequired()
         {
             isBuilder.Not.Required();
-            Assert.False(metadata.Required.Value);
+            Assert.False(metadata.Required);
         }
 
         [Fact]
         public void IsBuilder_Readonly_IsReadOnly()
         {
             isBuilder.ReadOnly();
-            Assert.True(metadata.Readonly.Value);
+            Assert.True(metadata.Readonly);
         }
 
         [Fact]
         public void IsBuilder_Not_Readonly_IsNotReadOnly()
         {
             isBuilder.Not.ReadOnly();
-            Assert.False(metadata.Readonly.Value);
+            Assert.False(metadata.Readonly);
         }
     }
 }

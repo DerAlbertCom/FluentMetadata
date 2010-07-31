@@ -1,21 +1,28 @@
+using System;
 using FluentMetadata.Builder;
 
 namespace FluentMetadata
 {
-    public static class TypeMetadataBuilderExtensions
+    public static class MetadataHelper
     {
-        public static void CopyMetadataFrom<T, TBaseType>(this ITypeMetadataBuilder<T> typeBuilder)
+        public static void CopyMetadata(Type from, Type to)
         {
-            var nameBuilder = new PropertyNameMetadataBuilder(typeof (TBaseType));
-
+            var fromBuilder = FluentMetadataBuilder.GetTypeBuilder(from);
+            var toBuilder = FluentMetadataBuilder.GetTypeBuilder(to);
+            var nameBuilder = new PropertyNameMetadataBuilder(to);
             foreach (var namedMetaData in nameBuilder.NamedMetaData)
             {
-                var propertyInfo = typeof (T).GetProperty(namedMetaData.PropertyName);
+                var propertyInfo = to.GetProperty(namedMetaData.PropertyName);
                 if (propertyInfo != null)
                 {
-                    typeBuilder.MapProperty(typeof (T), propertyInfo.Name, namedMetaData.Metadata);
+                    fromBuilder.MapProperty(to, propertyInfo.Name, namedMetaData.Metadata);
                 }
             }
+        }
+
+        public static void CopyMetadataFrom<T, TBaseType>()
+        {
+            CopyMetadata(typeof (T), typeof (TBaseType));
         }
     }
 }

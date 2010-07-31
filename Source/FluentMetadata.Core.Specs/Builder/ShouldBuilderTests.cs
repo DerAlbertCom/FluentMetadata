@@ -17,41 +17,41 @@ namespace FluentMetadata.Specs.Builder
         [Fact]
         public void ShouldBuilder_Ctor_ShouldShowDisplay()
         {
-            Assert.False(metadata.ShowDisplay.HasValue);
+            Assert.True(metadata.ShowDisplay);
         }
 
         [Fact]
         public void ShouldBuilder_ShowInDisplay_ShouldShowDisplay()
         {
             shouldBuilder.ShowInDisplay();
-            Assert.True(metadata.ShowDisplay.Value);
+            Assert.True(metadata.ShowDisplay);
         }
 
         [Fact]
         public void ShouldBuilder_Not_ShowInDisplay_ShouldNotShowDisplay()
         {
             shouldBuilder.Not.ShowInDisplay();
-            Assert.False(metadata.ShowDisplay.Value);
+            Assert.False(metadata.ShowDisplay);
         }
 
         [Fact]
         public void ShouldBuilder_Ctor_ShouldShowEditor()
         {
-            Assert.False(metadata.ShowEditor.HasValue);
+            Assert.True(metadata.ShowEditor);
         }
 
         [Fact]
         public void ShouldBuilder_ShowInEditor_ShouldShowEditor()
         {
             shouldBuilder.ShowInEditor();
-            Assert.True(metadata.ShowEditor.Value);
+            Assert.True(metadata.ShowEditor);
         }
 
         [Fact]
         public void ShouldBuilder_Not_ShowInEditor_ShouldNotShowEditor()
         {
             shouldBuilder.Not.ShowInEditor();
-            Assert.False(metadata.ShowEditor.Value);
+            Assert.False(metadata.ShowEditor);
         }
 
         [Fact]

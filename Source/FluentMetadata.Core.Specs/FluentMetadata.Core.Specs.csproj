@@ -90,6 +90,7 @@
     <Compile Include="SampleClasses\Person.cs" />
     <Compile Include="Builder\ShouldBuilderTests.cs" />
     <Compile Include="SampleClasses\ClassMetadata_with_Person.cs" />
+    <Compile Include="SampleClasses\PropertyMedata_with_Person.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FluentMetadata.Core\FluentMetadata.Core.csproj">

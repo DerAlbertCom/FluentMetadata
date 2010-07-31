@@ -5,11 +5,10 @@ using System.Linq.Expressions;
 
 namespace FluentMetadata.Builder
 {
-
-    internal abstract class TypeMetadataBuilder : ITypeMetadataBuilder
+    internal abstract class TypeMetadataBuilder
     {
         protected readonly List<PropertyMetadataBuilder> PropertyBuilders = new List<PropertyMetadataBuilder>();
-        
+
         private readonly Metadata metadata = new Metadata();
 
         private IEnumerable<Metadata> MetaDataProperties
@@ -33,22 +32,16 @@ namespace FluentMetadata.Builder
             return propertyMetadataBuilder != null;
         }
 
-        public abstract void MapProperty(Type containerType, string propertyName, Metadata metadata);
+        public abstract Metadata MapProperty(Type containerType, string propertyName, Metadata metadata);
+
+        public Metadata MapProperty(Type containerType, string propertyName, Type propertyType)
+        {
+            var newMetaData = new Metadata() { ContainerType = containerType, ModelName = propertyName,ModelType = propertyType};
+            return MapProperty(containerType, propertyName, newMetaData);
+        }
     }
 
-    public interface ITypeMetadataBuilder
-    {
-        Metadata Metadata { get; }
-        Metadata MetaDataFor(string propertyName);
-        void MapProperty(Type containerType, string propertyName, Metadata metadata);
-    }
-
-    public interface ITypeMetadataBuilder<T> : ITypeMetadataBuilder
-    {
-        IProperty<T, TResult> MapProperty<TResult>(Expression<Func<T, TResult>> expression);
-    }
-
-    internal class TypeMetadataBuilder<T> : TypeMetadataBuilder, ITypeMetadataBuilder<T>
+    internal class TypeMetadataBuilder<T> : TypeMetadataBuilder
     {
         public IProperty<T, TResult> MapProperty<TResult>(Expression<Func<T, TResult>> expression)
         {
@@ -68,15 +61,17 @@ namespace FluentMetadata.Builder
             return (PropertyMetadataBuilder<T, TResult>) propertyBuilder;
         }
 
-        public override void MapProperty(Type containerType, string propertyName, Metadata metadata)
+        public override Metadata MapProperty(Type containerType, string propertyName, Metadata metadata)
         {
-            var newMetaData = new Metadata(metadata, containerType) {ModelName = propertyName};
+              var  newMetaData = new Metadata(metadata, containerType)
+                                  {ModelName = propertyName};
             PropertyMetadataBuilder propertyBuilder;
             if (!TryGetPropertyBuilder(propertyName, out propertyBuilder))
             {
                 propertyBuilder = CreatePropertyMetaDataBuilder(metadata, containerType, newMetaData);
                 PropertyBuilders.Add(propertyBuilder);
             }
+            return newMetaData;
         }
 
         private PropertyMetadataBuilder CreatePropertyMetaDataBuilder(Metadata metadata, Type containerType,

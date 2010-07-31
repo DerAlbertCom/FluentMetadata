@@ -25,6 +25,12 @@ namespace FluentMetadata.Builder
 
     internal class PropertyMetadataBuilder<T,TResult> : PropertyMetadataBuilder, IProperty<T,TResult>
     {
+
+        public PropertyMetadataBuilder(Metadata metadata)
+            : base(metadata)
+        {
+        }
+
         public PropertyMetadataBuilder(Expression<Func<T, TResult>> expression)
         {
             Metadata.ContainerType = typeof (T);
@@ -32,9 +38,6 @@ namespace FluentMetadata.Builder
             Metadata.ModelType = ExpressionHelper.GetPropertyType(expression);
         }
 
-        public PropertyMetadataBuilder(Metadata metadata) : base(metadata)
-        {
-        }
 
         public PropertyMetadataBuilder(string propertyName)
         {
