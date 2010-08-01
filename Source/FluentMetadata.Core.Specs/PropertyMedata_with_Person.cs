@@ -1,6 +1,7 @@
-﻿using Xunit;
+﻿using FluentMetadata.Specs.SampleClasses;
+using Xunit;
 
-namespace FluentMetadata.Specs.SampleClasses
+namespace FluentMetadata.Specs
 {
     public class PropertyMedata_with_Person : MetadataTestBase
     {

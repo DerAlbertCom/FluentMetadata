@@ -65,6 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Builder\AsBuilder.cs" />
     <Compile Include="Builder\ClassMetadataBuilder.cs" />
     <Compile Include="Builder\ITypeMetadataBuilder.cs" />
@@ -100,7 +103,7 @@
     <Compile Include="Builder\ShouldBuilder.cs" />
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="Builder\TypeMetaDataBuilder.cs" />
-    <Compile Include="TypeMetadataBuilderExtensions.cs" />
+    <Compile Include="MetadataHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

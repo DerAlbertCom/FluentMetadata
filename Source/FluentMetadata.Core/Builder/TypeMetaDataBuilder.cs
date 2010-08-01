@@ -39,6 +39,8 @@ namespace FluentMetadata.Builder
             var newMetaData = new Metadata() { ContainerType = containerType, ModelName = propertyName,ModelType = propertyType};
             return MapProperty(containerType, propertyName, newMetaData);
         }
+
+        public abstract void Init();
     }
 
     internal class TypeMetadataBuilder<T> : TypeMetadataBuilder
@@ -46,6 +48,10 @@ namespace FluentMetadata.Builder
         public IProperty<T, TResult> MapProperty<TResult>(Expression<Func<T, TResult>> expression)
         {
             return GetBuilder(expression);
+        }
+
+        public TypeMetadataBuilder()
+        {
         }
 
         private PropertyMetadataBuilder<T, TResult> GetBuilder<TResult>(Expression<Func<T, TResult>> expression)
@@ -63,15 +69,20 @@ namespace FluentMetadata.Builder
 
         public override Metadata MapProperty(Type containerType, string propertyName, Metadata metadata)
         {
-              var  newMetaData = new Metadata(metadata, containerType)
-                                  {ModelName = propertyName};
             PropertyMetadataBuilder propertyBuilder;
             if (!TryGetPropertyBuilder(propertyName, out propertyBuilder))
             {
+                var newMetaData = new Metadata(metadata, containerType) { ModelName = propertyName };
                 propertyBuilder = CreatePropertyMetaDataBuilder(metadata, containerType, newMetaData);
                 PropertyBuilders.Add(propertyBuilder);
             }
-            return newMetaData;
+            propertyBuilder.Metadata.CopyMetaDataFrom(metadata);
+            return propertyBuilder.Metadata;
+        }
+
+        public override void Init()
+        {
+            ClassBuilder();
         }
 
         private PropertyMetadataBuilder CreatePropertyMetaDataBuilder(Metadata metadata, Type containerType,

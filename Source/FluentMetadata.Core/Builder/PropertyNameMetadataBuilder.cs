@@ -9,6 +9,7 @@ namespace FluentMetadata.Builder
         private const int MaxLevel = 5;
 
         private readonly Type modelType;
+
         private int currentLevel;
 
         public PropertyNameMetadataBuilder(Type modelType)
@@ -23,20 +24,14 @@ namespace FluentMetadata.Builder
 
         private IEnumerable<NameMetaData> GetNamedMetaData(Type type, string prefix)
         {
-            PropertyInfo[] properties = type.GetProperties();
-            foreach (PropertyInfo propertyInfo in properties)
+            var query = new QueryFluentMetadata();
+            foreach (PropertyInfo propertyInfo in type.GetProperties())
             {
                 if (IsSimpleType(propertyInfo.PropertyType))
                 {
-                    TypeMetadataBuilder builder = FluentMetadataBuilder.GetTypeBuilder(type);
-                    if (builder != null)
-                    {
-                        Metadata metadata = builder.MetaDataFor(propertyInfo.Name);
-                        if (metadata != null)
-                        {
-                            yield return new NameMetaData(prefix + propertyInfo.Name, metadata);
-                        }
-                    }
+                    Metadata metadata = query.FindMetadataFor(type, propertyInfo.Name);
+                    if (metadata != null)
+                        yield return new NameMetaData(prefix+propertyInfo.Name, metadata);
                 }
                 else
                 {

@@ -19,5 +19,15 @@ namespace FluentMetadata
             }
             return metadata.Properties[propertyName];
         }
+
+        public Metadata FindMetadataFor(Type type, string propertyName)
+        {
+            var metadata = GetMetadataFor(type);
+            if (!metadata.Properties.Contains(propertyName))
+            {
+                return null;
+            }
+            return metadata.Properties[propertyName];
+        }
     }
 }

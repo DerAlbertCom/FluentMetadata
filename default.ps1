@@ -58,6 +58,7 @@ task Release -depends Docu {
         $release_dir\FluentMetadata.$version.zip `
         $build_dir\FluentMetadata.Core.dll `
         $build_dir\FluentMetadata.MVC.dll `
-        $build_dir\FluentMetadata.FluentNHibernate.dll 
+        $build_dir\FluentMetadata.FluentNHibernate.dll `
+        $build_dir\FluentMetadata.EntityFramework.dll 
     }
 }

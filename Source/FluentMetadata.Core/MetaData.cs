@@ -19,11 +19,16 @@ namespace FluentMetadata
 
         public Metadata(Metadata metadata, Type containerType) : this()
         {
-            Required = metadata.Required;
             ContainerType = containerType;
-            ModelType = metadata.ModelType;
-            StringLength = metadata.StringLength;
             ModelName = metadata.ModelName;
+            ModelType = metadata.ModelType;
+            CopyMetaDataFrom(metadata);
+        }
+
+        internal void CopyMetaDataFrom(Metadata metadata)
+        {
+            Required = metadata.Required;
+            StringLength = metadata.StringLength;
             ErrorMessage = metadata.ErrorMessage;
             DataTypeName = metadata.DataTypeName;
             Readonly = metadata.Readonly;
@@ -36,8 +41,8 @@ namespace FluentMetadata
             {
                 AddRule(rule);
             }
+            
         }
-
         public bool Required { get; set; }
         public Type ContainerType { get; set; }
         public Type ModelType { get; set; }

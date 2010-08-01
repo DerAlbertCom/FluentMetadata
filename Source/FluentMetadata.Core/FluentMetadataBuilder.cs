@@ -25,6 +25,7 @@ namespace FluentMetadata
             {
                 builder = (TypeMetadataBuilder) typeof (TypeMetadataBuilder<>).CreateGenericInstance(type);
                 TypeBuilders[type] = builder;
+                builder.Init();
             }
             return builder;
         }
@@ -39,7 +40,7 @@ namespace FluentMetadata
             ForAssembly(typeof (T).Assembly);
         }
 
-        private static void ForAssembly(Assembly assembly)
+        public static void ForAssembly(Assembly assembly)
         {
             foreach (Type type in PublicMetadataDefinitionsFrom(assembly))
             {

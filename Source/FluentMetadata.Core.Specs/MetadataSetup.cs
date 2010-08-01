@@ -8,6 +8,7 @@ namespace FluentMetadata.Specs
         {
             FluentMetadataBuilder.Reset();
             FluentMetadataBuilder.ForAssemblyOfType<Person>();
+            MetadataHelper.CopyMetadata(typeof(WebUser),typeof(WebUserIndexModel));
         }
     }
 }

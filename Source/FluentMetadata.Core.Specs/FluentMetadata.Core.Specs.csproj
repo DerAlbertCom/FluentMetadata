@@ -77,20 +77,30 @@
   <ItemGroup>
     <Compile Include="Builder\AsBuilderTests.cs" />
     <Compile Include="Builder\DisplayBuilderTests.cs" />
+    <Compile Include="ClassMetadata_with_WebUser.cs" />
+    <Compile Include="ClassMetadata_with_WebUserIndexModel.cs" />
+    <Compile Include="PropertyMedata_with_WebUserIndexModel.cs" />
     <Compile Include="DummyClass.cs" />
     <Compile Include="Builder\EditorBuilderTests.cs" />
     <Compile Include="Builder\IsBuilderTests.cs" />
     <Compile Include="MetadataSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyMedata_with_WebUser.cs" />
     <Compile Include="Rules\RangeRuleSpecs.cs" />
     <Compile Include="Rules\RequiredRuleSpecs.cs" />
     <Compile Include="Rules\StringLengthRuleSpecs.cs" />
+    <Compile Include="SampleClasses\DomainModel.cs" />
+    <Compile Include="SampleClasses\DomainObject.cs" />
     <Compile Include="SampleClasses\MetadataTestBase.cs" />
+    <Compile Include="SampleClasses\MetaData\DomainObjectMetadata.cs" />
     <Compile Include="SampleClasses\MetaData\PersonMetadata.cs" />
+    <Compile Include="SampleClasses\MetaData\WebUserMetadata.cs" />
     <Compile Include="SampleClasses\Person.cs" />
     <Compile Include="Builder\ShouldBuilderTests.cs" />
-    <Compile Include="SampleClasses\ClassMetadata_with_Person.cs" />
-    <Compile Include="SampleClasses\PropertyMedata_with_Person.cs" />
+    <Compile Include="ClassMetadata_with_Person.cs" />
+    <Compile Include="PropertyMedata_with_Person.cs" />
+    <Compile Include="SampleClasses\WebUser.cs" />
+    <Compile Include="SampleClasses\WebUserIndexModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FluentMetadata.Core\FluentMetadata.Core.csproj">
