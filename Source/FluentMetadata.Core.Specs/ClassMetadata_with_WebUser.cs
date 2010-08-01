@@ -3,7 +3,7 @@ using Xunit;
 
 namespace FluentMetadata.Specs
 {
-    public class ClassMetadata_with_WebUser
+    public class ClassMetadata_with_WebUser : MetadataTestBase
     {
         private Metadata classMetadata;
 
@@ -14,9 +14,9 @@ namespace FluentMetadata.Specs
         }
 
         [Fact]
-        public void ModelName_is_WebUser()
+        public void ModelName_is_Null()
         {
-            Assert.Equal("WebUser", classMetadata.ModelName);
+            Assert.Null(classMetadata.ModelName);
         }
 
         [Fact]

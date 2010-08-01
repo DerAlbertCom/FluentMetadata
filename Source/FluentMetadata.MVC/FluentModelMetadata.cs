@@ -12,6 +12,7 @@ namespace FluentMetadata.MVC
         public FluentModelMetadata(Metadata metadata , ModelMetadataProvider provider, Func<object> modelAccessor) : base(provider, metadata.ContainerType, modelAccessor, metadata.ModelType, metadata.ModelName)
         {
             this.metadata = metadata;
+            MetadataMapper.CopyMetadata(metadata,this);
         }
 
         public override IEnumerable<ModelValidator> GetValidators(ControllerContext context)

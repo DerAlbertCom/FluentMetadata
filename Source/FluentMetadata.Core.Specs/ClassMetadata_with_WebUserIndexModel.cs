@@ -3,7 +3,7 @@ using Xunit;
 
 namespace FluentMetadata.Specs
 {
-    public class ClassMetadata_with_WebUserIndexModel
+    public class ClassMetadata_with_WebUserIndexModel : MetadataTestBase
     {
         private Metadata classMetadata;
 
@@ -14,9 +14,10 @@ namespace FluentMetadata.Specs
         }
 
         [Fact]
-        public void ModelName_is_WebUserIndexModel()
+        public void ModelName_is_Null()
         {
-            Assert.Equal("WebUserIndexModel", classMetadata.ModelName);
+            Assert.Null(classMetadata.ModelName);
+//            Assert.Equal("WebUserIndexModel", classMetadata.ModelName);
         }
 
         [Fact]

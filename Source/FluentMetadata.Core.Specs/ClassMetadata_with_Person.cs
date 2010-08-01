@@ -20,9 +20,10 @@ namespace FluentMetadata.Specs
         }
 
         [Fact]
-        public void Metadata_ModelName_is_Person()
+        public void Metadata_ModelName_is_Null()
         {
-            Assert.Equal("Person", classMetadata.ModelName);
+                Assert.Null(classMetadata.ModelName);
+//            Assert.Equal("Person", classMetadata.ModelName);
         }
 
         [Fact]

@@ -19,8 +19,18 @@ namespace FluentMetadata.MVC
             Metadata classMetadata = query.GetMetadataFor(containerType);
             foreach (var metadata in classMetadata.Properties)
             {
-                yield return new FluentModelMetadata(metadata, this, () => container);
+                yield return new FluentModelMetadata(metadata, this, GetProperyAccessor(container, metadata));
             }
+        }
+
+        private Func<object> GetProperyAccessor(object container, Metadata metadata)
+        {
+            PropertyInfo info = container.GetType().GetProperty(metadata.ModelName);
+            if (info == null)
+            {
+                return () => null;
+            }
+            return () => info.GetValue(container,null);
         }
 
         public override ModelMetadata GetMetadataForProperty(Func<object> modelAccessor, Type containerType,
