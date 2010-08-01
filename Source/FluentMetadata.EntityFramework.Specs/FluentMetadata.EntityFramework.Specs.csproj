@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Content_Metadata_Tests.cs" />
     <Compile Include="DbContextTest.cs" />
     <Compile Include="DomainObjects\Article.cs" />
     <Compile Include="DomainObjects\Gallery.cs" />

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using FluentMetadata.EntityFramework.Internal;
 using FluentMetadata.EntityFramework.Internal.ConfigurationAdapters;
@@ -10,14 +11,19 @@ namespace FluentMetadata.EntityFramework
         private readonly QueryFluentMetadata query = new QueryFluentMetadata();
         private readonly ExpressionGenerator generator = new ExpressionGenerator();
         private readonly PropertyMethodMapping methodMapping = new PropertyMethodMapping();
+
         private readonly ConfigurationAdapterFactory factory = new ConfigurationAdapterFactory();
 
-        public void MapProperties(Type instanceType, StructuralTypeConfiguration configuration)
+        public void MapProperties(IEnumerable<StructuralTypeConfiguration> configurations)
         {
-            MapProperties(instanceType, configuration.GetType(), configuration);
+            foreach (var configuration in configurations)
+            {
+                Type instanceType = configuration.GetType().GetGenericArguments()[0];
+                MapProperties(instanceType, configuration);
+            }
         }
 
-        private void MapProperties(Type instanceType, Type configurationType, StructuralTypeConfiguration configuration)
+        internal void MapProperties(Type instanceType, StructuralTypeConfiguration configuration)
         {
             var metaDatas = query.GetMetadataFor(instanceType).Properties;
 
@@ -28,7 +34,7 @@ namespace FluentMetadata.EntityFramework
                     continue;
                 }
 
-                var methodInfo = methodMapping.GetPropertyMappingMethod(configurationType, instanceType, data.ModelType);
+                var methodInfo = methodMapping.GetPropertyMappingMethod(configuration.GetType(), instanceType, data.ModelType);
                 if (methodInfo == null)
                 {
                     continue;

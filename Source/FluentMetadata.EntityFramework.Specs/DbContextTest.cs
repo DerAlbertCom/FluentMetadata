@@ -2,6 +2,7 @@ using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration;
+using System.IO;
 using Xunit;
 
 namespace FluentMetadata.EntityFramework.Specs
@@ -16,8 +17,11 @@ namespace FluentMetadata.EntityFramework.Specs
         [Fact]
         public void CanCreateDbContext()
         {
+            if (File.Exists("TestDatabase.sdf"))
+            {
+                File.Delete("TestDatabase.sdf");
+            }
             var context = new RegularlyDbContext();
-            context.Database.Create();
         }
 
         public void SetFixture(MetadataSetup data)

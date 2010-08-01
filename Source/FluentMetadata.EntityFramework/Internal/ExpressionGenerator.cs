@@ -23,7 +23,7 @@ namespace FluentMetadata.EntityFramework.Internal
                 }
 
                 lambda = CreateLambda(entityType, propertyAccessor);
-            } while (lambda == null && type != typeof (object));
+            } while (lambda == null && type!=null && type != typeof (object));
 
             return lambda;
         }

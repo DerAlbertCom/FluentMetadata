@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net.Mime;
 using System.Reflection;
 using FluentMetadata.Builder;
+using FluentMetadata;
 
 namespace FluentMetadata
 {
@@ -44,13 +47,49 @@ namespace FluentMetadata
         {
             foreach (Type type in PublicMetadataDefinitionsFrom(assembly))
             {
-                Activator.CreateInstance(type);
+                if (type.IsAbstract)
+                {
+                    throw new InvalidOperationException("The " + type.FullName + " may not abstract");
+                }
+                if (type.ContainsGenericParameters)
+                {
+                    CreateWithGenericParameters(type);
+                }
+                else
+                {
+                    Activator.CreateInstance(type);
+                }
+            }
+        }
+
+        private static void CreateWithGenericParameters(Type type)
+        {
+            var constraints = new List<Type>();
+            foreach (var genericArgument in type.GetGenericArguments())
+            {
+                constraints.Add(genericArgument.GetGenericParameterConstraints()[0]);
+            }
+
+            var genericType = type.MakeGenericType(constraints.ToArray());
+            var constructors = genericType.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            var invoked = false;
+            foreach (var constructorInfo in constructors)
+            {
+                if (constructorInfo.GetParameters().Length==0)
+                {
+                    constructorInfo.Invoke(BindingFlags.NonPublic | BindingFlags.Public,null, new object[0],CultureInfo.CurrentCulture); 
+                    invoked = true;
+                }
+            }
+            if (!invoked)
+            {
+                throw new InvalidOperationException("No Constructor without parameters on  " + type.FullName);
             }
         }
 
         private static IEnumerable<Type> PublicMetadataDefinitionsFrom(Assembly assembly)
         {
-            return assembly.GetTypes().Where(t => typeof (IClassMetadata).IsAssignableFrom(t) && !t.IsAbstract);
+            return assembly.GetTypes().Where(t => typeof (IClassMetadata).IsAssignableFrom(t));
         }
     }
 }

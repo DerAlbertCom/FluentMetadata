@@ -1,6 +1,6 @@
 namespace FluentMetadata.EntityFramework.Specs.DomainObjects.Metadata
 {
-    public abstract class ContentMetadata<T> : DomainObjectMetadata<T> where T : Content
+    public class ContentMetadata<T> : DomainObjectMetadata<T> where T : Content
     {
         protected ContentMetadata()
         {

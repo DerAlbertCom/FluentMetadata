@@ -11,7 +11,10 @@ namespace FluentMetadata.EntityFramework.Internal.ConfigurationAdapters
 
         protected override void ConvertToConfiguration(Metadata data)
         {
-            Configuration.Optional = !data.Required;
+            if (data.Required)
+                Configuration.IsRequired();
+            else
+                Configuration.IsOptional();
         }
     }
 }

@@ -104,12 +104,7 @@ namespace FluentMetadata.EntityFramework.Specs
 
         private void MetadataConfiguration(IEnumerable<StructuralTypeConfiguration> configurations)
         {
-            var convert = new EntityFrameworkAdapter();
-            foreach (var configuration in configurations)
-            {
-                Type genericType = configuration.GetType().GetGenericArguments()[0];
-                convert.MapProperties(genericType, configuration);
-            }
+            new EntityFrameworkAdapter().MapProperties(configurations);
         }
 
         private EntityConfiguration<T> ConfigureContent<T>(ModelBuilder modelBuilder) where T : Content
@@ -120,6 +115,7 @@ namespace FluentMetadata.EntityFramework.Specs
 
         private EntityConfiguration<T> ContentConfiguration<T>(EntityConfiguration<T> configuration) where T : Content
         {
+            configuration.Property(e => e.Title).IsRequired();
             configuration.HasMany(e => e.Comments);
             configuration.HasMany(e => e.Tags).WithMany();
             configuration.HasRequired(e => e.WebSite);

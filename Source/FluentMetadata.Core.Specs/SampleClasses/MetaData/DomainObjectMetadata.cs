@@ -1,6 +1,6 @@
 namespace FluentMetadata.Specs.SampleClasses.MetaData
 {
-    public abstract class DomainObjectMetadata<T> : ClassMetadata<T> where T : DomainObject
+    public class DomainObjectMetadata<T> : ClassMetadata<T> where T : DomainObject
     {
         protected DomainObjectMetadata()
         {

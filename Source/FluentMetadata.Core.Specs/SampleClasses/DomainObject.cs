@@ -2,7 +2,7 @@ using System;
 
 namespace FluentMetadata.Specs.SampleClasses
 {
-    public class DomainObject
+    public abstract class DomainObject
     {
         protected DomainObject()
         {

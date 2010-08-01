@@ -1,7 +1,6 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 
-namespace FluentMetadata.Specs.SampleClasses
+namespace FluentMetadata.Specs
 {
     public abstract class MetadataTestBase : IUseFixture<MetadataSetup>
     {

@@ -79,6 +79,7 @@
     <Compile Include="Builder\DisplayBuilderTests.cs" />
     <Compile Include="ClassMetadata_with_WebUser.cs" />
     <Compile Include="ClassMetadata_with_WebUserIndexModel.cs" />
+    <Compile Include="Derive_Class_Tests.cs" />
     <Compile Include="PropertyMedata_with_WebUserIndexModel.cs" />
     <Compile Include="DummyClass.cs" />
     <Compile Include="Builder\EditorBuilderTests.cs" />
@@ -89,9 +90,10 @@
     <Compile Include="Rules\RangeRuleSpecs.cs" />
     <Compile Include="Rules\RequiredRuleSpecs.cs" />
     <Compile Include="Rules\StringLengthRuleSpecs.cs" />
+    <Compile Include="SampleClasses\DerivedClass.cs" />
     <Compile Include="SampleClasses\DomainModel.cs" />
     <Compile Include="SampleClasses\DomainObject.cs" />
-    <Compile Include="SampleClasses\MetadataTestBase.cs" />
+    <Compile Include="MetadataTestBase.cs" />
     <Compile Include="SampleClasses\MetaData\DomainObjectMetadata.cs" />
     <Compile Include="SampleClasses\MetaData\PersonMetadata.cs" />
     <Compile Include="SampleClasses\MetaData\WebUserMetadata.cs" />
