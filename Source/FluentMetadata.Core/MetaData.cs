@@ -43,7 +43,7 @@ namespace FluentMetadata
             }
             
         }
-        public bool Required { get; set; }
+        public bool? Required { get; set; }
         public Type ContainerType { get; set; }
         public Type ModelType { get; set; }
         public int? StringLength { get; set; }

@@ -30,7 +30,7 @@ namespace FluentMetadata.Specs
         [Fact]
         public void FirstName_Required_is_true()
         {
-            Assert.True(firstName.Required);
+            Assert.True(firstName.Required.Value);
         }
 
         [Fact]
@@ -46,9 +46,9 @@ namespace FluentMetadata.Specs
         }
 
         [Fact]
-        public void LastName_Required_is_false()
+        public void LastName_Required_is_not_set()
         {
-            Assert.False(lastName.Required);
+            Assert.False(lastName.Required.HasValue);
         }
     }
 }

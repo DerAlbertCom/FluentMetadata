@@ -15,9 +15,9 @@ namespace FluentMetadata.Specs.Builder
         }
 
         [Fact]
-        public void IsBuilder_Ctor_IsNotRequired()
+        public void IsBuilder_Ctor_IsNotSet()
         {
-            Assert.False(metadata.Required);
+            Assert.False(metadata.Required.HasValue);
         }
 
         [Fact]
@@ -30,14 +30,14 @@ namespace FluentMetadata.Specs.Builder
         public void IsBuilder_Required_IsRequired()
         {
             isBuilder.Required();
-            Assert.True(metadata.Required);
+            Assert.True(metadata.Required.Value);
         }
 
         [Fact]
         public void IsBuilder_Not_Required_IsNotRequired()
         {
             isBuilder.Not.Required();
-            Assert.False(metadata.Required);
+            Assert.False(metadata.Required.Value);
         }
 
         [Fact]

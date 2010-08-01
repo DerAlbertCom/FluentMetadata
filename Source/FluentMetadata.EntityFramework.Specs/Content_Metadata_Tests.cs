@@ -20,7 +20,7 @@ namespace FluentMetadata.EntityFramework.Specs
         public void Content_Title_Is_Required()
         {
             var metaData = query.GetMetadataFor(typeof (Content), "Title");
-            Assert.True(metaData.Required);
+            Assert.True(metaData.Required.Value);
         }
     }
 }

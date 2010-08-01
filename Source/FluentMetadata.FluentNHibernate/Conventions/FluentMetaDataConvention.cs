@@ -9,9 +9,9 @@ namespace FluentMetadata.FluentNHibernate.Conventions
         public void Apply(IPropertyInstance instance)
         {
             var meta = query.GetMetadataFor(instance.EntityType,instance.Property.Name);
-            if (meta.Required)
+            if (meta.Required.HasValue)
             {
-                ApplyRequired(meta.Required, instance);
+                ApplyRequired(meta.Required.Value, instance);
             }
             if (meta.StringLength.HasValue)
             {

@@ -14,9 +14,9 @@ namespace FluentMetadata.Specs
         }
 
         [Fact]
-        public void Id_Required_is_false()
+        public void Id_Required_is_True()
         {
-            id.Required.ShouldBeTrue();
+            id.Required.Value.ShouldBeTrue();
         }
     }
 
@@ -36,14 +36,14 @@ namespace FluentMetadata.Specs
         [Fact]
         public void Title_Required_is_true()
         {
-            title.Required.ShouldBeTrue();
+            title.Required.Value.ShouldBeTrue();
         }
 
         [Fact]
 
         public void Id_Required_is_True()
         {
-            id.Required.ShouldBeTrue();
+            id.Required.Value.ShouldBeTrue();
         }
     }
 
@@ -63,14 +63,14 @@ namespace FluentMetadata.Specs
         [Fact]
         public void Title_Required_is_true()
         {
-            title.Required.ShouldBeTrue();
+            title.Required.Value.ShouldBeTrue();
         }
 
         [Fact]
 
         public void Id_Required_is_True()
         {
-            id.Required.ShouldBeTrue();
+            id.Required.Value.ShouldBeTrue();
         }
     }
 }

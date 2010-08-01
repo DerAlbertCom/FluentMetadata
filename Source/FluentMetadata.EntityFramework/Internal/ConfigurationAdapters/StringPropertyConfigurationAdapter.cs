@@ -10,10 +10,11 @@ namespace FluentMetadata.EntityFramework.Internal.ConfigurationAdapters
 
         protected override void ConvertToConfiguration(Metadata data)
         {
-            if (data.StringLength > 0)
+            if (!data.StringLength.HasValue)
             {
-                Configuration.MaxLength = data.StringLength;
+                return;
             }
+            Configuration.MaxLength = data.StringLength;
         }
     }
 }

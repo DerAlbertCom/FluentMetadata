@@ -33,8 +33,12 @@ namespace FluentMetadata.EntityFramework
                 {
                     continue;
                 }
-
-                var methodInfo = methodMapping.GetPropertyMappingMethod(configuration.GetType(), instanceType, data.ModelType);
+                if (!data.StringLength.HasValue && !data.Required.HasValue)
+                {
+                    continue;
+                }
+                var methodInfo = methodMapping.GetPropertyMappingMethod(configuration.GetType(), instanceType,
+                                                                        data.ModelType);
                 if (methodInfo == null)
                 {
                     continue;

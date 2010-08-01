@@ -30,11 +30,9 @@ namespace FluentMetadata.EntityFramework.Internal
 
         private Expression CreateLambda(Type type, PropertyInfo propertyAccessor)
         {
-            Expression lambda;
             var parameterExpression = Expression.Parameter(type, "p");
             var propertyExpression = Expression.Property(parameterExpression, propertyAccessor);
-            lambda = Expression.Lambda(propertyExpression, parameterExpression);
-            return lambda;
+            return Expression.Lambda(propertyExpression, parameterExpression);
         }
     }
 }
