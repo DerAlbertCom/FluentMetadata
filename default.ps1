@@ -4,7 +4,7 @@ properties {
   $build_dir = "$base_dir\Build" 
   $buildartifacts_dir = "$build_dir\" 
   $sln_file = "$base_dir\Source\FluentMetadata.sln" 
-  $version = "0.4.0"
+  $version = "0.5.0"
   $tools_dir = "$base_dir\Tools"
   $release_dir = "$base_dir\Release"
 } 
@@ -40,14 +40,18 @@ task Compile -depends Init {
   exec { msbuild /t:Rebuild /verbosity:minimal "/p:OutDir=$buildartifacts_dir" "/p:Platform=Any CPU" "$sln_file" }
 } 
 
-task Test -depends Compile  {
+task Test20 -depends Compile  {
   exec { & $tools_dir\xUnit\xunit.console.exe $build_dir\FluentMetadata.Core.Specs.dll }
   exec { & $tools_dir\xUnit\xunit.console.exe $build_dir\FluentMetadata.MVC.Specs.dll }
 }
 
+task Test40 -depends Test20  {
+  exec { & $tools_dir\xUnit\xunit.console.clr4.exe $build_dir\FluentMetadata.EntityFramework.Specs.dll }
+}
 
-task Docu -depends Test {
-   exec { & $lib_dir\xUnit\ReportGenerator.exe /generator:HTML /path:$build_dir /assembly:$build_dir\FluentMetadata.Core.Specs.dll /assembly:$build_dir\FluentMetadata.MVC.Specs.dll  }
+
+task Docu -depends Test40 {
+   exec { & $lib_dir\xUnit\ReportGenerator.exe /generator:HTML /path:$build_dir /assembly:$build_dir\FluentMetadata.Core.Specs.dll /assembly:$build_dir\FluentMetadata.MVC.Specs.dll }
 }
 
 task Release -depends Docu {
