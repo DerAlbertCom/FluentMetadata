@@ -1,10 +1,14 @@
+
+Include ".\Tools\psake\psake_ext.ps1"
+
 properties { 
   $base_dir  = resolve-path .
+  $revision =  Generate-Revision(2010)
   $lib_dir = "$base_dir\external"
-  $build_dir = "$base_dir\Build" 
+  $build_dir = "$base_dir\lib" 
   $buildartifacts_dir = "$build_dir\" 
   $sln_file = "$base_dir\Source\FluentMetadata.sln" 
-  $version = "0.5.1"
+  $version = "0.5.1.$revision"
   $tools_dir = "$base_dir\Tools"
   $release_dir = "$base_dir\Release"
 } 
@@ -17,8 +21,7 @@ task Clean {
 } 
 
 task Init -depends Clean { 
-    . .\psake_ext.ps1
-    
+
     Generate-Assembly-Info `
         -file "$base_dir\Source\GlobalAssemblyInfo.cs" `
         -title "FluentMetadata $version" `
@@ -54,7 +57,15 @@ task Docu -depends Test40 {
    exec { & $lib_dir\xUnit\ReportGenerator.exe /generator:HTML /path:$build_dir /assembly:$build_dir\FluentMetadata.Core.Specs.dll /assembly:$build_dir\FluentMetadata.MVC.Specs.dll }
 }
 
-task Release -depends Docu {
+task Gem -depends Compile {
+
+   copy-item readme.txt $build_dir\readme.txt
+   
+   $version | out-file .\VERSION -encoding ASCII
+   
+   exec { gem build .\FluentMetadata.gemspec }
+}
+task Release -depends Gem {
     
     exec {
     
@@ -66,3 +77,4 @@ task Release -depends Docu {
         $build_dir\FluentMetadata.EntityFramework.dll 
     }
 }
+

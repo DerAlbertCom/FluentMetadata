@@ -1,3 +1,16 @@
+Add-Type @"
+public class Shift {
+  public static int   Right(int x,   int count) { return x >> count; }
+  public static uint  Right(uint x,  int count) { return x >> count; }
+  public static long  Right(long x,  int count) { return x >> count; }
+  public static ulong Right(ulong x, int count) { return x >> count; }
+  public static int    Left(int x,   int count) { return x << count; }
+  public static uint   Left(uint x,  int count) { return x << count; }
+  public static long   Left(long x,  int count) { return x << count; }
+  public static ulong  Left(ulong x, int count) { return x << count; }
+}                    
+"@
+
 function Get-Git-Commit
 {
 	$gitLog = git log --oneline -1
@@ -13,6 +26,22 @@ function Get-Git-Commit
 		
 	return $tmpString[$index].SubString(0,6)
 }
+
+function Generate-Revision
+{	
+param
+(
+	$startyear=2009
+)
+	$now = [DateTime]::Now
+	
+    $years = [Shift]::Left($now.Year-$startyear,12)
+	$months = [Shift]::Left($now.Month,8)
+	$days = [Shift]::Left($now.Day,3)
+	$minfrac = [int](($now.Hour*60+$now.Minute)/205)
+	return $years+$months+$days+$minfrac
+}
+
 function Generate-Assembly-Info
 {
 param(
