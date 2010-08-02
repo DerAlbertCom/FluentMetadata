@@ -15,9 +15,7 @@ properties {
 
 task default -depends Test
 
-
 task Clean { 
-  FormatTaskName "----------------------------- Executing Task: {0} from FluentMetadata $version"
   remove-item -force -recurse $buildartifacts_dir -ErrorAction SilentlyContinue 
   remove-item -force -recurse $release_dir -ErrorAction SilentlyContinue 
 } 
@@ -27,22 +25,16 @@ task Init -depends Clean {
     Generate-Assembly-Info `
         -file "$base_dir\Source\GlobalAssemblyInfo.cs" `
         -title "FluentMetadata $version" `
-        -description "A Metadata Framework for ASP.MVC and FluentNHibernate" `
+        -description "A Metadata Framework for ASP.MVC, FluentNHibernate and Entity Framework CodeFirst" `
         -product "FluentMetadata $version" `
         -version $version `
         -clsCompliant "false" `
         -copyright "Copyright © Albert Weinert 2010"
-        
-    new-item $release_dir -itemType directory 
-    new-item $buildartifacts_dir -itemType directory 
 } 
 
-task CopyExternals
-{
-   exec { Copy-Item $lib_dir\xUnit\*.* $buildartifacts_dir }
-}
 task Compile -depends Init { 
-  exec { msbuild /t:Rebuild /verbosity:minimal "/p:OutDir=$buildartifacts_dir" "/p:Platform=Any CPU" "$sln_file" }
+  new-item $buildartifacts_dir -itemType directory 
+  exec { msbuild /t:Rebuild /verbosity:minimal "/p:OutDir=$buildartifacts_dir" "/p:Platform=Any CPU" "/p:Configuration=Release" "$sln_file" }
   copy-item readme.txt $build_dir\readme.txt
 } 
 
@@ -57,14 +49,12 @@ task Test40 -depends Test20  {
 
 task Test -depends Test40
 
-task CleanGem -ContinueOnError
-{	
+task CleanGem -ContinueOnError {	
    Remove-Item .\*.gem
    exec { gem uninstall fluentmetadata nu -a -x }	
 }
 
-task Gem -depends CleanGem 
-{
+task Gem -depends CleanGem {
    $version | out-file .\VERSION -encoding ASCII
    
    exec { gem build .\FluentMetadata.gemspec }
@@ -73,6 +63,8 @@ task Gem -depends CleanGem
 
 task Release -depends Test, Gem {
     
+    new-item $release_dir -itemType directory 
+	
     exec {
     
       & $tools_dir\Zip\zip.exe -9 -A -j `
