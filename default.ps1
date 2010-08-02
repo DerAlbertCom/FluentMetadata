@@ -8,7 +8,7 @@ properties {
   $build_dir = "$base_dir\lib" 
   $buildartifacts_dir = "$build_dir\" 
   $sln_file = "$base_dir\Source\FluentMetadata.sln" 
-  $version = "0.5.2.$revision"
+  $version = "0.5.1.$revision"
   $tools_dir = "$base_dir\Tools"
   $release_dir = "$base_dir\Release"
 } 
@@ -62,7 +62,6 @@ task Gem -depends CleanGem {
 }
 
 task Release -depends Test, Gem {
-    
     new-item $release_dir -itemType directory 
 	
     exec {
@@ -77,3 +76,11 @@ task Release -depends Test, Gem {
     }
 }
 
+task Publish -depends Release {
+	exec {  & $tools_dir\WinSCP\winscp.com /command  `
+			 "open aweinert@s200.aperea.com"  `
+			 "cd /wikiupload/projects/fluentmetadata/"   `
+			 "put $release_dir\FluentMetadata.$version.zip"  `
+			 "exit" 
+		}
+}
