@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testProject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.gallio.org/">
+  <testPackage shadowCopy="false" debug="false">
+    <files>
+      <file>FluentMetadata.Core.Specs\bin\Debug\FluentMetadata.Core.Specs.dll</file>
+      <file>FluentMetadata.Core.Specs\bin\Release\FluentMetadata.Core.Specs.dll</file>
+      <file>FluentMetadata.EntityFramework.Specs\bin\Debug\FluentMetadata.EntityFramework.Specs.dll</file>
+      <file>FluentMetadata.EntityFramework.Specs\bin\Release\FluentMetadata.EntityFramework.Specs.dll</file>
+      <file>FluentMetadata.MVC.Specs\bin\Debug\FluentMetadata.MVC.Specs.dll</file>
+      <file>FluentMetadata.MVC.Specs\bin\Release\FluentMetadata.MVC.Specs.dll</file>
+    </files>
+    <hintDirectories />
+    <excludedFrameworkIds />
+    <properties />
+  </testPackage>
+  <testFilters>
+    <testFilter filterName="AutoSave" filterExpr="" />
+    <testFilter filterName="LastRun" filterExpr="" />
+  </testFilters>
+  <extensionSpecifications />
+  <reportDirectory>Gallio Reports</reportDirectory>
+  <reportNameFormat>test-report-{0}-{1}</reportNameFormat>
+</testProject>
