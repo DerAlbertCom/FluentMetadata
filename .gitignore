@@ -14,3 +14,4 @@
 _ReSharper*/
 *.vs10x
 Source/Gallio Reports
+Source/TestResults
