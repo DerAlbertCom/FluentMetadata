@@ -21,8 +21,7 @@ namespace FluentMetadata.MVC
         public override IEnumerable<ModelMetadata> GetMetadataForProperties(object container, Type containerType)
         {
             return QueryFluentMetadata.GetMetadataFor(containerType).Properties
-                .Select(md => new FluentModelMetadata(md, this, GetProperyAccessor(container, md)))
-                .Cast<ModelMetadata>(); //TODO unnecessary for .NET 4
+                .Select(md => new FluentModelMetadata(md, this, GetProperyAccessor(container, md)));
         }
 
         static Func<object> GetProperyAccessor(object container, Metadata metadata)
