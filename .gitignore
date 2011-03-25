@@ -12,3 +12,4 @@
 [Db]ebug
 [Rr]elease
 _ReSharper*/
+*.vs10x
