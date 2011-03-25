@@ -18,17 +18,11 @@ namespace FluentMetadata.MVC
 
                 if (isPropertyMetadata)
                 {
-                    validators.AddRange(
-                        rules
-                            .Select(rule => new RuleModelValidator(rule, metadata, context))
-                            .Cast<ModelValidator>()); //TODO unnecessary for .NET 4
+                    validators.AddRange(rules.Select(rule => new RuleModelValidator(rule, metadata, context)));
                 }
                 else
                 {
-                    validators.AddRange(
-                        rules
-                            .Select(rule => new ClassRuleModelValidator(rule as IClassRule, metadata, context))
-                            .Cast<ModelValidator>()); //TODO unnecessary for .NET 4
+                    validators.AddRange(rules.Select(rule => new ClassRuleModelValidator(rule as IClassRule, metadata, context)));
                 }
             }
 
