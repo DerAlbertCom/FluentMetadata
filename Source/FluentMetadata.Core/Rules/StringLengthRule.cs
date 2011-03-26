@@ -2,6 +2,7 @@ using System;
 
 namespace FluentMetadata.Rules
 {
+    // ~ System.ComponentModel.DataAnnotations.StringLengthAttribute.MaximumLength
     public class StringLengthRule : Rule
     {
         private readonly int maxLength;
@@ -18,7 +19,7 @@ namespace FluentMetadata.Rules
             {
                 return true;
             }
-            var strValue = (string) value;
+            var strValue = (string)value;
             return strValue.Length <= maxLength;
         }
 
@@ -28,9 +29,14 @@ namespace FluentMetadata.Rules
         }
     }
 
+    // TODO rule equivalent to System.ComponentModel.DataAnnotations.StringLengthAttribute.MinimumLength
+    // TODO rule equivalent to System.ComponentModel.DataAnnotations.RegularExpressionAttribute
+
+    // TODO implement or delete: What does this rule validate?
     public class EqualToRule : Rule
     {
-        public EqualToRule(string errorMessageFormat) : base(errorMessageFormat)
+        public EqualToRule(string errorMessageFormat)
+            : base(errorMessageFormat)
         {
         }
 
