@@ -51,10 +51,10 @@ task Test -depends Test40
 
 task CleanGem -ContinueOnError {	
    Remove-Item .\*.gem
-   exec { gem uninstall fluentmetadata nu -a -x }	
+   exec { gem uninstall fluentmetadata -a -x }	
 }
 
-task Gem -depends CleanGem {
+task Gem -depends CleanGem, Compile {
    $version | out-file .\VERSION -encoding ASCII
    
    exec { gem build .\FluentMetadata.gemspec }
