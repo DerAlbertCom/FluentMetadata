@@ -9,6 +9,7 @@ namespace FluentMetadata.MVC
             destination.DisplayName = source.DisplayName;
             destination.ShowForDisplay = source.ShowDisplay;
             destination.DataTypeName = GetDataTypeName(source);
+            destination.ConvertEmptyStringToNull = source.ConvertEmptyStringToNull;
         }
 
         private static string GetDataTypeName(Metadata metadata)
