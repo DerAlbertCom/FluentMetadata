@@ -11,6 +11,7 @@ namespace FluentMetadata
 
         public Metadata()
         {
+            ConvertEmptyStringToNull = true;
             ShowDisplay = true;
             ShowEditor = true;
             rules = new List<IRule>();
@@ -71,7 +72,15 @@ namespace FluentMetadata
         // Returns:
         //     true if empty strings that are posted back in forms should be converted to
         //     null; otherwise, false. The default value is true.
-        // TODO MVC2 public virtual bool ConvertEmptyStringToNull { get; set; }
+        /// <summary>
+        /// Gets or sets a value that indicates whether empty strings that are posted
+        /// back in forms should be converted to null.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if empty strings that are posted back in forms should be
+        /// 	converted to null; otherwise, <c>false</c>. The default value is <c>true</c>
+        /// </value>
+        public bool ConvertEmptyStringToNull { get; set; }
 
         // ~ System.Web.Mvc.ModelMetadata.DataTypeName
         /// <summary>
