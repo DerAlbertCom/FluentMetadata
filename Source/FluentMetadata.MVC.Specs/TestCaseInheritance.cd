@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FluentMetadata.MVC.Specs.ComplexModelMetadata">
+    <Position X="3.25" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComplexModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FluentMetadata.MVC.Specs.ComplexModel">
+    <Position X="5.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAAAABAAAAEAAAACAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>ComplexModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FluentMetadata.MVC.Specs.ConcernOfComparingMetadata">
+    <Position X="7.5" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>gAEAAAAihAAAAABAgBAIAQBAkAAAACAIACAEIAAAQAA=</HashCode>
+      <FileName>ConcernOfComparingMetadata.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FluentMetadata.MVC.Specs.ConcernOfValidationComplexData">
+    <Position X="1.5" Y="0.5" Width="3" />
+    <AssociationLine Name="Model" Type="FluentMetadata.MVC.Specs.ComplexModel" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.625" Y="1.925" />
+        <Point X="3.625" Y="2.587" />
+        <Point X="6.923" Y="2.587" />
+        <Point X="6.923" Y="6.75" />
+        <Point X="6.938" Y="6.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAIAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>ConcernOfValidationComplexData.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Model" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FluentMetadata.MVC.Specs.When_FirstName_is_required_and_not_set">
+    <Position X="3.75" Y="3.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>ConcernOfValidationComplexData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FluentMetadata.MVC.Specs.When_FirstName_is_required_and_is_set">
+    <Position X="0.5" Y="3.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>ConcernOfValidationComplexData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FluentMetadata.MVC.Specs.FluentMetadataFixture">
+    <Position X="5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>FluentMetadataFixture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FluentMetadata.MVC.Specs.ConcernOfComplexModel">
+    <Position X="8.25" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>MetaData_ComplexModel_Specs.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="model" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="FluentMetadata.MVC.Specs.When_getting_the_Metadata_of_the_Type_ComplexModel">
+    <Position X="2.25" Y="10.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetaData_ComplexModel_Specs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FluentMetadata.MVC.Specs.When_getting_the_Metadata_of_ComplexModel_Property_FirstName">
+    <Position X="4" Y="11.75" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetaData_ComplexModel_Specs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FluentMetadata.MVC.Specs.When_getting_the_Metadata_of_ComplexModel_Property_LastName">
+    <Position X="6.5" Y="10.25" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetaData_ComplexModel_Specs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FluentMetadata.MVC.Specs.When_getting_the_Metadata_of_ComplexModel_Property_Sex">
+    <Position X="9.25" Y="11.75" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetaData_ComplexModel_Specs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FluentMetadata.MVC.Specs.When_getting_the_Metadata_of_ComplexModel_Property_Amount">
+    <Position X="11.5" Y="10.25" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetaData_ComplexModel_Specs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
