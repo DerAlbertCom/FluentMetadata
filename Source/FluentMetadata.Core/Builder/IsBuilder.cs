@@ -44,5 +44,12 @@
             notted = false;
             return propertyMetaDataBuilder;
         }
+
+        public IProperty<T, TResult> RequestValidationEnabled()
+        {
+            Metadata.RequestValidationEnabled = !notted;
+            notted = false;
+            return propertyMetaDataBuilder;
+        }
     }
 }

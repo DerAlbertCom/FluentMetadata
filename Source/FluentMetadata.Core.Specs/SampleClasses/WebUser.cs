@@ -34,6 +34,7 @@ namespace FluentMetadata.Specs.SampleClasses
         public Guid? ConfirmationKey { get; private set; }
         public string Role { get; private set; }
         public Autor Autor { get; internal set; }
+        public string Comment { get; set; }
 
         public void SetEMailAddress(string emailAddress)
         {

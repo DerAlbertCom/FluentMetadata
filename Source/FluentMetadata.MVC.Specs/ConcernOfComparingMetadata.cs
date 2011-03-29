@@ -139,6 +139,13 @@ namespace FluentMetadata.MVC.Specs
         }
 
         [Observation]
+        public void Equals_RequestValidationEnabled()
+        {
+            Console.WriteLine(Expected.RequestValidationEnabled);
+            Assert.Equal(Expected.RequestValidationEnabled, Fluent.RequestValidationEnabled);
+        }
+
+        [Observation]
         public void Equals_ShowForDisplay()
         {
             Console.WriteLine(Expected.ShowForDisplay);

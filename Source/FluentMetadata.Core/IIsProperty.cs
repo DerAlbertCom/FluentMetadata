@@ -10,5 +10,6 @@
         IProperty<T, TResult> Required();
         IProperty<T, TResult> ReadOnly();
         IProperty<T, TResult> ConvertEmptyStringToNull();
+        IProperty<T, TResult> RequestValidationEnabled();
     }
 }
