@@ -53,7 +53,7 @@ namespace FluentMetadata
         //
         // Returns:
         //     A dictionary that contains additional metadata about the model.
-        // TODO MVC2 public virtual Dictionary<string, object> AdditionalValues { get; }
+        // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public virtual Dictionary<string, object> AdditionalValues { get; }
 
         // ~ System.Web.Mvc.ModelMetadata.ContainerType
         /// <summary>
@@ -64,14 +64,6 @@ namespace FluentMetadata
         /// </value>
         public Type ContainerType { get; set; }
 
-        //
-        // Summary:
-        //     Gets or sets a value that indicates whether empty strings that are posted
-        //     back in forms should be converted to null.
-        //
-        // Returns:
-        //     true if empty strings that are posted back in forms should be converted to
-        //     null; otherwise, false. The default value is true.
         /// <summary>
         /// Gets or sets a value that indicates whether empty strings that are posted
         /// back in forms should be converted to null.
@@ -145,7 +137,7 @@ namespace FluentMetadata
         // Returns:
         //     A value that indicates whether the model is considered a complex type by
         //     the MVC framework.
-        // TODO MVC2 ? public virtual bool IsComplexType { get; }
+        // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public virtual bool IsComplexType { get; }
 
         //
         // Summary:
@@ -153,7 +145,7 @@ namespace FluentMetadata
         //
         // Returns:
         //     true if the type is nullable; otherwise, false.
-        // TODO MVC2 ? public bool IsNullableValueType { get; }
+        // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public bool IsNullableValueType { get; }
 
         // ~ System.Web.Mvc.ModelMetadata.IsReadOnly
         /// <summary>
@@ -181,7 +173,7 @@ namespace FluentMetadata
         //     The value of the model. For more information about System.Web.Mvc.ModelMetadata,
         //     see the entry ASP.NET MVC 2 Templates, Part 2: ModelMetadata on Brad Wilson's
         //     blog
-        // TODO MVC2 ? public object Model { get; set; }
+        // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public object Model { get; set; }
 
         // ~ System.Web.Mvc.ModelMetadata.ModelType
         /// <summary>
@@ -207,7 +199,7 @@ namespace FluentMetadata
         //
         // Returns:
         //     The order value of the current metadata.
-        // TODO MVC3 public virtual int Order { get; set; }
+        // TODO MVC3 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public virtual int Order { get; set; }
 
         // ~ System.Web.Mvc.ModelMetadata.Properties
         /// <summary>
@@ -238,7 +230,7 @@ namespace FluentMetadata
         //
         // Returns:
         //     The short display name.
-        // TODO MVC2 public virtual string ShortDisplayName { get; set; }
+        // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public virtual string ShortDisplayName { get; set; }
 
         // ~ System.Web.Mvc.ModelMetadata.ShowForDisplay
         /// <summary>
@@ -264,7 +256,7 @@ namespace FluentMetadata
         //
         // Returns:
         //     The simple display string for the model.
-        // TODO MVC2 public virtual string SimpleDisplayText { get; set; }
+        // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public virtual string SimpleDisplayText { get; set; }
 
         /// <summary>
         /// Gets or sets the template hint.
