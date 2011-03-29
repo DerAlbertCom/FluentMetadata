@@ -50,6 +50,8 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
                 .Display.Name("Bestätigt");
             Property(x => x.Active)
                 .Display.Name("Aktiv");
+            Property(x => x.Comment)
+                .Is.Not.RequestValidationEnabled();
             Class
                 .Display.Name(() => "Benutzer")
                 .AssertThat(

@@ -26,10 +26,12 @@ namespace FluentMetadata.MVC.Specs
             Property(e => e.FirstName)
                 .Display.Name("Vorname")
                 .Is.Not.ConvertEmptyStringToNull()
-                .Is.Required();
+                .Is.Required()
+                .Is.RequestValidationEnabled();
             Property(e => e.LastName)
                 .Display.NullText("No lastname set")
                 .Should.MatchRegex("^[A-Z]'?[- a-zA-Z]+$")
+                .Is.Not.RequestValidationEnabled()
                 .Length(50);
             Property(e => e.Age)
                 .As.Custom("Years")
@@ -57,6 +59,7 @@ namespace FluentMetadata.MVC.Specs
 
         [DisplayFormat(NullDisplayText = "No lastname set")]
         [RegularExpression("^[A-Z]'?[- a-zA-Z]+$")]
+        [AllowHtml]
         [StringLength(50)]
         public string LastName { get; set; }
 

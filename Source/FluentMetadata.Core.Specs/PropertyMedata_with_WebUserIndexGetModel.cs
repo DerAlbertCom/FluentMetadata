@@ -7,7 +7,7 @@ namespace FluentMetadata.Specs
 {
     public class PropertyMedata_with_WebUserIndexGetModel : MetadataTestBase
     {
-        private readonly Metadata username, id, autorName, email, role, secondaryRoles, passwordHash;
+        private readonly Metadata username, id, autorName, email, role, secondaryRoles, passwordHash, comment;
 
         public PropertyMedata_with_WebUserIndexGetModel()
         {
@@ -18,6 +18,7 @@ namespace FluentMetadata.Specs
             role = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "Role");
             secondaryRoles = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "SecondaryRoles");
             passwordHash = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "PasswordHash");
+            comment = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "Comment");
         }
 
         [Fact] public void Username_ModelName_is_Username() { Assert.Equal("Username", username.ModelName); }
@@ -74,5 +75,6 @@ namespace FluentMetadata.Specs
 
         [Fact] public void LengthIsCopiedFromNonPublicProperty() { Assert.Equal(32, passwordHash.GetMinimumLength()); }
         [Fact] public void DisplayNameOfPropertyWithComplexTypeIsCopied() { Assert.Equal("Secondaly lores", secondaryRoles.GetDisplayName()); }
+        [Fact] public void Comment_RequestValidationEnabled_is_false() { Assert.False(comment.RequestValidationEnabled); }
     }
 }

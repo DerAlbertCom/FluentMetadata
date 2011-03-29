@@ -12,6 +12,7 @@ namespace FluentMetadata
         public Metadata()
         {
             ConvertEmptyStringToNull = true;
+            RequestValidationEnabled = true;
             ShowDisplay = true;
             ShowEditor = true;
             ModelType = typeof(object);
@@ -40,6 +41,7 @@ namespace FluentMetadata
             ReadOnly = metadata.ReadOnly;
             required = metadata.Required;
             NullDisplayTextFunc = metadata.NullDisplayTextFunc;
+            RequestValidationEnabled = metadata.RequestValidationEnabled;
             ShowDisplay = metadata.ShowDisplay;
             ShowEditor = metadata.ShowEditor;
             TemplateHint = metadata.TemplateHint;
@@ -239,13 +241,13 @@ namespace FluentMetadata
         /// </value>
         public string ModelName { get; set; }
 
-        //
-        // Summary:
-        //     Gets or sets a value that indicates whether request validation is enabled.
-        //
-        // Returns:
-        //     true if request validation is enabled; otherwise, false.
-        // TODO MVC3 public virtual bool RequestValidationEnabled { get; set; }
+        /// <summary>
+        /// Gets or sets a value that indicates whether request validation is enabled.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if request validation is enabled; otherwise, <c>false</c>.
+        /// </value>
+        public bool RequestValidationEnabled { get; set; }
 
         //
         // Summary:

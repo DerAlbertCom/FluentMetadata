@@ -11,6 +11,7 @@ namespace FluentMetadata.Specs.SampleClasses
         public string AutorName { get; set; }
         public int[] SecondaryRoles { get; set; }
         public string PasswordHash { get; set; }
+        public string Comment { get; set; }
     }
 
     public class WebUserIndexGetModel : WebUserIndexModel

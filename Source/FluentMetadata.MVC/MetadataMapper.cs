@@ -27,6 +27,7 @@ namespace FluentMetadata.MVC
             }
 
             destination.NullDisplayText = source.GetNullDisplayText();
+            destination.RequestValidationEnabled = source.RequestValidationEnabled;
             destination.ShowForDisplay = source.ShowDisplay;
             destination.ShowForEdit = source.ShowEditor;
             destination.TemplateHint = GetTemplateHint(source);
