@@ -3,11 +3,13 @@
     class Source
     {
         public string MyProperty { get; set; }
+        public int Named { get; set; }
     }
 
     class Destination
     {
         public string MyProperty { get; set; }
+        public int Renamed { get; set; }
     }
 
     class SourceMetaData : ClassMetadata<Source>
