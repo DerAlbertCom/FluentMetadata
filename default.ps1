@@ -41,6 +41,7 @@ task Compile -depends Init {
 task Test40 -depends Compile {
   exec { & $tools_dir\xUnit\xunit.console.clr4.exe $build_dir\FluentMetadata.EntityFramework.Specs.dll }
   exec { & $tools_dir\xUnit\xunit.console.clr4.exe $build_dir\FluentMetadata.Core.Specs.dll }
+  exec { & $tools_dir\xUnit\xunit.console.clr4.exe $build_dir\FluentMetadata.AutoMapper.Specs.dll }
   exec { & $tools_dir\xUnit\xunit.console.clr4.exe $build_dir\FluentMetadata.MVC.Specs.dll }
   exec { & $tools_dir\xUnit\xunit.console.clr4.exe $build_dir\FluentMetadata.FluentNHibernate.Specs.dll }
 }
