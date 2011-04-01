@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <xunit>
   <assemblies>
     <assembly filename="FluentMetadata.Core.Specs\bin\Release\FluentMetadata.Core.Specs.dll" shadow-copy="true" />
     <assembly filename="FluentMetadata.EntityFramework.Specs\bin\Release\FluentMetadata.EntityFramework.Specs.dll" shadow-copy="true" />
     <assembly filename="FluentMetadata.FluentNHibernate.Specs\bin\Release\FluentMetadata.FluentNHibernate.Specs.dll" shadow-copy="true" />
     <assembly filename="FluentMetadata.MVC.Specs\bin\Release\FluentMetadata.MVC.Specs.dll" shadow-copy="true" />
+    <assembly filename="FluentMetadata.AutoMapper.Specs\bin\Release\FluentMetadata.AutoMapper.Specs.dll" shadow-copy="true" />
   </assemblies>
 </xunit>

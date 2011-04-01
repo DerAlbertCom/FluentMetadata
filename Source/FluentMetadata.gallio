@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <testProject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.gallio.org/">
   <testPackage shadowCopy="false" debug="false">
     <files>
@@ -8,6 +8,8 @@
       <file>FluentMetadata.EntityFramework.Specs\bin\Release\FluentMetadata.EntityFramework.Specs.dll</file>
       <file>FluentMetadata.MVC.Specs\bin\Debug\FluentMetadata.MVC.Specs.dll</file>
       <file>FluentMetadata.MVC.Specs\bin\Release\FluentMetadata.MVC.Specs.dll</file>
+      <file>FluentMetadata.AutoMapper.Specs\bin\Debug\FluentMetadata.AutoMapper.Specs.dll</file>
+      <file>FluentMetadata.AutoMapper.Specs\bin\Release\FluentMetadata.AutoMapper.Specs.dll</file>
     </files>
     <hintDirectories />
     <excludedFrameworkIds />
