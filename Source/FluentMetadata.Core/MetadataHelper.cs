@@ -39,7 +39,10 @@ namespace FluentMetadata
             //copy property metadata
             foreach (var fromMetaData in fromBuilder.NamedMetaData)
             {
-                var memberMap = memberMaps.SingleOrDefault(mm => mm.Source.Name == fromMetaData.PropertyName);
+                var memberMap = memberMaps.SingleOrDefault(mm =>
+                    mm.Source.Name == fromMetaData.PropertyName ||
+                    mm.FlattenedSourceName == fromMetaData.PropertyName
+                );
                 if (memberMap != null)
                 {
                     toBuilder.MapProperty(to, memberMap.Destination.Name, fromMetaData.Metadata);
@@ -54,5 +57,6 @@ namespace FluentMetadata
     {
         public MemberInfo Source { get; set; }
         public MemberInfo Destination { get; set; }
+        public string FlattenedSourceName { get; set; }
     }
 }
