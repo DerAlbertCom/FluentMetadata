@@ -9,7 +9,8 @@ namespace FluentMetadata.AutoMapper.Specs
     {
         Metadata destinationMetadata,
             destinationMyPropertyMetadata,
-            destinationRenamedMetadata;
+            destinationRenamedMetadata,
+            destinationNestedFurtherNestedIdMetadata;
 
         public When_copying_metadata_from_an_AutoMapped_Type()
         {
@@ -25,6 +26,8 @@ namespace FluentMetadata.AutoMapper.Specs
                 .Single(m => m.ModelName == "MyProperty");
             destinationRenamedMetadata = destinationMetadata.Properties
                 .Single(m => m.ModelName == "Renamed");
+            destinationNestedFurtherNestedIdMetadata = destinationMetadata.Properties
+                .Single(m => m.ModelName == "NestedFurtherNestedId");
         }
 
         [Fact]
@@ -43,7 +46,13 @@ namespace FluentMetadata.AutoMapper.Specs
         [Fact(Skip = "unsupported until AutoMapper makes projected source property accessible")]
         public void a_projected_destination_property_should_have_metadata_from_the_source_property_it_is_mapped_to()
         {
-            Assert.Equal("adföoiulkanhsda", destinationRenamedMetadata.Description);
+            Assert.Equal("adfÃ¶oiulkanhsda", destinationRenamedMetadata.Description);
+        }
+
+        [Fact]
+        public void a_flattened_destination_property_should_have_metadata_from_the_source_property_it_is_mapped_to()
+        {
+            Assert.Equal(true, destinationNestedFurtherNestedIdMetadata.Required);
         }
 
         public void Dispose()

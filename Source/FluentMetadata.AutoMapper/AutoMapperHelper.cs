@@ -21,18 +21,20 @@ namespace FluentMetadata.AutoMapper
             foreach (var propertyMap in GetRelevantMappedMembersOf(source, destination))
             {
                 // get the source property of the PropertyMap
-                var sourceProperty = propertyMap.GetSourceValueResolvers()
+                var sourceValueResolvers = propertyMap.GetSourceValueResolvers()
                     // just plain property maps, there's no interesting metadata on a custom mapping function
-                    .OfType<IMemberGetter>()
+                    .OfType<IMemberGetter>();
+                var sourceProperty = sourceValueResolvers
                     // "There can be only one"
-                    .SingleOrDefault(mg => mg.MemberType == propertyMap.DestinationProperty.MemberType);
+                    .SingleOrDefault(svr => svr.MemberType == propertyMap.DestinationProperty.MemberType);
 
                 if (sourceProperty != null)
                 {
                     maps.Add(new MemberMap
                     {
                         Source = sourceProperty.MemberInfo,
-                        Destination = propertyMap.DestinationProperty.MemberInfo
+                        Destination = propertyMap.DestinationProperty.MemberInfo,
+                        FlattenedSourceName = sourceValueResolvers.Aggregate(string.Empty, (result, svr) => result + svr.Name)
                     });
                 }
             }
