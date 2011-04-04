@@ -1,10 +1,12 @@
-﻿namespace FluentMetadata.AutoMapper.Specs
+﻿using AutoMapper;
+namespace FluentMetadata.AutoMapper.Specs
 {
     class Source
     {
         public string MyProperty { get; set; }
         public int Named { get; set; }
         public Nested Nested { get; set; }
+        public string StringField { get; set; }
     }
 
     class Nested
@@ -22,6 +24,15 @@
         public string MyProperty { get; set; }
         public int Renamed { get; set; }
         public int NestedFurtherNestedId { get; set; }
+        public int IntProperty { get; set; }
+    }
+
+    class FakeResolver : ValueResolver<string, int>
+    {
+        protected override int ResolveCore(string source)
+        {
+            return default(int);
+        }
     }
 
     class SourceMetaData : ClassMetadata<Source>
@@ -31,6 +42,7 @@
             Class.Display.Name("rzjsfghgafsdfh");
             Property(x => x.MyProperty).Display.Name("pockänsdfsdf");
             Property(x => x.Named).Description("adföoiulkanhsda");
+            Property(x => x.StringField).UIHint("üoicvnqwnb");
         }
     }
 

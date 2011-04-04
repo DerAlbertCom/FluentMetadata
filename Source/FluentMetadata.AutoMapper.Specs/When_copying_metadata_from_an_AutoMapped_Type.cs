@@ -10,12 +10,14 @@ namespace FluentMetadata.AutoMapper.Specs
         Metadata destinationMetadata,
             destinationMyPropertyMetadata,
             destinationRenamedMetadata,
-            destinationNestedFurtherNestedIdMetadata;
+            destinationNestedFurtherNestedIdMetadata,
+            destinationIntPropertyMetadata;
 
         public When_copying_metadata_from_an_AutoMapped_Type()
         {
             Mapper.CreateMap<Source, Destination>()
-                .ForMember(destination => destination.Renamed, o => o.MapFrom(source => source.Named));
+                .ForMember(d => d.Renamed, o => o.MapFrom(s => s.Named))
+                .ForMember(d => d.IntProperty, o => o.ResolveUsing<FakeResolver>().FromMember(s => s.StringField));
             Mapper.AssertConfigurationIsValid();
 
             FluentMetadataBuilder.ForAssemblyOfType<Source>();
@@ -28,6 +30,8 @@ namespace FluentMetadata.AutoMapper.Specs
                 .Single(m => m.ModelName == "Renamed");
             destinationNestedFurtherNestedIdMetadata = destinationMetadata.Properties
                 .Single(m => m.ModelName == "NestedFurtherNestedId");
+            destinationIntPropertyMetadata = destinationMetadata.Properties
+                .Single(m => m.ModelName == "IntProperty");
         }
 
         [Fact]
@@ -53,6 +57,13 @@ namespace FluentMetadata.AutoMapper.Specs
         public void a_flattened_destination_property_should_have_metadata_from_the_source_property_it_is_mapped_to()
         {
             Assert.Equal(true, destinationNestedFurtherNestedIdMetadata.Required);
+        }
+
+        //TODO [on AutoMapper update] check if AutoMapper makes source property that destination property is resolved from accessible
+        [Fact(Skip = "unsupported until AutoMapper makes the source property the destination property is resolved from accessible")]
+        public void a_destination_property_resolved_from_a_source_property_should_have_metadata_from_the_source_property()
+        {
+            Assert.Equal("üoicvnqwnb", destinationIntPropertyMetadata.TemplateHint);
         }
 
         public void Dispose()
