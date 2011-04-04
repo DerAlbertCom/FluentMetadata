@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using FluentMetadata.Builder;
 
 namespace FluentMetadata
@@ -39,13 +38,10 @@ namespace FluentMetadata
             //copy property metadata
             foreach (var fromMetaData in fromBuilder.NamedMetaData)
             {
-                var memberMap = memberMaps.SingleOrDefault(mm =>
-                    mm.Source.Name == fromMetaData.PropertyName ||
-                    mm.FlattenedSourceName == fromMetaData.PropertyName
-                );
+                var memberMap = memberMaps.SingleOrDefault(mm => mm.SourceName == fromMetaData.PropertyName);
                 if (memberMap != null)
                 {
-                    toBuilder.MapProperty(to, memberMap.Destination.Name, fromMetaData.Metadata);
+                    toBuilder.MapProperty(to, memberMap.DestinationName, fromMetaData.Metadata);
                 }
             }
             //copy type metadata
@@ -55,8 +51,7 @@ namespace FluentMetadata
 
     public class MemberMap
     {
-        public MemberInfo Source { get; set; }
-        public MemberInfo Destination { get; set; }
-        public string FlattenedSourceName { get; set; }
+        public string SourceName { get; set; }
+        public string DestinationName { get; set; }
     }
 }

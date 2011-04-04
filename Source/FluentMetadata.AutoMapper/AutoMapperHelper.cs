@@ -32,9 +32,8 @@ namespace FluentMetadata.AutoMapper
                 {
                     maps.Add(new MemberMap
                     {
-                        Source = sourceProperty.MemberInfo,
-                        Destination = propertyMap.DestinationProperty.MemberInfo,
-                        FlattenedSourceName = sourceValueResolvers.Aggregate(string.Empty, (result, svr) => result + svr.Name)
+                        SourceName = sourceValueResolvers.Aggregate(string.Empty, (result, svr) => result + svr.Name),
+                        DestinationName = propertyMap.DestinationProperty.Name
                     });
                 }
             }
