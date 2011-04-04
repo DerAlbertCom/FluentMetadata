@@ -29,21 +29,32 @@ namespace FluentMetadata
 
         internal void CopyMetaDataFrom(Metadata metadata)
         {
-            Required = metadata.Required;
-            StringLength = metadata.StringLength;
-            ErrorMessage = metadata.ErrorMessage;
+            //TODO write tests for CopyMetaDataFrom: properties commented here have not associated tests yet
+            //ContainerType = metadata.ContainerType;
             DataTypeName = metadata.DataTypeName;
+            //Description = metadata.Description;
+            //DisplayFormat = metadata.DisplayFormat;
+            DisplayName = metadata.DisplayName;
+            //EditorFormat = metadata.EditorFormat;
+            //HideSurroundingHtml = metadata.HideSurroundingHtml;
             Readonly = metadata.Readonly;
+            Required = metadata.Required;
+            //ModelType = metadata.ModelType;
+            NullDisplayText = metadata.NullDisplayText;
+            //Properties = metadata.Properties;
+            //ModelName = metadata.ModelName;
             ShowDisplay = metadata.ShowDisplay;
             ShowEditor = metadata.ShowEditor;
             TemplateHint = metadata.TemplateHint;
-            NullDisplayText = metadata.NullDisplayText;
-            DisplayName = metadata.DisplayName;
+            //Watermark = metadata.Watermark;
+            StringLength = metadata.StringLength;
+            ErrorMessage = metadata.ErrorMessage;
+            //Hidden = metadata.Hidden;
+
             foreach (var rule in metadata.Rules)
             {
                 AddRule(rule);
             }
-
         }
 
         #region properties corresponding to System.Web.Mvc.ModelMetadata
