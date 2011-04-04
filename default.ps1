@@ -5,7 +5,7 @@ properties {
   $base_dir  = resolve-path .
   $revision =  Generate-Revision(2010)
   $lib_dir = "$base_dir\external"
-  $build_dir = "$base_dir\lib" 
+  $build_dir = "$base_dir\build" 
   $buildartifacts_dir = "$build_dir\" 
   $sln_file = "$base_dir\Source\FluentMetadata.sln" 
   $version = "0.5.1.$revision"

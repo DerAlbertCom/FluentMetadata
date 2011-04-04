@@ -1,3 +1,4 @@
+
 *.user
 *.obj
 *.lib
@@ -5,7 +6,6 @@
 *.ncb
 *.cache
 *.gem
-[Ll]ib
 [Oo]bj
 [Bb]in
 [Bb]uild
