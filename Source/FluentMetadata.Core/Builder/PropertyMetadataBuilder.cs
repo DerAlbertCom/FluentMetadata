@@ -46,9 +46,15 @@ namespace FluentMetadata.Builder
             Metadata.ModelType = typeof(T);
         }
 
-        public IProperty<T, TResult> Length(int length)
+        public IProperty<T, TResult> Length(int maxLength)
         {
-            Metadata.AddRule(new StringLengthRule(length));
+            Metadata.AddRule(new StringLengthRule(maxLength));
+            return this;
+        }
+
+        public IProperty<T, TResult> Length(int minLength, int? maxLength)
+        {
+            Metadata.AddRule(new StringLengthRule(minLength, maxLength));
             return this;
         }
 

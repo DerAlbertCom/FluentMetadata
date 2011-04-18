@@ -302,24 +302,39 @@ namespace FluentMetadata
 
         public object GetRangeMinimum()
         {
-            var rangeRule = Rules.OfType<RangeRule>().LastOrDefault();
+            var rangeRule = GetLastRuleOfType<RangeRule>();
             return rangeRule == null ? null : rangeRule.Minimum;
         }
 
         public object GetRangeMaximum()
         {
-            var rangeRule = Rules.OfType<RangeRule>().LastOrDefault();
+            var rangeRule = GetLastRuleOfType<RangeRule>();
             return rangeRule == null ? null : rangeRule.Maximum;
         }
 
         public int? GetMaximumLength()
         {
-            var lengthRule = Rules.OfType<StringLengthRule>().LastOrDefault();
+            var lengthRule = GetLastRuleOfType<StringLengthRule>();
             if (lengthRule == null)
             {
                 return null;
             }
             return lengthRule.Maximum;
+        }
+
+        public int? GetMinimumLength()
+        {
+            var lengthRule = GetLastRuleOfType<StringLengthRule>();
+            if (lengthRule == null)
+            {
+                return null;
+            }
+            return lengthRule.Minimum;
+        }
+
+        T GetLastRuleOfType<T>()
+        {
+            return Rules.OfType<T>().LastOrDefault();
         }
     }
 }

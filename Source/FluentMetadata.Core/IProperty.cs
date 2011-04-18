@@ -3,7 +3,8 @@ namespace FluentMetadata
 {
     public interface IProperty<T, TResult>
     {
-        IProperty<T, TResult> Length(int length);
+        IProperty<T, TResult> Length(int maxLength);
+        IProperty<T, TResult> Length(int minLength, int? maxLength);
         IProperty<T, TResult> UIHint(string templateHint);
         IProperty<T, TResult> Description(string description);
         IProperty<T, TResult> Range(IComparable minimum, IComparable maximum);
