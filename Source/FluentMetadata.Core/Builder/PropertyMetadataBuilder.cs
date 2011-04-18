@@ -48,7 +48,6 @@ namespace FluentMetadata.Builder
 
         public IProperty<T, TResult> Length(int length)
         {
-            Metadata.StringLength = length;
             Metadata.AddRule(new StringLengthRule(length));
             return this;
         }

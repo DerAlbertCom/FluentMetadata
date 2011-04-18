@@ -7,6 +7,14 @@ namespace FluentMetadata.Rules
     {
         private readonly int maxLength;
 
+        internal int Maximum
+        {
+            get
+            {
+                return maxLength;
+            }
+        }
+
         public StringLengthRule(int maxLength)
             : base("the string for {0} should not be longer than {1} characters")
         {

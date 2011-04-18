@@ -8,14 +8,15 @@ namespace FluentMetadata.FluentNHibernate.Conventions
         private readonly QueryFluentMetadata query = new QueryFluentMetadata();
         public void Apply(IPropertyInstance instance)
         {
-            var meta = query.GetMetadataFor(instance.EntityType,instance.Property.Name);
+            var meta = query.GetMetadataFor(instance.EntityType, instance.Property.Name);
             if (meta.Required.HasValue)
             {
                 ApplyRequired(meta.Required.Value, instance);
             }
-            if (meta.StringLength.HasValue)
+            var maxLength = meta.GetMaximumLength();
+            if (maxLength.HasValue)
             {
-                ApplyStringLength(meta.StringLength.Value, instance);
+                ApplyStringLength(maxLength.Value, instance);
             }
         }
 
