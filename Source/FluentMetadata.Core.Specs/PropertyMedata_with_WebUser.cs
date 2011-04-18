@@ -6,9 +6,7 @@ namespace FluentMetadata.Specs
 {
     public class PropertyMedata_with_WebUser : MetadataTestBase
     {
-        private Metadata lastLogin;
-        private Metadata username;
-        private Metadata id;
+        Metadata lastLogin, username, id, passWordHash, role;
 
         public PropertyMedata_with_WebUser()
         {
@@ -16,6 +14,8 @@ namespace FluentMetadata.Specs
             username = query.GetMetadataFor(typeof(WebUser), "Username");
             id = query.GetMetadataFor(typeof(WebUser), "Id");
             lastLogin = query.GetMetadataFor(typeof(WebUser), "LastLogin");
+            passWordHash = query.GetMetadataFor(typeof(WebUser), "PasswordHash");
+            role = query.GetMetadataFor(typeof(WebUser), "Role");
         }
 
         [Fact]
@@ -40,6 +40,42 @@ namespace FluentMetadata.Specs
         public void Username_Required_is_true()
         {
             Assert.True(username.Required.Value);
+        }
+
+        [Fact]
+        public void Username_MinLength_is_3()
+        {
+            Assert.Equal(3, username.GetMinimumLength());
+        }
+
+        [Fact]
+        public void Username_MaxLength_is_256()
+        {
+            Assert.Equal(256, username.GetMaximumLength());
+        }
+
+        [Fact]
+        public void PassWordHash_MinLength_is_32()
+        {
+            Assert.Equal(32, passWordHash.GetMinimumLength());
+        }
+
+        [Fact]
+        public void PassWordHash_MaxLength_is_null()
+        {
+            Assert.Null(passWordHash.GetMaximumLength());
+        }
+
+        [Fact]
+        public void Role_MinLength_is_null()
+        {
+            Assert.Null(role.GetMinimumLength());
+        }
+
+        [Fact]
+        public void Role_MaxLength_is_256()
+        {
+            Assert.Equal(256, role.GetMaximumLength());
         }
 
         [Fact]

@@ -6,11 +6,11 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
     {
         public WebUserMetadata()
         {
-            Property(x => x.Username).Length(256).Is.Required().Is.ReadOnly()
+            Property(x => x.Username).Length(3, 256).Is.Required().Is.ReadOnly()
                 .Display.Name("Benutzername");
             Property(x => x.EMail).Length(128).Is.Required().As.EmailAddress()
                 .Display.Name("E-Mail").As.EmailAddress();
-            Property(x => x.PasswordHash).Length(64).Is.Required()
+            Property(x => x.PasswordHash).Length(32, null).Is.Required()
                 .Should.Not.ShowInDisplay().Should.Not.ShowInEditor();
             Property(x => x.Role).UIHint("Roles").Length(256).Is.Required()
                 .Display.Name("Rolle");
