@@ -1,3 +1,6 @@
+using System;
+using System.Linq.Expressions;
+using FluentMetadata.Rules;
 namespace FluentMetadata.Builder
 {
     internal class ClassMetadataBuilder<T> : IClassBuilder<T>
@@ -39,6 +42,13 @@ namespace FluentMetadata.Builder
         public Metadata Metadata
         {
             get { return metadata; }
+        }
+
+        public IClassBuilder<T> PropertiesShouldMatch(Expression<Func<T, object>> expression,
+            Expression<Func<T, object>> confirmExpression)
+        {
+            metadata.AddRule(new PropertyMustMatchRule<T>(expression, confirmExpression));
+            return this;
         }
     }
 }

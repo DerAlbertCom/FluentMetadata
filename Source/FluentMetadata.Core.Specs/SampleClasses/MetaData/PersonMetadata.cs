@@ -5,8 +5,10 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
         public PersonMetadata()
         {
             Property(p => p.FirstName).Is.Required();
-            Class.Display.Name("Benutzer");
-            Class.Display.Format("{0} der Benutzer");
+            Class
+                .Display.Name("Benutzer")
+                .Display.Format("{0} der Benutzer")
+                .PropertiesShouldMatch(p => p.FirstName, p => p.LastName);
         }
     }
 }
