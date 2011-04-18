@@ -15,3 +15,6 @@ _ReSharper*/
 *.vs10x
 Source/Gallio Reports
 Source/TestResults
+Source/_UpgradeReport_Files/
+*.orig
+Source/UpgradeLog*
