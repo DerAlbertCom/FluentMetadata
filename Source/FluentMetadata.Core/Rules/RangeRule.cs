@@ -10,16 +10,18 @@ namespace FluentMetadata.Rules
         private object valueMinimum;
 
         private RangeRule()
-            : base("the value of {0} must be between {0} and {1}")
+            : base("the value of '{0}' must be between {1} and {2}")
         {
         }
 
-        public RangeRule(double minimum, double maximum) : this()
+        public RangeRule(double minimum, double maximum)
+            : this()
         {
             Initialize(minimum, maximum, o => Convert.ToDouble(o));
         }
 
-        public RangeRule(int minimum, int maximum) : this()
+        public RangeRule(int minimum, int maximum)
+            : this()
         {
             Initialize(minimum, maximum, o => Convert.ToInt32(o));
         }
@@ -36,7 +38,7 @@ namespace FluentMetadata.Rules
             {
                 throw new ArgumentOutOfRangeException("maximum", maximum,
                                                       string.Format(CultureInfo.CurrentCulture,
-                                                                    "the minimum vallue {1} is higher then the maximum value {0}",
+                                                                    "the minimum value {0} is higher then the maximum value {1}",
                                                                     minimum, maximum));
             }
             valueMinimum = minimum;
@@ -50,13 +52,13 @@ namespace FluentMetadata.Rules
             {
                 return true;
             }
-            if ((value is string) && string.IsNullOrEmpty((string) value))
+            if ((value is string) && string.IsNullOrEmpty((string)value))
             {
                 return true;
             }
             object currentValue = valueConversion(value);
-            var min = (IComparable) valueMinimum;
-            var max = (IComparable) valueMaximum;
+            var min = (IComparable)valueMinimum;
+            var max = (IComparable)valueMaximum;
             return ((min.CompareTo(currentValue) <= 0) && (max.CompareTo(currentValue) >= 0));
         }
 
