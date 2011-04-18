@@ -8,7 +8,8 @@ namespace FluentMetadata.Builder
     {
         private readonly Metadata metadata;
 
-        protected PropertyMetadataBuilder() : this(new Metadata())
+        protected PropertyMetadataBuilder()
+            : this(new Metadata())
         {
         }
 
@@ -23,7 +24,7 @@ namespace FluentMetadata.Builder
         }
     }
 
-    internal class PropertyMetadataBuilder<T,TResult> : PropertyMetadataBuilder, IProperty<T,TResult>
+    internal class PropertyMetadataBuilder<T, TResult> : PropertyMetadataBuilder, IProperty<T, TResult>
     {
 
         public PropertyMetadataBuilder(Metadata metadata)
@@ -33,45 +34,43 @@ namespace FluentMetadata.Builder
 
         public PropertyMetadataBuilder(Expression<Func<T, TResult>> expression)
         {
-            Metadata.ContainerType = typeof (T);
+            Metadata.ContainerType = typeof(T);
             Metadata.ModelName = ExpressionHelper.GetPropertyName(expression);
             Metadata.ModelType = ExpressionHelper.GetPropertyType(expression);
         }
-
 
         public PropertyMetadataBuilder(string propertyName)
         {
             Metadata.ContainerType = null;
             Metadata.ModelName = propertyName;
-            Metadata.ModelType = typeof (T);
+            Metadata.ModelType = typeof(T);
         }
 
-
-        public IProperty<T,TResult> Length(int length)
+        public IProperty<T, TResult> Length(int length)
         {
             Metadata.StringLength = length;
             Metadata.AddRule(new StringLengthRule(length));
             return this;
         }
 
-        public IProperty<T,TResult> UIHint(string templateHint)
+        public IProperty<T, TResult> UIHint(string templateHint)
         {
             Metadata.TemplateHint = templateHint;
             return this;
         }
 
-        public IProperty<T,TResult> Description(string description)
+        public IProperty<T, TResult> Description(string description)
         {
             Metadata.Description = description;
             return this;
         }
 
-        public IEditorProperty<T,TResult> Editor
+        public IEditorProperty<T, TResult> Editor
         {
             get { return new EditorBuilder<T, TResult>(this); }
         }
 
-        public IDisplayProperty<T,TResult> Display
+        public IDisplayProperty<T, TResult> Display
         {
             get { return new DisplayBuilder<T, TResult>(this); }
         }
@@ -89,6 +88,13 @@ namespace FluentMetadata.Builder
         public IShouldProperty<T, TResult> Should
         {
             get { return new ShouldBuilder<T, TResult>(this); }
+        }
+
+        public IProperty<T, TResult> Range(IComparable minimum, IComparable maximum)
+        {
+            Metadata.AddRule(new RangeRule(minimum, maximum));
+
+            return this;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentMetadata.Rules;
 
 namespace FluentMetadata
@@ -300,6 +301,18 @@ namespace FluentMetadata
         public void AddRule(IRule rule)
         {
             rules.Add(rule);
+        }
+
+        public object GetRangeMinimum()
+        {
+            var rangeRule = Rules.OfType<RangeRule>().LastOrDefault();
+            return rangeRule == null ? null : rangeRule.Minimum;
+        }
+
+        public object GetRangeMaximum()
+        {
+            var rangeRule = Rules.OfType<RangeRule>().LastOrDefault();
+            return rangeRule == null ? null : rangeRule.Maximum;
         }
     }
 }
