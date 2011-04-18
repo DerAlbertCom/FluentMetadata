@@ -48,7 +48,6 @@ namespace FluentMetadata
             ShowEditor = metadata.ShowEditor;
             TemplateHint = metadata.TemplateHint;
             //Watermark = metadata.Watermark;
-            StringLength = metadata.StringLength;
             ErrorMessage = metadata.ErrorMessage;
             //Hidden = metadata.Hidden;
 
@@ -288,8 +287,6 @@ namespace FluentMetadata
 
         #endregion
 
-        // TODO add StringLengthRule to rules automatically on set
-        public int? StringLength { get; set; }
         public string ErrorMessage { get; set; }
         public bool? Hidden { get; set; }
 
@@ -313,6 +310,16 @@ namespace FluentMetadata
         {
             var rangeRule = Rules.OfType<RangeRule>().LastOrDefault();
             return rangeRule == null ? null : rangeRule.Maximum;
+        }
+
+        public int? GetMaximumLength()
+        {
+            var lengthRule = Rules.OfType<StringLengthRule>().LastOrDefault();
+            if (lengthRule == null)
+            {
+                return null;
+            }
+            return lengthRule.Maximum;
         }
     }
 }
