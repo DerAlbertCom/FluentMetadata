@@ -8,6 +8,22 @@ namespace FluentMetadata.Rules
         private IComparable valueMaximum;
         private IComparable valueMinimum;
 
+        internal object Minimum
+        {
+            get
+            {
+                return valueMinimum;
+            }
+        }
+
+        internal object Maximum
+        {
+            get
+            {
+                return valueMaximum;
+            }
+        }
+
         private RangeRule()
             : base("the value of '{0}' must be between {1} and {2}")
         {
