@@ -112,5 +112,11 @@ namespace FluentMetadata.Specs
         {
             Assert.False(id.ShowDisplay);
         }
+
+        [Fact]
+        public void Id_ShowEditor_is_false()
+        {
+            Assert.False(id.ShowEditor);
+        }
     }
 }
