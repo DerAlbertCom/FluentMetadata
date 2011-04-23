@@ -31,7 +31,6 @@ namespace FluentMetadata
         internal void CopyMetaDataFrom(Metadata metadata)
         {
             //TODO write tests for CopyMetaDataFrom: properties commented here have not associated tests yet
-            //ContainerType = metadata.ContainerType;
             ConvertEmptyStringToNull = metadata.ConvertEmptyStringToNull;
             DataTypeName = metadata.DataTypeName;
             Description = metadata.Description;
@@ -41,10 +40,7 @@ namespace FluentMetadata
             HideSurroundingHtml = metadata.HideSurroundingHtml;
             Readonly = metadata.Readonly;
             Required = metadata.Required;
-            //ModelType = metadata.ModelType;
             NullDisplayText = metadata.NullDisplayText;
-            //Properties = metadata.Properties;
-            //ModelName = metadata.ModelName;
             ShowDisplay = metadata.ShowDisplay;
             ShowEditor = metadata.ShowEditor;
             TemplateHint = metadata.TemplateHint;
