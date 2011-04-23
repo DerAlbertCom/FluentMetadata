@@ -258,7 +258,7 @@ namespace FluentMetadata
         // TODO MVC2 public virtual string SimpleDisplayText { get; set; }
 
         /// <summary>
-        /// Gets or sets the template hint.
+        /// Gets or sets a hint that suggests what template to use for this model.
         /// </summary>
         /// <value>
         /// A hint that suggests what template to use for this model.
@@ -266,7 +266,7 @@ namespace FluentMetadata
         public string TemplateHint { get; set; }
 
         /// <summary>
-        /// Gets or sets a hint that suggests what template to use for this model.
+        /// Gets or sets a value that can be used as a watermark.
         /// </summary>
         /// <value>
         /// The watermark.
