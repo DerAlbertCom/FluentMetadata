@@ -7,7 +7,7 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
         public WebUserMetadata()
         {
             Property(x => x.Username).Length(3, 256).Is.Required().Is.ReadOnly()
-                .Display.Name("Benutzername");
+                .Display.Name("Benutzername").Description("Name des Benutzers");
             Property(x => x.EMail).Length(128).Is.Required().As.EmailAddress()
                 .Display.Name("E-Mail").As.EmailAddress();
             Property(x => x.PasswordHash).Length(32, null).Is.Required()

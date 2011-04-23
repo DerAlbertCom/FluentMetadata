@@ -69,5 +69,11 @@ namespace FluentMetadata.Specs
         {
             Assert.Equal("EmailAddress", email.DataTypeName);
         }
+
+        [Fact]
+        public void Username_Description_is_Name_des_Benutzers()
+        {
+            Assert.Equal("Name des Benutzers", username.Description);
+        }
     }
 }
