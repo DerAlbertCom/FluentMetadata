@@ -289,6 +289,14 @@ namespace FluentMetadata
         #endregion
 
         public string ErrorMessage { get; set; }
+
+        //~System.Web.Mvc.HiddenInputAttribute
+        /// <summary>
+        /// Gets or sets a value indicating whether a property or field value should be rendered as a hidden input element.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if the model should be rendered as a hidden input element; otherwise, <c>false</c>.
+        /// </value>
         public bool? Hidden { get; set; }
 
         public IEnumerable<IRule> Rules
