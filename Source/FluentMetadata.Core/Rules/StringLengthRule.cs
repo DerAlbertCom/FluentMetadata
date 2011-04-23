@@ -65,7 +65,7 @@ namespace FluentMetadata.Rules
 
     // TODO rule equivalent to System.ComponentModel.DataAnnotations.RegularExpressionAttribute
 
-    // TODO implement or delete: What does this rule validate?
+    //TODO [DerAlbertCom] implement or delete: What does this rule validate?
     public class EqualToRule : Rule
     {
         public EqualToRule(string errorMessageFormat)

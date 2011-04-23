@@ -149,7 +149,7 @@ namespace FluentMetadata
         // Returns:
         //     A value that indicates whether the model is considered a complex type by
         //     the MVC framework.
-        // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public virtual bool IsComplexType { get; }
+        // MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public virtual bool IsComplexType { get; }
 
         //
         // Summary:
@@ -157,7 +157,7 @@ namespace FluentMetadata
         //
         // Returns:
         //     true if the type is nullable; otherwise, false.
-        // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public bool IsNullableValueType { get; }
+        // MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public bool IsNullableValueType { get; }
 
         // ~ System.Web.Mvc.ModelMetadata.IsReadOnly
         /// <summary>
@@ -288,6 +288,7 @@ namespace FluentMetadata
 
         #endregion
 
+        //TODO [DerAlbertCom] What kind of ErrorMessage is this? Write some XML docs and/or tests.
         public string ErrorMessage { get; set; }
 
         //~System.Web.Mvc.HiddenInputAttribute
