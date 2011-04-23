@@ -5,7 +5,7 @@ namespace FluentMetadata.Specs
 {
     public class PropertyMedata_with_WebUserIndexModel : MetadataTestBase
     {
-        Metadata username, id, autorName, email;
+        Metadata username, id, autorName, email, role;
 
         public PropertyMedata_with_WebUserIndexModel()
         {
@@ -14,6 +14,7 @@ namespace FluentMetadata.Specs
             id = query.GetMetadataFor(typeof(WebUserIndexModel), "Id");
             email = query.GetMetadataFor(typeof(WebUserIndexModel), "EMail");
             autorName = query.GetMetadataFor(typeof(WebUserIndexModel), "AutorName");
+            role = query.GetMetadataFor(typeof(WebUserIndexModel), "Role");
         }
 
         [Fact]
@@ -117,6 +118,12 @@ namespace FluentMetadata.Specs
         public void Id_ShowEditor_is_false()
         {
             Assert.False(id.ShowEditor);
+        }
+
+        [Fact]
+        public void Role_TemplateHint_is_Roles()
+        {
+            Assert.Equal("Roles", role.TemplateHint);
         }
     }
 }
