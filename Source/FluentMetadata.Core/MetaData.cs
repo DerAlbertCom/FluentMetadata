@@ -32,29 +32,29 @@ namespace FluentMetadata
         {
             //TODO write tests for CopyMetaDataFrom: properties commented here have not associated tests yet
             //ContainerType = metadata.ContainerType;
-            DataTypeName = metadata.DataTypeName;
+            //DataTypeName = metadata.DataTypeName;
             //Description = metadata.Description;
             //DisplayFormat = metadata.DisplayFormat;
             DisplayName = metadata.DisplayName;
             //EditorFormat = metadata.EditorFormat;
             //HideSurroundingHtml = metadata.HideSurroundingHtml;
-            Readonly = metadata.Readonly;
+            //Readonly = metadata.Readonly;
             Required = metadata.Required;
             //ModelType = metadata.ModelType;
-            NullDisplayText = metadata.NullDisplayText;
+            //NullDisplayText = metadata.NullDisplayText;
             //Properties = metadata.Properties;
             //ModelName = metadata.ModelName;
-            ShowDisplay = metadata.ShowDisplay;
-            ShowEditor = metadata.ShowEditor;
-            TemplateHint = metadata.TemplateHint;
+            //ShowDisplay = metadata.ShowDisplay;
+            //ShowEditor = metadata.ShowEditor;
+            //TemplateHint = metadata.TemplateHint;
             //Watermark = metadata.Watermark;
-            ErrorMessage = metadata.ErrorMessage;
+            //ErrorMessage = metadata.ErrorMessage;
             //Hidden = metadata.Hidden;
 
-            foreach (var rule in metadata.Rules)
-            {
-                AddRule(rule);
-            }
+            //foreach (var rule in metadata.Rules)
+            //{
+            //    AddRule(rule);
+            //}
         }
 
         #region properties corresponding to System.Web.Mvc.ModelMetadata
