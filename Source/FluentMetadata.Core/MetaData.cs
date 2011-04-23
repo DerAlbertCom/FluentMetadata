@@ -52,10 +52,10 @@ namespace FluentMetadata
             //ErrorMessage = metadata.ErrorMessage;
             Hidden = metadata.Hidden;
 
-            //foreach (var rule in metadata.Rules)
-            //{
-            //    AddRule(rule);
-            //}
+            foreach (var rule in metadata.Rules)
+            {
+                AddRule(rule);
+            }
         }
 
         #region properties corresponding to System.Web.Mvc.ModelMetadata

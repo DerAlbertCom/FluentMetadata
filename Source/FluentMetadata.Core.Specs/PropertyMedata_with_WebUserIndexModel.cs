@@ -144,5 +144,13 @@ namespace FluentMetadata.Specs
             Assert.True(id.Hidden.HasValue);
             Assert.True(id.Hidden.Value);
         }
+
+        [Fact]
+        public void Username_GetMaximumLength_is_256()
+        {
+            var maxLength = username.GetMaximumLength();
+            Assert.True(maxLength.HasValue);
+            Assert.Equal(256, maxLength);
+        }
     }
 }
