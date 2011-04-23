@@ -32,6 +32,7 @@ namespace FluentMetadata
         {
             //TODO write tests for CopyMetaDataFrom: properties commented here have not associated tests yet
             //ContainerType = metadata.ContainerType;
+            ConvertEmptyStringToNull = metadata.ConvertEmptyStringToNull;
             DataTypeName = metadata.DataTypeName;
             Description = metadata.Description;
             DisplayFormat = metadata.DisplayFormat;
