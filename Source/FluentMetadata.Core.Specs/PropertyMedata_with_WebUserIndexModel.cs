@@ -152,5 +152,11 @@ namespace FluentMetadata.Specs
             Assert.True(maxLength.HasValue);
             Assert.Equal(256, maxLength);
         }
+
+        [Fact]
+        public void Username_ContainerType_is_WebUserIndexModel()
+        {
+            Assert.Equal(typeof(WebUserIndexModel), username.ContainerType);
+        }
     }
 }
