@@ -38,7 +38,7 @@ namespace FluentMetadata
             DisplayName = metadata.DisplayName;
             EditorFormat = metadata.EditorFormat;
             HideSurroundingHtml = metadata.HideSurroundingHtml;
-            //Readonly = metadata.Readonly;
+            Readonly = metadata.Readonly;
             Required = metadata.Required;
             //ModelType = metadata.ModelType;
             //NullDisplayText = metadata.NullDisplayText;
