@@ -5,15 +5,14 @@ namespace FluentMetadata.Specs
 {
     public class PropertyMedata_with_WebUserIndexModel : MetadataTestBase
     {
-        private Metadata username;
-        private Metadata id;
-        private Metadata autorName;
+        Metadata username, id, autorName, email;
 
         public PropertyMedata_with_WebUserIndexModel()
         {
             var query = new QueryFluentMetadata();
             username = query.GetMetadataFor(typeof(WebUserIndexModel), "Username");
             id = query.GetMetadataFor(typeof(WebUserIndexModel), "Id");
+            email = query.GetMetadataFor(typeof(WebUserIndexModel), "EMail");
             autorName = query.GetMetadataFor(typeof(WebUserIndexModel), "AutorName");
         }
 
@@ -62,7 +61,13 @@ namespace FluentMetadata.Specs
         [Fact]
         public void AutorName_DisplayName_is_emaN()
         {
-            Assert.Equal("emaN",autorName.DisplayName);
+            Assert.Equal("emaN", autorName.DisplayName);
+        }
+
+        [Fact]
+        public void EMail_DataTypeName_is_EmailAddress()
+        {
+            Assert.Equal("EmailAddress", email.DataTypeName);
         }
     }
 }
