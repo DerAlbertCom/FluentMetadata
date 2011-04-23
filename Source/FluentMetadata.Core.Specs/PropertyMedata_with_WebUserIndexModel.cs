@@ -94,5 +94,11 @@ namespace FluentMetadata.Specs
             Assert.True(id.HideSurroundingHtml.HasValue);
             Assert.True(id.HideSurroundingHtml.Value);
         }
+
+        [Fact]
+        public void Username_ReadOnly_is_true()
+        {
+            Assert.True(username.Readonly);
+        }
     }
 }
