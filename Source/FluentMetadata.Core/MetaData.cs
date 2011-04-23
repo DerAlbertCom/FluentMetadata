@@ -41,7 +41,7 @@ namespace FluentMetadata
             Readonly = metadata.Readonly;
             Required = metadata.Required;
             //ModelType = metadata.ModelType;
-            //NullDisplayText = metadata.NullDisplayText;
+            NullDisplayText = metadata.NullDisplayText;
             //Properties = metadata.Properties;
             //ModelName = metadata.ModelName;
             //ShowDisplay = metadata.ShowDisplay;

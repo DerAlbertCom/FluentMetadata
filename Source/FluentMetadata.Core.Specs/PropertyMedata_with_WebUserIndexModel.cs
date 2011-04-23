@@ -100,5 +100,11 @@ namespace FluentMetadata.Specs
         {
             Assert.True(username.Readonly);
         }
+
+        [Fact]
+        public void AutorName_NullDisplayText_is_Anonymous_Autor()
+        {
+            Assert.Equal("Anonymous Autor", autorName.NullDisplayText);
+        }
     }
 }

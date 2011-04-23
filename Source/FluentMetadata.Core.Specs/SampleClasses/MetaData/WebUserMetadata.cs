@@ -35,7 +35,8 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
     {
         public AutorMetadata()
         {
-            Property(e => e.Name).Display.Name("emaN");
+            Property(e => e.Name).Display.Name("emaN")
+                .Display.NullText("Anonymous Autor");
         }
     }
 }
