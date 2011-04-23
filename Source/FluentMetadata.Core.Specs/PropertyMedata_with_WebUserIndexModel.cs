@@ -75,5 +75,11 @@ namespace FluentMetadata.Specs
         {
             Assert.Equal("Name des Benutzers", username.Description);
         }
+
+        [Fact]
+        public void EMail_DisplayFormat_is_MailtoLink()
+        {
+            Assert.Equal("<a href='mailto:{0}'>{0}</a>", email.DisplayFormat);
+        }
     }
 }

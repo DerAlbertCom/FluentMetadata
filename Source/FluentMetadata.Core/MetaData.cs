@@ -34,7 +34,7 @@ namespace FluentMetadata
             //ContainerType = metadata.ContainerType;
             DataTypeName = metadata.DataTypeName;
             Description = metadata.Description;
-            //DisplayFormat = metadata.DisplayFormat;
+            DisplayFormat = metadata.DisplayFormat;
             DisplayName = metadata.DisplayName;
             //EditorFormat = metadata.EditorFormat;
             //HideSurroundingHtml = metadata.HideSurroundingHtml;
