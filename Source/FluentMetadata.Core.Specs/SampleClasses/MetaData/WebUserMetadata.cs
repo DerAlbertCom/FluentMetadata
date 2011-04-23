@@ -7,7 +7,8 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
         public WebUserMetadata()
         {
             Property(x => x.Username).Length(3, 256).Is.Required().Is.ReadOnly()
-                .Display.Name("Benutzername").Description("Name des Benutzers");
+                .Display.Name("Benutzername").Description("Name des Benutzers")
+                .Is.Not.ConvertEmptyStringToNull();
             Property(x => x.EMail).Length(128).Is.Required().As.EmailAddress()
                 .Display.Name("E-Mail").Display.Format("<a href='mailto:{0}'>{0}</a>")
                 .Editor.Format("{0}").Editor.Watermark("john@doe.com");

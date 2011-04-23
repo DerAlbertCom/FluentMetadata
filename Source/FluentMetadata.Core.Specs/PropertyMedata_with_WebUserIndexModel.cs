@@ -131,5 +131,11 @@ namespace FluentMetadata.Specs
         {
             Assert.Equal("john@doe.com", email.Watermark);
         }
+
+        [Fact]
+        public void Username_ConvertEmptyStringToNull_is_false()
+        {
+            Assert.False(username.ConvertEmptyStringToNull);
+        }
     }
 }
