@@ -125,5 +125,11 @@ namespace FluentMetadata.Specs
         {
             Assert.Equal("Roles", role.TemplateHint);
         }
+
+        [Fact]
+        public void EMail_Watermark_is_dummy_address()
+        {
+            Assert.Equal("john@doe.com", email.Watermark);
+        }
     }
 }

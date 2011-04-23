@@ -47,7 +47,7 @@ namespace FluentMetadata
             ShowDisplay = metadata.ShowDisplay;
             ShowEditor = metadata.ShowEditor;
             TemplateHint = metadata.TemplateHint;
-            //Watermark = metadata.Watermark;
+            Watermark = metadata.Watermark;
             //ErrorMessage = metadata.ErrorMessage;
             //Hidden = metadata.Hidden;
 

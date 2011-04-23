@@ -10,7 +10,7 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
                 .Display.Name("Benutzername").Description("Name des Benutzers");
             Property(x => x.EMail).Length(128).Is.Required().As.EmailAddress()
                 .Display.Name("E-Mail").Display.Format("<a href='mailto:{0}'>{0}</a>")
-                .Editor.Format("{0}");
+                .Editor.Format("{0}").Editor.Watermark("john@doe.com");
             Property(x => x.PasswordHash).Length(32, null).Is.Required()
                 .Should.Not.ShowInDisplay().Should.Not.ShowInEditor();
             Property(x => x.Role).UIHint("Roles").Length(256).Is.Required()
