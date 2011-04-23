@@ -81,5 +81,11 @@ namespace FluentMetadata.Specs
         {
             Assert.Equal("<a href='mailto:{0}'>{0}</a>", email.DisplayFormat);
         }
+
+        [Fact]
+        public void EMail_EditorFormat_is_plain_value()
+        {
+            Assert.Equal("{0}", email.EditorFormat);
+        }
     }
 }
