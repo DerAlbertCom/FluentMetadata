@@ -50,7 +50,7 @@ namespace FluentMetadata
             TemplateHint = metadata.TemplateHint;
             Watermark = metadata.Watermark;
             //ErrorMessage = metadata.ErrorMessage;
-            //Hidden = metadata.Hidden;
+            Hidden = metadata.Hidden;
 
             //foreach (var rule in metadata.Rules)
             //{

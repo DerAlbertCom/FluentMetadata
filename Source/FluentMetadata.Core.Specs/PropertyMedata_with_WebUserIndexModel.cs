@@ -137,5 +137,12 @@ namespace FluentMetadata.Specs
         {
             Assert.False(username.ConvertEmptyStringToNull);
         }
+
+        [Fact]
+        public void Id_Hidden_is_true()
+        {
+            Assert.True(id.Hidden.HasValue);
+            Assert.True(id.Hidden.Value);
+        }
     }
 }
