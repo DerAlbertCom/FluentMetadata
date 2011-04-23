@@ -87,5 +87,12 @@ namespace FluentMetadata.Specs
         {
             Assert.Equal("{0}", email.EditorFormat);
         }
+
+        [Fact]
+        public void Id_HideSurroundingHtml_is_true()
+        {
+            Assert.True(id.HideSurroundingHtml.HasValue);
+            Assert.True(id.HideSurroundingHtml.Value);
+        }
     }
 }
