@@ -10,7 +10,8 @@ namespace FluentMetadata.MVC.Specs
         {
             Class.Display.Name("Komplex");
             Property(e => e.Id)
-                .Should.HiddenInput();
+                .Should.HiddenInput()
+                .Is.ReadOnly();
             Property(e => e.FirstName).Display.Name("Vorname").Is.Not.ConvertEmptyStringToNull();
             Property(e => e.Age).As.Custom("Years");
             Property(e => e.Amount)
@@ -22,6 +23,7 @@ namespace FluentMetadata.MVC.Specs
     public class ComplexModel
     {
         [HiddenInput(DisplayValue = false)]
+        [ReadOnly(true)]
         public int Id { get; set; }
         [DisplayName("Vorname")]
         [DisplayFormat(ConvertEmptyStringToNull = false)]

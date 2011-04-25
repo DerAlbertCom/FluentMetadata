@@ -103,5 +103,11 @@ namespace FluentMetadata.MVC.Specs
             Assert.Equal(Expected.HideSurroundingHtml, Fluent.HideSurroundingHtml);
         }
 
+        [Observation]
+        public void Equals_IsReadOnly()
+        {
+            Console.WriteLine(Expected.IsReadOnly);
+            Assert.Equal(Expected.IsReadOnly, Fluent.IsReadOnly);
+        }
     }
 }
