@@ -10,6 +10,7 @@ namespace FluentMetadata.MVC
             destination.ConvertEmptyStringToNull = source.ConvertEmptyStringToNull;
             destination.DataTypeName = GetDataTypeName(source);
             destination.DisplayName = source.DisplayName;
+            //TODO [MVC3] destination.Description = source.Description;
             //destination.ShowForDisplay = source.ShowDisplay;
         }
 
