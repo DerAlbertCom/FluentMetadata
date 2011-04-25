@@ -6,10 +6,11 @@ namespace FluentMetadata.MVC
     {
         public static void CopyMetadata(Metadata source, ModelMetadata destination)
         {
-            destination.DisplayName = source.DisplayName;
-            destination.ShowForDisplay = source.ShowDisplay;
-            destination.DataTypeName = GetDataTypeName(source);
+            //TODO map missing Metadata properties
             destination.ConvertEmptyStringToNull = source.ConvertEmptyStringToNull;
+            destination.DataTypeName = GetDataTypeName(source);
+            destination.DisplayName = source.DisplayName;
+            //destination.ShowForDisplay = source.ShowDisplay;
         }
 
         private static string GetDataTypeName(Metadata metadata)
@@ -20,20 +21,5 @@ namespace FluentMetadata.MVC
             }
             return metadata.DataTypeName;
         }
-
-
-        //               DisplayName = metaData.DisplayName,
-        //               ShowForDisplay = metaData.ShowDisplay.Value,
-        //               ShowForEdit = metaData.ShowEditor,
-        //               TemplateHint = metaData.TemplateHint,
-        //               IsReadOnly = metaData.Readonly,
-        //               DataTypeName = GetDataTypeName(metaData),
-        //               NullDisplayText = metaData.NullDisplayText,
-        //               DisplayFormatString = metaData.DisplayFormat,
-        //               EditFormatString = metaData.EditorFormat,
-        //               Description = metaData.Description,
-        //               IsRequired = metaData.Required,
-        //               Watermark = metaData.Watermark,
-        //               HideSurroundingHtml = metaData.HideSurroundingHtml
     }
 }
