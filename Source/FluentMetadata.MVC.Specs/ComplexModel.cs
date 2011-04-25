@@ -21,7 +21,7 @@ namespace FluentMetadata.MVC.Specs
     [DisplayName("Komplex")]
     public class ComplexModel
     {
-        [HiddenInput]
+        [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
         [DisplayName("Vorname")]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
