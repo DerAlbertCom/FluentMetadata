@@ -88,13 +88,12 @@ namespace FluentMetadata.MVC.Specs
             Assert.Equal(Expected.DisplayFormatString, Fluent.DisplayFormatString);
         }
 
-        //TODO [MVC3] ModelMetadata.Description cannot be used with the default provider in MVC2
-        //[Observation]
-        //public void Equals_Description()
-        //{
-        //    Console.WriteLine(Expected.Description);
-        //    Assert.Equal(Expected.Description, Fluent.Description);
-        //}
+        [Observation]
+        public void Equals_Description()
+        {
+            Console.WriteLine(Expected.Description);
+            Assert.Equal(Expected.Description, Fluent.Description);
+        }
 
         [Observation]
         public void Equals_EditFormatString()

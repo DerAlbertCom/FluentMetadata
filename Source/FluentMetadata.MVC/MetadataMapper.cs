@@ -9,7 +9,7 @@ namespace FluentMetadata.MVC
             //TODO map missing Metadata properties
             destination.ConvertEmptyStringToNull = source.ConvertEmptyStringToNull;
             destination.DataTypeName = source.DataTypeName;
-            //TODO [MVC3] destination.Description = source.GetDescription();
+            destination.Description = source.GetDescription();
             destination.DisplayFormatString = source.GetDisplayFormat();
             destination.DisplayName = source.GetDisplayName();
             destination.EditFormatString = source.GetEditorFormat();
