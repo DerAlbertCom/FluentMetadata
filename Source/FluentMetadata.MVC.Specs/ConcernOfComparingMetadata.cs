@@ -143,5 +143,12 @@ namespace FluentMetadata.MVC.Specs
             Console.WriteLine(Expected.ShowForEdit);
             Assert.Equal(Expected.ShowForEdit, Fluent.ShowForEdit);
         }
+
+        [Observation]
+        public void Equals_TemplateHint()
+        {
+            Console.WriteLine(Expected.TemplateHint);
+            Assert.Equal(Expected.TemplateHint, Fluent.TemplateHint);
+        }
     }
 }

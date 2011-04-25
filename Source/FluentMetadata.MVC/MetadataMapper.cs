@@ -25,15 +25,16 @@ namespace FluentMetadata.MVC
             destination.NullDisplayText = source.NullDisplayText;
             destination.ShowForDisplay = source.ShowDisplay;
             destination.ShowForEdit = source.ShowEditor;
+            destination.TemplateHint = GetTemplateHint(source);
         }
 
-        private static string GetDataTypeName(Metadata metadata)
+        private static string GetTemplateHint(Metadata metadata)
         {
             if (metadata.Hidden.HasValue && metadata.Hidden.Value)
             {
                 return "HiddenInput";
             }
-            return metadata.DataTypeName;
+            return metadata.TemplateHint;
         }
     }
 }

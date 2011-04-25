@@ -20,7 +20,9 @@ namespace FluentMetadata.MVC.Specs
                 .Is.Required();
             Property(e => e.LastName)
                 .Display.NullText("No lastname set");
-            Property(e => e.Age).As.Custom("Years");
+            Property(e => e.Age)
+                .As.Custom("Years")
+                .UIHint("Spinner");
             Property(e => e.Amount)
                 .Display.Format("{0:c}")
                 .Editor.Format("{0:c}");
@@ -40,6 +42,7 @@ namespace FluentMetadata.MVC.Specs
         [DisplayFormat(NullDisplayText = "No lastname set")]
         public string LastName { get; set; }
         [DataType("Years")]
+        [UIHint("Spinner")]
         public int Age { get; set; }
         [DisplayFormat(DataFormatString = "{0:c}", ApplyFormatInEditMode = true)]
         public decimal Amount { get; set; }
