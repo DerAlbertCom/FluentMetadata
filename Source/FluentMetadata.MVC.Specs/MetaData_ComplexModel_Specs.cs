@@ -36,6 +36,15 @@ namespace FluentMetadata.MVC.Specs
     }
 
     [Concern(typeof(FluentMetadataProvider))]
+    public class When_getting_the_Metadata_of_ComplexModel_Property_Id : ConcernOfComplexModel
+    {
+        public override void CreateMetadata()
+        {
+            CreatePropertyMetadata("Id");
+        }
+    }
+
+    [Concern(typeof(FluentMetadataProvider))]
     public class When_getting_the_Metadata_of_ComplexModel_Property_FirstName : ConcernOfComplexModel
     {
         public override void CreateMetadata()
