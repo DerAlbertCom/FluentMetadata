@@ -12,7 +12,10 @@ namespace FluentMetadata.MVC.Specs
             Property(e => e.Id)
                 .Should.HiddenInput()
                 .Is.ReadOnly();
-            Property(e => e.FirstName).Display.Name("Vorname").Is.Not.ConvertEmptyStringToNull();
+            Property(e => e.FirstName)
+                .Display.Name("Vorname")
+                .Is.Not.ConvertEmptyStringToNull()
+                .Is.Required();
             Property(e => e.Age).As.Custom("Years");
             Property(e => e.Amount)
                 .Display.Format("{0:c}")
@@ -27,6 +30,7 @@ namespace FluentMetadata.MVC.Specs
         public int Id { get; set; }
         [DisplayName("Vorname")]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
+        [Required]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         [DataType("Years")]

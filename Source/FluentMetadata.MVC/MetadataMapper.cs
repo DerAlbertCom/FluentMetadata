@@ -18,6 +18,10 @@ namespace FluentMetadata.MVC
                 destination.HideSurroundingHtml = source.HideSurroundingHtml.Value;
             }
             destination.IsReadOnly = source.Readonly;
+            if (source.Required.HasValue)
+            {
+                destination.IsRequired = source.Required.Value;
+            }
             //destination.ShowForDisplay = source.ShowDisplay;
         }
 

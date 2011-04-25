@@ -109,5 +109,12 @@ namespace FluentMetadata.MVC.Specs
             Console.WriteLine(Expected.IsReadOnly);
             Assert.Equal(Expected.IsReadOnly, Fluent.IsReadOnly);
         }
+
+        [Observation]
+        public void Equals_IsRequired()
+        {
+            Console.WriteLine(Expected.IsRequired);
+            Assert.Equal(Expected.IsRequired, Fluent.IsRequired);
+        }
     }
 }
