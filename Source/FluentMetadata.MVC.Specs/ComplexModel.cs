@@ -12,7 +12,8 @@ namespace FluentMetadata.MVC.Specs
             Property(e => e.Id)
                 .Should.HiddenInput()
                 .Is.ReadOnly()
-                .Should.Not.ShowInDisplay();
+                .Should.Not.ShowInDisplay()
+                .Should.Not.ShowInEditor();
             Property(e => e.FirstName)
                 .Display.Name("Vorname")
                 .Is.Not.ConvertEmptyStringToNull()

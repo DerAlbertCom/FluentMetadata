@@ -136,5 +136,12 @@ namespace FluentMetadata.MVC.Specs
             Console.WriteLine(Expected.ShowForDisplay);
             Assert.Equal(Expected.ShowForDisplay, Fluent.ShowForDisplay);
         }
+
+        [Observation]
+        public void Equals_ShowForEdit()
+        {
+            Console.WriteLine(Expected.ShowForEdit);
+            Assert.Equal(Expected.ShowForEdit, Fluent.ShowForEdit);
+        }
     }
 }

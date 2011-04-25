@@ -24,6 +24,7 @@ namespace FluentMetadata.MVC
             }
             destination.NullDisplayText = source.NullDisplayText;
             destination.ShowForDisplay = source.ShowDisplay;
+            destination.ShowForEdit = source.ShowEditor;
         }
 
         private static string GetDataTypeName(Metadata metadata)
