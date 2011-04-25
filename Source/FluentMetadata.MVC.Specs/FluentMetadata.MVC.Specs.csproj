@@ -53,7 +53,7 @@
   <ItemGroup>
     <Compile Include="ComplexModel.cs" />
     <Compile Include="ConcernOfComparingMetadata.cs" />
-    <Compile Include="ConcernOfValidationSampleData.cs" />
+    <Compile Include="ConcernOfValidationComplexData.cs" />
     <Compile Include="ControllerValidationExtensions.cs" />
     <Compile Include="MetaData_SampleModel_Specs.cs" />
     <Compile Include="DummyController.cs" />
