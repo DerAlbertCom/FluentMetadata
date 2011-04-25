@@ -24,7 +24,6 @@ namespace FluentMetadata.MVC.Specs
 
         public abstract void CreateMetadata();
 
-
         [Observation]
         public void Equals_ModelMetadata_Properties_Count()
         {
@@ -115,6 +114,13 @@ namespace FluentMetadata.MVC.Specs
         {
             Console.WriteLine(Expected.IsRequired);
             Assert.Equal(Expected.IsRequired, Fluent.IsRequired);
+        }
+
+        [Observation]
+        public void Equals_ModelType()
+        {
+            Console.WriteLine(Expected.ModelType);
+            Assert.Equal(Expected.ModelType, Fluent.ModelType);
         }
     }
 }
