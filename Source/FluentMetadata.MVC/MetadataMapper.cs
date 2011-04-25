@@ -12,6 +12,7 @@ namespace FluentMetadata.MVC
             //TODO [MVC3] destination.Description = source.Description;
             destination.DisplayFormatString = source.DisplayFormat;
             destination.DisplayName = source.DisplayName;
+            destination.EditFormatString = source.EditorFormat;
             //destination.ShowForDisplay = source.ShowDisplay;
         }
 
