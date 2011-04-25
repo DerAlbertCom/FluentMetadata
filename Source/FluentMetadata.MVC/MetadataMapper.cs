@@ -23,7 +23,7 @@ namespace FluentMetadata.MVC
                 destination.IsRequired = source.Required.Value;
             }
             destination.NullDisplayText = source.NullDisplayText;
-            //destination.ShowForDisplay = source.ShowDisplay;
+            destination.ShowForDisplay = source.ShowDisplay;
         }
 
         private static string GetDataTypeName(Metadata metadata)

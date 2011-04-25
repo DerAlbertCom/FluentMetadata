@@ -11,7 +11,8 @@ namespace FluentMetadata.MVC.Specs
             Class.Display.Name("Komplex");
             Property(e => e.Id)
                 .Should.HiddenInput()
-                .Is.ReadOnly();
+                .Is.ReadOnly()
+                .Should.Not.ShowInDisplay();
             Property(e => e.FirstName)
                 .Display.Name("Vorname")
                 .Is.Not.ConvertEmptyStringToNull()
@@ -29,6 +30,7 @@ namespace FluentMetadata.MVC.Specs
     {
         [HiddenInput(DisplayValue = false)]
         [ReadOnly(true)]
+        [ScaffoldColumn(false)]
         public int Id { get; set; }
         [DisplayName("Vorname")]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
