@@ -122,5 +122,12 @@ namespace FluentMetadata.MVC.Specs
             Console.WriteLine(Expected.ModelType);
             Assert.Equal(Expected.ModelType, Fluent.ModelType);
         }
+
+        [Observation]
+        public void Equals_NullDisplayText()
+        {
+            Console.WriteLine(Expected.NullDisplayText);
+            Assert.Equal(Expected.NullDisplayText, Fluent.NullDisplayText);
+        }
     }
 }

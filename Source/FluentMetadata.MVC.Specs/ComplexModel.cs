@@ -16,6 +16,8 @@ namespace FluentMetadata.MVC.Specs
                 .Display.Name("Vorname")
                 .Is.Not.ConvertEmptyStringToNull()
                 .Is.Required();
+            Property(e => e.LastName)
+                .Display.NullText("No lastname set");
             Property(e => e.Age).As.Custom("Years");
             Property(e => e.Amount)
                 .Display.Format("{0:c}")
@@ -32,6 +34,7 @@ namespace FluentMetadata.MVC.Specs
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         [Required]
         public string FirstName { get; set; }
+        [DisplayFormat(NullDisplayText = "No lastname set")]
         public string LastName { get; set; }
         [DataType("Years")]
         public int Age { get; set; }

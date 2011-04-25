@@ -22,6 +22,7 @@ namespace FluentMetadata.MVC
             {
                 destination.IsRequired = source.Required.Value;
             }
+            destination.NullDisplayText = source.NullDisplayText;
             //destination.ShowForDisplay = source.ShowDisplay;
         }
 
