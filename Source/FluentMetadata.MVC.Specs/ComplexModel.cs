@@ -10,6 +10,7 @@ namespace FluentMetadata.MVC.Specs
             Class.Display.Name("Komplex");
             Property(e => e.FirstName).Display.Name("Vorname").Is.Not.ConvertEmptyStringToNull();
             Property(e => e.Age).As.Custom("Years");
+            Property(e => e.Amount).Display.Format("{0:c}");
         }
     }
     [DisplayName("Komplex")]
@@ -21,6 +22,7 @@ namespace FluentMetadata.MVC.Specs
         public string LastName { get; set; }
         [DataType("Years")]
         public int Age { get; set; }
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal Amount { get; set; }
         public char Sex { get; set; }
     }
