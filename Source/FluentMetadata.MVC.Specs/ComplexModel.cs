@@ -26,6 +26,7 @@ namespace FluentMetadata.MVC.Specs
             Property(e => e.FirstName)
                 .Display.Name("Vorname")
                 .Description("Der Vorname des komplexen Models")
+                .Editor.Watermark("hier Vornamen eintragen")
                 .Is.Not.ConvertEmptyStringToNull()
                 .Is.Required()
                 .Is.RequestValidationEnabled();
@@ -55,7 +56,7 @@ namespace FluentMetadata.MVC.Specs
 
         [DisplayName("Vorname")]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        [Display(Description = "Der Vorname des komplexen Models")]
+        [Display(Description = "Der Vorname des komplexen Models", Prompt = "hier Vornamen eintragen")]
         [Required]
         public string FirstName { get; set; }
 

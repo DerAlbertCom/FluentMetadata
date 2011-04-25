@@ -30,7 +30,6 @@ namespace FluentMetadata
 
         internal void CopyMetaDataFrom(Metadata metadata)
         {
-            //TODO write tests for CopyMetaDataFrom: properties commented here have not associated tests yet
             ConvertEmptyStringToNull = metadata.ConvertEmptyStringToNull;
             DataTypeName = metadata.DataTypeName;
             DescriptionFunc = metadata.DescriptionFunc;
@@ -46,7 +45,6 @@ namespace FluentMetadata
             ShowEditor = metadata.ShowEditor;
             TemplateHint = metadata.TemplateHint;
             WatermarkFunc = metadata.WatermarkFunc;
-            //ErrorMessage = metadata.ErrorMessage;
             Hidden = metadata.Hidden;
 
             foreach (var rule in metadata.Rules)

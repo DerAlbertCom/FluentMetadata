@@ -165,13 +165,12 @@ namespace FluentMetadata.MVC.Specs
             Assert.Equal(Expected.TemplateHint, Fluent.TemplateHint);
         }
 
-        //TODO [MVC3] ModelMetadata.Watermark cannot be used with the default provider in MVC2
-        //[Observation]
-        //public void Equals_Watermark()
-        //{
-        //    Console.WriteLine(Expected.Watermark);
-        //    Assert.Equal(Expected.Watermark, Fluent.Watermark);
-        //}
+        [Observation]
+        public void Equals_Watermark()
+        {
+            Console.WriteLine(Expected.Watermark);
+            Assert.Equal(Expected.Watermark, Fluent.Watermark);
+        }
 
         [Observation]
         public void DataAnnotationsModelValidatorProviderAppliesRequiredValidators()

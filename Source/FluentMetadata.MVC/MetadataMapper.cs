@@ -6,7 +6,6 @@ namespace FluentMetadata.MVC
     {
         public static void CopyMetadata(Metadata source, ModelMetadata destination)
         {
-            //TODO map missing Metadata properties
             destination.ConvertEmptyStringToNull = source.ConvertEmptyStringToNull;
             destination.DataTypeName = source.DataTypeName;
             destination.Description = source.GetDescription();
@@ -31,7 +30,7 @@ namespace FluentMetadata.MVC
             destination.ShowForDisplay = source.ShowDisplay;
             destination.ShowForEdit = source.ShowEditor;
             destination.TemplateHint = GetTemplateHint(source);
-            //TODO [MVC3] destination.Watermark = source.GetWatermark();
+            destination.Watermark = source.GetWatermark();
         }
 
         private static string GetTemplateHint(Metadata metadata)
