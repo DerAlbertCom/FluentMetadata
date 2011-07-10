@@ -95,6 +95,7 @@
     <Compile Include="Rules\ClassRule.cs" />
     <Compile Include="Rules\IClassRule.cs" />
     <Compile Include="Rules\IRule.cs" />
+    <Compile Include="Rules\PropertyMustMatchRegexRule.cs" />
     <Compile Include="Rules\PropertyMustMatchRule.cs" />
     <Compile Include="Rules\RangeRule.cs" />
     <Compile Include="Rules\RequiredRule.cs" />
