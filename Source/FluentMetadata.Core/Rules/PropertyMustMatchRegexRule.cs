@@ -18,7 +18,8 @@ namespace FluentMetadata.Rules
 
         public override bool IsValid(object value)
         {
-            if (value == null) // because validating this is the responsibility of the RequiredRule
+            // because validating this is not the responsibility of the PropertyMustMatchRegexRule
+            if (value == null || value.ToString() == string.Empty)
             {
                 return true;
             }

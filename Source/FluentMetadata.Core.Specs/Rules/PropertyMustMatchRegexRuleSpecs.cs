@@ -34,5 +34,11 @@ namespace FluentMetadata.Specs.Rules
         {
             Sut.IsValid("regexlib.com/REDetails.aspx?regexp_id=96").ShouldBeFalse();
         }
+
+        [Observation]
+        public void An_empty_string_value_is_valid() // because to check this is not the responsibility of the PropertyMustMatchRegexRule
+        {
+            Sut.IsValid(string.Empty).ShouldBeTrue();
+        }
     }
 }
