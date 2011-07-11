@@ -22,5 +22,11 @@ namespace FluentMetadata.Specs.Rules
         {
             Sut.IsValid(null).ShouldBeTrue();
         }
+
+        [Observation]
+        public void A_value_matching_the_pattern_is_valid()
+        {
+            Sut.IsValid("http://regexlib.com/REDetails.aspx?regexp_id=96").ShouldBeTrue();
+        }
     }
 }
