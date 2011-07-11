@@ -41,4 +41,43 @@ namespace FluentMetadata.Specs.Rules
             Sut.IsValid(string.Empty).ShouldBeTrue();
         }
     }
+
+    [Concern(typeof(PropertyMustNotMatchRegexRule))]
+    public class When_property_value_should_not_match_a_regex : InstanceContextSpecification<PropertyMustNotMatchRegexRule>
+    {
+        protected override void Because()
+        {
+        }
+
+        protected override PropertyMustNotMatchRegexRule CreateSut()
+        {
+            //from http://regexlib.com/REDetails.aspx?regexp_id=96
+            const string validUri = @"(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?";
+            return new PropertyMustNotMatchRegexRule(validUri);
+        }
+
+        [Observation]
+        public void A_null_value_is_valid() // because to check this is the responsibility of the RequiredRule
+        {
+            Sut.IsValid(null).ShouldBeTrue();
+        }
+
+        [Observation]
+        public void A_value_matching_the_pattern_is_valid()
+        {
+            Sut.IsValid("http://regexlib.com/REDetails.aspx?regexp_id=96").ShouldBeFalse();
+        }
+
+        [Observation]
+        public void A_value_not_matching_the_pattern_is_invalid()
+        {
+            Sut.IsValid("regexlib.com/REDetails.aspx?regexp_id=96").ShouldBeTrue();
+        }
+
+        [Observation]
+        public void An_empty_string_value_is_valid() // because to check this is not the responsibility of the PropertyMustMatchRegexRule
+        {
+            Sut.IsValid(string.Empty).ShouldBeTrue();
+        }
+    }
 }
