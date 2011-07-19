@@ -6,28 +6,25 @@ namespace FluentMetadata
     {
         public Metadata GetMetadataFor(Type type)
         {
-            var builder = FluentMetadataBuilder.GetTypeBuilder(type);
-            return builder.Metadata;
+            return FluentMetadataBuilder.GetTypeBuilder(type).Metadata;
         }
 
         public Metadata GetMetadataFor(Type type, string propertyName)
         {
-            var metadata = GetMetadataFor(type);
-            if (!metadata.Properties.Contains(propertyName))
+            var metadataProperties = GetMetadataFor(type).Properties;
+            if (!metadataProperties.Contains(propertyName))
             {
-                throw new ArgumentOutOfRangeException("propertyName","Unknow Property");
+                throw new ArgumentOutOfRangeException("propertyName", "Unknown Property");
             }
-            return metadata.Properties[propertyName];
+            return metadataProperties[propertyName];
         }
 
         public Metadata FindMetadataFor(Type type, string propertyName)
         {
-            var metadata = GetMetadataFor(type);
-            if (!metadata.Properties.Contains(propertyName))
-            {
-                return null;
-            }
-            return metadata.Properties[propertyName];
+            var metadataProperties = GetMetadataFor(type).Properties;
+            return metadataProperties.Contains(propertyName) ?
+                metadataProperties[propertyName] :
+                null;
         }
     }
 }
