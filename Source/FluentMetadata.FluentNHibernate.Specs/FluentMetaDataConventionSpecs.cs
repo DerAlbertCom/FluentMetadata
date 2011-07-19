@@ -40,6 +40,16 @@ namespace FluentMetadata.FluentNHibernate.Specs
             Assert.False(optionalMapping.Columns.Single().NotNull);
         }
 
+        [Fact]
+        public void AppliesMaximumStringLengthToProperties()
+        {
+            var optionalMapping = GetPropertyMapping<TestClass>(t => t.SomeString);
+
+            sut.Apply(new PropertyInstance(optionalMapping));
+
+            Assert.Equal(42, optionalMapping.Columns.Single().Length);
+        }
+
         static PropertyMapping GetPropertyMapping<T>(Expression<Func<T, object>> propertyExpression)
         {
             var propertyMapping = new PropertyMapping
@@ -56,6 +66,7 @@ namespace FluentMetadata.FluentNHibernate.Specs
     {
         public int Id { get; protected set; }
         public int? NullableNumber { get; set; }
+        public string SomeString { get; set; }
     }
 
     public class TestClassMetadata : ClassMetadata<TestClass>
@@ -64,6 +75,8 @@ namespace FluentMetadata.FluentNHibernate.Specs
         {
             Property(t => t.Id)
                 .Is.Required();
+            Property(t => t.SomeString)
+                .Length(42);
         }
     }
 }
