@@ -50,6 +50,24 @@ namespace FluentMetadata.FluentNHibernate.Specs
             Assert.Equal(42, optionalMapping.Columns.Single().Length);
         }
 
+        [Fact]
+        public void DoesNotThrowAnExceptionForNotFoundProperties()
+        {
+            var privateMapping = GetPropertyMapping<TestClass>(TestClass.Expressions.SomePrivateField);
+            Exception exception = null;
+
+            try
+            {
+                sut.Apply(new PropertyInstance(privateMapping));
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.Null(exception);
+        }
+
         static PropertyMapping GetPropertyMapping<T>(Expression<Func<T, object>> propertyExpression)
         {
             var propertyMapping = new PropertyMapping
@@ -64,9 +82,18 @@ namespace FluentMetadata.FluentNHibernate.Specs
 
     public class TestClass
     {
+        int somePrivateField = 42;
+
         public int Id { get; protected set; }
         public int? NullableNumber { get; set; }
         public string SomeString { get; set; }
+
+        public class Expressions
+        {
+            /* this represents a way to map private members using Fluent NHibernate;
+             * see http://wiki.fluentnhibernate.org/Fluent_mapping_private_properties */
+            public static Expression<Func<TestClass, object>> SomePrivateField = t => t.somePrivateField;
+        }
     }
 
     public class TestClassMetadata : ClassMetadata<TestClass>
