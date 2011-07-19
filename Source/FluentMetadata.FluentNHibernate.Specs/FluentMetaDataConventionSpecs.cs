@@ -30,6 +30,16 @@ namespace FluentMetadata.FluentNHibernate.Specs
             Assert.True(idMapping.Columns.Single().NotNull);
         }
 
+        [Fact]
+        public void AppliesNullToNonRequiredProperties()
+        {
+            var optionalMapping = GetPropertyMapping<TestClass>(t => t.NullableNumber);
+
+            sut.Apply(new PropertyInstance(optionalMapping));
+
+            Assert.False(optionalMapping.Columns.Single().NotNull);
+        }
+
         static PropertyMapping GetPropertyMapping<T>(Expression<Func<T, object>> propertyExpression)
         {
             var propertyMapping = new PropertyMapping
@@ -45,6 +55,7 @@ namespace FluentMetadata.FluentNHibernate.Specs
     public class TestClass
     {
         public int Id { get; protected set; }
+        public int? NullableNumber { get; set; }
     }
 
     public class TestClassMetadata : ClassMetadata<TestClass>
