@@ -68,6 +68,26 @@ namespace FluentMetadata.FluentNHibernate.Specs
             Assert.Null(exception);
         }
 
+        [Fact]
+        public void AppliesNotNullToRequiredReferences()
+        {
+            var requiredMapping = GetPropertyMapping<TestClass>(t => t.RequiredReference);
+
+            sut.Apply(new PropertyInstance(requiredMapping));
+
+            Assert.True(requiredMapping.Columns.Single().NotNull);
+        }
+
+        [Fact]
+        public void AppliesNullToNonRequiredReferences()
+        {
+            var optionalMapping = GetPropertyMapping<TestClass>(t => t.NullableReference);
+
+            sut.Apply(new PropertyInstance(optionalMapping));
+
+            Assert.False(optionalMapping.Columns.Single().NotNull);
+        }
+
         static PropertyMapping GetPropertyMapping<T>(Expression<Func<T, object>> propertyExpression)
         {
             var propertyMapping = new PropertyMapping
@@ -87,6 +107,8 @@ namespace FluentMetadata.FluentNHibernate.Specs
         public int Id { get; protected set; }
         public int? NullableNumber { get; set; }
         public string SomeString { get; set; }
+        public Reference RequiredReference { get; set; }
+        public Reference NullableReference { get; set; }
 
         public class Expressions
         {
@@ -94,6 +116,11 @@ namespace FluentMetadata.FluentNHibernate.Specs
              * see http://wiki.fluentnhibernate.org/Fluent_mapping_private_properties */
             public static Expression<Func<TestClass, object>> SomePrivateField = t => t.somePrivateField;
         }
+    }
+
+    public class Reference
+    {
+        public int Id { get; protected set; }
     }
 
     public class TestClassMetadata : ClassMetadata<TestClass>
@@ -104,6 +131,8 @@ namespace FluentMetadata.FluentNHibernate.Specs
                 .Is.Required();
             Property(t => t.SomeString)
                 .Length(42);
+            Property(t => t.RequiredReference)
+                .Is.Required();
         }
     }
 }
