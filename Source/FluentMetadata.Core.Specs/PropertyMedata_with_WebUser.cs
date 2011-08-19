@@ -33,7 +33,7 @@ namespace FluentMetadata.Specs
         [Fact]
         public void Username_DisplayName_is_Benutzername()
         {
-            Assert.Equal("Benutzername", username.DisplayName);
+            Assert.Equal("Benutzername", username.GetDisplayName());
         }
 
         [Fact]

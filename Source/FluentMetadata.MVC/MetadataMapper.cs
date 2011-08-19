@@ -11,7 +11,7 @@ namespace FluentMetadata.MVC
             destination.DataTypeName = source.DataTypeName;
             //TODO [MVC3] destination.Description = source.Description;
             destination.DisplayFormatString = source.DisplayFormat;
-            destination.DisplayName = source.DisplayName;
+            destination.DisplayName = source.GetDisplayName();
             destination.EditFormatString = source.EditorFormat;
             if (source.HideSurroundingHtml.HasValue)
             {

@@ -36,9 +36,10 @@ namespace FluentMetadata.Rules
             var metaData = FluentMetadataBuilder.GetTypeBuilder(currentType).MetaDataFor(propertyName);
             if (metaData != null)
             {
-                propertyName = string.IsNullOrEmpty(metaData.DisplayName) ?
+                var metaDataDisplayName = metaData.GetDisplayName();
+                propertyName = string.IsNullOrEmpty(metaDataDisplayName) ?
                     propertyName :
-                    metaData.DisplayName;
+                    metaDataDisplayName;
             }
             return propertyName;
         }

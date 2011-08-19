@@ -17,7 +17,6 @@ namespace FluentMetadata.Specs
         public void ModelName_is_Null()
         {
             Assert.Null(classMetadata.ModelName);
-//            Assert.Equal("WebUserIndexModel", classMetadata.ModelName);
         }
 
         [Fact]
@@ -29,7 +28,7 @@ namespace FluentMetadata.Specs
         [Fact]
         public void DisplayName_is_Benutzer()
         {
-            Assert.Equal("Benutzer",classMetadata.DisplayName);
+            Assert.Equal("Benutzer", classMetadata.GetDisplayName());
         }
     }
 }

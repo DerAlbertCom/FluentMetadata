@@ -30,7 +30,7 @@ namespace FluentMetadata.Specs
         [Fact]
         public void Metadata_Display_is_Benutzer()
         {
-            Assert.Equal("Benutzer", classMetadata.DisplayName);
+            Assert.Equal("Benutzer", classMetadata.GetDisplayName());
         }
 
         [Fact]

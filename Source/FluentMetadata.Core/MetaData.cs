@@ -35,7 +35,7 @@ namespace FluentMetadata
             DataTypeName = metadata.DataTypeName;
             Description = metadata.Description;
             DisplayFormat = metadata.DisplayFormat;
-            DisplayName = metadata.DisplayName;
+            DisplayNameFunc = metadata.DisplayNameFunc;
             EditorFormat = metadata.EditorFormat;
             HideSurroundingHtml = metadata.HideSurroundingHtml;
             Readonly = metadata.Readonly;
@@ -111,12 +111,12 @@ namespace FluentMetadata
 
         // ~ System.Web.Mvc.ModelMetadata.DisplayName
         /// <summary>
-        /// Gets or sets the display name of the model.
+        /// Gets or sets the GetDisplayName function of the model.
         /// </summary>
         /// <value>
-        /// The display name of the model.
+        /// The GetDisplayName function of the model.
         /// </value>
-        public string DisplayName { get; set; }
+        internal Func<string> DisplayNameFunc { private get; set; }
 
         // ~ System.Web.Mvc.ModelMetadata.EditFormatString
         /// <summary>
@@ -304,6 +304,13 @@ namespace FluentMetadata
         public void AddRule(IRule rule)
         {
             rules.Add(rule);
+        }
+
+        public string GetDisplayName()
+        {
+            return DisplayNameFunc == null ?
+                null :
+                DisplayNameFunc();
         }
 
         public object GetRangeMinimum()

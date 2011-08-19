@@ -28,7 +28,7 @@ namespace FluentMetadata.Specs
         [Fact]
         public void DisplayName_is_Benutzer()
         {
-            Assert.Equal("Benutzer", classMetadata.DisplayName);
+            Assert.Equal("Benutzer", classMetadata.GetDisplayName());
         }
 
     }
