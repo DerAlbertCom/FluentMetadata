@@ -36,8 +36,15 @@ namespace FluentMetadata.Builder
 
         public Metadata MapProperty(Type containerType, string propertyName, Type propertyType)
         {
-            var newMetaData = new Metadata() { ContainerType = containerType, ModelName = propertyName,ModelType = propertyType};
-            return MapProperty(containerType, propertyName, newMetaData);
+            return MapProperty(
+                containerType,
+                propertyName,
+                new Metadata
+                {
+                    ContainerType = containerType,
+                    ModelName = propertyName,
+                    ModelType = propertyType
+                });
         }
 
         public abstract void Init();

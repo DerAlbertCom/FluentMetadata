@@ -4,7 +4,8 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
     {
         public PersonMetadata()
         {
-            Property(p => p.FirstName).Is.Required();
+            Property(p => p.FirstName)
+                .Is.Required();
             Class
                 .Display.Name("Benutzer")
                 .Display.Format("{0} der Benutzer")
