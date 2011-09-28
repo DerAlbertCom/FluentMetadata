@@ -26,7 +26,6 @@ namespace FluentMetadata.Builder
 
     internal class PropertyMetadataBuilder<T, TResult> : PropertyMetadataBuilder, IProperty<T, TResult>
     {
-
         public PropertyMetadataBuilder(Metadata metadata)
             : base(metadata)
         {
@@ -37,13 +36,6 @@ namespace FluentMetadata.Builder
             Metadata.ContainerType = typeof(T);
             Metadata.ModelName = ExpressionHelper.GetPropertyName(expression);
             Metadata.ModelType = ExpressionHelper.GetPropertyType(expression);
-        }
-
-        public PropertyMetadataBuilder(string propertyName)
-        {
-            Metadata.ContainerType = null;
-            Metadata.ModelName = propertyName;
-            Metadata.ModelType = typeof(T);
         }
 
         public IProperty<T, TResult> Length(int maxLength)
@@ -98,7 +90,6 @@ namespace FluentMetadata.Builder
         public IProperty<T, TResult> Range(IComparable minimum, IComparable maximum)
         {
             Metadata.AddRule(new RangeRule(minimum, maximum));
-
             return this;
         }
     }

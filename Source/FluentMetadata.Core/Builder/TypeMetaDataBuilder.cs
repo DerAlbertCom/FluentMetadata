@@ -57,11 +57,7 @@ namespace FluentMetadata.Builder
             return GetBuilder(expression);
         }
 
-        public TypeMetadataBuilder()
-        {
-        }
-
-        private PropertyMetadataBuilder<T, TResult> GetBuilder<TResult>(Expression<Func<T, TResult>> expression)
+        PropertyMetadataBuilder<T, TResult> GetBuilder<TResult>(Expression<Func<T, TResult>> expression)
         {
             string propertyName = ExpressionHelper.GetPropertyName(expression);
 
@@ -71,7 +67,7 @@ namespace FluentMetadata.Builder
                 propertyBuilder = new PropertyMetadataBuilder<T, TResult>(expression);
                 PropertyBuilders.Add(propertyBuilder);
             }
-            return (PropertyMetadataBuilder<T, TResult>) propertyBuilder;
+            return (PropertyMetadataBuilder<T, TResult>)propertyBuilder;
         }
 
         public override Metadata MapProperty(Type containerType, string propertyName, Metadata metadata)
@@ -92,28 +88,13 @@ namespace FluentMetadata.Builder
             ClassBuilder();
         }
 
-        private PropertyMetadataBuilder CreatePropertyMetaDataBuilder(Metadata metadata, Type containerType,
-                                                                      Metadata newMetadata)
+        PropertyMetadataBuilder CreatePropertyMetaDataBuilder(Metadata metadata, Type containerType, Metadata newMetadata)
         {
-            return (PropertyMetadataBuilder) typeof (PropertyMetadataBuilder<,>)
-                                                 .CreateGenericInstance(containerType, metadata.ModelType, newMetadata);
+            return (PropertyMetadataBuilder)typeof(PropertyMetadataBuilder<,>)
+                .CreateGenericInstance(containerType, metadata.ModelType, newMetadata);
         }
 
-        public IProperty<T, TResult> MapEnum<TResult>(object value)
-        {
-            string propertyName = Enum.GetName(typeof (TResult), value);
-            PropertyMetadataBuilder builder;
-            if (!TryGetPropertyBuilder(propertyName, out builder))
-            {
-                builder = new PropertyMetadataBuilder<T, TResult>(propertyName);
-                PropertyBuilders.Add(builder);
-            }
-            return (IProperty<T, TResult>) builder;
-        }
-
-
-        private IClassBuilder<T> classBuilder;
-
+        IClassBuilder<T> classBuilder;
         public IClassBuilder<T> ClassBuilder()
         {
             if (classBuilder == null)
