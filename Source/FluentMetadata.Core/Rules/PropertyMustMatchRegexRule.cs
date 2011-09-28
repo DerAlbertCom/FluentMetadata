@@ -6,29 +6,28 @@ namespace FluentMetadata.Rules
 {
     public class PropertyMustMatchRegexRule : Rule
     {
-        string pattern;
         Regex regex;
 
         public PropertyMustMatchRegexRule(string pattern)
             : base("the value for {0} is not in the correct format")
         {
-            this.pattern = pattern;
             regex = new Regex(pattern);
         }
 
         public override bool IsValid(object value)
         {
-            // because validating this is not the responsibility of the PropertyMustMatchRegexRule
-            if (value == null || value.ToString() == string.Empty)
+            var valueAsString = Convert.ToString(value, CultureInfo.CurrentCulture);
+            // because validating this is not the responsibility of the PropertyMustMatchRegexRule            
+            if (string.IsNullOrEmpty(valueAsString))
             {
                 return true;
             }
-            return Matches(value);
+            return Matches(valueAsString);
         }
 
-        protected bool Matches(object value)
+        protected bool Matches(string value)
         {
-            return regex.Match(Convert.ToString(value, CultureInfo.CurrentCulture)).Success;
+            return regex.Match(value).Success;
         }
 
         public override string FormatErrorMessage(string name)
@@ -46,12 +45,13 @@ namespace FluentMetadata.Rules
 
         public override bool IsValid(object value)
         {
+            var valueAsString = Convert.ToString(value, CultureInfo.CurrentCulture);
             // because validating this is not the responsibility of the PropertyMustNotMatchRegexRule
-            if (value == null || value.ToString() == string.Empty)
+            if (string.IsNullOrEmpty(valueAsString))
             {
                 return true;
             }
-            return !Matches(value);
+            return !Matches(valueAsString);
         }
     }
 }
