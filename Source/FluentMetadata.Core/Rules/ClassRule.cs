@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FluentMetadata.Rules
+﻿namespace FluentMetadata.Rules
 {
     public abstract class ClassRule<T> : IClassRule<T>
     {
@@ -15,7 +13,7 @@ namespace FluentMetadata.Rules
 
         public bool IsValid(object value)
         {
-            return IsValid((T) value);
+            return IsValid((T)value);
         }
 
         public abstract string FormatErrorMessage(string name);
