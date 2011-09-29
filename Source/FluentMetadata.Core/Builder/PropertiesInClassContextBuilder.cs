@@ -21,4 +21,22 @@ namespace FluentMetadata.Builder
             return classBuilder;
         }
     }
+
+    internal class ComparablePropertiesInClassContextBuilder<T> : IComparablePropertiesInClassContextBuilder<T>
+    {
+        readonly IClassBuilder<T> classBuilder;
+        readonly Expression<Func<T, IComparable>> propertyExpression;
+
+        public ComparablePropertiesInClassContextBuilder(IClassBuilder<T> classBuilder, Expression<Func<T, IComparable>> propertyExpression)
+        {
+            this.classBuilder = classBuilder;
+            this.propertyExpression = propertyExpression;
+        }
+
+        public IClassBuilder<T> ShouldBeLessThan(Expression<Func<T, IComparable>> otherPropertyExpression)
+        {
+            classBuilder.Metadata.AddRule(new PropertyMustBeLessThanOtherRule<T>(propertyExpression, otherPropertyExpression));
+            return classBuilder;
+        }
+    }
 }

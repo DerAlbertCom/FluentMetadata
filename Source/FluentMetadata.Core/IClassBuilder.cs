@@ -24,5 +24,13 @@ namespace FluentMetadata
         /// <param name="propertyExpression">The property expression.</param>
         /// <returns></returns>
         IPropertiesInClassContextBuilder<T> Property(Expression<Func<T, object>> propertyExpression);
+
+        /// <summary>
+        /// Entry point for class rules (i.e. rules that must be evaluated in class context)
+        /// that concern more than one property and need to compare properties.
+        /// </summary>
+        /// <param name="propertyExpression">The property expression.</param>
+        /// <returns></returns>
+        IComparablePropertiesInClassContextBuilder<T> ComparableProperty(Expression<Func<T, IComparable>> propertyExpression);
     }
 }

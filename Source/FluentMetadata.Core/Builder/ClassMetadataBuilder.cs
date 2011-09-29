@@ -55,5 +55,10 @@ namespace FluentMetadata.Builder
         {
             return new PropertiesInClassContextBuilder<T>(this, propertyExpression);
         }
+
+        public IComparablePropertiesInClassContextBuilder<T> ComparableProperty(Expression<Func<T, IComparable>> propertyExpression)
+        {
+            return new ComparablePropertiesInClassContextBuilder<T>(this, propertyExpression);
+        }
     }
 }

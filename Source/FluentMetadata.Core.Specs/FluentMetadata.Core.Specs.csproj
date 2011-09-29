@@ -93,6 +93,7 @@
     <Compile Include="Rules\RangeRuleSpecs.cs" />
     <Compile Include="Rules\RequiredRuleSpecs.cs" />
     <Compile Include="Rules\StringLengthRuleSpecs.cs" />
+    <Compile Include="Rules\PropertyMustBeLessThanOtherRuleSpecs.cs" />
     <Compile Include="SampleClasses\DerivedClass.cs" />
     <Compile Include="SampleClasses\DomainModel.cs" />
     <Compile Include="SampleClasses\DomainObject.cs" />
