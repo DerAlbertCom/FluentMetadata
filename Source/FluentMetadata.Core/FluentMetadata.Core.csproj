@@ -70,12 +70,14 @@
     </Compile>
     <Compile Include="Builder\AsBuilder.cs" />
     <Compile Include="Builder\ClassMetadataBuilder.cs" />
+    <Compile Include="Builder\PropertiesInClassContextBuilder.cs" />
     <Compile Include="ClassMetadata.cs" />
     <Compile Include="Builder\DisplayBuilder.cs" />
     <Compile Include="Builder\EditorBuilder.cs" />
     <Compile Include="ExpressionHelper.cs" />
     <Compile Include="FluentMetadataBuilder.cs" />
     <Compile Include="IClassBuilder.cs" />
+    <Compile Include="IPropertiesInClassContextBuilder.cs" />
     <Compile Include="IDisplayClass.cs" />
     <Compile Include="PropertiesMetadata.cs" />
     <Compile Include="QueryFluentMetadata.cs" />

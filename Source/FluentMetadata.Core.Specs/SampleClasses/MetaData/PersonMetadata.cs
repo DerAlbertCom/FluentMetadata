@@ -9,7 +9,7 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
             Class
                 .Display.Name("Benutzer")
                 .Display.Format("{0} der Benutzer")
-                .PropertiesShouldMatch(p => p.FirstName, p => p.LastName);
+                .Property(p => p.FirstName).ShouldEqual(p => p.LastName);
         }
     }
 }
