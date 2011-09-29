@@ -50,7 +50,11 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
                 .Display.Name("Bestätigt");
             Property(x => x.Active)
                 .Display.Name("Aktiv");
-            Class.Display.Name("Benutzer");
+            Class
+                .Display.Name("Benutzer")
+                .AssertThat(
+                    u => u.Username != u.Autor.Name,
+                    "{0}.Username and {0}.Autor.Name must not be equal");
         }
     }
 

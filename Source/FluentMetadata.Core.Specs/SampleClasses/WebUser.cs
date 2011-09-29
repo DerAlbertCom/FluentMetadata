@@ -9,11 +9,11 @@ namespace FluentMetadata.Specs.SampleClasses
 
     public class WebUser : DomainObject
     {
-        private WebUser()
+        internal WebUser()
         {
         }
 
-        public override  void Initialize()
+        public override void Initialize()
         {
             base.Initialize();
             PasswordHash = string.Empty;
@@ -21,7 +21,7 @@ namespace FluentMetadata.Specs.SampleClasses
             Active = false;
         }
 
-        public string Username { get; private set; }
+        public string Username { get; internal set; }
 
         public string EMail { get; private set; }
 
@@ -33,7 +33,7 @@ namespace FluentMetadata.Specs.SampleClasses
         public DateTime? LastLogin { get; private set; }
         public Guid? ConfirmationKey { get; private set; }
         public string Role { get; private set; }
-        public Autor Autor { get; private set; }
+        public Autor Autor { get; internal set; }
 
         public void SetEMailAddress(string emailAddress)
         {
@@ -48,7 +48,7 @@ namespace FluentMetadata.Specs.SampleClasses
 
         private string GetUserSalt()
         {
-            return (Created.Second*Created.DayOfYear).ToString();
+            return (Created.Second * Created.DayOfYear).ToString();
         }
 
         public void MailHasBounced()

@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using FluentMetadata.Rules;
 using FluentMetadata.Specs.SampleClasses;
 using Xunit;
 
@@ -31,5 +34,33 @@ namespace FluentMetadata.Specs
             Assert.Equal("Benutzer", classMetadata.GetDisplayName());
         }
 
+        [Fact]
+        public void Generic_name_rule_is_valid_when_Username_is_not_equal_to_AutorName()
+        {
+            var nameRule = classMetadata.Rules
+                .OfType<GenericClassRule<WebUser>>()
+                .Single();
+
+            var webUser = new WebUser();
+            webUser.Username = "Holger";
+            webUser.Autor = new Autor { Name = "Albert" };
+
+            Assert.True(nameRule.IsValid(webUser));
+        }
+
+        [Fact]
+        public void Generic_name_rule_is_invalid_when_Username_is_equal_to_AutorName()
+        {
+            var nameRule = classMetadata.Rules
+                .OfType<GenericClassRule<WebUser>>()
+                .Single();
+
+            var webUser = new WebUser();
+            webUser.Username = "Holger";
+            webUser.Autor = new Autor { Name = "Holger" };
+
+            Console.WriteLine(nameRule.FormatErrorMessage(classMetadata.GetDisplayName()));
+            Assert.False(nameRule.IsValid(webUser));
+        }
     }
 }

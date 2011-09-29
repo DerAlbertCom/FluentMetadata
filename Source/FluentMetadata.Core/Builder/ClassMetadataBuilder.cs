@@ -1,5 +1,7 @@
 using System;
 using System.Linq.Expressions;
+using FluentMetadata.Rules;
+
 namespace FluentMetadata.Builder
 {
     internal class ClassMetadataBuilder<T> : IClassBuilder<T>
@@ -41,6 +43,12 @@ namespace FluentMetadata.Builder
         public Metadata Metadata
         {
             get { return metadata; }
+        }
+
+        public IClassBuilder<T> AssertThat(Func<T, bool> assertFunc, string errorMessageFormat)
+        {
+            metadata.AddRule(new GenericClassRule<T>(errorMessageFormat, assertFunc));
+            return this;
         }
 
         public IPropertiesInClassContextBuilder<T> Property(Expression<Func<T, object>> propertyExpression)
