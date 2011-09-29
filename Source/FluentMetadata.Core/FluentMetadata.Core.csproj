@@ -70,7 +70,6 @@
     </Compile>
     <Compile Include="Builder\AsBuilder.cs" />
     <Compile Include="Builder\ClassMetadataBuilder.cs" />
-    <Compile Include="Builder\ITypeMetadataBuilder.cs" />
     <Compile Include="ClassMetadata.cs" />
     <Compile Include="Builder\DisplayBuilder.cs" />
     <Compile Include="Builder\EditorBuilder.cs" />
