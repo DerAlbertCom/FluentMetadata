@@ -72,6 +72,7 @@
     <Compile Include="Builder\ClassMetadataBuilder.cs" />
     <Compile Include="Builder\PropertiesInClassContextBuilder.cs" />
     <Compile Include="Rules\GenericClassRule.cs" />
+    <Compile Include="Rules\GenericRule.cs" />
     <Compile Include="ClassMetadata.cs" />
     <Compile Include="Builder\DisplayBuilder.cs" />
     <Compile Include="Builder\EditorBuilder.cs" />

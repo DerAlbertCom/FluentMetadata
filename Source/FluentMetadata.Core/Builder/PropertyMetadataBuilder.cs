@@ -38,6 +38,12 @@ namespace FluentMetadata.Builder
             Metadata.ModelType = ExpressionHelper.GetPropertyType(expression);
         }
 
+        public IProperty<T, TResult> AssertThat(Func<TResult, bool> assertFunc, string errorMessageFormat)
+        {
+            Metadata.AddRule(new GenericRule<TResult>(errorMessageFormat, assertFunc));
+            return this;
+        }
+
         public IProperty<T, TResult> Length(int maxLength)
         {
             Metadata.AddRule(new StringLengthRule(maxLength));

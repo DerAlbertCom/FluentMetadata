@@ -1,8 +1,10 @@
 ﻿using System;
+
 namespace FluentMetadata
 {
     public interface IProperty<T, TResult>
     {
+        IProperty<T, TResult> AssertThat(Func<TResult, bool> assertFunc, string errorMessageFormat);
         IProperty<T, TResult> Length(int maxLength);
         IProperty<T, TResult> Length(int minLength, int? maxLength);
         IProperty<T, TResult> UIHint(string templateHint);

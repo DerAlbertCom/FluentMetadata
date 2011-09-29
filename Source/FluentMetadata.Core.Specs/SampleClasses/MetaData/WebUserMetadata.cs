@@ -44,7 +44,10 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
                 .Range(new DateTime(2010, 1, 23), DateTime.MaxValue); //support ends on doomsday
             Property(x => x.BounceCount)
                 .Should.Not.ShowInEditor()
-                .Display.Name("E-Mail Fehler");
+                .Display.Name("E-Mail Fehler")
+                .AssertThat(
+                    bc => ValidateBounceCountAgainstSomeConfiguration(bc),
+                    "{0} is too high. Email address is considered invalid.");
             Property(x => x.Confirmed)
                 .Should.Not.HiddenInput()
                 .Display.Name("Bestätigt");
@@ -55,6 +58,11 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
                 .AssertThat(
                     u => u.Username != u.Autor.Name,
                     "{0}.Username and {0}.Autor.Name must not be equal");
+        }
+
+        bool ValidateBounceCountAgainstSomeConfiguration(int bounceCount)
+        {
+            return bounceCount < 3;
         }
     }
 

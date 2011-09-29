@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using FluentMetadata.Rules;
 using FluentMetadata.Specs.SampleClasses;
 using Xunit;
 
@@ -6,7 +8,7 @@ namespace FluentMetadata.Specs
 {
     public class PropertyMedata_with_WebUser : MetadataTestBase
     {
-        Metadata lastLogin, username, id, passWordHash, role;
+        Metadata lastLogin, username, id, passWordHash, role, bounceCount;
 
         public PropertyMedata_with_WebUser()
         {
@@ -16,6 +18,7 @@ namespace FluentMetadata.Specs
             lastLogin = query.GetMetadataFor(typeof(WebUser), "LastLogin");
             passWordHash = query.GetMetadataFor(typeof(WebUser), "PasswordHash");
             role = query.GetMetadataFor(typeof(WebUser), "Role");
+            bounceCount = query.GetMetadataFor(typeof(WebUser), "BounceCount");
         }
 
         [Fact]
@@ -106,6 +109,36 @@ namespace FluentMetadata.Specs
         public void Last_Login_Maximum_is_DoomsDay()
         {
             Assert.Equal(DateTime.MaxValue, lastLogin.GetRangeMaximum());
+        }
+
+        [Fact]
+        public void Generic_bounceCount_rule_is_valid_when_email_has_bounced_twice()
+        {
+            var bounceCountRule = bounceCount.Rules
+                .OfType<GenericRule<int>>()
+                .Single();
+            var webUser = new WebUser();
+
+            webUser.MailHasBounced();
+            webUser.MailHasBounced();
+
+            Assert.True(bounceCountRule.IsValid(webUser.BounceCount));
+        }
+
+        [Fact]
+        public void Generic_bounceCount_rule_is_invalid_when_email_has_bounced_thrice()
+        {
+            var bounceCountRule = bounceCount.Rules
+                .OfType<GenericRule<int>>()
+                .Single();
+            var webUser = new WebUser();
+
+            webUser.MailHasBounced();
+            webUser.MailHasBounced();
+            webUser.MailHasBounced();
+
+            Console.WriteLine(bounceCountRule.FormatErrorMessage(bounceCount.GetDisplayName()));
+            Assert.False(bounceCountRule.IsValid(webUser.BounceCount));
         }
     }
 }
