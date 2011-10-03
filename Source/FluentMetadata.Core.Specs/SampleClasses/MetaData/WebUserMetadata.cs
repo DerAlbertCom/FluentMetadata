@@ -75,4 +75,12 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
                 .Display.NullText("Anonymous Autor");
         }
     }
+
+    public class WebUserIndexModelMetadata : ClassMetadata<WebUserIndexModel>
+    {
+        public WebUserIndexModelMetadata()
+        {
+            CopyMetadataFrom<WebUser>();
+        }
+    }
 }
