@@ -20,7 +20,7 @@ namespace FluentMetadata.Specs
         }
 
         [Fact]
-        public void ModeType_is_WebUserIndexModel()
+        public void ModelType_is_WebUserIndexModel()
         {
             Assert.Equal(typeof(WebUserIndexModel), classMetadata.ModelType);
         }
