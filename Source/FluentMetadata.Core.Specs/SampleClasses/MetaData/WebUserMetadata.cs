@@ -83,4 +83,12 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
             CopyMetadataFrom<WebUser>();
         }
     }
+
+    public class WebUserIndexGetModelMetadata : ClassMetadata<WebUserIndexGetModel>
+    {
+        public WebUserIndexGetModelMetadata()
+        {
+            CopyMetadataFrom<WebUserIndexModel>();
+        }
+    }
 }

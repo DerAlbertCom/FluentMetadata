@@ -31,4 +31,21 @@ namespace FluentMetadata.Specs
             Assert.Equal("Benutzer", classMetadata.GetDisplayName());
         }
     }
+
+    public class ClassMetadata_with_WebUserIndexGetModel : MetadataTestBase
+    {
+        readonly Metadata classMetadata;
+
+        public ClassMetadata_with_WebUserIndexGetModel()
+        {
+            var query = new QueryFluentMetadata();
+            classMetadata = query.GetMetadataFor(typeof(WebUserIndexGetModel));
+        }
+
+        [Fact]
+        public void DisplayName_is_Benutzer()
+        {
+            Assert.Equal("Benutzer", classMetadata.GetDisplayName());
+        }
+    }
 }

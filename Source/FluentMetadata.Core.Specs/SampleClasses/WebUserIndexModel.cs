@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace FluentMetadata.Specs.SampleClasses
 {
     public class WebUserIndexModel : DomainModel
@@ -7,5 +9,10 @@ namespace FluentMetadata.Specs.SampleClasses
         public bool Active { get; set; }
         public string Role { get; set; }
         public string AutorName { get; set; }
+    }
+
+    public class WebUserIndexGetModel : WebUserIndexModel
+    {
+        public IEnumerable<string> AllRoles { get; set; }
     }
 }
