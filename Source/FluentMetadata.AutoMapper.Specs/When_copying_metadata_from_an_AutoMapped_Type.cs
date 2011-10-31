@@ -46,8 +46,7 @@ namespace FluentMetadata.AutoMapper.Specs
             Assert.Equal("rzjsfghgafsdfh", destinationMetadata.GetDisplayName());
         }
 
-        //TODO [on AutoMapper update] check if AutoMapper makes projected source property accessible
-        [Fact(Skip = "unsupported until AutoMapper makes projected source property accessible")]
+        [Fact]
         public void a_projected_destination_property_should_have_metadata_from_the_source_property_it_is_mapped_to()
         {
             Assert.Equal("adföoiulkanhsda", destinationRenamedMetadata.Description);
@@ -59,8 +58,7 @@ namespace FluentMetadata.AutoMapper.Specs
             Assert.Equal(true, destinationNestedFurtherNestedIdMetadata.Required);
         }
 
-        //TODO [on AutoMapper update] check if AutoMapper makes source property that destination property is resolved from accessible
-        [Fact(Skip = "unsupported until AutoMapper makes the source property the destination property is resolved from accessible")]
+        [Fact]
         public void a_destination_property_resolved_from_a_source_property_should_have_metadata_from_the_source_property()
         {
             Assert.Equal("üoicvnqwnb", destinationIntPropertyMetadata.TemplateHint);
