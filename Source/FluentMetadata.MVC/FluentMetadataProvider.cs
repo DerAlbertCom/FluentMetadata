@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Linq;
 using System.Web.Mvc;
-using FluentMetadata.Builder;
 
 namespace FluentMetadata.MVC
 {
     public class FluentMetadataProvider : ModelMetadataProvider
     {
-        private readonly QueryFluentMetadata query = new QueryFluentMetadata();
+        readonly QueryFluentMetadata query = new QueryFluentMetadata();
 
         public FluentMetadataProvider()
         {
@@ -16,34 +15,29 @@ namespace FluentMetadata.MVC
 
         public override IEnumerable<ModelMetadata> GetMetadataForProperties(object container, Type containerType)
         {
-            Metadata classMetadata = query.GetMetadataFor(containerType);
-            foreach (var metadata in classMetadata.Properties)
-            {
-                yield return new FluentModelMetadata(metadata, this, GetProperyAccessor(container, metadata));
-            }
+            return query.GetMetadataFor(containerType).Properties
+                .Select(md => new FluentModelMetadata(md, this, GetProperyAccessor(container, md)))
+                .Cast<ModelMetadata>(); //TODO unnecessary for .NET 4
         }
 
-        private Func<object> GetProperyAccessor(object container, Metadata metadata)
+        Func<object> GetProperyAccessor(object container, Metadata metadata)
         {
-            PropertyInfo info = container.GetType().GetProperty(metadata.ModelName);
+            var info = container.GetType().GetProperty(metadata.ModelName);
             if (info == null)
             {
                 return () => null;
             }
-            return () => info.GetValue(container,null);
+            return () => info.GetValue(container, null);
         }
 
-        public override ModelMetadata GetMetadataForProperty(Func<object> modelAccessor, Type containerType,
-                                                             string propertyName)
+        public override ModelMetadata GetMetadataForProperty(Func<object> modelAccessor, Type containerType, string propertyName)
         {
-            Metadata metadata = query.GetMetadataFor(containerType).Properties[propertyName];
-            return new FluentModelMetadata(metadata, this, modelAccessor);
+            return new FluentModelMetadata(query.GetMetadataFor(containerType, propertyName), this, modelAccessor);
         }
 
         public override ModelMetadata GetMetadataForType(Func<object> modelAccessor, Type modelType)
         {
-            var metadata = query.GetMetadataFor(modelType);
-            return new FluentModelMetadata(metadata, this, modelAccessor);
+            return new FluentModelMetadata(query.GetMetadataFor(modelType), this, modelAccessor);
         }
     }
 }

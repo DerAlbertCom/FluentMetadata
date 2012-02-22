@@ -4,20 +4,19 @@ using FluentMetadata.Rules;
 
 namespace FluentMetadata.Builder
 {
-    internal class ClassMetadataBuilder<T> : IClassBuilder<T>
+    class ClassMetadataBuilder<T> : IClassBuilder<T>
     {
-        private IDisplayClass<T> displayBuilder;
+        IDisplayClass<T> displayBuilder;
+        readonly Metadata metadata;
 
-        private readonly Metadata metadata;
-
-        public ClassMetadataBuilder(Metadata metadata)
+        internal ClassMetadataBuilder(Metadata metadata)
         {
             this.metadata = metadata;
             metadata.ModelType = typeof(T);
             InitPropertyMetadata();
         }
 
-        private void InitPropertyMetadata()
+        void InitPropertyMetadata()
         {
             var builder = FluentMetadataBuilder.GetTypeBuilder(typeof(T));
             foreach (var propertyInfo in typeof(T).GetProperties())

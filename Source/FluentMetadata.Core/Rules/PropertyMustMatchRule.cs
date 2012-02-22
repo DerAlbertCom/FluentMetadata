@@ -6,11 +6,11 @@ namespace FluentMetadata.Rules
 {
     public class PropertyMustMatchRule<T> : ClassRule<T>
     {
-        private const string DefaultErrorMessage = "'{0}' and '{1}' do not match.";
+        const string DefaultErrorMessage = "'{0}' and '{1}' do not match.";
 
-        private readonly string originalPropertyName;
-        private readonly string confirmPropertyName;
-        private Type currentType;
+        readonly string originalPropertyName;
+        readonly string confirmPropertyName;
+        Type currentType;
 
         public PropertyMustMatchRule(
             Expression<Func<T, object>> expression,
@@ -31,7 +31,7 @@ namespace FluentMetadata.Rules
             );
         }
 
-        private string GetPropertyDisplayName(string propertyName)
+        string GetPropertyDisplayName(string propertyName)
         {
             var metaData = FluentMetadataBuilder.GetTypeBuilder(currentType).MetaDataFor(propertyName);
             if (metaData != null)
@@ -56,7 +56,7 @@ namespace FluentMetadata.Rules
             );
         }
 
-        private static object GetValueFromProperty(object instance, string propertyName)
+        static object GetValueFromProperty(object instance, string propertyName)
         {
             return instance.GetType().GetProperty(propertyName).GetValue(instance, null);
         }

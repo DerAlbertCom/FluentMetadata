@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net.Mime;
 using System.Reflection;
 using FluentMetadata.Builder;
-using FluentMetadata;
 
 namespace FluentMetadata
 {
@@ -26,7 +24,7 @@ namespace FluentMetadata
             TypeMetadataBuilder builder;
             if (!TypeBuilders.TryGetValue(type, out builder))
             {
-                builder = (TypeMetadataBuilder) typeof (TypeMetadataBuilder<>).CreateGenericInstance(type);
+                builder = (TypeMetadataBuilder)typeof(TypeMetadataBuilder<>).CreateGenericInstance(type);
                 TypeBuilders[type] = builder;
                 builder.Init();
             }
@@ -35,12 +33,12 @@ namespace FluentMetadata
 
         internal static TypeMetadataBuilder<T> GetTypeBuilder<T>()
         {
-            return (TypeMetadataBuilder<T>) GetTypeBuilder(typeof (T));
+            return (TypeMetadataBuilder<T>)GetTypeBuilder(typeof(T));
         }
 
         public static void ForAssemblyOfType<T>()
         {
-            ForAssembly(typeof (T).Assembly);
+            ForAssembly(typeof(T).Assembly);
         }
 
         public static void ForAssembly(Assembly assembly)
@@ -75,9 +73,9 @@ namespace FluentMetadata
             var invoked = false;
             foreach (var constructorInfo in constructors)
             {
-                if (constructorInfo.GetParameters().Length==0)
+                if (constructorInfo.GetParameters().Length == 0)
                 {
-                    constructorInfo.Invoke(BindingFlags.NonPublic | BindingFlags.Public,null, new object[0],CultureInfo.CurrentCulture); 
+                    constructorInfo.Invoke(BindingFlags.NonPublic | BindingFlags.Public, null, new object[0], CultureInfo.CurrentCulture);
                     invoked = true;
                 }
             }
@@ -89,7 +87,7 @@ namespace FluentMetadata
 
         private static IEnumerable<Type> PublicMetadataDefinitionsFrom(Assembly assembly)
         {
-            return assembly.GetTypes().Where(t => typeof (IClassMetadata).IsAssignableFrom(t));
+            return assembly.GetTypes().Where(t => typeof(IClassMetadata).IsAssignableFrom(t));
         }
     }
 }

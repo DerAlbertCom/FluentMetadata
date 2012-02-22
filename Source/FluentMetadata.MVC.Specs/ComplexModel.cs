@@ -28,6 +28,7 @@ namespace FluentMetadata.MVC.Specs
                 .Editor.Format("{0:c}");
         }
     }
+
     [DisplayName("Komplex")]
     public class ComplexModel
     {

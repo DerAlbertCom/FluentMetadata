@@ -4,11 +4,11 @@ using FluentMetadata.Rules;
 
 namespace FluentMetadata.MVC
 {
-    internal class RuleModelValidator : ModelValidator
+    class RuleModelValidator : ModelValidator
     {
-        private readonly IRule rule;
+        readonly IRule rule;
 
-        public RuleModelValidator(IRule rule, ModelMetadata metadata, ControllerContext controllerContext)
+        internal RuleModelValidator(IRule rule, ModelMetadata metadata, ControllerContext controllerContext)
             : base(metadata, controllerContext)
         {
             this.rule = rule;
@@ -16,29 +16,22 @@ namespace FluentMetadata.MVC
 
         public override IEnumerable<ModelValidationResult> Validate(object container)
         {
-            if (rule.IsValid(GetPropertyValue(container, Metadata.PropertyName)))
+            if (rule.IsValid(container.GetType().GetProperty(Metadata.PropertyName).GetValue(container, null)))
             {
                 yield break;
             }
-            yield return
-                new ModelValidationResult
-                    {
-                        Message = rule.FormatErrorMessage(Metadata.GetDisplayName())
-                    };
-        }
-
-        private static object GetPropertyValue(object container, string propertyName)
-        {
-            var info = container.GetType().GetProperty(propertyName);
-            return info.GetValue(container, null);
+            yield return new ModelValidationResult
+            {
+                Message = rule.FormatErrorMessage(Metadata.GetDisplayName())
+            };
         }
     }
 
-    internal class ClassRuleModelValidator : ModelValidator
+    class ClassRuleModelValidator : ModelValidator
     {
-        private readonly IClassRule rule;
+        readonly IClassRule rule;
 
-        public ClassRuleModelValidator(IClassRule rule, ModelMetadata metadata, ControllerContext controllerContext)
+        internal ClassRuleModelValidator(IClassRule rule, ModelMetadata metadata, ControllerContext controllerContext)
             : base(metadata, controllerContext)
         {
             this.rule = rule;
@@ -52,12 +45,10 @@ namespace FluentMetadata.MVC
             {
                 yield break;
             }
-            yield return
-                new ModelValidationResult
-                {
-                    Message = rule.FormatErrorMessage(Metadata.GetDisplayName())
-                };
+            yield return new ModelValidationResult
+            {
+                Message = rule.FormatErrorMessage(Metadata.GetDisplayName())
+            };
         }
     }
-
 }

@@ -17,7 +17,7 @@ namespace FluentMetadata.Rules
         public override bool IsValid(object value)
         {
             var valueAsString = Convert.ToString(value, CultureInfo.CurrentCulture);
-            // because validating this is not the responsibility of the PropertyMustMatchRegexRule            
+            // because validating this is not the responsibility of the PropertyMustMatchRegexRule
             if (string.IsNullOrEmpty(valueAsString))
             {
                 return true;
