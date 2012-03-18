@@ -30,7 +30,8 @@ namespace FluentMetadata.MVC.Specs
                 .Length(50);
             Property(e => e.Age)
                 .As.Custom("Years")
-                .UIHint("Spinner");
+                .UIHint("Spinner")
+                .Range(0, 123);
             Property(e => e.Amount)
                 .Display.Format("{0:c}")
                 .Editor.Format("{0:c}");
@@ -57,6 +58,7 @@ namespace FluentMetadata.MVC.Specs
         public string LastName { get; set; }
         [DataType("Years")]
         [UIHint("Spinner")]
+        [Range(0, 123)]
         public int Age { get; set; }
         [DisplayFormat(DataFormatString = "{0:c}", ApplyFormatInEditMode = true)]
         public decimal Amount { get; set; }
