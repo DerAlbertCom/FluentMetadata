@@ -16,6 +16,12 @@ namespace FluentMetadata.MVC
             {
                 yield return GetRangeRule(rule.FormatErrorMessage(displayName), rule as RangeRule);
             }
+            else if (rule is PropertyMustMatchRegexRule)
+            {
+                yield return new ModelClientValidationRegexRule(
+                    rule.FormatErrorMessage(displayName),
+                    (rule as PropertyMustMatchRegexRule).Pattern);
+            }
             else
             {
                 yield break;

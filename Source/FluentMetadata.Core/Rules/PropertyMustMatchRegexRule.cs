@@ -6,12 +6,12 @@ namespace FluentMetadata.Rules
 {
     public class PropertyMustMatchRegexRule : Rule
     {
-        Regex regex;
+        internal readonly string Pattern;
 
         public PropertyMustMatchRegexRule(string pattern)
             : base("the value for {0} is not in the correct format")
         {
-            regex = new Regex(pattern);
+            Pattern = pattern;
         }
 
         public override bool IsValid(object value)
@@ -27,7 +27,7 @@ namespace FluentMetadata.Rules
 
         protected bool Matches(string value)
         {
-            return regex.Match(value).Success;
+            return new Regex(Pattern).Match(value).Success;
         }
 
         public override string FormatErrorMessage(string name)
