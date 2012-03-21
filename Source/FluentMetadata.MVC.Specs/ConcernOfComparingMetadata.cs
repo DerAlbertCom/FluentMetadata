@@ -158,5 +158,30 @@ namespace FluentMetadata.MVC.Specs
         //    Console.WriteLine(Expected.Watermark);
         //    Assert.Equal(Expected.Watermark, Fluent.Watermark);
         //}
+
+        [Observation]
+        public void DataAnnotationsModelValidatorProviderAppliesRequiredValidators()
+        {
+            var controllerContext = new ControllerContext();
+            var dataAnnotationsModelValidatorProvider = new DataAnnotationsModelValidatorProvider();
+            var expectedValidatorCount = dataAnnotationsModelValidatorProvider
+                .GetValidators(Expected, controllerContext)
+                .Count(v => v.IsRequired);
+
+            if (Expected.IsRequired)
+            {
+                Assert.Equal(1, expectedValidatorCount);
+            }
+            else
+            {
+                Assert.InRange(expectedValidatorCount, 0, 1);
+            }
+
+            Assert.Equal(
+                expectedValidatorCount,
+                dataAnnotationsModelValidatorProvider
+                    .GetValidators(Fluent, controllerContext)
+                    .Count(v => v.IsRequired));
+        }
     }
 }

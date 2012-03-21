@@ -8,6 +8,14 @@ namespace FluentMetadata.MVC
     {
         readonly IRule rule;
 
+        public override bool IsRequired
+        {
+            get
+            {
+                return rule is RequiredRule;
+            }
+        }
+
         internal RuleModelValidator(IRule rule, ModelMetadata metadata, ControllerContext controllerContext)
             : base(metadata, controllerContext)
         {
