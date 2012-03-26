@@ -9,12 +9,11 @@ namespace FluentMetadata
 {
     public static class FluentMetadataBuilder
     {
-        private static readonly Dictionary<Type, TypeMetadataBuilder> TypeBuilders =
-            new Dictionary<Type, TypeMetadataBuilder>();
+        readonly static IDictionary<Type, TypeMetadataBuilder> typeBuilders = new Dictionary<Type, TypeMetadataBuilder>();
 
         public static void Reset()
         {
-            TypeBuilders.Clear();
+            typeBuilders.Clear();
         }
 
         internal static TypeMetadataBuilder GetTypeBuilder(Type type)
@@ -22,10 +21,10 @@ namespace FluentMetadata
             if (type == null)
                 return null;
             TypeMetadataBuilder builder;
-            if (!TypeBuilders.TryGetValue(type, out builder))
+            if (!typeBuilders.TryGetValue(type, out builder))
             {
-                builder = (TypeMetadataBuilder)typeof(TypeMetadataBuilder<>).CreateGenericInstance(type);
-                TypeBuilders[type] = builder;
+                builder = typeof(TypeMetadataBuilder<>).CreateGenericInstance(type) as TypeMetadataBuilder;
+                typeBuilders[type] = builder;
                 builder.Init();
             }
             return builder;
@@ -47,7 +46,10 @@ namespace FluentMetadata
             {
                 if (type.IsAbstract)
                 {
-                    throw new InvalidOperationException("The " + type.FullName + " may not abstract");
+                    throw new InvalidOperationException(
+                        string.Format(
+                           "The type '{0}' may not abstract. Use generic classes for inheritance.",
+                           type.FullName));
                 }
                 if (type.ContainsGenericParameters)
                 {
@@ -60,7 +62,7 @@ namespace FluentMetadata
             }
         }
 
-        private static void CreateWithGenericParameters(Type type)
+        static void CreateWithGenericParameters(Type type)
         {
             var constraints = new List<Type>();
             foreach (var genericArgument in type.GetGenericArguments())
@@ -85,9 +87,10 @@ namespace FluentMetadata
             }
         }
 
-        private static IEnumerable<Type> PublicMetadataDefinitionsFrom(Assembly assembly)
+        static IEnumerable<Type> PublicMetadataDefinitionsFrom(Assembly assembly)
         {
-            return assembly.GetTypes().Where(t => typeof(IClassMetadata).IsAssignableFrom(t));
+            return assembly.GetTypes()
+                .Where(t => typeof(IClassMetadata).IsAssignableFrom(t));
         }
     }
 }

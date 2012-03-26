@@ -7,40 +7,41 @@ namespace FluentMetadata
 {
     public static class MetadataHelper
     {
-        static QueryFluentMetadata query = new QueryFluentMetadata();
+        readonly static QueryFluentMetadata query = new QueryFluentMetadata();
 
-        internal static void CopyMetadata(Type from, Type to)
+        internal static void CopyMetadata(Type source, Type target)
         {
-            var toBuilder = FluentMetadataBuilder.GetTypeBuilder(to);
-            var nameBuilder = new PropertyNameMetadataBuilder(from);
+            var targetBuilder = FluentMetadataBuilder.GetTypeBuilder(target);
+
             //copy property metadata
-            foreach (var namedMetaData in nameBuilder.NamedMetaData)
+            foreach (var sourcePropertyMetaData in new PropertyNameMetadataBuilder(source).NamedMetaData)
             {
-                if (to.GetProperty(namedMetaData.PropertyName) != null)
+                if (target.GetProperty(sourcePropertyMetaData.PropertyName) != null)
                 {
-                    toBuilder.MapProperty(to, namedMetaData.PropertyName, namedMetaData.Metadata);
+                    targetBuilder.MapProperty(target, sourcePropertyMetaData.PropertyName, sourcePropertyMetaData.Metadata);
                 }
             }
-            //copy type metadata
 
-            query.GetMetadataFor(to).CopyMetaDataFrom(query.GetMetadataFor(from));
+            //copy type metadata
+            query.GetMetadataFor(target).CopyMetaDataFrom(query.GetMetadataFor(source));
         }
 
-        public static void CopyMappedMetadata(Type from, Type to, IEnumerable<MemberMap> memberMaps)
+        public static void CopyMappedMetadata(Type source, Type target, IEnumerable<MemberMap> memberMaps)
         {
-            var toBuilder = FluentMetadataBuilder.GetTypeBuilder(to);
-            var fromBuilder = new PropertyNameMetadataBuilder(from);
+            var targetBuilder = FluentMetadataBuilder.GetTypeBuilder(target);
+
             //copy property metadata
-            foreach (var fromMetaData in fromBuilder.NamedMetaData)
+            foreach (var sourcePropertyMetaData in new PropertyNameMetadataBuilder(source).NamedMetaData)
             {
-                var memberMap = memberMaps.SingleOrDefault(mm => mm.SourceName == fromMetaData.PropertyName);
+                var memberMap = memberMaps.SingleOrDefault(mm => mm.SourceName == sourcePropertyMetaData.PropertyName);
                 if (memberMap != null)
                 {
-                    toBuilder.MapProperty(to, memberMap.DestinationName, fromMetaData.Metadata);
+                    targetBuilder.MapProperty(target, memberMap.DestinationName, sourcePropertyMetaData.Metadata);
                 }
             }
+
             //copy type metadata
-            query.GetMetadataFor(to).CopyMetaDataFrom(query.GetMetadataFor(from));
+            query.GetMetadataFor(target).CopyMetaDataFrom(query.GetMetadataFor(source));
         }
     }
 

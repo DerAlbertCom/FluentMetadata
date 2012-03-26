@@ -23,8 +23,11 @@ namespace FluentMetadata.Builder
             {
                 if (propertyInfo.GetIndexParameters().Length == 0)
                 {
-                    var propertyMetadata = builder.MapProperty(typeof(T), propertyInfo.Name, propertyInfo.PropertyType);
-                    metadata.Properties.Add(propertyMetadata);
+                    metadata.Properties.Add(
+                        builder.MapProperty(
+                            typeof(T),
+                            propertyInfo.Name,
+                            propertyInfo.PropertyType));
                 }
             }
         }
@@ -34,7 +37,9 @@ namespace FluentMetadata.Builder
             get
             {
                 if (displayBuilder == null)
+                {
                     displayBuilder = new DisplayBuilder<T>(this);
+                }
                 return displayBuilder;
             }
         }

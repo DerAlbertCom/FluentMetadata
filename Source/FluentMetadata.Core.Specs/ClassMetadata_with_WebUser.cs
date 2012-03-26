@@ -8,12 +8,11 @@ namespace FluentMetadata.Specs
 {
     public class ClassMetadata_with_WebUser : MetadataTestBase
     {
-        private Metadata classMetadata;
+        readonly Metadata classMetadata;
 
         public ClassMetadata_with_WebUser()
         {
-            var query = new QueryFluentMetadata();
-            classMetadata = query.GetMetadataFor(typeof(WebUser));
+            classMetadata = new QueryFluentMetadata().GetMetadataFor(typeof(WebUser));
         }
 
         [Fact]

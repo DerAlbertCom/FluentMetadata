@@ -21,10 +21,7 @@ namespace FluentMetadata
 
         public Metadata FindMetadataFor(Type type, string propertyName)
         {
-            var metadataProperties = GetMetadataFor(type).Properties;
-            return metadataProperties.Contains(propertyName) ?
-                metadataProperties[propertyName] :
-                null;
+            return GetMetadataFor(type).Properties.Find(propertyName);
         }
     }
 }

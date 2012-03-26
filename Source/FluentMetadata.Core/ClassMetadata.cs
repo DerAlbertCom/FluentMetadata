@@ -4,9 +4,7 @@ using FluentMetadata.Builder;
 
 namespace FluentMetadata
 {
-    internal interface IClassMetadata
-    {
-    }
+    interface IClassMetadata { }
 
     public abstract class ClassMetadata<T> : IClassMetadata
     {

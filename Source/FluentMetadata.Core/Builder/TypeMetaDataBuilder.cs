@@ -9,13 +9,7 @@ namespace FluentMetadata.Builder
     {
         protected readonly List<PropertyMetadataBuilder> PropertyBuilders = new List<PropertyMetadataBuilder>();
 
-        private readonly Metadata metadata = new Metadata();
-
-        private IEnumerable<Metadata> MetaDataProperties
-        {
-            get { return from p in PropertyBuilders select p.Metadata; }
-        }
-
+        readonly Metadata metadata = new Metadata();
         public Metadata Metadata
         {
             get { return metadata; }
@@ -23,7 +17,9 @@ namespace FluentMetadata.Builder
 
         public Metadata MetaDataFor(string propertyName)
         {
-            return MetaDataProperties.SingleOrDefault(md => md.ModelName == propertyName);
+            return PropertyBuilders
+                .Select(p => p.Metadata)
+                .SingleOrDefault(md => md.ModelName == propertyName);
         }
 
         protected bool TryGetPropertyBuilder(string propertyName, out PropertyMetadataBuilder propertyMetadataBuilder)
@@ -59,10 +55,8 @@ namespace FluentMetadata.Builder
 
         PropertyMetadataBuilder<T, TResult> GetBuilder<TResult>(Expression<Func<T, TResult>> expression)
         {
-            string propertyName = ExpressionHelper.GetPropertyName(expression);
-
             PropertyMetadataBuilder propertyBuilder;
-            if (!TryGetPropertyBuilder(propertyName, out propertyBuilder))
+            if (!TryGetPropertyBuilder(ExpressionHelper.GetPropertyName(expression), out propertyBuilder))
             {
                 propertyBuilder = new PropertyMetadataBuilder<T, TResult>(expression);
                 PropertyBuilders.Add(propertyBuilder);
@@ -75,8 +69,13 @@ namespace FluentMetadata.Builder
             PropertyMetadataBuilder propertyBuilder;
             if (!TryGetPropertyBuilder(propertyName, out propertyBuilder))
             {
-                var newMetaData = new Metadata(metadata, containerType) { ModelName = propertyName };
-                propertyBuilder = CreatePropertyMetaDataBuilder(metadata, containerType, newMetaData);
+                propertyBuilder = CreatePropertyMetaDataBuilder(
+                    metadata,
+                    containerType,
+                    new Metadata(metadata, containerType)
+                    {
+                        ModelName = propertyName
+                    });
                 PropertyBuilders.Add(propertyBuilder);
             }
             propertyBuilder.Metadata.CopyMetaDataFrom(metadata);
@@ -90,8 +89,8 @@ namespace FluentMetadata.Builder
 
         PropertyMetadataBuilder CreatePropertyMetaDataBuilder(Metadata metadata, Type containerType, Metadata newMetadata)
         {
-            return (PropertyMetadataBuilder)typeof(PropertyMetadataBuilder<,>)
-                .CreateGenericInstance(containerType, metadata.ModelType, newMetadata);
+            return typeof(PropertyMetadataBuilder<,>)
+                .CreateGenericInstance(containerType, metadata.ModelType, newMetadata) as PropertyMetadataBuilder;
         }
 
         IClassBuilder<T> classBuilder;

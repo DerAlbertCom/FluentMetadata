@@ -36,5 +36,12 @@ namespace FluentMetadata
         {
             get { return metadatas[propertyName]; }
         }
+
+        internal Metadata Find(string propertyName)
+        {
+            return Contains(propertyName) ?
+                this[propertyName] :
+                null;
+        }
     }
 }

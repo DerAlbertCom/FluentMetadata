@@ -5,12 +5,11 @@ namespace FluentMetadata.Specs
 {
     public class ClassMetadata_with_WebUserIndexModel : MetadataTestBase
     {
-        private Metadata classMetadata;
+        readonly Metadata classMetadata;
 
         public ClassMetadata_with_WebUserIndexModel()
         {
-            var query = new QueryFluentMetadata();
-            classMetadata = query.GetMetadataFor(typeof(WebUserIndexModel));
+            classMetadata = new QueryFluentMetadata().GetMetadataFor(typeof(WebUserIndexModel));
         }
 
         [Fact]
@@ -38,8 +37,7 @@ namespace FluentMetadata.Specs
 
         public ClassMetadata_with_WebUserIndexGetModel()
         {
-            var query = new QueryFluentMetadata();
-            classMetadata = query.GetMetadataFor(typeof(WebUserIndexGetModel));
+            classMetadata = new QueryFluentMetadata().GetMetadataFor(typeof(WebUserIndexGetModel));
         }
 
         [Fact]

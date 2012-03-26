@@ -7,8 +7,8 @@ namespace FluentMetadata
 {
     public class Metadata
     {
-        private readonly List<IRule> rules;
-        private readonly PropertiesMetadata properties;
+        readonly List<IRule> rules;
+        readonly PropertiesMetadata properties;
 
         public Metadata()
         {
