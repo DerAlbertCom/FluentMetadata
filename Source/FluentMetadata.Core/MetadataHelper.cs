@@ -11,6 +11,7 @@ namespace FluentMetadata
 
         internal static void CopyMetadata(Type source, Type target)
         {
+            FluentMetadataBuilder.RegisterDependency(source, target);
             var targetBuilder = FluentMetadataBuilder.GetTypeBuilder(target);
 
             //copy property metadata
@@ -28,6 +29,7 @@ namespace FluentMetadata
 
         public static void CopyMappedMetadata(Type source, Type target, IEnumerable<MemberMap> memberMaps)
         {
+            FluentMetadataBuilder.RegisterDependency(source, target);
             var targetBuilder = FluentMetadataBuilder.GetTypeBuilder(target);
 
             //copy property metadata

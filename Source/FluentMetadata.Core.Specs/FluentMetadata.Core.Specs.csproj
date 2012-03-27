@@ -78,6 +78,9 @@
   <ItemGroup>
     <Compile Include="Builder\AsBuilderTests.cs" />
     <Compile Include="Builder\DisplayBuilderTests.cs" />
+    <Compile Include="Builder\When_FluentMetadataBuilder_builds_metadata_copying_from_non_existing_metadata.cs" />
+    <Compile Include="Builder\When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata.cs" />
+    <Compile Include="Builder\When_FluentMetadataBuilder_builds_copying_metadata_with_circular_references.cs" />
     <Compile Include="ClassMetadata_with_WebUser.cs" />
     <Compile Include="ClassMetadata_with_WebUserIndexModel.cs" />
     <Compile Include="Derive_Class_Tests.cs" />

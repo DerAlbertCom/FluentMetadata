@@ -10,10 +10,14 @@ namespace FluentMetadata
     public static class FluentMetadataBuilder
     {
         readonly static IDictionary<Type, TypeMetadataBuilder> typeBuilders = new Dictionary<Type, TypeMetadataBuilder>();
+        internal readonly static List<Type> BuiltMetadataDefininitions = new List<Type>();
+        static MetadataDefinitionSorter metadataDefinitionSorter;
 
         public static void Reset()
         {
             typeBuilders.Clear();
+            metadataDefinitionSorter = null;
+            BuiltMetadataDefininitions.Clear();
         }
 
         internal static TypeMetadataBuilder GetTypeBuilder(Type type)
@@ -35,6 +39,11 @@ namespace FluentMetadata
             return (TypeMetadataBuilder<T>)GetTypeBuilder(typeof(T));
         }
 
+        internal static void RegisterDependency(Type dependency, Type depender)
+        {
+            metadataDefinitionSorter.Register(dependency, depender);
+        }
+
         public static void ForAssemblyOfType<T>()
         {
             ForAssembly(typeof(T).Assembly);
@@ -42,22 +51,48 @@ namespace FluentMetadata
 
         public static void ForAssembly(Assembly assembly)
         {
-            foreach (Type type in PublicMetadataDefinitionsFrom(assembly))
+            BuildMetadataDefinitions(PublicMetadataDefinitionsFrom(assembly));
+        }
+
+        internal static void BuildMetadataDefinitions(IEnumerable<Type> metadataDefinitionsToBuild)
+        {
+            metadataDefinitionSorter = new MetadataDefinitionSorter(metadataDefinitionsToBuild);
+
+            List<Type> metadataDefinitions;
+            while ((metadataDefinitions = metadataDefinitionSorter
+                .GetNextUnbuiltDefinitions(BuiltMetadataDefininitions)).Count > 0)
             {
-                if (type.IsAbstract)
-                {
-                    throw new InvalidOperationException(
-                        string.Format(
-                           "The type '{0}' may not abstract. Use generic classes for inheritance.",
-                           type.FullName));
-                }
-                if (type.ContainsGenericParameters)
-                {
-                    CreateWithGenericParameters(type);
-                }
-                else
+                metadataDefinitions
+                    .ForEach(mdd => CreateMetadataDefinitionInstance(mdd));
+            }
+        }
+
+        static void CreateMetadataDefinitionInstance(Type type)
+        {
+            BuiltMetadataDefininitions.Add(type);
+
+            if (type.IsAbstract)
+            {
+                throw new InvalidOperationException(
+                    string.Format(
+                        "The type '{0}' may not abstract. Use generic classes for inheritance.",
+                        type.FullName));
+            }
+            if (type.ContainsGenericParameters)
+            {
+                CreateWithGenericParameters(type);
+            }
+            else
+            {
+                try
                 {
                     Activator.CreateInstance(type);
+                }
+                catch (TargetInvocationException ex)
+                {
+                    throw ex.InnerException is MetadataDefinitionSorter.NoMetadataDefinedException ?
+                        ex.InnerException :
+                        ex;
                 }
             }
         }
