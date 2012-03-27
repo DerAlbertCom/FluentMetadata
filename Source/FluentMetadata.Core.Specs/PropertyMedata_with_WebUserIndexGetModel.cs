@@ -3,18 +3,18 @@ using Xunit;
 
 namespace FluentMetadata.Specs
 {
-    public class PropertyMedata_with_WebUserIndexModel : MetadataTestBase
+    public class PropertyMedata_with_WebUserIndexGetModel : MetadataTestBase
     {
         Metadata username, id, autorName, email, role;
 
-        public PropertyMedata_with_WebUserIndexModel()
+        public PropertyMedata_with_WebUserIndexGetModel()
         {
             var query = new QueryFluentMetadata();
-            username = query.GetMetadataFor(typeof(WebUserIndexModel), "Username");
-            id = query.GetMetadataFor(typeof(WebUserIndexModel), "Id");
-            email = query.GetMetadataFor(typeof(WebUserIndexModel), "EMail");
-            autorName = query.GetMetadataFor(typeof(WebUserIndexModel), "AutorName");
-            role = query.GetMetadataFor(typeof(WebUserIndexModel), "Role");
+            username = query.GetMetadataFor(typeof(WebUserIndexGetModel), "Username");
+            id = query.GetMetadataFor(typeof(WebUserIndexGetModel), "Id");
+            email = query.GetMetadataFor(typeof(WebUserIndexGetModel), "EMail");
+            autorName = query.GetMetadataFor(typeof(WebUserIndexGetModel), "AutorName");
+            role = query.GetMetadataFor(typeof(WebUserIndexGetModel), "Role");
         }
 
         [Fact]
@@ -154,9 +154,9 @@ namespace FluentMetadata.Specs
         }
 
         [Fact]
-        public void Username_ContainerType_is_WebUserIndexModel()
+        public void Username_ContainerType_is_WebUserIndexGetModel()
         {
-            Assert.Equal(typeof(WebUserIndexModel), username.ContainerType);
+            Assert.Equal(typeof(WebUserIndexGetModel), username.ContainerType);
         }
     }
 }
