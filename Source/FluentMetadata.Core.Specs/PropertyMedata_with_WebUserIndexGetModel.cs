@@ -86,7 +86,7 @@ namespace FluentMetadata.Specs
         [Fact]
         public void EMail_EditorFormat_is_plain_value()
         {
-            Assert.Equal("{0}", email.EditorFormat);
+            Assert.Equal("{0}", email.GetEditorFormat());
         }
 
         [Fact]

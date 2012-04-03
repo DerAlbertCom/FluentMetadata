@@ -1,4 +1,6 @@
-﻿namespace FluentMetadata
+﻿using System;
+
+namespace FluentMetadata
 {
     /// <summary>
     /// Sets metadata relevant for editing a model.
@@ -21,7 +23,15 @@
         /// <param name="editorFormat">The editor format.</param>
         /// <returns></returns>
         IProperty<T, TResult> Format(string editorFormat);
-        
+
+        /// <summary>
+        /// Sets the editor format of the property.
+        /// Use this for dynamic, i.e. localized editor formats, e.g. resource strings.
+        /// </summary>
+        /// <param name="editorFormatFunc">The editor format function.</param>
+        /// <returns></returns>
+        IProperty<T, TResult> Format(Func<string> editorFormatFunc);
+
         /// <summary>
         /// Sets the watermark of the property.
         /// Use this for static, i.e. culture invariant watermarks.

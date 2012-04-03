@@ -35,7 +35,7 @@ namespace FluentMetadata.MVC.Specs
                 .Range(0, 123);
             Property(e => e.Amount)
                 .Display.Format(() => "{0:c}")
-                .Editor.Format("{0:c}");
+                .Editor.Format(() => "{0:c}");
             Property(e => e.Sex)
                 .AssertThat(
                     sex => sex != 'm',

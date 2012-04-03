@@ -36,7 +36,7 @@ namespace FluentMetadata
             Description = metadata.Description;
             DisplayFormatFunc = metadata.DisplayFormatFunc;
             DisplayNameFunc = metadata.DisplayNameFunc;
-            EditorFormat = metadata.EditorFormat;
+            EditorFormatFunc = metadata.EditorFormatFunc;
             HideSurroundingHtml = metadata.HideSurroundingHtml;
             Readonly = metadata.Readonly;
             Required = metadata.Required;
@@ -120,12 +120,12 @@ namespace FluentMetadata
 
         // ~ System.Web.Mvc.ModelMetadata.EditFormatString
         /// <summary>
-        /// Gets or sets the edit format string of the model.
+        /// Gets or sets the editor format function of the model.
         /// </summary>
         /// <value>
-        /// The edit format string of the model.
+        /// The editor format function of the model.
         /// </value>
-        public string EditorFormat { get; set; }
+        internal Func<string> EditorFormatFunc { private get; set; }
 
         // ~ System.Web.Mvc.ModelMetadata.HideSurroundingHtml
         /// <summary>
@@ -318,6 +318,13 @@ namespace FluentMetadata
             return DisplayNameFunc == null ?
                 null :
                 DisplayNameFunc();
+        }
+
+        internal string GetEditorFormat()
+        {
+            return EditorFormatFunc == null ?
+                null :
+                EditorFormatFunc();
         }
 
         public object GetRangeMinimum()
