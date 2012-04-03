@@ -11,7 +11,7 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
                 .Is.Required()
                 .Is.ReadOnly()
                 .Display.Name(() => "Benutzername")
-                .Description("Name des Benutzers")
+                .Description(() => "Name des Benutzers")
                 .Is.Not.ConvertEmptyStringToNull();
             Property(x => x.EMail)
                 .Length(128)

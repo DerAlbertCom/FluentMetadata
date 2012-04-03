@@ -49,7 +49,7 @@ namespace FluentMetadata.AutoMapper.Specs
         [Fact]
         public void a_projected_destination_property_should_have_metadata_from_the_source_property_it_is_mapped_to()
         {
-            Assert.Equal("adföoiulkanhsda", destinationRenamedMetadata.Description);
+            Assert.Equal("adföoiulkanhsda", destinationRenamedMetadata.GetDescription());
         }
 
         [Fact]

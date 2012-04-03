@@ -64,7 +64,13 @@ namespace FluentMetadata.Builder
 
         public IProperty<T, TResult> Description(string description)
         {
-            Metadata.Description = description;
+            Metadata.DescriptionFunc = () => description;
+            return this;
+        }
+
+        public IProperty<T, TResult> Description(Func<string> descriptionFunc)
+        {
+            Metadata.DescriptionFunc = descriptionFunc;
             return this;
         }
 

@@ -50,6 +50,14 @@ namespace FluentMetadata
         IProperty<T, TResult> Description(string description);
 
         /// <summary>
+        /// Sets the description of the property.
+        /// Use this for dynamic, i.e. localized descriptions, e.g. resource strings.
+        /// </summary>
+        /// <param name="descriptionFunc">The description function.</param>
+        /// <returns></returns>
+        IProperty<T, TResult> Description(Func<string> descriptionFunc);
+
+        /// <summary>
         /// Sets valid range constraints on the property value.
         /// </summary>
         /// <param name="minimum">The minimum value.</param>

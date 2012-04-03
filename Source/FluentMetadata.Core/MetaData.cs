@@ -33,7 +33,7 @@ namespace FluentMetadata
             //TODO write tests for CopyMetaDataFrom: properties commented here have not associated tests yet
             ConvertEmptyStringToNull = metadata.ConvertEmptyStringToNull;
             DataTypeName = metadata.DataTypeName;
-            Description = metadata.Description;
+            DescriptionFunc = metadata.DescriptionFunc;
             DisplayFormatFunc = metadata.DisplayFormatFunc;
             DisplayNameFunc = metadata.DisplayNameFunc;
             EditorFormatFunc = metadata.EditorFormatFunc;
@@ -93,12 +93,12 @@ namespace FluentMetadata
 
         // ~ System.Web.Mvc.ModelMetadata.Description
         /// <summary>
-        /// Gets or sets the description of the model.
+        /// Gets or sets the description function of the model.
         /// </summary>
         /// <value>
-        /// The description of the model. The default value is null.
+        /// The description function of the model. The default value is null.
         /// </value>
-        public string Description { get; set; }
+        internal Func<string> DescriptionFunc { private get; set; }
 
         // ~ System.Web.Mvc.ModelMetadata.DisplayFormatString
         /// <summary>
@@ -304,6 +304,13 @@ namespace FluentMetadata
         public void AddRule(IRule rule)
         {
             rules.Add(rule);
+        }
+
+        public string GetDescription()
+        {
+            return DescriptionFunc == null ?
+                null :
+                DescriptionFunc();
         }
 
         internal string GetDisplayFormat()
