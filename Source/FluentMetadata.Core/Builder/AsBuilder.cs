@@ -4,7 +4,7 @@ namespace FluentMetadata.Builder
 {
     internal class AsBuilder<T, TResult> : IAsProperty<T, TResult>
     {
-        private readonly PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder;
+        readonly PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder;
 
         public AsBuilder(PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder)
         {
@@ -17,7 +17,7 @@ namespace FluentMetadata.Builder
             return propertyMetaDataBuilder;
         }
 
-        private void SetDataTypeName(DataType dataType)
+        void SetDataTypeName(DataType dataType)
         {
             propertyMetaDataBuilder.Metadata.DataTypeName = dataType.ToString();
         }
@@ -55,6 +55,12 @@ namespace FluentMetadata.Builder
         public IProperty<T, TResult> Custom(string dataTypeName)
         {
             propertyMetaDataBuilder.Metadata.DataTypeName = dataTypeName;
+            return propertyMetaDataBuilder;
+        }
+
+        public IProperty<T, TResult> Custom(DataType dataType)
+        {
+            SetDataTypeName(dataType);
             return propertyMetaDataBuilder;
         }
     }

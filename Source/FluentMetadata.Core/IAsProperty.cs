@@ -1,4 +1,6 @@
-﻿namespace FluentMetadata
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FluentMetadata
 {
     /// <summary>
     /// Sets the DataType of a model property.
@@ -49,5 +51,12 @@
         /// <param name="dataTypeName">Name of the data type.</param>
         /// <returns></returns>
         IProperty<T, TResult> Custom(string dataTypeName);
+
+        /// <summary>
+        /// Sets the DataType to a custom DataType.
+        /// </summary>
+        /// <param name="dataType">The data type.</param>
+        /// <returns></returns>
+        IProperty<T, TResult> Custom(DataType dataType);
     }
 }

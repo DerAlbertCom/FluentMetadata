@@ -34,6 +34,7 @@ namespace FluentMetadata.MVC.Specs
                 .UIHint("Spinner")
                 .Range(0, 123);
             Property(e => e.Amount)
+                .As.Custom(DataType.Currency)
                 .Display.Format(() => "{0:c}")
                 .Editor.Format(() => "{0:c}");
             Property(e => e.Sex)
@@ -63,6 +64,7 @@ namespace FluentMetadata.MVC.Specs
         [Range(0, 123)]
         public int Age { get; set; }
         [DisplayFormat(DataFormatString = "{0:c}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Currency)]
         public decimal Amount { get; set; }
         public char Sex { get; set; }
     }
