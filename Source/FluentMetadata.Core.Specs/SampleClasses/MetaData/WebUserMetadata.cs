@@ -10,7 +10,7 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
                 .Length(3, 256)
                 .Is.Required()
                 .Is.ReadOnly()
-                .Display.Name("Benutzername")
+                .Display.Name(() => "Benutzername")
                 .Description("Name des Benutzers")
                 .Is.Not.ConvertEmptyStringToNull();
             Property(x => x.EMail)
@@ -54,7 +54,7 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
             Property(x => x.Active)
                 .Display.Name("Aktiv");
             Class
-                .Display.Name("Benutzer")
+                .Display.Name(() => "Benutzer")
                 .AssertThat(
                     u => u.Username != u.Autor.Name,
                     "{0}.Username and {0}.Autor.Name must not be equal");
