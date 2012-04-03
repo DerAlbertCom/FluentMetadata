@@ -3,9 +3,17 @@ using System.Linq.Expressions;
 
 namespace FluentMetadata
 {
+    /// <summary>
+    /// Sets type metadata.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IClassBuilder<T>
     {
         Metadata Metadata { get; }
+
+        /// <summary>
+        /// Sets display metadata on the type.
+        /// </summary>
         IDisplayClass<T> Display { get; }
 
         /// <summary>
@@ -13,7 +21,8 @@ namespace FluentMetadata
         /// asserting that the <paramref name="assertFunc"/> returns true.
         /// </summary>
         /// <param name="assertFunc">What to assert.</param>
-        /// <param name="errorMessageFormat">The error message format. Can contain a placeholder for {0} the the class display name.</param>
+        /// <param name="errorMessageFormat">The static error message format.
+        /// Can contain a placeholder ({0}) for the class display name.</param>
         /// <returns></returns>
         IClassBuilder<T> AssertThat(Func<T, bool> assertFunc, string errorMessageFormat);
 
