@@ -20,7 +20,7 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
                 .Display.Name("E-Mail")
                 .Display.Format("<a href='mailto:{0}'>{0}</a>")
                 .Editor.Format("{0}")
-                .Editor.Watermark("john@doe.com");
+                .Editor.Watermark(() => "john@doe.com");
             Property(x => x.PasswordHash)
                 .Length(32, null)
                 .Is.Required()

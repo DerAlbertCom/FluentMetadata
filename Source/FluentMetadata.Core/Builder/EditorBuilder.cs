@@ -31,7 +31,13 @@ namespace FluentMetadata.Builder
 
         public IProperty<T, TResult> Watermark(string watermark)
         {
-            propertyMetaDataBuilder.Metadata.Watermark = watermark;
+            propertyMetaDataBuilder.Metadata.WatermarkFunc = () => watermark;
+            return propertyMetaDataBuilder;
+        }
+
+        public IProperty<T, TResult> Watermark(Func<string> watermarkFunc)
+        {
+            propertyMetaDataBuilder.Metadata.WatermarkFunc = watermarkFunc;
             return propertyMetaDataBuilder;
         }
     }

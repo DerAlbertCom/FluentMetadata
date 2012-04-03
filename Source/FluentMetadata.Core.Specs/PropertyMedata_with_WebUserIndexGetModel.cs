@@ -129,7 +129,7 @@ namespace FluentMetadata.Specs
         [Fact]
         public void EMail_Watermark_is_dummy_address()
         {
-            Assert.Equal("john@doe.com", email.Watermark);
+            Assert.Equal("john@doe.com", email.GetWatermark());
         }
 
         [Fact]

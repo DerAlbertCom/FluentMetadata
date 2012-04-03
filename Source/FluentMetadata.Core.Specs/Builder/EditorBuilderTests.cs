@@ -29,7 +29,7 @@ namespace FluentMetadata.Specs.Builder
         [Fact]
         public void EditorBuilder_Ctor_Watermark_IsNull()
         {
-            Assert.Null(metadata.Watermark);
+            Assert.Null(metadata.GetWatermark());
         }
 
         [Fact]
@@ -38,14 +38,14 @@ namespace FluentMetadata.Specs.Builder
             builder.ErrorMessage("TheNullText");
             Assert.Equal("TheNullText", metadata.ErrorMessage);
             Assert.Null(metadata.GetEditorFormat());
-            Assert.Null(metadata.Watermark);
+            Assert.Null(metadata.GetWatermark());
         }
 
         [Fact]
         public void EditorBuilder_Name_Name_IsValue()
         {
             builder.Watermark("TheNameText");
-            Assert.Equal("TheNameText", metadata.Watermark);
+            Assert.Equal("TheNameText", metadata.GetWatermark());
             Assert.Null(metadata.GetEditorFormat());
         }
 
@@ -54,7 +54,7 @@ namespace FluentMetadata.Specs.Builder
         {
             builder.Format("TheFormatText");
             Assert.Equal("TheFormatText", metadata.GetEditorFormat());
-            Assert.Null(metadata.Watermark);
+            Assert.Null(metadata.GetWatermark());
         }
     }
 }

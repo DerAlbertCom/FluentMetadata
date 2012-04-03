@@ -39,5 +39,13 @@ namespace FluentMetadata
         /// <param name="watermark">The watermark.</param>
         /// <returns></returns>
         IProperty<T, TResult> Watermark(string watermark);
+
+        /// <summary>
+        /// Sets the watermark of the property.
+        /// Use this for dynamic, i.e. localized watermarks, e.g. resource strings.
+        /// </summary>
+        /// <param name="watermarkFunc">The watermark function.</param>
+        /// <returns></returns>
+        IProperty<T, TResult> Watermark(Func<string> watermarkFunc);
     }
 }

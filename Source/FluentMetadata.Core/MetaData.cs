@@ -44,7 +44,7 @@ namespace FluentMetadata
             ShowDisplay = metadata.ShowDisplay;
             ShowEditor = metadata.ShowEditor;
             TemplateHint = metadata.TemplateHint;
-            Watermark = metadata.Watermark;
+            WatermarkFunc = metadata.WatermarkFunc;
             //ErrorMessage = metadata.ErrorMessage;
             Hidden = metadata.Hidden;
 
@@ -275,12 +275,12 @@ namespace FluentMetadata
         public string TemplateHint { get; set; }
 
         /// <summary>
-        /// Gets or sets a value that can be used as a watermark.
+        /// Gets or sets a function that can be used as a watermark.
         /// </summary>
         /// <value>
-        /// The watermark.
+        /// The watermark function.
         /// </value>
-        public string Watermark { get; set; }
+        internal Func<string> WatermarkFunc { private get; set; }
 
         #endregion
 
@@ -332,6 +332,13 @@ namespace FluentMetadata
             return EditorFormatFunc == null ?
                 null :
                 EditorFormatFunc();
+        }
+
+        internal string GetWatermark()
+        {
+            return WatermarkFunc == null ?
+                null :
+                WatermarkFunc();
         }
 
         public object GetRangeMinimum()

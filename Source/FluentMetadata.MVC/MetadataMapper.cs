@@ -26,7 +26,7 @@ namespace FluentMetadata.MVC
             destination.ShowForDisplay = source.ShowDisplay;
             destination.ShowForEdit = source.ShowEditor;
             destination.TemplateHint = GetTemplateHint(source);
-            //TODO [MVC3] destination.Watermark = source.Watermark;
+            //TODO [MVC3] destination.Watermark = source.GetWatermark();
         }
 
         private static string GetTemplateHint(Metadata metadata)
