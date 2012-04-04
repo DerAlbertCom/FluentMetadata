@@ -31,5 +31,13 @@ namespace FluentMetadata
         /// <param name="displayFormat">The display format.</param>
         /// <returns></returns>
         IClassBuilder<T> Format(string displayFormat);
+
+        /// <summary>
+        /// Sets the display format of the class.
+        /// Use this for static, i.e. culture invariant display formats.
+        /// </summary>
+        /// <param name="displayFormatFunc">The display format function.</param>
+        /// <returns></returns>
+        IClassBuilder<T> Format(Func<string> displayFormatFunc);
     }
 }

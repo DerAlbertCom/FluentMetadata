@@ -25,7 +25,13 @@ namespace FluentMetadata.Builder
 
         public IClassBuilder<T> Format(string displayFormat)
         {
-            classBuilder.Metadata.DisplayFormat = displayFormat;
+            classBuilder.Metadata.DisplayFormatFunc = () => displayFormat;
+            return classBuilder;
+        }
+
+        public IClassBuilder<T> Format(Func<string> displayFormatFunc)
+        {
+            classBuilder.Metadata.DisplayFormatFunc = displayFormatFunc;
             return classBuilder;
         }
     }
@@ -59,7 +65,13 @@ namespace FluentMetadata.Builder
 
         public IProperty<T, TResult> Format(string displayFormat)
         {
-            propertyMetaDataBuilder.Metadata.DisplayFormat = displayFormat;
+            propertyMetaDataBuilder.Metadata.DisplayFormatFunc = () => displayFormat;
+            return propertyMetaDataBuilder;
+        }
+
+        public IProperty<T, TResult> Format(Func<string> displayFormatFunc)
+        {
+            propertyMetaDataBuilder.Metadata.DisplayFormatFunc = displayFormatFunc;
             return propertyMetaDataBuilder;
         }
     }

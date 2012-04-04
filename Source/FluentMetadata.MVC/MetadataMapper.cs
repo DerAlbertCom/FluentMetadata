@@ -10,7 +10,7 @@ namespace FluentMetadata.MVC
             destination.ConvertEmptyStringToNull = source.ConvertEmptyStringToNull;
             destination.DataTypeName = source.DataTypeName;
             //TODO [MVC3] destination.Description = source.Description;
-            destination.DisplayFormatString = source.DisplayFormat;
+            destination.DisplayFormatString = source.GetDisplayFormat();
             destination.DisplayName = source.GetDisplayName();
             destination.EditFormatString = source.EditorFormat;
             if (source.HideSurroundingHtml.HasValue)

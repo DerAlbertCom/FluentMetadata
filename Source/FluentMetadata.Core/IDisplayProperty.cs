@@ -40,5 +40,13 @@ namespace FluentMetadata
         /// <param name="displayFormat">The display format.</param>
         /// <returns></returns>
         IProperty<T, TResult> Format(string displayFormat);
+
+        /// <summary>
+        /// Sets the display format of the property.
+        /// Use this for dynamic, i.e. localized display formats, e.g. resource strings.
+        /// </summary>
+        /// <param name="displayFormatFunc">The display format function.</param>
+        /// <returns></returns>
+        IProperty<T, TResult> Format(Func<string> displayFormatFunc);
     }
 }

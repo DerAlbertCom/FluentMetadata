@@ -34,7 +34,7 @@ namespace FluentMetadata
             ConvertEmptyStringToNull = metadata.ConvertEmptyStringToNull;
             DataTypeName = metadata.DataTypeName;
             Description = metadata.Description;
-            DisplayFormat = metadata.DisplayFormat;
+            DisplayFormatFunc = metadata.DisplayFormatFunc;
             DisplayNameFunc = metadata.DisplayNameFunc;
             EditorFormat = metadata.EditorFormat;
             HideSurroundingHtml = metadata.HideSurroundingHtml;
@@ -102,12 +102,12 @@ namespace FluentMetadata
 
         // ~ System.Web.Mvc.ModelMetadata.DisplayFormatString
         /// <summary>
-        /// Gets or sets the display format string for the model.
+        /// Gets or sets the display format function for the model.
         /// </summary>
         /// <value>
-        /// The display format string for the model.
+        /// The display format function for the model.
         /// </value>
-        public string DisplayFormat { get; set; }
+        internal Func<string> DisplayFormatFunc { private get; set; }
 
         // ~ System.Web.Mvc.ModelMetadata.DisplayName
         /// <summary>
@@ -304,6 +304,13 @@ namespace FluentMetadata
         public void AddRule(IRule rule)
         {
             rules.Add(rule);
+        }
+
+        internal string GetDisplayFormat()
+        {
+            return DisplayFormatFunc == null ?
+                null :
+                DisplayFormatFunc();
         }
 
         public string GetDisplayName()

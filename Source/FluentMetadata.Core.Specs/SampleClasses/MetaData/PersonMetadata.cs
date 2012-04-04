@@ -8,7 +8,7 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
                 .Is.Required();
             Class
                 .Display.Name("Benutzer")
-                .Display.Format("{0} der Benutzer")
+                .Display.Format(() => "{0} der Benutzer")
                 .Property(p => p.FirstName).ShouldEqual(p => p.LastName);
         }
     }

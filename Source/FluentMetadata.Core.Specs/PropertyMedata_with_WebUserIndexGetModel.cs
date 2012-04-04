@@ -80,7 +80,7 @@ namespace FluentMetadata.Specs
         [Fact]
         public void EMail_DisplayFormat_is_MailtoLink()
         {
-            Assert.Equal("<a href='mailto:{0}'>{0}</a>", email.DisplayFormat);
+            Assert.Equal("<a href='mailto:{0}'>{0}</a>", email.GetDisplayFormat());
         }
 
         [Fact]
