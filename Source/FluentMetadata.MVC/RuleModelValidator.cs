@@ -33,6 +33,11 @@ namespace FluentMetadata.MVC
                 Message = rule.FormatErrorMessage(Metadata.GetDisplayName())
             };
         }
+
+        public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
+        {
+            return ModelClientValidationRuleFactory.Create(rule, Metadata.GetDisplayName());
+        }
     }
 
     class ClassRuleModelValidator : ModelValidator

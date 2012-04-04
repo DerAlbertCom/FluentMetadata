@@ -3,7 +3,6 @@ using System.Web.Mvc;
 
 namespace FluentMetadata.MVC
 {
-    // TODO think of a way to support System.Web.Mvc.IClientValidatable
     public class FluentModelMetadata : ModelMetadata
     {
         internal readonly Metadata Metadata;

@@ -183,5 +183,24 @@ namespace FluentMetadata.MVC.Specs
                     .GetValidators(Fluent, controllerContext)
                     .Count(v => v.IsRequired));
         }
+
+        [Observation]
+        public void StringLengthValidatorsMatch()
+        {
+            var controllerContext = new ControllerContext();
+            var expectedValidatorCount = new DataAnnotationsModelValidatorProvider()
+                .GetValidators(Expected, controllerContext)
+                .OfType<StringLengthAttributeAdapter>()
+                .Count();
+            Assert.InRange(expectedValidatorCount, 0, 1);
+            Assert.Equal(
+                expectedValidatorCount,
+                new FluentValidationProvider()
+                    .GetValidators(Fluent, controllerContext)
+                    .OfType<RuleModelValidator>()
+                    .SelectMany(rmv => rmv.GetClientValidationRules())
+                    .OfType<ModelClientValidationStringLengthRule>()
+                    .Count());
+        }
     }
 }

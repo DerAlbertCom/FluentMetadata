@@ -75,6 +75,7 @@
     <Compile Include="FluentModelMetadata.cs" />
     <Compile Include="FluentValidationProvider.cs" />
     <Compile Include="MetadataMapper.cs" />
+    <Compile Include="ModelClientValidationRuleFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuleModelValidator.cs" />
   </ItemGroup>
