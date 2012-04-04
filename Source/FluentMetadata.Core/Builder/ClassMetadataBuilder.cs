@@ -51,7 +51,13 @@ namespace FluentMetadata.Builder
 
         public IClassBuilder<T> AssertThat(Func<T, bool> assertFunc, string errorMessageFormat)
         {
-            metadata.AddRule(new GenericClassRule<T>(errorMessageFormat, assertFunc));
+            AssertThat(assertFunc, () => errorMessageFormat);
+            return this;
+        }
+
+        public IClassBuilder<T> AssertThat(Func<T, bool> assertFunc, Func<string> errorMessageFormatFunc)
+        {
+            metadata.AddRule(new GenericClassRule<T>(assertFunc, errorMessageFormatFunc));
             return this;
         }
 

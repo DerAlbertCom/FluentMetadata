@@ -20,6 +20,16 @@ namespace FluentMetadata
         IProperty<T, TResult> AssertThat(Func<TResult, bool> assertFunc, string errorMessageFormat);
 
         /// <summary>
+        /// Creates a generic property rule (i.e. a rule that is evaluated in property context)
+        /// asserting that the <paramref name="assertFunc"/> returns true.
+        /// </summary>
+        /// <param name="assertFunc">What to assert.</param>
+        /// <param name="errorMessageFormatFunc">The function returning the dynamic error message format.
+        /// The returned string can contain a placeholder ({0}) for the class display name.</param>
+        /// <returns></returns>
+        IProperty<T, TResult> AssertThat(Func<TResult, bool> assertFunc, Func<string> errorMessageFormatFunc);
+
+        /// <summary>
         /// Sets text length restrictions on the property value.
         /// </summary>
         /// <param name="maxLength">The maximum text length.</param>

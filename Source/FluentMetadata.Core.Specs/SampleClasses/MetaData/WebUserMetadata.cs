@@ -47,7 +47,7 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
                 .Display.Name("E-Mail Fehler")
                 .AssertThat(
                     bc => ValidateBounceCountAgainstSomeConfiguration(bc),
-                    "{0} is too high. Email address is considered invalid.");
+                    () => "{0} is too high. Email address is considered invalid.");
             Property(x => x.Confirmed)
                 .Should.Not.HiddenInput()
                 .Display.Name("Bestätigt");
@@ -57,7 +57,7 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
                 .Display.Name(() => "Benutzer")
                 .AssertThat(
                     u => u.Username != u.Autor.Name,
-                    "{0}.Username and {0}.Autor.Name must not be equal");
+                    () => "{0}.Username and {0}.Autor.Name must not be equal");
         }
 
         bool ValidateBounceCountAgainstSomeConfiguration(int bounceCount)

@@ -4,7 +4,7 @@ using FluentMetadata.Rules;
 
 namespace FluentMetadata.Builder
 {
-    internal abstract class PropertyMetadataBuilder
+    abstract class PropertyMetadataBuilder
     {
         private readonly Metadata metadata;
 
@@ -24,7 +24,7 @@ namespace FluentMetadata.Builder
         }
     }
 
-    internal class PropertyMetadataBuilder<T, TResult> : PropertyMetadataBuilder, IProperty<T, TResult>
+    class PropertyMetadataBuilder<T, TResult> : PropertyMetadataBuilder, IProperty<T, TResult>
     {
         public PropertyMetadataBuilder(Metadata metadata)
             : base(metadata)
@@ -40,7 +40,13 @@ namespace FluentMetadata.Builder
 
         public IProperty<T, TResult> AssertThat(Func<TResult, bool> assertFunc, string errorMessageFormat)
         {
-            Metadata.AddRule(new GenericRule<TResult>(errorMessageFormat, assertFunc));
+            AssertThat(assertFunc, () => errorMessageFormat);
+            return this;
+        }
+
+        public IProperty<T, TResult> AssertThat(Func<TResult, bool> assertFunc, Func<string> errorMessageFormatFunc)
+        {
+            Metadata.AddRule(new GenericRule<TResult>(assertFunc, errorMessageFormatFunc));
             return this;
         }
 

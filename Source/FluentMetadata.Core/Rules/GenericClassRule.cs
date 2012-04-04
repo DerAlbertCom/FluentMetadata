@@ -5,11 +5,13 @@ namespace FluentMetadata.Rules
     class GenericClassRule<T> : ClassRule<T>
     {
         readonly Func<T, bool> assertFunc;
+        readonly Func<string> errorMessageFormatFunc;
 
-        public GenericClassRule(string errorMessageFormat, Func<T, bool> assertFunc)
-            : base(errorMessageFormat)
+        public GenericClassRule(Func<T, bool> assertFunc, Func<string> errorMessageFormatFunc)
+            : base(errorMessageFormatFunc())
         {
             this.assertFunc = assertFunc;
+            this.errorMessageFormatFunc = errorMessageFormatFunc;
         }
 
         public override bool IsValid(T instance)
@@ -19,7 +21,7 @@ namespace FluentMetadata.Rules
 
         public override string FormatErrorMessage(string name)
         {
-            return string.Format(ErrorMessageFormat, name);
+            return string.Format(errorMessageFormatFunc(), name);
         }
     }
 }
