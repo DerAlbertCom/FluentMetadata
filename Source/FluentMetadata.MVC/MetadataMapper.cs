@@ -22,14 +22,14 @@ namespace FluentMetadata.MVC
             {
                 destination.IsRequired = source.Required.Value;
             }
-            destination.NullDisplayText = source.NullDisplayText;
+            destination.NullDisplayText = source.GetNullDisplayText();
             destination.ShowForDisplay = source.ShowDisplay;
             destination.ShowForEdit = source.ShowEditor;
             destination.TemplateHint = GetTemplateHint(source);
             //TODO [MVC3] destination.Watermark = source.GetWatermark();
         }
 
-        private static string GetTemplateHint(Metadata metadata)
+        static string GetTemplateHint(Metadata metadata)
         {
             if (metadata.Hidden.HasValue && metadata.Hidden.Value)
             {

@@ -47,7 +47,13 @@ namespace FluentMetadata.Builder
 
         public IProperty<T, TResult> NullText(string nullDisplayText)
         {
-            propertyMetaDataBuilder.Metadata.NullDisplayText = nullDisplayText;
+            propertyMetaDataBuilder.Metadata.NullDisplayTextFunc = () => nullDisplayText;
+            return propertyMetaDataBuilder;
+        }
+
+        public IProperty<T, TResult> NullText(Func<string> nullDisplayTextFunc)
+        {
+            propertyMetaDataBuilder.Metadata.NullDisplayTextFunc = nullDisplayTextFunc;
             return propertyMetaDataBuilder;
         }
 

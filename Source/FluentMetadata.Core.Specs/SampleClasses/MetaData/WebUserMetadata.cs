@@ -40,7 +40,7 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
             Property(x => x.LastLogin)
                 .Should.Not.ShowInEditor()
                 .Display.Name("Letzte Anmeldung")
-                .Display.NullText("<nie angemeldet>")
+                .Display.NullText(() => "<nie angemeldet>")
                 .Range(new DateTime(2010, 1, 23), DateTime.MaxValue); //support ends on doomsday
             Property(x => x.BounceCount)
                 .Should.Not.ShowInEditor()

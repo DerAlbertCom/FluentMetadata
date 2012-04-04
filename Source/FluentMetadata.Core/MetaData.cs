@@ -40,7 +40,7 @@ namespace FluentMetadata
             HideSurroundingHtml = metadata.HideSurroundingHtml;
             Readonly = metadata.Readonly;
             Required = metadata.Required;
-            NullDisplayText = metadata.NullDisplayText;
+            NullDisplayTextFunc = metadata.NullDisplayTextFunc;
             ShowDisplay = metadata.ShowDisplay;
             ShowEditor = metadata.ShowEditor;
             TemplateHint = metadata.TemplateHint;
@@ -199,7 +199,7 @@ namespace FluentMetadata
         /// <value>
         /// The string to display for null values.
         /// </value>
-        public string NullDisplayText { get; set; }
+        public Func<string> NullDisplayTextFunc { private get; set; }
 
         //
         // Summary:
@@ -332,6 +332,13 @@ namespace FluentMetadata
             return EditorFormatFunc == null ?
                 null :
                 EditorFormatFunc();
+        }
+
+        internal string GetNullDisplayText()
+        {
+            return NullDisplayTextFunc == null ?
+                null :
+                NullDisplayTextFunc();
         }
 
         internal string GetWatermark()

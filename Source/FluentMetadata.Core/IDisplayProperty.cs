@@ -18,6 +18,14 @@ namespace FluentMetadata
         IProperty<T, TResult> NullText(string nullDisplayText);
 
         /// <summary>
+        /// Sets the null text of the property.
+        /// Use this for dynamic, i.e. localized null texts, e.g. resource strings.
+        /// </summary>
+        /// <param name="nullDisplayTextFunc">The null display text function.</param>
+        /// <returns></returns>
+        IProperty<T, TResult> NullText(Func<string> nullDisplayTextFunc);
+
+        /// <summary>
         /// Sets the display name of the property.
         /// Use this for static, i.e. culture invariant display names.
         /// </summary>
