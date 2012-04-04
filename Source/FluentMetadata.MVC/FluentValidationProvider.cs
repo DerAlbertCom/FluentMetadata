@@ -1,30 +1,37 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using FluentMetadata.Rules;
 
 namespace FluentMetadata.MVC
 {
-    /* Maybe not needed, need some checks before deleting
-     * 
     public class FluentValidationProvider : ModelValidatorProvider
     {
         public override IEnumerable<ModelValidator> GetValidators(ModelMetadata metadata, ControllerContext context)
         {
-            var builder = FluentMetadataBuilder.GetTypeBuilder(metadata.ContainerType);
-            if (builder == null)
+            var validators = new List<ModelValidator>();
+
+            if (metadata is FluentModelMetadata)
             {
-                yield break;
+                var isPropertyMetadata = !string.IsNullOrEmpty(metadata.PropertyName);
+                var rules = (metadata as FluentModelMetadata).Metadata.Rules;
+                if (isPropertyMetadata)
+                {
+                    validators.AddRange(
+                        rules
+                            .Select(rule => new RuleModelValidator(rule, metadata, context))
+                            .Cast<ModelValidator>()); //TODO unnecessary for .NET 4
+                }
+                else
+                {
+                    validators.AddRange(
+                        rules
+                            .Select(rule => new ClassRuleModelValidator(rule as IClassRule, metadata, context))
+                            .Cast<ModelValidator>()); //TODO unnecessary for .NET 4
+                }
             }
-            var metaData = builder.MetaDataFor(metadata.PropertyName);
-            if (metaData == null)
-            {
-                yield break;
-            }
-            foreach (var rule in metaData.Rules)
-            {
-                yield return new RuleModelValidator(rule, metadata, context);                
-            }
+
+            return validators;
         }
     }
-     * */
 }

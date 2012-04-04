@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Web.Mvc;
 using Xunit;
 
 namespace FluentMetadata.MVC.Specs
@@ -28,10 +30,44 @@ namespace FluentMetadata.MVC.Specs
     [Concern(typeof(FluentMetadataProvider))]
     public class When_getting_the_Metadata_of_the_Type_ComplexModel : ConcernOfComplexModel
     {
+        ModelValidator[] validators;
+
         public override void CreateMetadata()
         {
+            model.FirstName = "Robert'); DROP ";
+            model.LastName = "TABLE Students; --";
             Fluent = Sut.GetMetadataForType(() => model, model.GetType());
             Expected = OriginalProvider.GetMetadataForType(() => model, model.GetType());
+
+            validators = new FluentValidationProvider()
+                .GetValidators(Fluent, new ControllerContext())
+                .ToArray();
+        }
+
+        [Observation]
+        public void A_validator_is_returned_for_the_generic_rule()
+        {
+            Assert.Equal(1, validators.Length);
+        }
+
+        [Observation]
+        public void The_validator_is_of_type_ClassRuleModelValidator()
+        {
+            Assert.IsType<ClassRuleModelValidator>(validators[0]);
+        }
+
+        [Observation]
+        public void The_validator_returns_1_ModelValidationResult()
+        {
+            Assert.Equal(1, validators[0].Validate(model).Count());
+        }
+
+        [Observation]
+        public void The_error_message_of_the_ModelValidationResult_says_value_cannot_be_male()
+        {
+            Assert.Equal(
+                "Gotcha, little Bobby Tables! You'll never be 'Komplex'!",
+                validators[0].Validate(model).ToArray()[0].Message);
         }
     }
 
@@ -65,9 +101,41 @@ namespace FluentMetadata.MVC.Specs
     [Concern(typeof(FluentMetadataProvider))]
     public class When_getting_the_Metadata_of_ComplexModel_Property_Sex : ConcernOfComplexModel
     {
+        ModelValidator[] validators;
+
         public override void CreateMetadata()
         {
             CreatePropertyMetadata("Sex");
+
+            validators = new FluentValidationProvider()
+                .GetValidators(Fluent, new ControllerContext())
+                .ToArray();
+        }
+
+        [Observation]
+        public void A_validator_is_returned_for_the_generic_rule()
+        {
+            Assert.Equal(1, validators.Length);
+        }
+
+        [Observation]
+        public void The_validator_is_of_type_RuleModelValidator()
+        {
+            Assert.IsType<RuleModelValidator>(validators[0]);
+        }
+
+        [Observation]
+        public void The_validator_returns_1_ModelValidationResult()
+        {
+            Assert.Equal(1, validators[0].Validate(model).Count());
+        }
+
+        [Observation]
+        public void The_error_message_of_the_ModelValidationResult_says_value_cannot_be_male()
+        {
+            Assert.Equal(
+                "'Sex' cannot be male since this is a ComplexModel.",
+                validators[0].Validate(model).ToArray()[0].Message);
         }
     }
 
