@@ -38,7 +38,11 @@ namespace FluentMetadata.Rules
 
         protected override bool EqualsRule(ClassRule<T> rule)
         {
-            throw new NotImplementedException();
+            var propertyMustBeLessThanOtherRule = rule as PropertyMustBeLessThanOtherRule<T>;
+            return propertyMustBeLessThanOtherRule == null ?
+                false :
+                propertyMustBeLessThanOtherRule.propertyName.Equals(propertyName) &&
+                propertyMustBeLessThanOtherRule.otherPropertyName.Equals(otherPropertyName);
         }
     }
 }

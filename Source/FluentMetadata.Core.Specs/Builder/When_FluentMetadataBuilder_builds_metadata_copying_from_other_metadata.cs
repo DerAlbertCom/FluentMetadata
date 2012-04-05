@@ -56,12 +56,22 @@ namespace FluentMetadata.Specs.Builder
             Assert.Equal(1, someViewModelRules.OfType<GenericClassRule<SomeViewModel>>().Count());
         }
 
+        [Fact]
+        public void It_does_not_duplicate_PropertyMustBeLessThanOtherRules()
+        {
+            Assert.Equal(1, someViewModelRules.OfType<PropertyMustBeLessThanOtherRule<SomeViewModel>>().Count());
+        }
+
         #region System under test
 
         #region dependent metadata is defined before its dependency
 
         class SomeDomainModel : SomeDomainBaseType { }
-        class SomeViewModel { }
+        class SomeViewModel
+        {
+            public int MyProperty { get; set; }
+            public int MyProperty2 { get; set; }
+        }
         class SomeViewModelMetadata : ClassMetadata<SomeViewModel>
         {
             public SomeViewModelMetadata()
@@ -70,7 +80,9 @@ namespace FluentMetadata.Specs.Builder
                 Class
                     .AssertThat(
                         svm => false,
-                        string.Empty);
+                        string.Empty)
+                    .ComparableProperty(svm => svm.MyProperty)
+                        .ShouldBeLessThan(svm => svm.MyProperty2);
             }
         }
         class SomeDomainModelMetadata : SomeDomainBaseTypeMetadata<SomeDomainModel> { }
