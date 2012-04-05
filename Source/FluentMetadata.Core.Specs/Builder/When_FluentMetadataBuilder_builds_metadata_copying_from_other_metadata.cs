@@ -6,14 +6,40 @@ using Xunit;
 
 namespace FluentMetadata.Specs.Builder
 {
-    public class When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata : MetadataTestBase
+    public class When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata
     {
         readonly List<Type> builtMetadata = FluentMetadataBuilder.BuiltMetadataDefininitions;
-        readonly IEnumerable<IRule> someViewModelRules;
+        readonly IEnumerable<IRule> someViewModelRules, someViewModelMyPropertyRules;
+        readonly Exception exception;
 
         public When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata()
         {
-            someViewModelRules = QueryFluentMetadata.GetMetadataFor(typeof(SomeViewModel)).Rules;
+            FluentMetadataBuilder.Reset();
+
+            try
+            {
+                FluentMetadataBuilder.BuildMetadataDefinitions(GetUnbuildableMetadataDefinitions());
+                someViewModelRules = QueryFluentMetadata.GetMetadataFor(typeof(SomeViewModel)).Rules;
+                someViewModelMyPropertyRules = QueryFluentMetadata.GetMetadataFor(typeof(SomeViewModel), "MyProperty").Rules;
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+        }
+
+        internal static IEnumerable<Type> GetUnbuildableMetadataDefinitions()
+        {
+            var type = typeof(When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata);
+            return type.Assembly.GetTypes()
+                .Where(t => t.FullName.StartsWith(type.FullName) &&
+                    typeof(IClassMetadata).IsAssignableFrom(t));
+        }
+
+        [Fact]
+        public void It_does_not_throw_an_exception()
+        {
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -62,6 +88,42 @@ namespace FluentMetadata.Specs.Builder
             Assert.Equal(1, someViewModelRules.OfType<PropertyMustBeLessThanOtherRule<SomeViewModel>>().Count());
         }
 
+        [Fact]
+        public void It_does_not_duplicate_PropertyMustMatchRules()
+        {
+            Assert.Equal(1, someViewModelRules.OfType<PropertyMustMatchRule<SomeViewModel>>().Count());
+        }
+
+        [Fact]
+        public void It_does_not_duplicate_RequiredRules()
+        {
+            Assert.Equal(1, someViewModelMyPropertyRules.OfType<RequiredRule>().Count());
+        }
+
+        [Fact]
+        public void It_does_not_duplicate_PropertyMustMatchRegexRules()
+        {
+            Assert.Equal(1, someViewModelMyPropertyRules.OfType<PropertyMustMatchRegexRule>().Count());
+        }
+
+        [Fact]
+        public void It_does_not_duplicate_RangeRules()
+        {
+            Assert.Equal(1, someViewModelMyPropertyRules.OfType<RangeRule>().Count());
+        }
+
+        [Fact]
+        public void It_does_not_duplicate_StringLengthRules()
+        {
+            Assert.Equal(1, someViewModelMyPropertyRules.OfType<StringLengthRule>().Count());
+        }
+
+        [Fact]
+        public void It_does_not_duplicate_generic_property_rules()
+        {
+            Assert.Equal(1, someViewModelMyPropertyRules.OfType<GenericRule<int>>().Count());
+        }
+
         #region System under test
 
         #region dependent metadata is defined before its dependency
@@ -82,7 +144,17 @@ namespace FluentMetadata.Specs.Builder
                         svm => false,
                         string.Empty)
                     .ComparableProperty(svm => svm.MyProperty)
-                        .ShouldBeLessThan(svm => svm.MyProperty2);
+                        .ShouldBeLessThan(svm => svm.MyProperty2)
+                    .Property(svm => svm.MyProperty)
+                       .ShouldEqual(svm => svm.MyProperty2);
+                Property(svm => svm.MyProperty)
+                    .Is.Required()
+                    .Should.MatchRegex("here be some regex")
+                    .Range(0, 1)
+                    .Length(1, 1)
+                    .AssertThat(
+                        v => v > 100,
+                        string.Empty);
             }
         }
         class SomeDomainModelMetadata : SomeDomainBaseTypeMetadata<SomeDomainModel> { }

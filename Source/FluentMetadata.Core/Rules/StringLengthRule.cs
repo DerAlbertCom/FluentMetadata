@@ -67,6 +67,11 @@ namespace FluentMetadata.Rules
                 maxLength,
                 minLength);
         }
+
+        protected override bool EqualsRule(Rule rule)
+        {
+            return rule is StringLengthRule;
+        }
     }
 
     //TODO [DerAlbertCom] implement or delete: What does this rule validate?
@@ -83,6 +88,11 @@ namespace FluentMetadata.Rules
         }
 
         public override string FormatErrorMessage(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override bool EqualsRule(Rule rule)
         {
             throw new NotImplementedException();
         }

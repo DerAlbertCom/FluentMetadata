@@ -60,7 +60,7 @@ namespace FluentMetadata.Rules
 
         protected override bool EqualsRule(ClassRule<T> rule)
         {
-            throw new NotImplementedException();
+            return rule is PropertyMustMatchRule<T>;
         }
     }
 }

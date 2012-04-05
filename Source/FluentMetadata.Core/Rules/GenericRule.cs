@@ -27,5 +27,13 @@ namespace FluentMetadata.Rules
         {
             return assertFunc((TProperty)value);
         }
+
+        protected override bool EqualsRule(Rule rule)
+        {
+            var genericRule = rule as GenericRule<TProperty>;
+            return genericRule == null ?
+                false :
+                genericRule.assertFunc.Equals(assertFunc);
+        }
     }
 }

@@ -34,6 +34,14 @@ namespace FluentMetadata.Rules
         {
             return string.Format(CultureInfo.CurrentCulture, ErrorMessageFormat, name);
         }
+
+        protected override bool EqualsRule(Rule rule)
+        {
+            var propertyMustMatchRegexRule = rule as PropertyMustMatchRegexRule;
+            return propertyMustMatchRegexRule == null ?
+                false :
+                propertyMustMatchRegexRule.Pattern.Equals(Pattern);
+        }
     }
 
     public class PropertyMustNotMatchRegexRule : PropertyMustMatchRegexRule

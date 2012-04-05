@@ -74,5 +74,10 @@ namespace FluentMetadata.Rules
         {
             return string.Format(CultureInfo.CurrentCulture, ErrorMessageFormat, name, valueMinimum, valueMaximum);
         }
+
+        protected override bool EqualsRule(Rule rule)
+        {
+            return rule is RangeRule;
+        }
     }
 }

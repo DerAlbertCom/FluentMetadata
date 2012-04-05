@@ -27,5 +27,10 @@ namespace FluentMetadata.Rules
         {
             return string.Format(CultureInfo.CurrentCulture, ErrorMessageFormat, name);
         }
+
+        protected override bool EqualsRule(Rule rule)
+        {
+            return rule is RequiredRule;
+        }
     }
 }
