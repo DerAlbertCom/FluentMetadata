@@ -12,7 +12,7 @@ namespace FluentMetadata.Specs
 
         public ClassMetadata_with_WebUser()
         {
-            classMetadata = new QueryFluentMetadata().GetMetadataFor(typeof(WebUser));
+            classMetadata = QueryFluentMetadata.GetMetadataFor(typeof(WebUser));
         }
 
         [Fact]

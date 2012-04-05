@@ -5,8 +5,8 @@ namespace FluentMetadata.Specs.Builder
 {
     public class IsBuilderTests
     {
-        private readonly IIsProperty<DummyClass, string> isBuilder;
-        private readonly Metadata metadata;
+        readonly IIsProperty<DummyClass, string> isBuilder;
+        readonly Metadata metadata;
 
         public IsBuilderTests()
         {
@@ -23,7 +23,7 @@ namespace FluentMetadata.Specs.Builder
         [Fact]
         public void IsBuilder_Ctor_IsNotReadOnly()
         {
-            Assert.False(metadata.Readonly);
+            Assert.False(metadata.ReadOnly);
         }
 
         [Fact]
@@ -44,14 +44,14 @@ namespace FluentMetadata.Specs.Builder
         public void IsBuilder_Readonly_IsReadOnly()
         {
             isBuilder.ReadOnly();
-            Assert.True(metadata.Readonly);
+            Assert.True(metadata.ReadOnly);
         }
 
         [Fact]
         public void IsBuilder_Not_Readonly_IsNotReadOnly()
         {
             isBuilder.Not.ReadOnly();
-            Assert.False(metadata.Readonly);
+            Assert.False(metadata.ReadOnly);
         }
     }
 }

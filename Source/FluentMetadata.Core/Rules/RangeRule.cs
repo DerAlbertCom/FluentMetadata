@@ -5,8 +5,8 @@ namespace FluentMetadata.Rules
 {
     public class RangeRule : Rule
     {
-        private IComparable valueMaximum;
-        private IComparable valueMinimum;
+        IComparable valueMaximum;
+        IComparable valueMinimum;
 
         internal object Minimum
         {
@@ -24,7 +24,7 @@ namespace FluentMetadata.Rules
             }
         }
 
-        private RangeRule()
+        RangeRule()
             : base("the value of '{0}' must be between {1} and {2}")
         {
         }
@@ -32,10 +32,10 @@ namespace FluentMetadata.Rules
         public RangeRule(IComparable minimum, IComparable maximum)
             : this()
         {
-            Initialize(minimum, maximum, o => Convert.ToDateTime(o));
+            Initialize(minimum, maximum);
         }
 
-        private void Initialize(IComparable minimum, IComparable maximum, Func<object, object> conversion)
+        void Initialize(IComparable minimum, IComparable maximum)
         {
             if (minimum.CompareTo(maximum) > 0)
             {
@@ -60,7 +60,8 @@ namespace FluentMetadata.Rules
             {
                 return true;
             }
-            if ((value is string) && string.IsNullOrEmpty(value as string))
+            var valueAsString = value as string;
+            if (valueAsString != null && string.IsNullOrEmpty(valueAsString))
             {
                 return true;
             }

@@ -9,7 +9,7 @@ namespace FluentMetadata.Specs
 
         public ClassMetadata_with_WebUserIndexModel()
         {
-            classMetadata = new QueryFluentMetadata().GetMetadataFor(typeof(WebUserIndexModel));
+            classMetadata = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexModel));
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace FluentMetadata.Specs
 
         public ClassMetadata_with_WebUserIndexGetModel()
         {
-            classMetadata = new QueryFluentMetadata().GetMetadataFor(typeof(WebUserIndexGetModel));
+            classMetadata = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel));
         }
 
         [Fact]

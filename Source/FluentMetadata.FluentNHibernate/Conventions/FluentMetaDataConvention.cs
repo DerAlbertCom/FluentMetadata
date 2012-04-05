@@ -3,13 +3,11 @@ using FluentNHibernate.Conventions.Instances;
 
 namespace FluentMetadata.FluentNHibernate.Conventions
 {
-    public class FluentMetaDataConvention : IPropertyConvention, IReferenceConvention
+    public class FluentMetadataConvention : IPropertyConvention, IReferenceConvention
     {
-        readonly QueryFluentMetadata query = new QueryFluentMetadata();
-
         public void Apply(IPropertyInstance instance)
         {
-            var meta = query.FindMetadataFor(instance.EntityType, instance.Property.Name);
+            var meta = QueryFluentMetadata.FindMetadataFor(instance.EntityType, instance.Property.Name);
             if (meta != null)
             {
                 if (meta.Required.HasValue && meta.Required.Value)
@@ -27,7 +25,7 @@ namespace FluentMetadata.FluentNHibernate.Conventions
 
         public void Apply(IManyToOneInstance instance)
         {
-            var meta = query.FindMetadataFor(instance.EntityType, instance.Property.Name);
+            var meta = QueryFluentMetadata.FindMetadataFor(instance.EntityType, instance.Property.Name);
             if (meta != null && meta.Required.HasValue && meta.Required.Value)
             {
                 instance.Not.Nullable();

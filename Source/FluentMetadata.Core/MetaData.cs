@@ -8,7 +8,7 @@ namespace FluentMetadata
     public class Metadata
     {
         readonly List<IRule> rules;
-        readonly PropertiesMetadata properties;
+        readonly PropertiesMetadataCollection properties;
 
         public Metadata()
         {
@@ -16,7 +16,7 @@ namespace FluentMetadata
             ShowDisplay = true;
             ShowEditor = true;
             rules = new List<IRule>();
-            properties = new PropertiesMetadata();
+            properties = new PropertiesMetadataCollection();
         }
 
         public Metadata(Metadata metadata, Type containerType)
@@ -38,7 +38,7 @@ namespace FluentMetadata
             DisplayNameFunc = metadata.DisplayNameFunc;
             EditorFormatFunc = metadata.EditorFormatFunc;
             HideSurroundingHtml = metadata.HideSurroundingHtml;
-            Readonly = metadata.Readonly;
+            ReadOnly = metadata.ReadOnly;
             Required = metadata.Required;
             NullDisplayTextFunc = metadata.NullDisplayTextFunc;
             ShowDisplay = metadata.ShowDisplay;
@@ -162,7 +162,7 @@ namespace FluentMetadata
         /// <value>
         ///   <c>true</c> if the model is read-only; otherwise, <c>false</c>.
         /// </value>
-        public bool Readonly { get; set; }
+        internal bool ReadOnly { get; set; }
 
         // ~ System.Web.Mvc.ModelMetadata.IsRequired
         /// <summary>
@@ -199,7 +199,7 @@ namespace FluentMetadata
         /// <value>
         /// The string to display for null values.
         /// </value>
-        public Func<string> NullDisplayTextFunc { private get; set; }
+        internal Func<string> NullDisplayTextFunc { private get; set; }
 
         //
         // Summary:
@@ -214,7 +214,7 @@ namespace FluentMetadata
         /// Gets a collection of model metadata objects that describe the properties
         /// of the model.
         /// </summary>
-        public PropertiesMetadata Properties { get { return properties; } }
+        public PropertiesMetadataCollection Properties { get { return properties; } }
 
         /// <summary>
         /// Gets or sets the name of the model.

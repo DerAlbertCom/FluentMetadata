@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace FluentMetadata.Rules
 {
@@ -59,7 +60,12 @@ namespace FluentMetadata.Rules
 
         public override string FormatErrorMessage(string name)
         {
-            return string.Format(ErrorMessageFormat, name, maxLength, minLength);
+            return string.Format(
+                CultureInfo.CurrentCulture,
+                ErrorMessageFormat,
+                name,
+                maxLength,
+                minLength);
         }
     }
 

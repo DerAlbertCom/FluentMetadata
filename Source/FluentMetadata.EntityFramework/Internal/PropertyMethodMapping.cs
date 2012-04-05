@@ -5,9 +5,9 @@ using System.Reflection;
 
 namespace FluentMetadata.EntityFramework.Internal
 {
-    internal class PropertyMethodMapping
+    internal static class PropertyMethodMapping
     {
-        public MethodInfo GetPropertyMappingMethod(Type configurationType, Type instanceType, Type propertyType)
+        internal static MethodInfo GetPropertyMappingMethod(Type configurationType, Type instanceType, Type propertyType)
         {
             var expressionFuncType = CreateExpressionFuncTypeOf(instanceType, propertyType);
 
@@ -18,7 +18,7 @@ namespace FluentMetadata.EntityFramework.Internal
                     select methodInfo).FirstOrDefault();
         }
 
-        private Type CreateExpressionFuncTypeOf(Type instanceType, Type propertyType)
+        static Type CreateExpressionFuncTypeOf(Type instanceType, Type propertyType)
         {
             var funcType = typeof(Func<,>).MakeGenericType(instanceType, propertyType);
             return typeof(Expression<>).MakeGenericType(funcType);

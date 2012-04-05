@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq.Expressions;
 
 namespace FluentMetadata.Rules
 {
     public class PropertyMustBeLessThanOtherRule<T> : ClassRule<T>
     {
-        readonly string proptertyName, otherPropertyName;
+        readonly string propertyName, otherPropertyName;
         readonly Func<T, IComparable> propertyFunc, otherPropertyFunc;
 
         public PropertyMustBeLessThanOtherRule(
@@ -13,7 +14,7 @@ namespace FluentMetadata.Rules
             Expression<Func<T, IComparable>> otherPropertyExpression)
             : base("The value of '{0}.{1}' must be less than the value of '{0}.{2}'.")
         {
-            proptertyName = ((propertyExpression.Body as UnaryExpression).Operand as MemberExpression).Member.Name;
+            propertyName = ((propertyExpression.Body as UnaryExpression).Operand as MemberExpression).Member.Name;
             propertyFunc = propertyExpression.Compile();
             otherPropertyName = ((otherPropertyExpression.Body as UnaryExpression).Operand as MemberExpression).Member.Name;
             otherPropertyFunc = otherPropertyExpression.Compile();
@@ -28,10 +29,11 @@ namespace FluentMetadata.Rules
         public override string FormatErrorMessage(string name)
         {
             return string.Format(
-               this.ErrorMessageFormat,
-               name,
-               proptertyName,
-               otherPropertyName);
+                CultureInfo.CurrentCulture,
+                ErrorMessageFormat,
+                name,
+                propertyName,
+                otherPropertyName);
         }
     }
 }

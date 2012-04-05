@@ -11,13 +11,13 @@ namespace FluentMetadata.FluentNHibernate.Specs
 {
     public class FluentMetaDataConventionSpecs
     {
-        readonly FluentMetaDataConvention sut;
+        readonly FluentMetadataConvention sut;
 
         public FluentMetaDataConventionSpecs()
         {
             FluentMetadataBuilder.Reset();
             FluentMetadataBuilder.ForAssemblyOfType<TestClassMetadata>();
-            sut = new FluentMetaDataConvention();
+            sut = new FluentMetadataConvention();
         }
 
         [Fact]

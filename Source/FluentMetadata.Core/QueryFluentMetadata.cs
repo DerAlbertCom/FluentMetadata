@@ -2,14 +2,14 @@ using System;
 
 namespace FluentMetadata
 {
-    public class QueryFluentMetadata
+    public static class QueryFluentMetadata
     {
-        public Metadata GetMetadataFor(Type type)
+        public static Metadata GetMetadataFor(Type type)
         {
             return FluentMetadataBuilder.GetTypeBuilder(type).Metadata;
         }
 
-        public Metadata GetMetadataFor(Type type, string propertyName)
+        public static Metadata GetMetadataFor(Type type, string propertyName)
         {
             var metadataProperties = GetMetadataFor(type).Properties;
             if (!metadataProperties.Contains(propertyName))
@@ -19,7 +19,7 @@ namespace FluentMetadata
             return metadataProperties[propertyName];
         }
 
-        public Metadata FindMetadataFor(Type type, string propertyName)
+        public static Metadata FindMetadataFor(Type type, string propertyName)
         {
             return GetMetadataFor(type).Properties.Find(propertyName);
         }

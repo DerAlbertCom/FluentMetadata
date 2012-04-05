@@ -17,7 +17,7 @@ namespace FluentMetadata.MVC
             {
                 destination.HideSurroundingHtml = source.HideSurroundingHtml.Value;
             }
-            destination.IsReadOnly = source.Readonly;
+            destination.IsReadOnly = source.ReadOnly;
             if (source.Required.HasValue)
             {
                 destination.IsRequired = source.Required.Value;

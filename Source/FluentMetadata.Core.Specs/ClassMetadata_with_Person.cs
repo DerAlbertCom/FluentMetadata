@@ -7,12 +7,11 @@ namespace FluentMetadata.Specs
 {
     public class ClassMetadata_with_Person : MetadataTestBase
     {
-        private Metadata classMetadata;
+        readonly Metadata classMetadata;
 
         public ClassMetadata_with_Person()
         {
-            var query = new QueryFluentMetadata();
-            classMetadata = query.GetMetadataFor(typeof(Person));
+            classMetadata = QueryFluentMetadata.GetMetadataFor(typeof(Person));
         }
 
         [Fact]

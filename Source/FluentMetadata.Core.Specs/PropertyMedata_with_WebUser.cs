@@ -8,17 +8,16 @@ namespace FluentMetadata.Specs
 {
     public class PropertyMedata_with_WebUser : MetadataTestBase
     {
-        Metadata lastLogin, username, id, passWordHash, role, bounceCount;
+        readonly Metadata lastLogin, username, id, passWordHash, role, bounceCount;
 
         public PropertyMedata_with_WebUser()
         {
-            var query = new QueryFluentMetadata();
-            username = query.GetMetadataFor(typeof(WebUser), "Username");
-            id = query.GetMetadataFor(typeof(WebUser), "Id");
-            lastLogin = query.GetMetadataFor(typeof(WebUser), "LastLogin");
-            passWordHash = query.GetMetadataFor(typeof(WebUser), "PasswordHash");
-            role = query.GetMetadataFor(typeof(WebUser), "Role");
-            bounceCount = query.GetMetadataFor(typeof(WebUser), "BounceCount");
+            username = QueryFluentMetadata.GetMetadataFor(typeof(WebUser), "Username");
+            id = QueryFluentMetadata.GetMetadataFor(typeof(WebUser), "Id");
+            lastLogin = QueryFluentMetadata.GetMetadataFor(typeof(WebUser), "LastLogin");
+            passWordHash = QueryFluentMetadata.GetMetadataFor(typeof(WebUser), "PasswordHash");
+            role = QueryFluentMetadata.GetMetadataFor(typeof(WebUser), "Role");
+            bounceCount = QueryFluentMetadata.GetMetadataFor(typeof(WebUser), "BounceCount");
         }
 
         [Fact]

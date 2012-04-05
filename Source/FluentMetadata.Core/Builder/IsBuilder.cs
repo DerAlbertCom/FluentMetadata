@@ -30,7 +30,7 @@ namespace FluentMetadata.Builder
 
         public IProperty<T, TResult> ReadOnly()
         {
-            Metadata.Readonly = !notted;
+            Metadata.ReadOnly = !notted;
             notted = false;
             return propertyMetaDataBuilder;
         }

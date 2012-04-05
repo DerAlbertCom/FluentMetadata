@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace FluentMetadata
 {
-    public class PropertiesMetadata : IEnumerable<Metadata>
+    public class PropertiesMetadataCollection : IEnumerable<Metadata>
     {
-        private readonly Dictionary<string, Metadata> metadatas = new Dictionary<string, Metadata>();
+        readonly Dictionary<string, Metadata> metadatas = new Dictionary<string, Metadata>();
 
         internal void Add(Metadata metadata)
         {
@@ -25,11 +25,6 @@ namespace FluentMetadata
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }
-
-        private int Count
-        {
-            get { return metadatas.Count; }
         }
 
         public Metadata this[string propertyName]

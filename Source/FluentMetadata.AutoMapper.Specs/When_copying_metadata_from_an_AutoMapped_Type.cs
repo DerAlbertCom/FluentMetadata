@@ -1,13 +1,12 @@
-using System;
 using System.Linq;
 using AutoMapper;
 using Xunit;
 
 namespace FluentMetadata.AutoMapper.Specs
 {
-    public class When_copying_metadata_from_an_AutoMapped_Type : IDisposable
+    public class When_copying_metadata_from_an_AutoMapped_Type
     {
-        Metadata destinationMetadata,
+        readonly Metadata destinationMetadata,
             destinationMyPropertyMetadata,
             destinationRenamedMetadata,
             destinationNestedFurtherNestedIdMetadata,
@@ -15,6 +14,9 @@ namespace FluentMetadata.AutoMapper.Specs
 
         public When_copying_metadata_from_an_AutoMapped_Type()
         {
+            FluentMetadataBuilder.Reset();
+            Mapper.Reset();
+
             Mapper.CreateMap<Source, Destination>()
                 .ForMember(d => d.Renamed, o => o.MapFrom(s => s.Named))
                 .ForMember(d => d.IntProperty, o => o.ResolveUsing<FakeResolver>().FromMember(s => s.StringField));
@@ -22,8 +24,7 @@ namespace FluentMetadata.AutoMapper.Specs
 
             FluentMetadataBuilder.ForAssemblyOfType<Source>();
 
-            var query = new QueryFluentMetadata();
-            destinationMetadata = query.GetMetadataFor(typeof(Destination));
+            destinationMetadata = QueryFluentMetadata.GetMetadataFor(typeof(Destination));
             destinationMyPropertyMetadata = destinationMetadata.Properties
                 .Single(m => m.ModelName == "MyProperty");
             destinationRenamedMetadata = destinationMetadata.Properties
@@ -62,12 +63,6 @@ namespace FluentMetadata.AutoMapper.Specs
         public void a_destination_property_resolved_from_a_source_property_should_have_metadata_from_the_source_property()
         {
             Assert.Equal("üoicvnqwnb", destinationIntPropertyMetadata.TemplateHint);
-        }
-
-        public void Dispose()
-        {
-            FluentMetadataBuilder.Reset();
-            Mapper.Reset();
         }
     }
 }

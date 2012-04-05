@@ -10,7 +10,6 @@ namespace FluentMetadata.Rules
 
         readonly string originalPropertyName;
         readonly string confirmPropertyName;
-        Type currentType;
 
         public PropertyMustMatchRule(
             Expression<Func<T, object>> expression,
@@ -23,17 +22,16 @@ namespace FluentMetadata.Rules
 
         public override string FormatErrorMessage(string name)
         {
-            return String.Format(
+            return string.Format(
                 CultureInfo.CurrentCulture,
                 ErrorMessageFormat,
                 GetPropertyDisplayName(originalPropertyName),
-                GetPropertyDisplayName(confirmPropertyName)
-            );
+                GetPropertyDisplayName(confirmPropertyName));
         }
 
-        string GetPropertyDisplayName(string propertyName)
+        static string GetPropertyDisplayName(string propertyName)
         {
-            var metaData = FluentMetadataBuilder.GetTypeBuilder(currentType).MetaDataFor(propertyName);
+            var metaData = FluentMetadataBuilder.GetTypeBuilder<T>().MetaDataFor(propertyName);
             if (metaData != null)
             {
                 var metaDataDisplayName = metaData.GetDisplayName();
@@ -48,7 +46,6 @@ namespace FluentMetadata.Rules
         {
             if (instance == null)
                 return true;
-            currentType = instance.GetType();
 
             return Equals(
                 GetValueFromProperty(instance, originalPropertyName),

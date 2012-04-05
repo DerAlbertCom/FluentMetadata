@@ -14,33 +14,35 @@ namespace FluentMetadata
 
         public static Type GetPropertyType<T, TResult>(Expression<Func<T, TResult>> expression)
         {
-            var memberExpression = (PropertyInfo) GetMemberInfo(expression);
+            var memberExpression = (PropertyInfo)GetMemberInfo(expression);
             return memberExpression.PropertyType;
         }
 
-        private static MemberInfo GetMemberInfo<T, TResult>(Expression<Func<T, TResult>> expression)
+        static MemberInfo GetMemberInfo<T, TResult>(Expression<Func<T, TResult>> expression)
         {
             return GetMemberInfoFromExpression(expression.Body);
         }
 
-        private static MemberInfo GetMemberInfoFromExpression(Expression expression)
+        static MemberInfo GetMemberInfoFromExpression(Expression expression)
         {
-            if (expression is UnaryExpression)
+            var unaryExpression = expression as UnaryExpression;
+            if (unaryExpression != null)
             {
-                var unary = (UnaryExpression) expression;
-                return GetMemberInfoFromExpression(unary.Operand);
+                return GetMemberInfoFromExpression(unaryExpression.Operand);
             }
-            if (expression is MemberExpression)
+
+            var memberExpression = expression as MemberExpression;
+            if (memberExpression != null)
             {
-                return ((MemberExpression) expression).Member;
+                return memberExpression.Member;
             }
-            throw new InvalidOperationException(string.Format("{0} not handled", expression.Type.Name));
+
+            throw new InvalidOperationException(expression.Type.Name + " not handled");
         }
 
         public static Type GetDeclaringType(Expression<Func<object, object>> expression)
         {
-            var memberExpression = GetMemberInfo(expression);
-            return memberExpression.DeclaringType;
+            return GetMemberInfo(expression).DeclaringType;
         }
     }
 }

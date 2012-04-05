@@ -7,8 +7,6 @@ namespace FluentMetadata
 {
     public static class MetadataHelper
     {
-        readonly static QueryFluentMetadata query = new QueryFluentMetadata();
-
         internal static void CopyMetadata(Type source, Type target)
         {
             FluentMetadataBuilder.RegisterDependency(source, target);
@@ -24,7 +22,7 @@ namespace FluentMetadata
             }
 
             //copy type metadata
-            query.GetMetadataFor(target).CopyMetaDataFrom(query.GetMetadataFor(source));
+            QueryFluentMetadata.GetMetadataFor(target).CopyMetaDataFrom(QueryFluentMetadata.GetMetadataFor(source));
         }
 
         public static void CopyMappedMetadata(Type source, Type target, IEnumerable<MemberMap> memberMaps)
@@ -43,7 +41,7 @@ namespace FluentMetadata
             }
 
             //copy type metadata
-            query.GetMetadataFor(target).CopyMetaDataFrom(query.GetMetadataFor(source));
+            QueryFluentMetadata.GetMetadataFor(target).CopyMetaDataFrom(QueryFluentMetadata.GetMetadataFor(source));
         }
     }
 

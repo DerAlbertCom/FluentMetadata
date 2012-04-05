@@ -5,14 +5,12 @@ namespace FluentMetadata.Specs
 {
     public class PropertyMedata_with_Person : MetadataTestBase
     {
-        private Metadata firstName;
-        private Metadata lastName;
+        readonly Metadata firstName, lastName;
 
         public PropertyMedata_with_Person()
         {
-            var query = new QueryFluentMetadata();
-            firstName = query.GetMetadataFor(typeof(Person), "FirstName");
-            lastName = query.GetMetadataFor(typeof(Person), "LastName");
+            firstName = QueryFluentMetadata.GetMetadataFor(typeof(Person), "FirstName");
+            lastName = QueryFluentMetadata.GetMetadataFor(typeof(Person), "LastName");
         }
 
         [Fact]

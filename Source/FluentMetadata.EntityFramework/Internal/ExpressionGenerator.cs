@@ -4,17 +4,20 @@ using System.Reflection;
 
 namespace FluentMetadata.EntityFramework.Internal
 {
-    internal class ExpressionGenerator
+    internal static class ExpressionGenerator
     {
-        public Expression CreateExpressionForProperty(Type type, string propertyName)
+        internal static Expression CreateExpressionForProperty(Type type, string propertyName)
         {
             Expression lambda = null;
             Type entityType = type;
             do
             {
-                var propertyAccessor = type.GetProperty(propertyName,
-                                                        BindingFlags.NonPublic | BindingFlags.Public |
-                                                        BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+                var propertyAccessor = type.GetProperty(
+                    propertyName,
+                    BindingFlags.NonPublic |
+                    BindingFlags.Public |
+                    BindingFlags.Instance |
+                    BindingFlags.FlattenHierarchy);
 
                 if (propertyAccessor == null || !propertyAccessor.CanWrite)
                 {
@@ -23,12 +26,12 @@ namespace FluentMetadata.EntityFramework.Internal
                 }
 
                 lambda = CreateLambda(entityType, propertyAccessor);
-            } while (lambda == null && type!=null && type != typeof (object));
+            } while (lambda == null && type != null && type != typeof(object));
 
             return lambda;
         }
 
-        private Expression CreateLambda(Type type, PropertyInfo propertyAccessor)
+        static Expression CreateLambda(Type type, PropertyInfo propertyAccessor)
         {
             var parameterExpression = Expression.Parameter(type, "p");
             var propertyExpression = Expression.Property(parameterExpression, propertyAccessor);

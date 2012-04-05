@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace FluentMetadata.Rules
 {
@@ -16,17 +17,15 @@ namespace FluentMetadata.Rules
 
         public override string FormatErrorMessage(string name)
         {
-            return string.Format(errorMessageFormatFunc(), name);
+            return string.Format(
+                CultureInfo.CurrentCulture,
+                errorMessageFormatFunc(),
+                name);
         }
 
         public override bool IsValid(object value)
         {
-            return IsValid((TProperty)value);
-        }
-
-        public bool IsValid(TProperty value)
-        {
-            return assertFunc(value);
+            return assertFunc((TProperty)value);
         }
     }
 }

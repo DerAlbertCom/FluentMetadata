@@ -5,16 +5,15 @@ namespace FluentMetadata.Specs
 {
     public class PropertyMedata_with_WebUserIndexGetModel : MetadataTestBase
     {
-        Metadata username, id, autorName, email, role;
+        readonly Metadata username, id, autorName, email, role;
 
         public PropertyMedata_with_WebUserIndexGetModel()
         {
-            var query = new QueryFluentMetadata();
-            username = query.GetMetadataFor(typeof(WebUserIndexGetModel), "Username");
-            id = query.GetMetadataFor(typeof(WebUserIndexGetModel), "Id");
-            email = query.GetMetadataFor(typeof(WebUserIndexGetModel), "EMail");
-            autorName = query.GetMetadataFor(typeof(WebUserIndexGetModel), "AutorName");
-            role = query.GetMetadataFor(typeof(WebUserIndexGetModel), "Role");
+            username = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "Username");
+            id = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "Id");
+            email = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "EMail");
+            autorName = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "AutorName");
+            role = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "Role");
         }
 
         [Fact]
@@ -99,7 +98,7 @@ namespace FluentMetadata.Specs
         [Fact]
         public void Username_ReadOnly_is_true()
         {
-            Assert.True(username.Readonly);
+            Assert.True(username.ReadOnly);
         }
 
         [Fact]

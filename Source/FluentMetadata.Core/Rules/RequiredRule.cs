@@ -15,7 +15,8 @@ namespace FluentMetadata.Rules
             {
                 return false;
             }
-            if (value is string && string.IsNullOrEmpty((string) value))
+            var valueAsString = value as string;
+            if (valueAsString != null && string.IsNullOrEmpty(valueAsString))
             {
                 return false;
             }

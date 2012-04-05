@@ -8,12 +8,10 @@ namespace FluentMetadata.Builder
     {
         const int MaxLevel = 5;
         readonly Type modelType;
-        readonly QueryFluentMetadata query;
         int currentLevel;
 
         internal PropertyNameMetadataBuilder(Type modelType)
         {
-            query = new QueryFluentMetadata();
             this.modelType = modelType;
         }
 
@@ -28,7 +26,7 @@ namespace FluentMetadata.Builder
             {
                 if (IsSimpleType(propertyInfo.PropertyType))
                 {
-                    var metadata = query.FindMetadataFor(type, propertyInfo.Name);
+                    var metadata = QueryFluentMetadata.FindMetadataFor(type, propertyInfo.Name);
                     if (metadata != null)
                     {
                         yield return new NameMetaData(prefix + propertyInfo.Name, metadata);

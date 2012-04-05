@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace FluentMetadata
 {
@@ -184,8 +186,11 @@ namespace FluentMetadata
             }
         }
 
-        internal class CircularRefenceException : Exception
+        [Serializable]
+        public class CircularRefenceException : Exception
         {
+            protected CircularRefenceException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+
             internal CircularRefenceException(IEnumerable<MetadataDefinitionDependency> circularDependencies)
                 : base("The configuration contains a circular reference created by the following metadata definitions copying from each other:" +
                         circularDependencies.Aggregate(
@@ -193,11 +198,15 @@ namespace FluentMetadata
                             (acc, d) => acc += Environment.NewLine + d.Depender.FullName)) { }
         }
 
-        internal class NoMetadataDefinedException : Exception
+        [Serializable]
+        public class NoMetadataDefinedException : Exception
         {
+            protected NoMetadataDefinedException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+
             internal NoMetadataDefinedException(Type dependencyModelType, Type dependerMetadataType)
                 : base(
                 string.Format(
+                    CultureInfo.CurrentCulture,
 @"The metadata for type '{0}' is either not defined or was not passed to the {1} for building.
 Therefore '{2}' cannot copy from it.",
                     dependencyModelType.FullName,

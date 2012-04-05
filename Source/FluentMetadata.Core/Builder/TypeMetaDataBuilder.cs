@@ -8,8 +8,8 @@ namespace FluentMetadata.Builder
     internal abstract class TypeMetadataBuilder
     {
         protected readonly List<PropertyMetadataBuilder> PropertyBuilders = new List<PropertyMetadataBuilder>();
-
         readonly Metadata metadata = new Metadata();
+
         public Metadata Metadata
         {
             get { return metadata; }
@@ -28,7 +28,7 @@ namespace FluentMetadata.Builder
             return propertyMetadataBuilder != null;
         }
 
-        public abstract Metadata MapProperty(Type containerType, string propertyName, Metadata metadata);
+        public abstract Metadata MapProperty(Type containerType, string propertyName, Metadata otherMetadata);
 
         public Metadata MapProperty(Type containerType, string propertyName, Type propertyType)
         {
@@ -64,21 +64,21 @@ namespace FluentMetadata.Builder
             return (PropertyMetadataBuilder<T, TResult>)propertyBuilder;
         }
 
-        public override Metadata MapProperty(Type containerType, string propertyName, Metadata metadata)
+        public override Metadata MapProperty(Type containerType, string propertyName, Metadata otherMetadata)
         {
             PropertyMetadataBuilder propertyBuilder;
             if (!TryGetPropertyBuilder(propertyName, out propertyBuilder))
             {
                 propertyBuilder = CreatePropertyMetaDataBuilder(
-                    metadata,
+                    otherMetadata,
                     containerType,
-                    new Metadata(metadata, containerType)
+                    new Metadata(otherMetadata, containerType)
                     {
                         ModelName = propertyName
                     });
                 PropertyBuilders.Add(propertyBuilder);
             }
-            propertyBuilder.Metadata.CopyMetaDataFrom(metadata);
+            propertyBuilder.Metadata.CopyMetaDataFrom(otherMetadata);
             return propertyBuilder.Metadata;
         }
 
@@ -87,7 +87,7 @@ namespace FluentMetadata.Builder
             ClassBuilder();
         }
 
-        PropertyMetadataBuilder CreatePropertyMetaDataBuilder(Metadata metadata, Type containerType, Metadata newMetadata)
+        static PropertyMetadataBuilder CreatePropertyMetaDataBuilder(Metadata metadata, Type containerType, Metadata newMetadata)
         {
             return typeof(PropertyMetadataBuilder<,>)
                 .CreateGenericInstance(containerType, metadata.ModelType, newMetadata) as PropertyMetadataBuilder;

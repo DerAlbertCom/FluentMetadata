@@ -8,11 +8,7 @@ namespace FluentMetadata.EntityFramework
 {
     public class EntityFrameworkAdapter
     {
-        private readonly QueryFluentMetadata query = new QueryFluentMetadata();
-        private readonly ExpressionGenerator generator = new ExpressionGenerator();
-        private readonly PropertyMethodMapping methodMapping = new PropertyMethodMapping();
-
-        private readonly ConfigurationAdapterFactory factory = new ConfigurationAdapterFactory();
+        readonly ConfigurationAdapterFactory factory = new ConfigurationAdapterFactory();
 
         public void MapProperties(IEnumerable<StructuralTypeConfiguration> configurations)
         {
@@ -25,7 +21,7 @@ namespace FluentMetadata.EntityFramework
 
         internal void MapProperties(Type instanceType, StructuralTypeConfiguration configuration)
         {
-            var metaDatas = query.GetMetadataFor(instanceType).Properties;
+            var metaDatas = QueryFluentMetadata.GetMetadataFor(instanceType).Properties;
 
             foreach (var data in metaDatas)
             {
@@ -37,14 +33,16 @@ namespace FluentMetadata.EntityFramework
                 {
                     continue;
                 }
-                var methodInfo = methodMapping.GetPropertyMappingMethod(configuration.GetType(), instanceType,
-                                                                        data.ModelType);
+                var methodInfo = PropertyMethodMapping.GetPropertyMappingMethod(
+                    configuration.GetType(),
+                    instanceType,
+                    data.ModelType);
                 if (methodInfo == null)
                 {
                     continue;
                 }
 
-                var lambda = generator.CreateExpressionForProperty(instanceType, data.ModelName);
+                var lambda = ExpressionGenerator.CreateExpressionForProperty(instanceType, data.ModelName);
                 if (lambda != null)
                 {
                     var propertyConfiguration = (PropertyConfiguration)methodInfo.Invoke(configuration, new[] { lambda });

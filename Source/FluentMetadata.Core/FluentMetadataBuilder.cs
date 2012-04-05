@@ -75,6 +75,7 @@ namespace FluentMetadata
             {
                 throw new InvalidOperationException(
                     string.Format(
+                        CultureInfo.InvariantCulture,
                         "The type '{0}' may not abstract. Use generic classes for inheritance.",
                         type.FullName));
             }

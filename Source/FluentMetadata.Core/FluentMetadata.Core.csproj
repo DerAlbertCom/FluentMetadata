@@ -83,7 +83,7 @@
     <Compile Include="IClassBuilder.cs" />
     <Compile Include="IPropertiesInClassContextBuilder.cs" />
     <Compile Include="IDisplayClass.cs" />
-    <Compile Include="PropertiesMetadata.cs" />
+    <Compile Include="PropertiesMetadataCollection.cs" />
     <Compile Include="QueryFluentMetadata.cs" />
     <Compile Include="IAsProperty.cs" />
     <Compile Include="IDisplayProperty.cs" />
