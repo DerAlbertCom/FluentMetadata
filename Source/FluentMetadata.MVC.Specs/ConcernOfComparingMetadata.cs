@@ -257,5 +257,24 @@ namespace FluentMetadata.MVC.Specs
                     .OfType<ModelClientValidationRegexRule>()
                     .Count());
         }
+
+        [Observation]
+        public void EqualToClientValidationRulesMatch()
+        {
+            var controllerContext = new ControllerContext();
+            var expectedValidatorCount = new DataAnnotationsModelValidatorProvider()
+                .GetValidators(Expected, controllerContext)
+                .SelectMany(rmv => rmv.GetClientValidationRules())
+                .OfType<ModelClientValidationEqualToRule>()
+                .Count();
+            Assert.InRange(expectedValidatorCount, 0, 1);
+            Assert.Equal(
+                expectedValidatorCount,
+                new FluentValidationProvider()
+                    .GetValidators(Fluent, controllerContext)
+                    .SelectMany(rmv => rmv.GetClientValidationRules())
+                    .OfType<ModelClientValidationEqualToRule>()
+                    .Count());
+        }
     }
 }

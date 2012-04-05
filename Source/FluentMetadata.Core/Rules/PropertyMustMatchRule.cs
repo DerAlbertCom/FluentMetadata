@@ -4,20 +4,20 @@ using System.Linq.Expressions;
 
 namespace FluentMetadata.Rules
 {
-    public class PropertyMustMatchRule<T> : ClassRule<T>
+    public class PropertyMustMatchRule<T> : ClassRule<T>, ICompareProperties
     {
         const string DefaultErrorMessage = "'{0}' and '{1}' do not match.";
 
-        readonly string originalPropertyName;
-        readonly string confirmPropertyName;
+        public string PropertyName { get; private set; }
+        public string OtherPropertyName { get; private set; }
 
         public PropertyMustMatchRule(
             Expression<Func<T, object>> expression,
             Expression<Func<T, object>> confirmExpression)
             : base(DefaultErrorMessage)
         {
-            originalPropertyName = ExpressionHelper.GetPropertyName(expression);
-            confirmPropertyName = ExpressionHelper.GetPropertyName(confirmExpression);
+            PropertyName = ExpressionHelper.GetPropertyName(expression);
+            OtherPropertyName = ExpressionHelper.GetPropertyName(confirmExpression);
         }
 
         public override string FormatErrorMessage(string name)
@@ -25,8 +25,8 @@ namespace FluentMetadata.Rules
             return string.Format(
                 CultureInfo.CurrentCulture,
                 ErrorMessageFormat,
-                GetPropertyDisplayName(originalPropertyName),
-                GetPropertyDisplayName(confirmPropertyName));
+                GetPropertyDisplayName(PropertyName),
+                GetPropertyDisplayName(OtherPropertyName));
         }
 
         static string GetPropertyDisplayName(string propertyName)
@@ -48,8 +48,8 @@ namespace FluentMetadata.Rules
                 return true;
 
             return Equals(
-                GetValueFromProperty(instance, originalPropertyName),
-                GetValueFromProperty(instance, confirmPropertyName));
+                GetValueFromProperty(instance, PropertyName),
+                GetValueFromProperty(instance, OtherPropertyName));
         }
 
         static object GetValueFromProperty(object instance, string propertyName)

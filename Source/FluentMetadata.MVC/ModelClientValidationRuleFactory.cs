@@ -20,7 +20,15 @@ namespace FluentMetadata.MVC
             {
                 yield return new ModelClientValidationRegexRule(rule.FormatErrorMessage(displayName), (rule as PropertyMustMatchRegexRule).Pattern);
             }
+            else if (rule is ClassRuleValidatingAPropertyWrapper)
+            {
+                var propertyComparingRule = (rule as ClassRuleValidatingAPropertyWrapper).PropertyValidatingRule as ICompareProperties;
 
+                if (propertyComparingRule != null)
+                {
+                    yield return new ModelClientValidationEqualToRule(propertyComparingRule.FormatErrorMessage(displayName), propertyComparingRule.OtherPropertyName);
+                }
+            }
             else
             {
                 yield break;

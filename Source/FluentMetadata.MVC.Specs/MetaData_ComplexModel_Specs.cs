@@ -54,7 +54,7 @@ namespace FluentMetadata.MVC.Specs
 
         [Observation]
         public void The_error_message_of_the_ModelValidationResult_equals_the_message_specified_in_the_rule() => Assert.Equal(
-            "Gotcha, little Bobby Tables! You'll never be 'Komplex'!",
+            "'LastName' and 'Vorname' do not match.",
             validators[0].Validate(model).ToArray()[0].Message);
 
         [Observation]

@@ -323,6 +323,13 @@ namespace FluentMetadata
             {
                 rules.RemoveAll(r => r.Equals(rule));
                 rules.Add(rule);
+
+                var propertyValidatingRule = rule as IValidateAProperty;
+                if (propertyValidatingRule != null && Properties.Contains(propertyValidatingRule.PropertyName))
+                {
+                    Properties[propertyValidatingRule.PropertyName]
+                        .AddRule(new ClassRuleValidatingAPropertyWrapper(propertyValidatingRule));
+                }
             }
         }
 
