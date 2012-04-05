@@ -90,6 +90,12 @@ namespace FluentMetadata.Specs.Builder
             Assert.Equal(0, someViewModelMyPropertyRules.OfType<GenericRule<int>>().Count());
         }
 
+        [Fact]
+        public void It_does_not_copy_ClassRuleValidatingAPropertyWrapper()
+        {
+            Assert.Equal(0, someViewModelMyPropertyRules.OfType<ClassRuleValidatingAPropertyWrapper>().Count());
+        }
+
         #region System under test
 
         class SomeDomainModel

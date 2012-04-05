@@ -134,6 +134,12 @@ namespace FluentMetadata.Specs.Builder
             Assert.Equal(1, someViewModelMyPropertyRules.OfType<GenericRule<int>>().Count());
         }
 
+        [Fact]
+        public void It_does_not_duplicate_ClassRuleValidatingAPropertyWrapper()
+        {
+            Assert.Equal(1, someViewModelMyPropertyRules.OfType<ClassRuleValidatingAPropertyWrapper>().Count());
+        }
+
         #region System under test
 
         #region dependent metadata is defined before its dependency

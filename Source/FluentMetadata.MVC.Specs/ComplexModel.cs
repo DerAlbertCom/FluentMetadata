@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
@@ -12,11 +11,7 @@ namespace FluentMetadata.MVC.Specs
             CopyMetadataFrom<ComplexDomainModel>();
             Class
                 .Display.Name("Komplex")
-                .AssertThat(
-                    cm => !"Robert'); DROP TABLE Students; --".Equals( //http://xkcd.com/327/ :)
-                        cm.FirstName + cm.LastName,
-                        StringComparison.InvariantCultureIgnoreCase),
-                    "Gotcha, little Bobby Tables! You'll never be '{0}'!");
+                .Property(c => c.LastName).ShouldEqual(c => c.FirstName);
             Property(e => e.Id)
                 .Should.HiddenInput()
                 .Is.ReadOnly()
@@ -60,6 +55,7 @@ namespace FluentMetadata.MVC.Specs
         [DisplayFormat(NullDisplayText = "No lastname set")]
         [RegularExpression("^[A-Z]'?[- a-zA-Z]+$")]
         [AllowHtml]
+        [Compare("FirstName")]
         [StringLength(50)]
         public string LastName { get; set; }
         [DataType("Years")]

@@ -74,6 +74,8 @@
     <Compile Include="Builder\ClassMetadataBuilder.cs" />
     <Compile Include="Builder\PropertiesInClassContextBuilder.cs" />
     <Compile Include="MetadataDefinitionSorter.cs" />
+    <Compile Include="Rules\ClassRuleValidatingAPropertyWrapper.cs" />
+    <Compile Include="Rules\ICompareProperties.cs" />
     <Compile Include="Rules\PropertyMustBeLessThanOtherRule.cs" />
     <Compile Include="Rules\GenericClassRule.cs" />
     <Compile Include="Rules\GenericRule.cs" />
