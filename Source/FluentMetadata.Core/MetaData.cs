@@ -303,6 +303,7 @@ namespace FluentMetadata
 
         public void AddRule(IRule rule)
         {
+            rules.RemoveAll(r => r.Equals(rule));
             rules.Add(rule);
         }
 

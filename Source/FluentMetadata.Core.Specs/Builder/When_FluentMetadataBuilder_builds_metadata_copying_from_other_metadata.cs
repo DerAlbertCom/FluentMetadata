@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentMetadata.Rules;
 using Xunit;
 
 namespace FluentMetadata.Specs.Builder
@@ -8,6 +9,12 @@ namespace FluentMetadata.Specs.Builder
     public class When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata : MetadataTestBase
     {
         readonly List<Type> builtMetadata = FluentMetadataBuilder.BuiltMetadataDefininitions;
+        readonly IEnumerable<IRule> someViewModelRules;
+
+        public When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata()
+        {
+            someViewModelRules = QueryFluentMetadata.GetMetadataFor(typeof(SomeViewModel)).Rules;
+        }
 
         [Fact]
         public void Dependent_metadata_may_be_built_before_its_dependency()
@@ -43,6 +50,12 @@ namespace FluentMetadata.Specs.Builder
                 builtMetadata.LastIndexOf(typeof(SomeOtherViewModelMetadata)));
         }
 
+        [Fact]
+        public void It_does_not_duplicate_generic_class_rules()
+        {
+            Assert.Equal(1, someViewModelRules.OfType<GenericClassRule<SomeViewModel>>().Count());
+        }
+
         #region System under test
 
         #region dependent metadata is defined before its dependency
@@ -54,6 +67,10 @@ namespace FluentMetadata.Specs.Builder
             public SomeViewModelMetadata()
             {
                 CopyMetadataFrom<SomeDomainModel>();
+                Class
+                    .AssertThat(
+                        svm => false,
+                        string.Empty);
             }
         }
         class SomeDomainModelMetadata : SomeDomainBaseTypeMetadata<SomeDomainModel> { }

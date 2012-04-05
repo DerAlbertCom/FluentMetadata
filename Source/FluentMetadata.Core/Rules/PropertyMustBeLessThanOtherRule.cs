@@ -35,5 +35,10 @@ namespace FluentMetadata.Rules
                 propertyName,
                 otherPropertyName);
         }
+
+        protected override bool EqualsRule(ClassRule<T> rule)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

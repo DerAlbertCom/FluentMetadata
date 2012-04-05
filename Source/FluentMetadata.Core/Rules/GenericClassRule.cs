@@ -27,5 +27,13 @@ namespace FluentMetadata.Rules
                 errorMessageFormatFunc(),
                 name);
         }
+
+        protected override bool EqualsRule(ClassRule<T> rule)
+        {
+            var genericClassRule = rule as GenericClassRule<T>;
+            return genericClassRule == null ?
+                false :
+                genericClassRule.assertFunc.Equals(assertFunc);
+        }
     }
 }

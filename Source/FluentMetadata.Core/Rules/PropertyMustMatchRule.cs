@@ -57,5 +57,10 @@ namespace FluentMetadata.Rules
         {
             return instance.GetType().GetProperty(propertyName).GetValue(instance, null);
         }
+
+        protected override bool EqualsRule(ClassRule<T> rule)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
