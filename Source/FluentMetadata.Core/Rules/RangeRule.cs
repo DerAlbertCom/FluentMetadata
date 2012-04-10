@@ -5,23 +5,16 @@ namespace FluentMetadata.Rules
 {
     public class RangeRule : Rule
     {
-        IComparable valueMaximum;
-        IComparable valueMinimum;
+        readonly IComparable maximum, minimum;
 
         internal object Minimum
         {
-            get
-            {
-                return valueMinimum;
-            }
+            get { return minimum; }
         }
 
         internal object Maximum
         {
-            get
-            {
-                return valueMaximum;
-            }
+            get { return maximum; }
         }
 
         RangeRule()
@@ -32,11 +25,6 @@ namespace FluentMetadata.Rules
         public RangeRule(IComparable minimum, IComparable maximum)
             : this()
         {
-            Initialize(minimum, maximum);
-        }
-
-        void Initialize(IComparable minimum, IComparable maximum)
-        {
             if (minimum.CompareTo(maximum) > 0)
             {
                 throw new ArgumentOutOfRangeException(
@@ -46,12 +34,10 @@ namespace FluentMetadata.Rules
                         CultureInfo.CurrentCulture,
                         "the minimum value {0} is higher then the maximum value {1}",
                         minimum,
-                        maximum
-                    )
-                );
+                        maximum));
             }
-            valueMinimum = minimum;
-            valueMaximum = maximum;
+            this.minimum = minimum;
+            this.maximum = maximum;
         }
 
         public override bool IsValid(object value)
@@ -65,14 +51,13 @@ namespace FluentMetadata.Rules
             {
                 return true;
             }
-            var min = (IComparable)valueMinimum;
-            var max = (IComparable)valueMaximum;
-            return ((min.CompareTo(value) <= 0) && (max.CompareTo(value) >= 0));
+            return minimum.CompareTo(value) <= 0 &&
+                maximum.CompareTo(value) >= 0;
         }
 
         public override string FormatErrorMessage(string name)
         {
-            return string.Format(CultureInfo.CurrentCulture, ErrorMessageFormat, name, valueMinimum, valueMaximum);
+            return string.Format(CultureInfo.CurrentCulture, ErrorMessageFormat, name, minimum, maximum);
         }
 
         protected override bool EqualsRule(Rule rule)

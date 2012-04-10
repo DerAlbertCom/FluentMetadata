@@ -35,7 +35,7 @@ namespace FluentMetadata.Builder
         {
             Metadata.ContainerType = typeof(T);
             Metadata.ModelName = ExpressionHelper.GetPropertyName(expression);
-            Metadata.ModelType = ExpressionHelper.GetPropertyType(expression);
+            Metadata.ModelType = typeof(TResult);
         }
 
         public IProperty<T, TResult> AssertThat(Func<TResult, bool> assertFunc, string errorMessageFormat)

@@ -49,8 +49,7 @@ namespace FluentMetadata.Rules
 
             return Equals(
                 GetValueFromProperty(instance, originalPropertyName),
-                GetValueFromProperty(instance, confirmPropertyName)
-            );
+                GetValueFromProperty(instance, confirmPropertyName));
         }
 
         static object GetValueFromProperty(object instance, string propertyName)
