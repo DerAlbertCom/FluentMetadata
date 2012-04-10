@@ -1,0 +1,105 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using FluentMetadata.Rules;
+using Xunit;
+
+namespace FluentMetadata.Specs.Builder
+{
+    public class When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata_that_does_not_apply
+    {
+        readonly List<Type> builtMetadata = FluentMetadataBuilder.BuiltMetadataDefininitions;
+        readonly IEnumerable<IRule> someViewModelRules;
+        readonly Exception exception;
+
+        public When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata_that_does_not_apply()
+        {
+            FluentMetadataBuilder.Reset();
+
+            try
+            {
+                FluentMetadataBuilder.BuildMetadataDefinitions(GetUnbuildableMetadataDefinitions());
+                someViewModelRules = QueryFluentMetadata.GetMetadataFor(typeof(SomeViewModel)).Rules;
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+        }
+
+        internal static IEnumerable<Type> GetUnbuildableMetadataDefinitions()
+        {
+            var type = typeof(When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata_that_does_not_apply);
+            return type.Assembly.GetTypes()
+                .Where(t => t.FullName.StartsWith(type.FullName) &&
+                    typeof(IClassMetadata).IsAssignableFrom(t));
+        }
+
+        [Fact]
+        public void It_does_not_throw_an_exception()
+        {
+            Assert.Null(exception);
+        }
+
+        [Fact]
+        public void It_does_not_copy_generic_class_rules()
+        {
+            Assert.Equal(0, someViewModelRules.OfType<GenericClassRule<SomeDomainModel>>().Count());
+        }
+
+        [Fact]
+        public void It_does_not_copy_PropertyMustBeLessThanOtherRules()
+        {
+            Assert.Equal(0, someViewModelRules.OfType<PropertyMustBeLessThanOtherRule<SomeDomainModel>>().Count());
+        }
+
+        [Fact]
+        public void It_does_not_copy_PropertyMustMatchRules()
+        {
+            Assert.Equal(0, someViewModelRules.OfType<PropertyMustMatchRule<SomeDomainModel>>().Count());
+        }
+
+        #region System under test
+
+        class SomeDomainModel
+        {
+            public int MyProperty { get; set; }
+            public int MyProperty2 { get; set; }
+        }
+        class SomeViewModel
+        {
+            public string MyProperty { get; set; }
+        }
+        class SomeDomainModelMetadata : ClassMetadata<SomeDomainModel>
+        {
+            public SomeDomainModelMetadata()
+            {
+                Class
+                    .AssertThat(
+                        svm => false,
+                        string.Empty)
+                    .ComparableProperty(svm => svm.MyProperty)
+                        .ShouldBeLessThan(svm => svm.MyProperty2)
+                    .Property(svm => svm.MyProperty)
+                        .ShouldEqual(svm => svm.MyProperty2);
+                Property(svm => svm.MyProperty)
+                    .Is.Required()
+                    .Should.MatchRegex("here be some regex")
+                    .Range(0, 1)
+                    .Length(1, 1)
+                    .AssertThat(
+                        v => v > 100,
+                        string.Empty);
+            }
+        }
+        class SomeViewModelMetadata : ClassMetadata<SomeViewModel>
+        {
+            public SomeViewModelMetadata()
+            {
+                CopyMetadataFrom<SomeDomainModel>();
+            }
+        }
+
+        #endregion
+    }
+}

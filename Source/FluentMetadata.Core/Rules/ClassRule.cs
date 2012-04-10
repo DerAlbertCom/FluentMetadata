@@ -1,7 +1,14 @@
-﻿namespace FluentMetadata.Rules
+﻿using System;
+
+namespace FluentMetadata.Rules
 {
     public abstract class ClassRule<T> : IClassRule<T>
     {
+        public Type ClassType
+        {
+            get { return typeof(T); }
+        }
+
         protected string ErrorMessageFormat { get; set; }
 
         protected ClassRule(string errorMessageFormat)

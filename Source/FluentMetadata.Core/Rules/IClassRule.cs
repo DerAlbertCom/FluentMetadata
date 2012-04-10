@@ -1,6 +1,11 @@
-﻿namespace FluentMetadata.Rules
+﻿using System;
+
+namespace FluentMetadata.Rules
 {
-    public interface IClassRule : IRule { }
+    public interface IClassRule : IRule
+    {
+        Type ClassType { get; }
+    }
 
     public interface IClassRule<in T> : IClassRule
     {

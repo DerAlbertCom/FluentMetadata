@@ -303,8 +303,14 @@ namespace FluentMetadata
 
         public void AddRule(IRule rule)
         {
-            rules.RemoveAll(r => r.Equals(rule));
-            rules.Add(rule);
+            var classRule = rule as IClassRule;
+            if (classRule != null &&
+                classRule.ClassType.IsAssignableFrom(ModelType) ||
+                classRule == null)
+            {
+                rules.RemoveAll(r => r.Equals(rule));
+                rules.Add(rule);
+            }
         }
 
         public string GetDescription()
