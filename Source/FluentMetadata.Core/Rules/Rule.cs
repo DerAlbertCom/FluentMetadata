@@ -1,7 +1,11 @@
-﻿namespace FluentMetadata.Rules
+﻿using System;
+
+namespace FluentMetadata.Rules
 {
     public abstract class Rule : IRule
     {
+        public abstract Type PropertyType { get; }
+
         protected string ErrorMessageFormat { get; set; }
 
         protected Rule(string errorMessageFormat)

@@ -8,6 +8,11 @@ namespace FluentMetadata.Rules
         readonly Func<TProperty, bool> assertFunc;
         readonly Func<string> errorMessageFormatFunc;
 
+        public override Type PropertyType
+        {
+            get { return typeof(TProperty); }
+        }
+
         public GenericRule(Func<TProperty, bool> assertFunc, Func<string> errorMessageFormatFunc)
             : base(errorMessageFormatFunc())
         {

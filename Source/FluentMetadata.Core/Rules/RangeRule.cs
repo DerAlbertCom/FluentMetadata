@@ -5,7 +5,13 @@ namespace FluentMetadata.Rules
 {
     public class RangeRule : Rule
     {
+        readonly Type propertyType;
         readonly IComparable maximum, minimum;
+
+        public override Type PropertyType
+        {
+            get { return propertyType; }
+        }
 
         internal object Minimum
         {
@@ -22,7 +28,7 @@ namespace FluentMetadata.Rules
         {
         }
 
-        public RangeRule(IComparable minimum, IComparable maximum)
+        public RangeRule(IComparable minimum, IComparable maximum, Type propertyType)
             : this()
         {
             if (minimum.CompareTo(maximum) > 0)
@@ -38,6 +44,7 @@ namespace FluentMetadata.Rules
             }
             this.minimum = minimum;
             this.maximum = maximum;
+            this.propertyType = propertyType;
         }
 
         public override bool IsValid(object value)

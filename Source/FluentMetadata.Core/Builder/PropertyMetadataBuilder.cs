@@ -107,7 +107,7 @@ namespace FluentMetadata.Builder
 
         public IProperty<T, TResult> Range(IComparable minimum, IComparable maximum)
         {
-            Metadata.AddRule(new RangeRule(minimum, maximum));
+            Metadata.AddRule(new RangeRule(minimum, maximum, typeof(TResult)));
             return this;
         }
     }

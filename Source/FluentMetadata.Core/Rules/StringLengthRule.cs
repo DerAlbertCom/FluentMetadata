@@ -25,6 +25,11 @@ namespace FluentMetadata.Rules
             }
         }
 
+        public override Type PropertyType
+        {
+            get { return typeof(string); }
+        }
+
         public StringLengthRule(int maxLength)
             : base("the string for '{0}' should not be longer than {1} characters")
         {
@@ -95,6 +100,11 @@ namespace FluentMetadata.Rules
         protected override bool EqualsRule(Rule rule)
         {
             throw new NotImplementedException();
+        }
+
+        public override Type PropertyType
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }

@@ -4,7 +4,7 @@ using Xunit;
 
 namespace FluentMetadata.Specs.Rules
 {
-    [Concern(typeof (RangeRule))]
+    [Concern(typeof(RangeRule))]
     public abstract class ConcernOfRangeRule : InstanceContextSpecification<RangeRule>
     {
         protected override void Because()
@@ -16,7 +16,7 @@ namespace FluentMetadata.Specs.Rules
     {
         protected override RangeRule CreateSut()
         {
-            return new RangeRule(100, 200);
+            return new RangeRule(100, 200, typeof(int));
         }
 
         [Observation]
@@ -66,7 +66,7 @@ namespace FluentMetadata.Specs.Rules
     {
         protected override RangeRule CreateSut()
         {
-            return new RangeRule(100.0, 200.0);
+            return new RangeRule(100.0, 200.0, typeof(double));
         }
 
         [Observation]
@@ -116,7 +116,7 @@ namespace FluentMetadata.Specs.Rules
     {
         protected override RangeRule CreateSut()
         {
-            return new RangeRule(new DateTime(2010, 1, 1), new DateTime(2010, 5, 5));
+            return new RangeRule(new DateTime(2010, 1, 1), new DateTime(2010, 5, 5), typeof(DateTime));
         }
 
         [Observation]

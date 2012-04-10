@@ -8,6 +8,11 @@ namespace FluentMetadata.Rules
     {
         internal readonly string Pattern;
 
+        public override Type PropertyType
+        {
+            get { return typeof(string); }
+        }
+
         public PropertyMustMatchRegexRule(string pattern)
             : base("the value for {0} is not in the correct format")
         {

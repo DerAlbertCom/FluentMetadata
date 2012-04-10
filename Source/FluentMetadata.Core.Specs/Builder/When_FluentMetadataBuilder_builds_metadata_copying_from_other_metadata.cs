@@ -9,7 +9,7 @@ namespace FluentMetadata.Specs.Builder
     public class When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata
     {
         readonly List<Type> builtMetadata = FluentMetadataBuilder.BuiltMetadataDefininitions;
-        readonly IEnumerable<IRule> someViewModelRules, someViewModelMyPropertyRules;
+        readonly IEnumerable<IRule> someViewModelRules, someViewModelMyPropertyRules, someViewModelMyStringPropertyRules;
         readonly Exception exception;
 
         public When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata()
@@ -21,6 +21,7 @@ namespace FluentMetadata.Specs.Builder
                 FluentMetadataBuilder.BuildMetadataDefinitions(GetUnbuildableMetadataDefinitions());
                 someViewModelRules = QueryFluentMetadata.GetMetadataFor(typeof(SomeViewModel)).Rules;
                 someViewModelMyPropertyRules = QueryFluentMetadata.GetMetadataFor(typeof(SomeViewModel), "MyProperty").Rules;
+                someViewModelMyStringPropertyRules = QueryFluentMetadata.GetMetadataFor(typeof(SomeViewModel), "MyStringProperty").Rules;
             }
             catch (Exception ex)
             {
@@ -103,7 +104,7 @@ namespace FluentMetadata.Specs.Builder
         [Fact]
         public void It_does_not_duplicate_PropertyMustMatchRegexRules()
         {
-            Assert.Equal(1, someViewModelMyPropertyRules.OfType<PropertyMustMatchRegexRule>().Count());
+            Assert.Equal(1, someViewModelMyStringPropertyRules.OfType<PropertyMustMatchRegexRule>().Count());
         }
 
         [Fact]
@@ -115,7 +116,7 @@ namespace FluentMetadata.Specs.Builder
         [Fact]
         public void It_does_not_duplicate_StringLengthRules()
         {
-            Assert.Equal(1, someViewModelMyPropertyRules.OfType<StringLengthRule>().Count());
+            Assert.Equal(1, someViewModelMyStringPropertyRules.OfType<StringLengthRule>().Count());
         }
 
         [Fact]
@@ -133,6 +134,7 @@ namespace FluentMetadata.Specs.Builder
         {
             public int MyProperty { get; set; }
             public int MyProperty2 { get; set; }
+            public string MyStringProperty { get; set; }
         }
         class SomeViewModelMetadata : ClassMetadata<SomeViewModel>
         {
@@ -146,15 +148,16 @@ namespace FluentMetadata.Specs.Builder
                     .ComparableProperty(svm => svm.MyProperty)
                         .ShouldBeLessThan(svm => svm.MyProperty2)
                     .Property(svm => svm.MyProperty)
-                       .ShouldEqual(svm => svm.MyProperty2);
+                       .ShouldEqual(svm => svm.MyStringProperty);
                 Property(svm => svm.MyProperty)
                     .Is.Required()
-                    .Should.MatchRegex("here be some regex")
                     .Range(0, 1)
-                    .Length(1, 1)
                     .AssertThat(
                         v => v > 100,
                         string.Empty);
+                Property(svm => svm.MyStringProperty)
+                    .Should.MatchRegex("here be some regex")
+                    .Length(1, 1);
             }
         }
         class SomeDomainModelMetadata : SomeDomainBaseTypeMetadata<SomeDomainModel> { }

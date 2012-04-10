@@ -9,7 +9,7 @@ namespace FluentMetadata.Specs.Builder
     public class When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata_that_does_not_apply
     {
         readonly List<Type> builtMetadata = FluentMetadataBuilder.BuiltMetadataDefininitions;
-        readonly IEnumerable<IRule> someViewModelRules;
+        readonly IEnumerable<IRule> someViewModelRules, someViewModelMyPropertyRules;
         readonly Exception exception;
 
         public When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata_that_does_not_apply()
@@ -20,6 +20,7 @@ namespace FluentMetadata.Specs.Builder
             {
                 FluentMetadataBuilder.BuildMetadataDefinitions(GetUnbuildableMetadataDefinitions());
                 someViewModelRules = QueryFluentMetadata.GetMetadataFor(typeof(SomeViewModel)).Rules;
+                someViewModelMyPropertyRules = QueryFluentMetadata.GetMetadataFor(typeof(SomeViewModel), "MyProperty").Rules;
             }
             catch (Exception ex)
             {
@@ -57,6 +58,36 @@ namespace FluentMetadata.Specs.Builder
         public void It_does_not_copy_PropertyMustMatchRules()
         {
             Assert.Equal(0, someViewModelRules.OfType<PropertyMustMatchRule<SomeDomainModel>>().Count());
+        }
+
+        [Fact]
+        public void It_does_copy_RequiredRules()
+        {
+            Assert.Equal(1, someViewModelMyPropertyRules.OfType<RequiredRule>().Count());
+        }
+
+        [Fact]
+        public void It_does_not_copy_PropertyMustMatchRegexRules()
+        {
+            Assert.Equal(0, someViewModelMyPropertyRules.OfType<PropertyMustMatchRegexRule>().Count());
+        }
+
+        [Fact]
+        public void It_does_not_copy_RangeRules()
+        {
+            Assert.Equal(0, someViewModelMyPropertyRules.OfType<RangeRule>().Count());
+        }
+
+        [Fact]
+        public void It_does_not_copy_StringLengthRules()
+        {
+            Assert.Equal(0, someViewModelMyPropertyRules.OfType<StringLengthRule>().Count());
+        }
+
+        [Fact]
+        public void It_does_not_copy_generic_property_rules()
+        {
+            Assert.Equal(0, someViewModelMyPropertyRules.OfType<GenericRule<int>>().Count());
         }
 
         #region System under test

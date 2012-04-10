@@ -1,9 +1,15 @@
+using System;
 using System.Globalization;
 
 namespace FluentMetadata.Rules
 {
     public class RequiredRule : Rule
     {
+        public override Type PropertyType
+        {
+            get { return typeof(object); }
+        }
+
         public RequiredRule()
             : base("a value for {0} is required")
         {

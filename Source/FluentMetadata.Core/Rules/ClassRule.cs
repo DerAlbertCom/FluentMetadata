@@ -9,6 +9,11 @@ namespace FluentMetadata.Rules
             get { return typeof(T); }
         }
 
+        public Type PropertyType
+        {
+            get { throw new NotSupportedException("This is a class rule."); }
+        }
+
         protected string ErrorMessageFormat { get; set; }
 
         protected ClassRule(string errorMessageFormat)
