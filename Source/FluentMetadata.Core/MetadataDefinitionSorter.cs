@@ -9,13 +9,16 @@ namespace FluentMetadata
     class MetadataDefinitionSorter
     {
         readonly IDictionary<Type, ICollection<Type>> dependencies = new Dictionary<Type, ICollection<Type>>();
-        readonly IEnumerable<MetadataDefinition> metadataDefinitions;
+        readonly List<MetadataDefinition> metadataDefinitions = new List<MetadataDefinition>();
         bool hasBuiltGenericDefinitions;
 
-        internal MetadataDefinitionSorter(IEnumerable<Type> metadataDefinitions)
+        internal MetadataDefinitionSorter() { }
+
+        internal void AddMetadataDefinitionsToSort(IEnumerable<Type> metadataDefinitions)
         {
-            this.metadataDefinitions = metadataDefinitions
-                .Select(type => new MetadataDefinition(type));
+            this.metadataDefinitions.AddRange(metadataDefinitions
+                .Select(type => new MetadataDefinition(type)));
+            hasBuiltGenericDefinitions = false;
         }
 
         internal void Register(Type dependencyModel, Type dependerModel)
@@ -76,6 +79,7 @@ namespace FluentMetadata
                 var genericDefinitions = metadataDefinitions
                     .Where(mdd => mdd.IsGeneric)
                     .Select(mdd => mdd.Metadata)
+                    .Except(alreadyBuiltDefinitions)
                     .ToList();
                 if (genericDefinitions.Count > 0)
                 {
@@ -88,8 +92,14 @@ namespace FluentMetadata
                 incorrectlyBuiltDefinitions :
                 metadataDefinitions
                     .Select(mdd => mdd.Metadata)
-                    .Where(mdd => !alreadyBuiltDefinitions.Contains(mdd))
+                    .Except(alreadyBuiltDefinitions)
                     .ToList();
+        }
+
+        internal void Clear()
+        {
+            dependencies.Clear();
+            metadataDefinitions.Clear();
         }
 
         struct MetadataDefinition

@@ -15,10 +15,13 @@ namespace FluentMetadata.Specs.Builder
         public When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata()
         {
             FluentMetadataBuilder.Reset();
-
+            var typesToBuildInLaterBatch = new[] { typeof(SomeTypeInAnotherAssemblyMetadata) };
             try
             {
-                FluentMetadataBuilder.BuildMetadataDefinitions(GetUnbuildableMetadataDefinitions());
+                FluentMetadataBuilder.BuildMetadataDefinitions(
+                    GetUnbuildableMetadataDefinitions()
+                        .Except(typesToBuildInLaterBatch));
+                FluentMetadataBuilder.BuildMetadataDefinitions(typesToBuildInLaterBatch);
                 someViewModelRules = QueryFluentMetadata.GetMetadataFor(typeof(SomeViewModel)).Rules;
                 someViewModelMyPropertyRules = QueryFluentMetadata.GetMetadataFor(typeof(SomeViewModel), "MyProperty").Rules;
                 someViewModelMyStringPropertyRules = QueryFluentMetadata.GetMetadataFor(typeof(SomeViewModel), "MyStringProperty").Rules;
@@ -75,6 +78,12 @@ namespace FluentMetadata.Specs.Builder
             Assert.True(
                 builtMetadata.LastIndexOf(typeof(SomeViewModelMetadata)) <
                 builtMetadata.LastIndexOf(typeof(SomeOtherViewModelMetadata)));
+        }
+
+        [Fact]
+        public void Dependent_metadata_built_in_a_later_batch_is_built_correctly()
+        {
+            Assert.Equal(1, builtMetadata.Count(t => t == typeof(SomeTypeInAnotherAssemblyMetadata)));
         }
 
         [Fact]
@@ -179,6 +188,19 @@ namespace FluentMetadata.Specs.Builder
             public SomeOtherViewModelMetadata()
             {
                 CopyMetadataFrom<SomeViewModel>();
+            }
+        }
+
+        #endregion
+
+        #region metadata built in a later batch
+
+        class SomeTypeInAnotherAssembly { }
+        class SomeTypeInAnotherAssemblyMetadata : ClassMetadata<SomeTypeInAnotherAssembly>
+        {
+            public SomeTypeInAnotherAssemblyMetadata()
+            {
+                CopyMetadataFrom<SomeDomainModel>();
             }
         }
 

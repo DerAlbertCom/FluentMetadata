@@ -11,12 +11,12 @@ namespace FluentMetadata
     {
         readonly static IDictionary<Type, TypeMetadataBuilder> typeBuilders = new Dictionary<Type, TypeMetadataBuilder>();
         internal readonly static List<Type> BuiltMetadataDefininitions = new List<Type>();
-        static MetadataDefinitionSorter metadataDefinitionSorter;
+        readonly static MetadataDefinitionSorter metadataDefinitionSorter = new MetadataDefinitionSorter();
 
         public static void Reset()
         {
             typeBuilders.Clear();
-            metadataDefinitionSorter = null;
+            metadataDefinitionSorter.Clear();
             BuiltMetadataDefininitions.Clear();
         }
 
@@ -51,12 +51,13 @@ namespace FluentMetadata
 
         public static void ForAssembly(Assembly assembly)
         {
-            BuildMetadataDefinitions(PublicMetadataDefinitionsFrom(assembly));
+            BuildMetadataDefinitions(assembly.GetTypes());
         }
 
         internal static void BuildMetadataDefinitions(IEnumerable<Type> metadataDefinitionsToBuild)
         {
-            metadataDefinitionSorter = new MetadataDefinitionSorter(metadataDefinitionsToBuild);
+            metadataDefinitionSorter.AddMetadataDefinitionsToSort(
+                metadataDefinitionsToBuild.Where(t => typeof(IClassMetadata).IsAssignableFrom(t)));
 
             List<Type> metadataDefinitions;
             while ((metadataDefinitions = metadataDefinitionSorter
@@ -121,12 +122,6 @@ namespace FluentMetadata
             {
                 throw new InvalidOperationException("No Constructor without parameters on  " + type.FullName);
             }
-        }
-
-        static IEnumerable<Type> PublicMetadataDefinitionsFrom(Assembly assembly)
-        {
-            return assembly.GetTypes()
-                .Where(t => typeof(IClassMetadata).IsAssignableFrom(t));
         }
     }
 }
