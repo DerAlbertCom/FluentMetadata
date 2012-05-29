@@ -17,15 +17,20 @@ namespace FluentMetadata.Builder
 
         public Metadata MetaDataFor(string propertyName)
         {
-            return PropertyBuilders
-                .Select(p => p.Metadata)
-                .SingleOrDefault(md => md.ModelName == propertyName);
+            var propertyBuilder = GetPropertyBuilder(propertyName);
+            return propertyBuilder == null ? null : propertyBuilder.Metadata;
         }
 
         protected bool TryGetPropertyBuilder(string propertyName, out PropertyMetadataBuilder propertyMetadataBuilder)
         {
-            propertyMetadataBuilder = PropertyBuilders.SingleOrDefault(p => p.Metadata.ModelName == propertyName);
+            propertyMetadataBuilder = GetPropertyBuilder(propertyName);
             return propertyMetadataBuilder != null;
+        }
+
+        PropertyMetadataBuilder GetPropertyBuilder(string propertyName)
+        {
+            return PropertyBuilders
+                .SingleOrDefault(p => p.Metadata.ModelName == propertyName);
         }
 
         public abstract Metadata MapProperty(Type containerType, string propertyName, Metadata otherMetadata);
