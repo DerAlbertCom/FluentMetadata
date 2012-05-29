@@ -95,7 +95,7 @@ namespace FluentMetadata.FluentNHibernate.Specs
                 Member = ReflectionHelper.GetMember<T>(propertyExpression),
                 ContainingEntityType = typeof(T)
             };
-            propertyMapping.AddDefaultColumn(new ColumnMapping());
+            propertyMapping.AddColumn(0, new ColumnMapping());
             return propertyMapping;
         }
     }
