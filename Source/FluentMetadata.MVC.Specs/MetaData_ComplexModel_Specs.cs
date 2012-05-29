@@ -69,6 +69,12 @@ namespace FluentMetadata.MVC.Specs
                 "Gotcha, little Bobby Tables! You'll never be 'Komplex'!",
                 validators[0].Validate(model).ToArray()[0].Message);
         }
+
+        [Observation]
+        public void Getting_metadata_for_all_properties_does_not_throw_an_exception()
+        {
+            Assert.DoesNotThrow(() => Sut.GetMetadataForProperties(model, model.GetType()));
+        }
     }
 
     [Concern(typeof(FluentMetadataProvider))]

@@ -12,6 +12,7 @@ namespace FluentMetadata.MVC.Specs
 
         protected ModelMetadata Fluent;
         protected ModelMetadata Expected;
+        Exception exception;
 
         protected override void Because()
         {
@@ -20,9 +21,16 @@ namespace FluentMetadata.MVC.Specs
 
         public void SetFixture(FluentMetadataFixture data)
         {
+            exception = data.Exception;
         }
 
         public abstract void CreateMetadata();
+
+        [Observation]
+        public void MetadataSetupDoesNotThrowAnException()
+        {
+            Assert.Null(exception);
+        }
 
         [Observation]
         public void Equals_ModelMetadata_Properties_Count()

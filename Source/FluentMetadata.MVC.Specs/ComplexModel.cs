@@ -9,6 +9,7 @@ namespace FluentMetadata.MVC.Specs
     {
         public ComplexModelMetadata()
         {
+            CopyMetadataFrom<ComplexDomainModel>();
             Class
                 .Display.Name("Komplex")
                 .AssertThat(
@@ -33,10 +34,6 @@ namespace FluentMetadata.MVC.Specs
                 .As.Custom("Years")
                 .UIHint("Spinner")
                 .Range(0, 123);
-            Property(e => e.Amount)
-                .As.Custom(DataType.Currency)
-                .Display.Format(() => "{0:c}")
-                .Editor.Format(() => "{0:c}");
             Property(e => e.Sex)
                 .AssertThat(
                     sex => sex != 'm',
@@ -45,7 +42,7 @@ namespace FluentMetadata.MVC.Specs
     }
 
     [DisplayName("Komplex")]
-    public class ComplexModel
+    public class ComplexModel : ComplexDomainModel
     {
         [HiddenInput(DisplayValue = false)]
         [ReadOnly(true)]
@@ -65,7 +62,23 @@ namespace FluentMetadata.MVC.Specs
         public int Age { get; set; }
         [DisplayFormat(DataFormatString = "{0:c}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Currency)]
-        public decimal Amount { get; set; }
+        public new decimal Amount { get; set; }
         public char Sex { get; set; }
+    }
+
+    public class ComplexDomainModel
+    {
+        public double Amount { get; set; }
+
+        class Metadata : ClassMetadata<ComplexDomainModel>
+        {
+            public Metadata()
+            {
+                Property(e => e.Amount)
+                    .As.Custom(DataType.Currency)
+                    .Display.Format(() => "{0:c}")
+                    .Editor.Format(() => "{0:c}");
+            }
+        }
     }
 }

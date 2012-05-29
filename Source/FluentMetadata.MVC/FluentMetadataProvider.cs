@@ -27,12 +27,21 @@ namespace FluentMetadata.MVC
 
         static Func<object> GetProperyAccessor(object container, Metadata metadata)
         {
-            var info = container.GetType().GetProperty(metadata.ModelName);
-            if (info == null)
+            var properties = container.GetType().GetProperties().Where(p => p.Name == metadata.ModelName).ToArray();
+            var count = properties.Length;
+            if (count == 0)
             {
                 return () => null;
             }
-            return () => info.GetValue(container, null);
+            else if (count == 1)
+            {
+                return () => properties[0].GetValue(container, null);
+            }
+            else
+            {
+                return () => properties.Single(single =>
+                    properties.All(all => single.DeclaringType.Is(all.DeclaringType)));
+            }
         }
 
         /// <summary>
