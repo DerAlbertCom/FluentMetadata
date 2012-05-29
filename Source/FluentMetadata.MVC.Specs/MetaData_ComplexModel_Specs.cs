@@ -63,7 +63,7 @@ namespace FluentMetadata.MVC.Specs
         }
 
         [Observation]
-        public void The_error_message_of_the_ModelValidationResult_says_value_cannot_be_male()
+        public void The_error_message_of_the_ModelValidationResult_equals_the_message_specified_in_the_rule()
         {
             Assert.Equal(
                 "Gotcha, little Bobby Tables! You'll never be 'Komplex'!",
