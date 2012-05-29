@@ -3,7 +3,7 @@
 namespace FluentMetadata.AutoMapper
 {
     /// <summary>
-    /// AutoMapper extensions to <see cref="FluentMetadata.ClassMetadata<T>"/>
+    /// AutoMapper extensions to <see cref="FluentMetadata.ClassMetadata&lt;T>"/>
     /// </summary>
     public static class ClassMetadataAutoMapperExtensions
     {

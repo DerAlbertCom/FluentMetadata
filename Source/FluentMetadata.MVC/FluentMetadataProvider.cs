@@ -5,12 +5,19 @@ using System.Web.Mvc;
 
 namespace FluentMetadata.MVC
 {
+    /// <summary>
+    /// A custom metadata provider for FluentMetadata.
+    /// </summary>
     public class FluentMetadataProvider : ModelMetadataProvider
     {
-        public FluentMetadataProvider()
-        {
-        }
-
+        /// <summary>
+        /// Gets a <see cref="T:System.Web.Mvc.ModelMetadata"/> object for each property of a model.
+        /// </summary>
+        /// <param name="container">The container.</param>
+        /// <param name="containerType">The type of the container.</param>
+        /// <returns>
+        /// A <see cref="T:System.Web.Mvc.ModelMetadata"/> object for each property of a model.
+        /// </returns>
         public override IEnumerable<ModelMetadata> GetMetadataForProperties(object container, Type containerType)
         {
             return QueryFluentMetadata.GetMetadataFor(containerType).Properties
@@ -28,11 +35,28 @@ namespace FluentMetadata.MVC
             return () => info.GetValue(container, null);
         }
 
+        /// <summary>
+        /// Gets metadata for the specified property.
+        /// </summary>
+        /// <param name="modelAccessor">The model accessor.</param>
+        /// <param name="containerType">The type of the container.</param>
+        /// <param name="propertyName">The property to get the metadata model for.</param>
+        /// <returns>
+        /// A <see cref="T:System.Web.Mvc.ModelMetadata"/> object for the property.
+        /// </returns>
         public override ModelMetadata GetMetadataForProperty(Func<object> modelAccessor, Type containerType, string propertyName)
         {
             return new FluentModelMetadata(QueryFluentMetadata.GetMetadataFor(containerType, propertyName), this, modelAccessor);
         }
 
+        /// <summary>
+        /// Gets metadata for the specified model accessor and model type.
+        /// </summary>
+        /// <param name="modelAccessor">The model accessor.</param>
+        /// <param name="modelType">The type of the model.</param>
+        /// <returns>
+        /// A <see cref="T:System.Web.Mvc.ModelMetadata"/> object for the specified model accessor and model type.
+        /// </returns>
         public override ModelMetadata GetMetadataForType(Func<object> modelAccessor, Type modelType)
         {
             return new FluentModelMetadata(QueryFluentMetadata.GetMetadataFor(modelType), this, modelAccessor);
