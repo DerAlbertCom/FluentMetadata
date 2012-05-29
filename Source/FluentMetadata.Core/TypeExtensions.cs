@@ -2,18 +2,30 @@ using System;
 
 namespace FluentMetadata
 {
-    public static class TypeExtensions
+    static class TypeExtensions
     {
-        public static object CreateGenericInstance(this Type genericBaseType, Type firstType, Type secondType, params object[] constructorArgs)
+        internal static object CreateGenericInstance(this Type genericBaseType, Type firstType, Type secondType, params object[] constructorArgs)
         {
-            var genericType = genericBaseType.MakeGenericType(firstType,secondType);
-            return Activator.CreateInstance(genericType, constructorArgs);
+            return Activator.CreateInstance(
+                genericBaseType.MakeGenericType(firstType, secondType),
+                constructorArgs);
         }
 
-        public static object CreateGenericInstance(this Type genericBaseType, Type type, params object[] constructorArgs)
+        internal static object CreateGenericInstance(this Type genericBaseType, Type type, params object[] constructorArgs)
         {
-            var genericType = genericBaseType.MakeGenericType(type);
-            return Activator.CreateInstance(genericType,constructorArgs);
+            return Activator.CreateInstance(
+                genericBaseType.MakeGenericType(type),
+                constructorArgs);
+        }
+
+        internal static bool Is(this Type type, Type otherType)
+        {
+            return otherType.IsAssignableFrom(type);
+        }
+
+        internal static bool Is<TOther>(this Type type)
+        {
+            return type.Is(typeof(TOther));
         }
     }
 }

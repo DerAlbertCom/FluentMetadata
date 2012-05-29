@@ -6,4 +6,5 @@ using System.Runtime.CompilerServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("FluentMetadata.Core")]
 [assembly: InternalsVisibleTo("FluentMetadata.MVC")]
+[assembly: InternalsVisibleTo("FluentMetadata.EntityFramework")]
 [assembly: InternalsVisibleTo("FluentMetadata.Core.Specs")]

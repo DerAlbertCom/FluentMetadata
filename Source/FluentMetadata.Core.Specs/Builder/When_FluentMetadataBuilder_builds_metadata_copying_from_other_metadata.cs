@@ -37,7 +37,7 @@ namespace FluentMetadata.Specs.Builder
             var type = typeof(When_FluentMetadataBuilder_builds_metadata_copying_from_other_metadata);
             return type.Assembly.GetTypes()
                 .Where(t => t.FullName.StartsWith(type.FullName) &&
-                    typeof(IClassMetadata).IsAssignableFrom(t));
+                    t.Is<IClassMetadata>());
         }
 
         [Fact]

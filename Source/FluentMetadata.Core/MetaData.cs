@@ -305,9 +305,9 @@ namespace FluentMetadata
         {
             var classRule = rule as IClassRule;
             if (classRule != null &&
-                classRule.ClassType.IsAssignableFrom(ModelType) ||
+                ModelType.Is(classRule.ClassType) ||
                 classRule == null &&
-                rule.PropertyType.IsAssignableFrom(ModelType))
+                ModelType.Is(rule.PropertyType))
             {
                 rules.RemoveAll(r => r.Equals(rule));
                 rules.Add(rule);

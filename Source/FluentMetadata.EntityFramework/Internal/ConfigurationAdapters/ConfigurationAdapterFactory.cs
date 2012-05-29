@@ -17,11 +17,11 @@ namespace FluentMetadata.EntityFramework.Internal.ConfigurationAdapters
         private void AddAllAdapters()
         {
             var result = from t in GetType().Assembly.GetTypes()
-                         where typeof (ConfigurationAdapter).IsAssignableFrom(t) && !t.IsAbstract
+                         where t.Is<ConfigurationAdapter>() && !t.IsAbstract
                          select t;
             foreach (var type in result)
             {
-                var configurationAdapter = (ConfigurationAdapter) Activator.CreateInstance(type);
+                var configurationAdapter = (ConfigurationAdapter)Activator.CreateInstance(type);
                 adapters.Add(configurationAdapter.ConfigurationType, configurationAdapter.GetType());
             }
         }
@@ -33,10 +33,10 @@ namespace FluentMetadata.EntityFramework.Internal.ConfigurationAdapters
             {
                 if (adapters.ContainsKey(type))
                 {
-                    return (ConfigurationAdapter) Activator.CreateInstance(adapters[type]);
+                    return (ConfigurationAdapter)Activator.CreateInstance(adapters[type]);
                 }
                 type = type.BaseType;
-            } while (type != null && type != typeof (object));
+            } while (type != null && type != typeof(object));
 
             throw new InvalidOperationException("unknown configuration " + configuration.GetType().Name);
         }

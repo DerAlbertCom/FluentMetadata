@@ -57,7 +57,7 @@ namespace FluentMetadata
         internal static void BuildMetadataDefinitions(IEnumerable<Type> metadataDefinitionsToBuild)
         {
             metadataDefinitionSorter.AddMetadataDefinitionsToSort(
-                metadataDefinitionsToBuild.Where(t => typeof(IClassMetadata).IsAssignableFrom(t)));
+                metadataDefinitionsToBuild.Where(t => t.Is<IClassMetadata>()));
 
             List<Type> metadataDefinitions;
             while ((metadataDefinitions = metadataDefinitionSorter

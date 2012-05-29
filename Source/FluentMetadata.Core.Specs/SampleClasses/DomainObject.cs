@@ -40,7 +40,7 @@ namespace FluentMetadata.Specs.SampleClasses
             {
                 return true;
             }
-            if (!typeof(DomainObject).IsAssignableFrom(obj.GetType()))
+            if (!(obj is DomainObject))
             {
                 return false;
             }
@@ -61,6 +61,5 @@ namespace FluentMetadata.Specs.SampleClasses
         {
             return !Equals(left, right);
         }
-    
     }
 }

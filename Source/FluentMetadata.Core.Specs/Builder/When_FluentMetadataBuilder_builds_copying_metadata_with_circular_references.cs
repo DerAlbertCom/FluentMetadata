@@ -29,7 +29,7 @@ namespace FluentMetadata.Specs.Builder
             var type = typeof(When_FluentMetadataBuilder_builds_copying_metadata_with_circular_references);
             return type.Assembly.GetTypes()
                 .Where(t => t.FullName.StartsWith(type.FullName) &&
-                    typeof(IClassMetadata).IsAssignableFrom(t));
+                    t.Is<IClassMetadata>());
         }
 
         [Fact]
