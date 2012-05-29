@@ -14,5 +14,8 @@ namespace FluentMetadata.Specs.SampleClasses
     public class WebUserIndexGetModel : WebUserIndexModel
     {
         public IEnumerable<string> AllRoles { get; set; }
+        public new UserRole Role { get; private set; }
+
+        public class UserRole { }
     }
 }

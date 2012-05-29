@@ -15,7 +15,7 @@ namespace FluentMetadata
             //copy property metadata
             foreach (var sourcePropertyMetaData in new PropertyNameMetadataBuilder(source).NamedMetaData)
             {
-                if (target.GetProperty(sourcePropertyMetaData.PropertyName) != null)
+                if (target.GetProperties().Count(p => p.Name == sourcePropertyMetaData.PropertyName) > 0)
                 {
                     targetBuilder.MapProperty(target, sourcePropertyMetaData.PropertyName, sourcePropertyMetaData.Metadata);
                 }
