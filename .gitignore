@@ -18,3 +18,4 @@ Source/TestResults
 Source/_UpgradeReport_Files/
 *.orig
 Source/UpgradeLog*
+Source/packages
