@@ -32,10 +32,5 @@ namespace FluentMetadata
 
             throw new InvalidOperationException(expression.Type.Name + " not handled");
         }
-
-        public static Type GetDeclaringType(Expression<Func<object, object>> expression)
-        {
-            return GetMemberInfo(expression).DeclaringType;
-        }
     }
 }
