@@ -6,31 +6,26 @@ namespace FluentMetadata
 {
     internal static class ExpressionHelper
     {
-        public static string GetPropertyName<T, TResult>(Expression<Func<T, TResult>> expression)
+        public static string GetPropertyName(LambdaExpression expression)
         {
-            return GetMemberInfo(expression).Name;
+            return GetMemberName(expression.Body);
         }
 
-        static MemberInfo GetMemberInfo<T, TResult>(Expression<Func<T, TResult>> expression)
-        {
-            return GetMemberInfoFromExpression(expression.Body);
-        }
-
-        static MemberInfo GetMemberInfoFromExpression(Expression expression)
+        static string GetMemberName(Expression expression)
         {
             var unaryExpression = expression as UnaryExpression;
             if (unaryExpression != null)
             {
-                return GetMemberInfoFromExpression(unaryExpression.Operand);
+                return GetMemberName(unaryExpression.Operand);
             }
 
             var memberExpression = expression as MemberExpression;
             if (memberExpression != null)
             {
-                return memberExpression.Member;
+                return memberExpression.Member.Name;
             }
 
-            throw new InvalidOperationException(expression.Type.Name + " not handled");
+            return string.Empty;
         }
     }
 }
