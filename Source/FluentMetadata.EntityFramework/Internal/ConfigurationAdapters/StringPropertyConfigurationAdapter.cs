@@ -1,4 +1,4 @@
-using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.ModelConfiguration.Configuration;
 
 namespace FluentMetadata.EntityFramework.Internal.ConfigurationAdapters
 {
@@ -16,7 +16,7 @@ namespace FluentMetadata.EntityFramework.Internal.ConfigurationAdapters
             {
                 return;
             }
-            Configuration.MaxLength = maxLength.Value;
+            Configuration.HasMaxLength(maxLength);
         }
     }
 }

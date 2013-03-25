@@ -1,5 +1,4 @@
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.IO;
 using Xunit;
 
@@ -9,11 +8,10 @@ namespace FluentMetadata.EntityFramework.Specs
     {
         public DbContextTest()
         {
-            Database.SetInitializer(new AlwaysRecreateDatabase<RegularlyDbContext>());
+            Database.SetInitializer(new DropCreateDatabaseAlways<RegularlyDbContext>());
         }
 
-        //TODO refactor this test. It breaks the build if Entity Framework is not installed
-        [Fact(Skip = "This test requires Entity Framework to be installed")]
+        [Fact]
         public void CanCreateDbContext()
         {
             if (File.Exists("TestDatabase.sdf"))

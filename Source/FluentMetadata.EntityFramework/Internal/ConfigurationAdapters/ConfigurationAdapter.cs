@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.ModelConfiguration.Configuration;
 
 namespace FluentMetadata.EntityFramework.Internal.ConfigurationAdapters
 {
@@ -12,7 +12,7 @@ namespace FluentMetadata.EntityFramework.Internal.ConfigurationAdapters
             this.adapter = adapter;
         }
 
-        public void Convert(Metadata data, PropertyConfiguration configuration)
+        public void Convert(Metadata data, PrimitivePropertyConfiguration configuration)
         {
             if (data == null) throw new ArgumentNullException("data");
             if (configuration == null) throw new ArgumentNullException("configuration");
@@ -29,23 +29,24 @@ namespace FluentMetadata.EntityFramework.Internal.ConfigurationAdapters
 
         public abstract Type ConfigurationType { get; }
 
-        protected PropertyConfiguration Configuration { get; private set; }
+        protected PrimitivePropertyConfiguration Configuration { get; private set; }
     }
 
-    internal abstract class ConfigurationAdapter<T> : ConfigurationAdapter where T : PropertyConfiguration
+    internal abstract class ConfigurationAdapter<T> : ConfigurationAdapter where T : PrimitivePropertyConfiguration
     {
-        protected ConfigurationAdapter(ConfigurationAdapter adapter) : base(adapter)
+        protected ConfigurationAdapter(ConfigurationAdapter adapter)
+            : base(adapter)
         {
         }
 
         protected new T Configuration
         {
-            get { return (T) base.Configuration; }
+            get { return (T)base.Configuration; }
         }
 
         public override Type ConfigurationType
         {
-            get { return typeof (T); }
+            get { return typeof(T); }
         }
     }
 }

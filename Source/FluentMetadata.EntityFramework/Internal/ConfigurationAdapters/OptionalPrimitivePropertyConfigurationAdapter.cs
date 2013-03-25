@@ -1,11 +1,12 @@
-﻿using System.Data.Entity.ModelConfiguration;
+﻿using System.Data.Entity.ModelConfiguration.Configuration;
 
 namespace FluentMetadata.EntityFramework.Internal.ConfigurationAdapters
 {
     internal class OptionalPrimitivePropertyConfigurationAdapter :
-        ConfigurationAdapter<OptionalPrimitivePropertyConfiguration>
+        ConfigurationAdapter<PrimitivePropertyConfiguration>
     {
-        public OptionalPrimitivePropertyConfigurationAdapter() : base(new PrimitivePropertyConfigurationAdapter())
+        public OptionalPrimitivePropertyConfigurationAdapter()
+            : base(new PrimitivePropertyConfigurationAdapter())
         {
         }
 

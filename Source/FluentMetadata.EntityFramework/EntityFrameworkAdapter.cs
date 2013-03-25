@@ -1,6 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.ModelConfiguration.Configuration;
 using FluentMetadata.EntityFramework.Internal;
 using FluentMetadata.EntityFramework.Internal.ConfigurationAdapters;
 
@@ -10,18 +8,9 @@ namespace FluentMetadata.EntityFramework
     {
         readonly ConfigurationAdapterFactory factory = new ConfigurationAdapterFactory();
 
-        public void MapProperties(IEnumerable<StructuralTypeConfiguration> configurations)
+        internal void MapProperties<T>(StructuralTypeConfiguration<T> configuration) where T : class
         {
-            foreach (var configuration in configurations)
-            {
-                Type instanceType = configuration.GetType().GetGenericArguments()[0];
-                MapProperties(instanceType, configuration);
-            }
-        }
-
-        internal void MapProperties(Type instanceType, StructuralTypeConfiguration configuration)
-        {
-            var metaDatas = QueryFluentMetadata.GetMetadataFor(instanceType).Properties;
+            var metaDatas = QueryFluentMetadata.GetMetadataFor(typeof(T)).Properties;
 
             foreach (var data in metaDatas)
             {
@@ -35,17 +24,17 @@ namespace FluentMetadata.EntityFramework
                 }
                 var methodInfo = PropertyMethodMapping.GetPropertyMappingMethod(
                     configuration.GetType(),
-                    instanceType,
+                    typeof(T),
                     data.ModelType);
                 if (methodInfo == null)
                 {
                     continue;
                 }
 
-                var lambda = ExpressionGenerator.CreateExpressionForProperty(instanceType, data.ModelName);
+                var lambda = ExpressionGenerator.CreateExpressionForProperty(typeof(T), data.ModelName);
                 if (lambda != null)
                 {
-                    var propertyConfiguration = (PropertyConfiguration)methodInfo.Invoke(configuration, new[] { lambda });
+                    var propertyConfiguration = (PrimitivePropertyConfiguration)methodInfo.Invoke(configuration, new[] { lambda });
 
                     factory.Create(propertyConfiguration).Convert(data, propertyConfiguration);
                 }

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Linq;
 
 namespace FluentMetadata.EntityFramework.Internal.ConfigurationAdapters
@@ -26,7 +26,7 @@ namespace FluentMetadata.EntityFramework.Internal.ConfigurationAdapters
             }
         }
 
-        public ConfigurationAdapter Create(PropertyConfiguration configuration)
+        public ConfigurationAdapter Create(PrimitivePropertyConfiguration configuration)
         {
             Type type = configuration.GetType();
             do
