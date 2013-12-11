@@ -1,6 +1,4 @@
-﻿using FluentMetadata.Rules;
-
-namespace FluentMetadata.Builder
+﻿namespace FluentMetadata.Builder
 {
     internal class IsBuilder<T, TResult> : IIsProperty<T, TResult>
     {
@@ -21,10 +19,6 @@ namespace FluentMetadata.Builder
         {
             Metadata.Required = !notted;
             notted = false;
-            if (Metadata.Required.Value)
-            {
-                Metadata.AddRule(new RequiredRule());
-            }
             return propertyMetaDataBuilder;
         }
 

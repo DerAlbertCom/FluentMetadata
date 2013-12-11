@@ -15,6 +15,7 @@ namespace FluentMetadata
             ConvertEmptyStringToNull = true;
             ShowDisplay = true;
             ShowEditor = true;
+            ModelType = typeof(object);
             rules = new List<IRule>();
             properties = new PropertiesMetadataCollection();
         }
@@ -39,7 +40,7 @@ namespace FluentMetadata
             EditorFormatFunc = metadata.EditorFormatFunc;
             HideSurroundingHtml = metadata.HideSurroundingHtml;
             ReadOnly = metadata.ReadOnly;
-            Required = metadata.Required;
+            required = metadata.Required;
             NullDisplayTextFunc = metadata.NullDisplayTextFunc;
             ShowDisplay = metadata.ShowDisplay;
             ShowEditor = metadata.ShowEditor;
@@ -164,6 +165,7 @@ namespace FluentMetadata
         /// </value>
         internal bool ReadOnly { get; set; }
 
+        bool? required;
         /// <summary>
         /// Gets or sets a value that indicates whether the model is required.
         /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.IsRequired"/>.
@@ -171,7 +173,25 @@ namespace FluentMetadata
         /// <value>
         /// <c>true</c> if the model is required; otherwise, <c>false</c>.
         /// </value>
-        public bool? Required { get; set; }
+        public bool? Required
+        {
+            get
+            {
+                return required;
+            }
+            set
+            {
+                required = value;
+                if (required.Value)
+                {
+                    AddRule(new RequiredRule());
+                }
+                else
+                {
+                    rules.RemoveAll(r => r.Is<RequiredRule>());
+                }
+            }
+        }
 
         //
         // Summary:
@@ -301,7 +321,7 @@ namespace FluentMetadata
             get { return rules; }
         }
 
-        public void AddRule(IRule rule)
+        internal void AddRule(IRule rule)
         {
             var classRule = rule as IClassRule;
             if (classRule != null &&

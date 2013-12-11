@@ -1,11 +1,13 @@
-﻿using FluentMetadata.Specs.SampleClasses;
+﻿using System.Linq;
+using FluentMetadata.Rules;
+using FluentMetadata.Specs.SampleClasses;
 using Xunit;
 
 namespace FluentMetadata.Specs
 {
     public class PropertyMedata_with_WebUserIndexGetModel : MetadataTestBase
     {
-        readonly Metadata username, id, autorName, email, role, secondaryRoles;
+        readonly Metadata username, id, autorName, email, role, secondaryRoles, passwordHash;
 
         public PropertyMedata_with_WebUserIndexGetModel()
         {
@@ -15,6 +17,7 @@ namespace FluentMetadata.Specs
             autorName = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "AutorName");
             role = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "Role");
             secondaryRoles = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "SecondaryRoles");
+            passwordHash = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "PasswordHash");
         }
 
         [Fact]
@@ -157,6 +160,13 @@ namespace FluentMetadata.Specs
         public void Username_ContainerType_is_WebUserIndexGetModel()
         {
             Assert.Equal(typeof(WebUserIndexGetModel), username.ContainerType);
+        }
+
+        [Fact]
+        public void IsNotRequiredOverWritesCopiedIsRequired()
+        {
+            Assert.False(passwordHash.Required.Value);
+            Assert.Equal(0, passwordHash.Rules.OfType<RequiredRule>().Count());
         }
 
         [Fact]

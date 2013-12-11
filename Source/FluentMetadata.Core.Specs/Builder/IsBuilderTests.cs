@@ -1,4 +1,6 @@
-﻿using FluentMetadata.Builder;
+﻿using System.Linq;
+using FluentMetadata.Builder;
+using FluentMetadata.Rules;
 using Xunit;
 
 namespace FluentMetadata.Specs.Builder
@@ -27,17 +29,28 @@ namespace FluentMetadata.Specs.Builder
         }
 
         [Fact]
-        public void IsBuilder_Required_IsRequired()
+        public void SettingRequiredResultsInMetadataRequiredAnd1RequiredRule()
         {
             isBuilder.Required();
             Assert.True(metadata.Required.Value);
+            Assert.Equal(1, metadata.Rules.OfType<RequiredRule>().Count());
         }
 
         [Fact]
-        public void IsBuilder_Not_Required_IsNotRequired()
+        public void SettingNotRequiredResultsInMetadataNotRequiredAnd0RequiredRules()
         {
             isBuilder.Not.Required();
             Assert.False(metadata.Required.Value);
+            Assert.Equal(0, metadata.Rules.OfType<RequiredRule>().Count());
+        }
+
+        [Fact]
+        public void SettingNotRequiredAfterRequiredResultsInMetadataNotRequiredAnd0RequiredRules()
+        {
+            isBuilder.Required();
+            isBuilder.Not.Required();
+            Assert.False(metadata.Required.Value);
+            Assert.Equal(0, metadata.Rules.OfType<RequiredRule>().Count());
         }
 
         [Fact]

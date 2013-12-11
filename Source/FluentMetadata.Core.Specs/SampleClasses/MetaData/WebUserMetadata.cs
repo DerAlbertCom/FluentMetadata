@@ -88,6 +88,8 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
         public WebUserIndexGetModelMetadata()
         {
             CopyMetadataFrom<WebUserIndexModel>();
+            Property(x => x.PasswordHash)
+               .Is.Not.Required();
         }
     }
 }

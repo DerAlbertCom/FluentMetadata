@@ -28,4 +28,12 @@ namespace FluentMetadata
             return type.Is(typeof(TOther));
         }
     }
+
+    static class ObjectExtensions
+    {
+        internal static bool Is<T>(this object obj)
+        {
+            return obj.GetType().Is<T>();
+        }
+    }
 }

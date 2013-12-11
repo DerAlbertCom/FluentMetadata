@@ -10,6 +10,7 @@ namespace FluentMetadata.Specs.SampleClasses
         public string Role { get; set; }
         public string AutorName { get; set; }
         public int[] SecondaryRoles { get; set; }
+        public string PasswordHash { get; set; }
     }
 
     public class WebUserIndexGetModel : WebUserIndexModel
