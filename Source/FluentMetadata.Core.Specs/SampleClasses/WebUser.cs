@@ -45,7 +45,6 @@ namespace FluentMetadata.Specs.SampleClasses
             }
         }
 
-
         private string GetUserSalt()
         {
             return (Created.Second * Created.DayOfYear).ToString();

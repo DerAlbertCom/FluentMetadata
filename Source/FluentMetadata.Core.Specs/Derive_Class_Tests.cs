@@ -19,7 +19,6 @@ namespace FluentMetadata.Specs
         }
     }
 
-
     public class DerivedClass_Tests : MetadataTestBase
     {
         readonly Metadata id, title;
@@ -37,13 +36,11 @@ namespace FluentMetadata.Specs
         }
 
         [Fact]
-
         public void Id_Required_is_True()
         {
             id.Required.Value.ShouldBeTrue();
         }
     }
-
 
     public class DerivedDerivedClass_Tests : MetadataTestBase
     {
@@ -62,7 +59,6 @@ namespace FluentMetadata.Specs
         }
 
         [Fact]
-
         public void Id_Required_is_True()
         {
             id.Required.Value.ShouldBeTrue();

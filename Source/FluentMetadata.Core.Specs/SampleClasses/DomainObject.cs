@@ -6,19 +6,19 @@ namespace FluentMetadata.Specs.SampleClasses
     {
         protected DomainObject()
         {
-
         }
+
         public virtual void Initialize()
         {
             Created = DateTime.UtcNow;
             Updated = Created;
         }
+
         public int Id { get; private set; }
 
         public DateTime Created { get; private set; }
 
         public DateTime Updated { get; private set; }
-
 
         protected void Modified()
         {

@@ -35,7 +35,6 @@ namespace FluentMetadata.Builder
             return propertyMetaDataBuilder;
         }
 
-
         public IIsNotProperty<T, TResult> Not
         {
             get

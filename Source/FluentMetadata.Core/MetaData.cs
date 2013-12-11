@@ -77,8 +77,8 @@ namespace FluentMetadata
         /// back in forms should be converted to null.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if empty strings that are posted back in forms should be
-        /// 	converted to null; otherwise, <c>false</c>. The default value is <c>true</c>
+        /// <c>true</c> if empty strings that are posted back in forms should be
+        /// converted to null; otherwise, <c>false</c>. The default value is <c>true</c>
         /// </value>
         public bool ConvertEmptyStringToNull { get; set; }
 

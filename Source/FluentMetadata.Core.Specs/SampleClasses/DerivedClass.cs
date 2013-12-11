@@ -7,7 +7,7 @@ namespace FluentMetadata.Specs.SampleClasses
 
     public class DerivedClass : BaseClass
     {
-        public string Title { get; set; }    
+        public string Title { get; set; }
     }
 
     public class DerivedDerivedClass : DerivedClass
@@ -15,7 +15,7 @@ namespace FluentMetadata.Specs.SampleClasses
         public string Text { get; set; }
     }
 
-    public class BaseClassMetadata<T> : ClassMetadata<T> where T:BaseClass
+    public class BaseClassMetadata<T> : ClassMetadata<T> where T : BaseClass
     {
         protected BaseClassMetadata()
         {
@@ -23,7 +23,7 @@ namespace FluentMetadata.Specs.SampleClasses
         }
     }
 
-    public class DerivedClassMetadata<T> : BaseClassMetadata<T> where T:DerivedClass
+    public class DerivedClassMetadata<T> : BaseClassMetadata<T> where T : DerivedClass
     {
         protected DerivedClassMetadata()
         {
