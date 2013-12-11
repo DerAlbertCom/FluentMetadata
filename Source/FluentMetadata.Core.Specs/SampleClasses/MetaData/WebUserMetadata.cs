@@ -31,9 +31,6 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
                 .Length(256)
                 .Is.Required()
                 .Display.Name("Rolle");
-            Property(x => x.PasswordHash)
-                .Should.Not.ShowInDisplay()
-                .Should.Not.ShowInEditor();
             Property(x => x.ConfirmationKey)
                 .Should.Not.ShowInEditor()
                 .Should.Not.ShowInDisplay();
