@@ -63,9 +63,9 @@ namespace FluentMetadata
         //     A dictionary that contains additional metadata about the model.
         // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public virtual Dictionary<string, object> AdditionalValues { get; }
 
-        // ~ System.Web.Mvc.ModelMetadata.ContainerType
         /// <summary>
         /// Gets or sets the type of the container for the model.
+        /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.ContainerType"/>.
         /// </summary>
         /// <value>
         /// The type of the container for the model.
@@ -82,55 +82,55 @@ namespace FluentMetadata
         /// </value>
         public bool ConvertEmptyStringToNull { get; set; }
 
-        // ~ System.Web.Mvc.ModelMetadata.DataTypeName
         /// <summary>
         /// Gets or sets meta information about the data type.
+        /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.DataTypeName"/>.
         /// </summary>
         /// <value>
         /// Meta information about the data type.
         /// </value>
         public string DataTypeName { get; set; }
 
-        // ~ System.Web.Mvc.ModelMetadata.Description
         /// <summary>
         /// Gets or sets the description function of the model.
+        /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.Description"/>.
         /// </summary>
         /// <value>
         /// The description function of the model. The default value is null.
         /// </value>
         internal Func<string> DescriptionFunc { private get; set; }
 
-        // ~ System.Web.Mvc.ModelMetadata.DisplayFormatString
         /// <summary>
         /// Gets or sets the display format function for the model.
+        /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.DisplayFormatString"/>.
         /// </summary>
         /// <value>
         /// The display format function for the model.
         /// </value>
         internal Func<string> DisplayFormatFunc { private get; set; }
 
-        // ~ System.Web.Mvc.ModelMetadata.DisplayName
         /// <summary>
         /// Gets or sets the GetDisplayName function of the model.
+        /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.DisplayName"/>.
         /// </summary>
         /// <value>
         /// The GetDisplayName function of the model.
         /// </value>
         internal Func<string> DisplayNameFunc { private get; set; }
 
-        // ~ System.Web.Mvc.ModelMetadata.EditFormatString
         /// <summary>
         /// Gets or sets the editor format function of the model.
+        /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.EditFormatString"/>.
         /// </summary>
         /// <value>
         /// The editor format function of the model.
         /// </value>
         internal Func<string> EditorFormatFunc { private get; set; }
 
-        // ~ System.Web.Mvc.ModelMetadata.HideSurroundingHtml
         /// <summary>
         /// Gets or sets a value that indicates whether the model object should be rendered
         /// using associated HTML elements.
+        /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.HideSurroundingHtml"/>.
         /// </summary>
         /// <value>
         /// <c>true</c> if the associated HTML elements that contains the model object should
@@ -155,18 +155,18 @@ namespace FluentMetadata
         //     true if the type is nullable; otherwise, false.
         // MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public bool IsNullableValueType { get; }
 
-        // ~ System.Web.Mvc.ModelMetadata.IsReadOnly
         /// <summary>
         /// Gets or sets a value that indicates whether the model is read-only.
+        /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.IsReadOnly"/>.
         /// </summary>
         /// <value>
         ///   <c>true</c> if the model is read-only; otherwise, <c>false</c>.
         /// </value>
         internal bool ReadOnly { get; set; }
 
-        // ~ System.Web.Mvc.ModelMetadata.IsRequired
         /// <summary>
         /// Gets or sets a value that indicates whether the model is required.
+        /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.IsRequired"/>.
         /// </summary>
         /// <value>
         /// <c>true</c> if the model is required; otherwise, <c>false</c>.
@@ -183,18 +183,18 @@ namespace FluentMetadata
         //     blog
         // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public object Model { get; set; }
 
-        // ~ System.Web.Mvc.ModelMetadata.ModelType
         /// <summary>
         /// Gets or sets the type of the model.
+        /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.ModelType"/>.
         /// </summary>
         /// <value>
         /// The type of the model.
         /// </value>
         public Type ModelType { get; set; }
 
-        // ~ System.Web.Mvc.ModelMetadata.NullDisplayText
         /// <summary>
         /// Gets or sets the string to display for null values.
+        /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.NullDisplayText"/>.
         /// </summary>
         /// <value>
         /// The string to display for null values.
@@ -209,10 +209,10 @@ namespace FluentMetadata
         //     The order value of the current metadata.
         // TODO MVC3 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public virtual int Order { get; set; }
 
-        // ~ System.Web.Mvc.ModelMetadata.Properties
         /// <summary>
         /// Gets a collection of model metadata objects that describe the properties
         /// of the model.
+        /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.Properties"/>.
         /// </summary>
         public PropertiesMetadataCollection Properties { get { return properties; } }
 
@@ -240,18 +240,18 @@ namespace FluentMetadata
         //     The short display name.
         // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public virtual string ShortDisplayName { get; set; }
 
-        // ~ System.Web.Mvc.ModelMetadata.ShowForDisplay
         /// <summary>
         /// Gets or sets a value that indicates whether the property should be displayed in read-only views such as list and detail views.
+        /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.ShowForDisplay"/>.
         /// </summary>
         /// <value>
         ///   <c>true</c> if the model should be displayed in read-only views; otherwise, <c>false</c>.
         /// </value>
         public bool ShowDisplay { get; set; }
 
-        // ~ System.Web.Mvc.ModelMetadata.ShowForEdit
         /// <summary>
         /// Gets or sets a value that indicates whether the model should be displayed in editable views.
+        /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.ShowForEdit"/>.
         /// </summary>
         /// <value>
         ///   <c>true</c> if the model should be displayed in editable views; otherwise, <c>false</c>.
@@ -287,9 +287,9 @@ namespace FluentMetadata
         //TODO [DerAlbertCom] What kind of ErrorMessage is this? Write some XML docs and/or tests.
         public string ErrorMessage { get; set; }
 
-        //~System.Web.Mvc.HiddenInputAttribute
         /// <summary>
         /// Gets or sets a value indicating whether a property or field value should be rendered as a hidden input element.
+        /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.HiddenInputAttribute"/>.
         /// </summary>
         /// <value>
         /// <c>true</c> if the model should be rendered as a hidden input element; otherwise, <c>false</c>.
