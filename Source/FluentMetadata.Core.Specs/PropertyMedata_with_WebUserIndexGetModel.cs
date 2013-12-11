@@ -5,7 +5,7 @@ namespace FluentMetadata.Specs
 {
     public class PropertyMedata_with_WebUserIndexGetModel : MetadataTestBase
     {
-        readonly Metadata username, id, autorName, email, role;
+        readonly Metadata username, id, autorName, email, role, secondaryRoles;
 
         public PropertyMedata_with_WebUserIndexGetModel()
         {
@@ -14,6 +14,7 @@ namespace FluentMetadata.Specs
             email = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "EMail");
             autorName = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "AutorName");
             role = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "Role");
+            secondaryRoles = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel), "SecondaryRoles");
         }
 
         [Fact]
@@ -156,6 +157,12 @@ namespace FluentMetadata.Specs
         public void Username_ContainerType_is_WebUserIndexGetModel()
         {
             Assert.Equal(typeof(WebUserIndexGetModel), username.ContainerType);
+        }
+
+        [Fact]
+        public void DisplayNameOfPropertyWithComplexTypeIsCopied()
+        {
+            Assert.Equal("Secondaly lores", secondaryRoles.GetDisplayName());
         }
     }
 }

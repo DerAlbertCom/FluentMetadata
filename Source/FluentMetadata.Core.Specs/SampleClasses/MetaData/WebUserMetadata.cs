@@ -78,6 +78,8 @@ namespace FluentMetadata.Specs.SampleClasses.MetaData
         public WebUserIndexModelMetadata()
         {
             CopyMetadataFrom<WebUser>();
+            Property(x => x.SecondaryRoles)
+                .Display.Name("Secondaly lores");
         }
     }
 

@@ -24,15 +24,13 @@ namespace FluentMetadata.Builder
         {
             foreach (PropertyInfo propertyInfo in type.GetProperties())
             {
-                if (IsSimpleType(propertyInfo.PropertyType))
+                var metadata = QueryFluentMetadata.FindMetadataFor(type, propertyInfo.Name);
+                if (metadata != null)
                 {
-                    var metadata = QueryFluentMetadata.FindMetadataFor(type, propertyInfo.Name);
-                    if (metadata != null)
-                    {
-                        yield return new NameMetaData(prefix + propertyInfo.Name, metadata);
-                    }
+                    yield return new NameMetaData(prefix + propertyInfo.Name, metadata);
                 }
-                else
+
+                if (!IsSimpleType(propertyInfo.PropertyType))
                 {
                     currentLevel++;
                     if (currentLevel <= MaxLevel)
