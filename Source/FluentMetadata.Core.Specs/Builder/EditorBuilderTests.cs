@@ -23,13 +23,13 @@ namespace FluentMetadata.Specs.Builder
         [Fact]
         public void EditorBuilder_Ctor_Format_IsNull()
         {
-            Assert.Null(metadata.EditorFormat);
+            Assert.Null(metadata.GetEditorFormat());
         }
 
         [Fact]
         public void EditorBuilder_Ctor_Watermark_IsNull()
         {
-            Assert.Null(metadata.Watermark);
+            Assert.Null(metadata.GetWatermark());
         }
 
         [Fact]
@@ -37,24 +37,24 @@ namespace FluentMetadata.Specs.Builder
         {
             builder.ErrorMessage("TheNullText");
             Assert.Equal("TheNullText", metadata.ErrorMessage);
-            Assert.Null(metadata.EditorFormat);
-            Assert.Null(metadata.Watermark);
+            Assert.Null(metadata.GetEditorFormat());
+            Assert.Null(metadata.GetWatermark());
         }
 
         [Fact]
         public void EditorBuilder_Name_Name_IsValue()
         {
             builder.Watermark("TheNameText");
-            Assert.Equal("TheNameText", metadata.Watermark);
-            Assert.Null(metadata.EditorFormat);
+            Assert.Equal("TheNameText", metadata.GetWatermark());
+            Assert.Null(metadata.GetEditorFormat());
         }
 
         [Fact]
         public void EditorBuilder_Format_Format_IsValue()
         {
             builder.Format("TheFormatText");
-            Assert.Equal("TheFormatText", metadata.EditorFormat);
-            Assert.Null(metadata.Watermark);
+            Assert.Equal("TheFormatText", metadata.GetEditorFormat());
+            Assert.Null(metadata.GetWatermark());
         }
     }
 }

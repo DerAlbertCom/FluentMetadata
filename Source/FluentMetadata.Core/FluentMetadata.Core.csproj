@@ -42,6 +42,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\FluentMetadata.Core.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,6 +52,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Release\FluentMetadata.Core.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -70,15 +72,22 @@
     </Compile>
     <Compile Include="Builder\AsBuilder.cs" />
     <Compile Include="Builder\ClassMetadataBuilder.cs" />
-    <Compile Include="Builder\ITypeMetadataBuilder.cs" />
+    <Compile Include="Builder\PropertiesInClassContextBuilder.cs" />
+    <Compile Include="MetadataDefinitionSorter.cs" />
+    <Compile Include="Rules\ClassRuleValidatingAPropertyWrapper.cs" />
+    <Compile Include="Rules\ICompareProperties.cs" />
+    <Compile Include="Rules\PropertyMustBeLessThanOtherRule.cs" />
+    <Compile Include="Rules\GenericClassRule.cs" />
+    <Compile Include="Rules\GenericRule.cs" />
     <Compile Include="ClassMetadata.cs" />
     <Compile Include="Builder\DisplayBuilder.cs" />
     <Compile Include="Builder\EditorBuilder.cs" />
     <Compile Include="ExpressionHelper.cs" />
     <Compile Include="FluentMetadataBuilder.cs" />
     <Compile Include="IClassBuilder.cs" />
+    <Compile Include="IPropertiesInClassContextBuilder.cs" />
     <Compile Include="IDisplayClass.cs" />
-    <Compile Include="PropertiesMetadata.cs" />
+    <Compile Include="PropertiesMetadataCollection.cs" />
     <Compile Include="QueryFluentMetadata.cs" />
     <Compile Include="IAsProperty.cs" />
     <Compile Include="IDisplayProperty.cs" />
@@ -95,6 +104,7 @@
     <Compile Include="Rules\ClassRule.cs" />
     <Compile Include="Rules\IClassRule.cs" />
     <Compile Include="Rules\IRule.cs" />
+    <Compile Include="Rules\PropertyMustMatchRegexRule.cs" />
     <Compile Include="Rules\PropertyMustMatchRule.cs" />
     <Compile Include="Rules\RangeRule.cs" />
     <Compile Include="Rules\RequiredRule.cs" />

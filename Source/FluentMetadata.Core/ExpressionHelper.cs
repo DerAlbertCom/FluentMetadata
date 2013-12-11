@@ -6,41 +6,26 @@ namespace FluentMetadata
 {
     internal static class ExpressionHelper
     {
-        public static string GetPropertyName<T, TResult>(Expression<Func<T, TResult>> expression)
+        public static string GetPropertyName(LambdaExpression expression)
         {
-            var memberExpression = GetMemberInfo(expression);
-            return memberExpression.Name;
+            return GetMemberName(expression.Body);
         }
 
-        public static Type GetPropertyType<T, TResult>(Expression<Func<T, TResult>> expression)
+        static string GetMemberName(Expression expression)
         {
-            var memberExpression = (PropertyInfo) GetMemberInfo(expression);
-            return memberExpression.PropertyType;
-        }
-
-        private static MemberInfo GetMemberInfo<T, TResult>(Expression<Func<T, TResult>> expression)
-        {
-            return GetMemberInfoFromExpression(expression.Body);
-        }
-
-        private static MemberInfo GetMemberInfoFromExpression(Expression expression)
-        {
-            if (expression is UnaryExpression)
+            var unaryExpression = expression as UnaryExpression;
+            if (unaryExpression != null)
             {
-                var unary = (UnaryExpression) expression;
-                return GetMemberInfoFromExpression(unary.Operand);
+                return GetMemberName(unaryExpression.Operand);
             }
-            if (expression is MemberExpression)
-            {
-                return ((MemberExpression) expression).Member;
-            }
-            throw new InvalidOperationException(string.Format("{0} not handled", expression.Type.Name));
-        }
 
-        public static Type GetDeclaringType(Expression<Func<object, object>> expression)
-        {
-            var memberExpression = GetMemberInfo(expression);
-            return memberExpression.DeclaringType;
+            var memberExpression = expression as MemberExpression;
+            if (memberExpression != null)
+            {
+                return memberExpression.Member.Name;
+            }
+
+            return string.Empty;
         }
     }
 }

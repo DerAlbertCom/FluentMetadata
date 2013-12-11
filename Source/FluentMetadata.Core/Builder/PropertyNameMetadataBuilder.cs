@@ -4,43 +4,38 @@ using System.Reflection;
 
 namespace FluentMetadata.Builder
 {
-    public class PropertyNameMetadataBuilder
+    class PropertyNameMetadataBuilder
     {
-        private const int MaxLevel = 5;
+        const int MaxLevel = 5;
+        readonly Type modelType;
+        int currentLevel;
 
-        private readonly Type modelType;
-
-        private int currentLevel;
-
-        public PropertyNameMetadataBuilder(Type modelType)
+        internal PropertyNameMetadataBuilder(Type modelType)
         {
             this.modelType = modelType;
         }
 
-        public IEnumerable<NameMetaData> NamedMetaData
+        internal IEnumerable<NameMetaData> NamedMetaData
         {
-            get { return GetNamedMetaData(modelType, ""); }
+            get { return GetNamedMetaData(modelType, string.Empty); }
         }
 
-        private IEnumerable<NameMetaData> GetNamedMetaData(Type type, string prefix)
+        IEnumerable<NameMetaData> GetNamedMetaData(Type type, string prefix)
         {
-            var query = new QueryFluentMetadata();
             foreach (PropertyInfo propertyInfo in type.GetProperties())
             {
-                if (IsSimpleType(propertyInfo.PropertyType))
+                var metadata = QueryFluentMetadata.FindMetadataFor(type, propertyInfo.Name);
+                if (metadata != null)
                 {
-                    Metadata metadata = query.FindMetadataFor(type, propertyInfo.Name);
-                    if (metadata != null)
-                        yield return new NameMetaData(prefix+propertyInfo.Name, metadata);
+                    yield return new NameMetaData(prefix + propertyInfo.Name, metadata);
                 }
-                else
+
+                if (!IsSimpleType(propertyInfo.PropertyType))
                 {
                     currentLevel++;
                     if (currentLevel <= MaxLevel)
                     {
-                        foreach (
-                            NameMetaData named in
-                                GetNamedMetaData(propertyInfo.PropertyType, prefix + propertyInfo.Name))
+                        foreach (var named in GetNamedMetaData(propertyInfo.PropertyType, prefix + propertyInfo.Name))
                         {
                             yield return named;
                         }
@@ -50,33 +45,25 @@ namespace FluentMetadata.Builder
             }
         }
 
-        private static bool IsSimpleType(Type type)
+        static bool IsSimpleType(Type type)
         {
-            if (type.IsValueType)
-            {
-                return true;
-            }
-            if (type == typeof (string))
+            if (type.IsValueType || type == typeof(string))
             {
                 return true;
             }
             return !type.IsClass;
         }
 
-        #region Nested type: NameMetaData
-
-        public class NameMetaData
+        internal class NameMetaData
         {
-            public NameMetaData(string propertyName, Metadata metadata)
+            internal string PropertyName { get; private set; }
+            internal Metadata Metadata { get; private set; }
+
+            internal NameMetaData(string propertyName, Metadata metadata)
             {
                 PropertyName = propertyName;
                 Metadata = metadata;
             }
-
-            public string PropertyName { get; private set; }
-            public Metadata Metadata { get; private set; }
         }
-
-        #endregion
     }
 }

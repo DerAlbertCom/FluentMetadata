@@ -4,51 +4,63 @@ namespace FluentMetadata.Builder
 {
     internal class AsBuilder<T, TResult> : IAsProperty<T, TResult>
     {
-        private readonly PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder;
+        readonly PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder;
 
         public AsBuilder(PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder)
         {
             this.propertyMetaDataBuilder = propertyMetaDataBuilder;
         }
 
-        public IProperty<T,TResult> EmailAddress()
+        public IProperty<T, TResult> EmailAddress()
         {
             SetDataTypeName(DataType.EmailAddress);
             return propertyMetaDataBuilder;
         }
 
-        private void SetDataTypeName(DataType dataType)
+        void SetDataTypeName(DataType dataType)
         {
             propertyMetaDataBuilder.Metadata.DataTypeName = dataType.ToString();
         }
 
-        public IProperty<T,TResult> Url()
+        public IProperty<T, TResult> Url()
         {
             SetDataTypeName(DataType.Url);
             return propertyMetaDataBuilder;
         }
 
-        public IProperty<T,TResult> Html()
+        public IProperty<T, TResult> Html()
         {
             SetDataTypeName(DataType.Html);
             return propertyMetaDataBuilder;
         }
 
-        public IProperty<T,TResult> Text()
+        public IProperty<T, TResult> Text()
         {
             SetDataTypeName(DataType.Text);
             return propertyMetaDataBuilder;
         }
 
-        public IProperty<T,TResult> MultilineText()
+        public IProperty<T, TResult> MultilineText()
         {
             SetDataTypeName(DataType.MultilineText);
             return propertyMetaDataBuilder;
         }
 
-        public IProperty<T,TResult> Password()
+        public IProperty<T, TResult> Password()
         {
             SetDataTypeName(DataType.Password);
+            return propertyMetaDataBuilder;
+        }
+
+        public IProperty<T, TResult> Custom(string dataTypeName)
+        {
+            propertyMetaDataBuilder.Metadata.DataTypeName = dataTypeName;
+            return propertyMetaDataBuilder;
+        }
+
+        public IProperty<T, TResult> Custom(DataType dataType)
+        {
+            SetDataTypeName(dataType);
             return propertyMetaDataBuilder;
         }
     }

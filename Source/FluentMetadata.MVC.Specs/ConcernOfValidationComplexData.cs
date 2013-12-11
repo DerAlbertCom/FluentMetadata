@@ -1,13 +1,12 @@
-using System;
 using Xunit;
 
 namespace FluentMetadata.MVC.Specs
 {
-    [Concern(typeof(SampleModel),"Validation of SampleData")]
-    public abstract class ConcernOfValidationSampleData : InstanceContextSpecification<DummyController>
+    [Concern(typeof(ComplexModel), "Validation of ComplexData")]
+    public abstract class ConcernOfValidationComplexData : InstanceContextSpecification<DummyController>
         , IUseFixture<FluentMetadataFixture>
     {
-        protected readonly SampleModel Model = new SampleModel();
+        protected readonly ComplexModel Model = new ComplexModel();
 
         protected override DummyController CreateSut()
         {
@@ -19,7 +18,7 @@ namespace FluentMetadata.MVC.Specs
         }
     }
 
-    public class When_vorname_is_required_and_not_set : ConcernOfValidationSampleData
+    public class When_FirstName_is_required_and_not_set : ConcernOfValidationComplexData
     {
         protected override void Because()
         {
@@ -29,17 +28,18 @@ namespace FluentMetadata.MVC.Specs
         [Observation]
         public void Should_one_error_vorname()
         {
-            Sut.ModelState["VornameRequired"].Errors.Count.ShouldBeEqualTo(1);
+            Sut.ModelState["FirstName"].Errors.Count.ShouldBeEqualTo(1);
         }
     }
 
-    public class When_vorname_is_required_and_is_set: ConcernOfValidationSampleData
+    public class When_FirstName_is_required_and_is_set : ConcernOfValidationComplexData
     {
         protected override void EstablishContext()
         {
             base.EstablishContext();
-            Model.VornameRequired = "Albert";
+            Model.FirstName = "Albert";
         }
+
         protected override void Because()
         {
             Sut.ValidateModel(Model);
@@ -48,7 +48,7 @@ namespace FluentMetadata.MVC.Specs
         [Observation]
         public void Should_no_error_on_vorname()
         {
-            Sut.ModelState["VornameRequired"].ShouldBeNull();
+            Sut.ModelState["FirstName"].ShouldBeNull();
         }
     }
 }

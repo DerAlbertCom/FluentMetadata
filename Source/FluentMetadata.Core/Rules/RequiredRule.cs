@@ -1,9 +1,15 @@
+using System;
 using System.Globalization;
 
 namespace FluentMetadata.Rules
 {
     public class RequiredRule : Rule
     {
+        public override Type PropertyType
+        {
+            get { return typeof(object); }
+        }
+
         public RequiredRule()
             : base("a value for {0} is required")
         {
@@ -15,7 +21,8 @@ namespace FluentMetadata.Rules
             {
                 return false;
             }
-            if (value is string && string.IsNullOrEmpty((string) value))
+            var valueAsString = value as string;
+            if (valueAsString != null && string.IsNullOrEmpty(valueAsString))
             {
                 return false;
             }
@@ -25,6 +32,11 @@ namespace FluentMetadata.Rules
         public override string FormatErrorMessage(string name)
         {
             return string.Format(CultureInfo.CurrentCulture, ErrorMessageFormat, name);
+        }
+
+        protected override bool EqualsRule(Rule rule)
+        {
+            return rule is RequiredRule;
         }
     }
 }

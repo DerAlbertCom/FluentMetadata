@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net.Mime;
 using System.Reflection;
 using FluentMetadata.Builder;
-using FluentMetadata;
 
 namespace FluentMetadata
 {
     public static class FluentMetadataBuilder
     {
-        private static readonly Dictionary<Type, TypeMetadataBuilder> TypeBuilders =
-            new Dictionary<Type, TypeMetadataBuilder>();
+        readonly static IDictionary<Type, TypeMetadataBuilder> typeBuilders = new Dictionary<Type, TypeMetadataBuilder>();
+        internal readonly static List<Type> BuiltMetadataDefininitions = new List<Type>();
+        readonly static MetadataDefinitionSorter metadataDefinitionSorter = new MetadataDefinitionSorter();
 
         public static void Reset()
         {
-            TypeBuilders.Clear();
+            typeBuilders.Clear();
+            metadataDefinitionSorter.Clear();
+            BuiltMetadataDefininitions.Clear();
         }
 
         internal static TypeMetadataBuilder GetTypeBuilder(Type type)
@@ -24,10 +25,10 @@ namespace FluentMetadata
             if (type == null)
                 return null;
             TypeMetadataBuilder builder;
-            if (!TypeBuilders.TryGetValue(type, out builder))
+            if (!typeBuilders.TryGetValue(type, out builder))
             {
-                builder = (TypeMetadataBuilder) typeof (TypeMetadataBuilder<>).CreateGenericInstance(type);
-                TypeBuilders[type] = builder;
+                builder = typeof(TypeMetadataBuilder<>).CreateGenericInstance(type) as TypeMetadataBuilder;
+                typeBuilders[type] = builder;
                 builder.Init();
             }
             return builder;
@@ -35,34 +36,70 @@ namespace FluentMetadata
 
         internal static TypeMetadataBuilder<T> GetTypeBuilder<T>()
         {
-            return (TypeMetadataBuilder<T>) GetTypeBuilder(typeof (T));
+            return (TypeMetadataBuilder<T>)GetTypeBuilder(typeof(T));
+        }
+
+        internal static void RegisterDependency(Type dependency, Type depender)
+        {
+            metadataDefinitionSorter.Register(dependency, depender);
         }
 
         public static void ForAssemblyOfType<T>()
         {
-            ForAssembly(typeof (T).Assembly);
+            ForAssembly(typeof(T).Assembly);
         }
 
         public static void ForAssembly(Assembly assembly)
         {
-            foreach (Type type in PublicMetadataDefinitionsFrom(assembly))
+            BuildMetadataDefinitions(assembly.GetTypes());
+        }
+
+        internal static void BuildMetadataDefinitions(IEnumerable<Type> metadataDefinitionsToBuild)
+        {
+            metadataDefinitionSorter.AddMetadataDefinitionsToSort(
+                metadataDefinitionsToBuild.Where(t => t.Is<IClassMetadata>()));
+
+            List<Type> metadataDefinitions;
+            while ((metadataDefinitions = metadataDefinitionSorter
+                .GetNextUnbuiltDefinitions(BuiltMetadataDefininitions)).Count > 0)
             {
-                if (type.IsAbstract)
-                {
-                    throw new InvalidOperationException("The " + type.FullName + " may not abstract");
-                }
-                if (type.ContainsGenericParameters)
-                {
-                    CreateWithGenericParameters(type);
-                }
-                else
+                metadataDefinitions
+                    .ForEach(mdd => CreateMetadataDefinitionInstance(mdd));
+            }
+        }
+
+        static void CreateMetadataDefinitionInstance(Type type)
+        {
+            BuiltMetadataDefininitions.Add(type);
+
+            if (type.IsAbstract)
+            {
+                throw new InvalidOperationException(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        "The type '{0}' may not abstract. Use generic classes for inheritance.",
+                        type.FullName));
+            }
+            if (type.ContainsGenericParameters)
+            {
+                CreateWithGenericParameters(type);
+            }
+            else
+            {
+                try
                 {
                     Activator.CreateInstance(type);
+                }
+                catch (TargetInvocationException ex)
+                {
+                    throw ex.InnerException is MetadataDefinitionSorter.NoMetadataDefinedException ?
+                        ex.InnerException :
+                        ex;
                 }
             }
         }
 
-        private static void CreateWithGenericParameters(Type type)
+        static void CreateWithGenericParameters(Type type)
         {
             var constraints = new List<Type>();
             foreach (var genericArgument in type.GetGenericArguments())
@@ -75,9 +112,9 @@ namespace FluentMetadata
             var invoked = false;
             foreach (var constructorInfo in constructors)
             {
-                if (constructorInfo.GetParameters().Length==0)
+                if (constructorInfo.GetParameters().Length == 0)
                 {
-                    constructorInfo.Invoke(BindingFlags.NonPublic | BindingFlags.Public,null, new object[0],CultureInfo.CurrentCulture); 
+                    constructorInfo.Invoke(BindingFlags.NonPublic | BindingFlags.Public, null, new object[0], CultureInfo.CurrentCulture);
                     invoked = true;
                 }
             }
@@ -85,11 +122,6 @@ namespace FluentMetadata
             {
                 throw new InvalidOperationException("No Constructor without parameters on  " + type.FullName);
             }
-        }
-
-        private static IEnumerable<Type> PublicMetadataDefinitionsFrom(Assembly assembly)
-        {
-            return assembly.GetTypes().Where(t => typeof (IClassMetadata).IsAssignableFrom(t));
         }
     }
 }

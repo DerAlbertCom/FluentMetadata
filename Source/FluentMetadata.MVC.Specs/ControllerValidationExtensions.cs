@@ -24,9 +24,9 @@ namespace FluentMetadata.MVC.Specs
 
         private static void EnsureControllerContext(ControllerBase controller)
         {
-            if (controller.ControllerContext==null)
+            if (controller.ControllerContext == null)
             {
-                controller.ControllerContext=new ControllerContext();
+                controller.ControllerContext = new ControllerContext();
             }
         }
 

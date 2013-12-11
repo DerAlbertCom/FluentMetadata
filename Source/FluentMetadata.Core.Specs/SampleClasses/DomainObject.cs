@@ -6,19 +6,19 @@ namespace FluentMetadata.Specs.SampleClasses
     {
         protected DomainObject()
         {
-
         }
+
         public virtual void Initialize()
         {
             Created = DateTime.UtcNow;
             Updated = Created;
         }
+
         public int Id { get; private set; }
 
         public DateTime Created { get; private set; }
 
         public DateTime Updated { get; private set; }
-
 
         protected void Modified()
         {
@@ -40,7 +40,7 @@ namespace FluentMetadata.Specs.SampleClasses
             {
                 return true;
             }
-            if (!typeof(DomainObject).IsAssignableFrom(obj.GetType()))
+            if (!(obj is DomainObject))
             {
                 return false;
             }
@@ -61,6 +61,5 @@ namespace FluentMetadata.Specs.SampleClasses
         {
             return !Equals(left, right);
         }
-    
     }
 }

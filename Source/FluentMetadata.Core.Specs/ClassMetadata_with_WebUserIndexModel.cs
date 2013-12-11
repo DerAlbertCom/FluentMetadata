@@ -5,23 +5,21 @@ namespace FluentMetadata.Specs
 {
     public class ClassMetadata_with_WebUserIndexModel : MetadataTestBase
     {
-        private Metadata classMetadata;
+        readonly Metadata classMetadata;
 
         public ClassMetadata_with_WebUserIndexModel()
         {
-            var query = new QueryFluentMetadata();
-            classMetadata = query.GetMetadataFor(typeof(WebUserIndexModel));
+            classMetadata = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexModel));
         }
 
         [Fact]
         public void ModelName_is_Null()
         {
             Assert.Null(classMetadata.ModelName);
-//            Assert.Equal("WebUserIndexModel", classMetadata.ModelName);
         }
 
         [Fact]
-        public void ModeType_is_WebUserIndexModel()
+        public void ModelType_is_WebUserIndexModel()
         {
             Assert.Equal(typeof(WebUserIndexModel), classMetadata.ModelType);
         }
@@ -29,7 +27,23 @@ namespace FluentMetadata.Specs
         [Fact]
         public void DisplayName_is_Benutzer()
         {
-            Assert.Equal("Benutzer",classMetadata.DisplayName);
+            Assert.Equal("Benutzer", classMetadata.GetDisplayName());
+        }
+    }
+
+    public class ClassMetadata_with_WebUserIndexGetModel : MetadataTestBase
+    {
+        readonly Metadata classMetadata;
+
+        public ClassMetadata_with_WebUserIndexGetModel()
+        {
+            classMetadata = QueryFluentMetadata.GetMetadataFor(typeof(WebUserIndexGetModel));
+        }
+
+        [Fact]
+        public void DisplayName_is_Benutzer()
+        {
+            Assert.Equal("Benutzer", classMetadata.GetDisplayName());
         }
     }
 }

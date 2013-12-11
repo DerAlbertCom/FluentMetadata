@@ -1,31 +1,33 @@
 using System;
+using System.Linq.Expressions;
+using FluentMetadata.Rules;
 
 namespace FluentMetadata.Builder
 {
-    internal class ClassMetadataBuilder<T> : IClassBuilder<T>
+    class ClassMetadataBuilder<T> : IClassBuilder<T>
     {
-        private IDisplayClass<T> displayBuilder;
+        IDisplayClass<T> displayBuilder;
+        readonly Metadata metadata;
 
-        private readonly Metadata metadata;
-
-        public ClassMetadataBuilder(Metadata metadata)
+        internal ClassMetadataBuilder(Metadata metadata)
         {
             this.metadata = metadata;
-            metadata.ModelType = typeof (T);
-//            metadata.ModelName = typeof (T).Name;
+            metadata.ModelType = typeof(T);
             InitPropertyMetadata();
         }
 
-        private void InitPropertyMetadata()
+        void InitPropertyMetadata()
         {
-            string a;
-            var builder = FluentMetadataBuilder.GetTypeBuilder(typeof (T));
-            foreach (var propertyInfo in typeof (T).GetProperties())
+            var builder = FluentMetadataBuilder.GetTypeBuilder(typeof(T));
+            foreach (var propertyInfo in typeof(T).GetProperties())
             {
-                if (propertyInfo.GetIndexParameters().Length==0)
+                if (propertyInfo.GetIndexParameters().Length == 0)
                 {
-                    var propertyMetadata = builder.MapProperty(typeof(T), propertyInfo.Name, propertyInfo.PropertyType);
-                    metadata.Properties.Add(propertyMetadata);
+                    metadata.Properties.Add(
+                        builder.MapProperty(
+                            typeof(T),
+                            propertyInfo.Name,
+                            propertyInfo.PropertyType));
                 }
             }
         }
@@ -35,7 +37,9 @@ namespace FluentMetadata.Builder
             get
             {
                 if (displayBuilder == null)
+                {
                     displayBuilder = new DisplayBuilder<T>(this);
+                }
                 return displayBuilder;
             }
         }
@@ -43,6 +47,28 @@ namespace FluentMetadata.Builder
         public Metadata Metadata
         {
             get { return metadata; }
+        }
+
+        public IClassBuilder<T> AssertThat(Func<T, bool> assertFunc, string errorMessageFormat)
+        {
+            AssertThat(assertFunc, () => errorMessageFormat);
+            return this;
+        }
+
+        public IClassBuilder<T> AssertThat(Func<T, bool> assertFunc, Func<string> errorMessageFormatFunc)
+        {
+            metadata.AddRule(new GenericClassRule<T>(assertFunc, errorMessageFormatFunc));
+            return this;
+        }
+
+        public IPropertiesInClassContextBuilder<T> Property(Expression<Func<T, object>> propertyExpression)
+        {
+            return new PropertiesInClassContextBuilder<T>(this, propertyExpression);
+        }
+
+        public IComparablePropertiesInClassContextBuilder<T> ComparableProperty(Expression<Func<T, IComparable>> propertyExpression)
+        {
+            return new ComparablePropertiesInClassContextBuilder<T>(this, propertyExpression);
         }
     }
 }

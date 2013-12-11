@@ -1,7 +1,4 @@
-using System;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.ModelConfiguration;
 using System.IO;
 using Xunit;
 
@@ -11,7 +8,7 @@ namespace FluentMetadata.EntityFramework.Specs
     {
         public DbContextTest()
         {
-            Database.SetInitializer(new AlwaysRecreateDatabase<RegularlyDbContext>());
+            Database.SetInitializer(new DropCreateDatabaseAlways<RegularlyDbContext>());
         }
 
         [Fact]
@@ -33,7 +30,6 @@ namespace FluentMetadata.EntityFramework.Specs
     {
         public void InitializeDatabase(T context)
         {
-         
         }
     }
 }

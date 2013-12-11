@@ -1,6 +1,4 @@
-﻿using FluentMetadata.Rules;
-
-namespace FluentMetadata.Builder
+﻿namespace FluentMetadata.Builder
 {
     internal class IsBuilder<T, TResult> : IIsProperty<T, TResult>
     {
@@ -17,24 +15,19 @@ namespace FluentMetadata.Builder
             this.propertyMetaDataBuilder = propertyMetaDataBuilder;
         }
 
-        public IProperty<T,TResult> Required()
+        public IProperty<T, TResult> Required()
         {
             Metadata.Required = !notted;
             notted = false;
-            if (Metadata.Required.Value)
-            {
-                Metadata.AddRule(new RequiredRule());
-            }
             return propertyMetaDataBuilder;
         }
 
-        public IProperty<T,TResult> ReadOnly()
+        public IProperty<T, TResult> ReadOnly()
         {
-            Metadata.Readonly = !notted;
+            Metadata.ReadOnly = !notted;
             notted = false;
             return propertyMetaDataBuilder;
         }
-
 
         public IIsNotProperty<T, TResult> Not
         {
@@ -43,6 +36,20 @@ namespace FluentMetadata.Builder
                 notted = true;
                 return this;
             }
+        }
+
+        public IProperty<T, TResult> ConvertEmptyStringToNull()
+        {
+            Metadata.ConvertEmptyStringToNull = !notted;
+            notted = false;
+            return propertyMetaDataBuilder;
+        }
+
+        public IProperty<T, TResult> RequestValidationEnabled()
+        {
+            Metadata.RequestValidationEnabled = !notted;
+            notted = false;
+            return propertyMetaDataBuilder;
         }
     }
 }

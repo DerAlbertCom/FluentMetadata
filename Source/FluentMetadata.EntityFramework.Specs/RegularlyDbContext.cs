@@ -1,7 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
+
 using FluentMetadata.EntityFramework.Specs.DomainObjects;
 
 namespace FluentMetadata.EntityFramework.Specs
@@ -10,110 +9,106 @@ namespace FluentMetadata.EntityFramework.Specs
     {
         public RegularlyDbContext()
         {
-            ObjectContext.ContextOptions.LazyLoadingEnabled = true;
+            Configuration.LazyLoadingEnabled = true;
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Entity<WebUser>(modelBuilder).MapSingleType();
-            Entity<WebSite>(modelBuilder).MapSingleType();
-            Entity<RemoteAction>(modelBuilder).HasKey(e => new {e.ObjectId, e.Action}).MapSingleType();
+            var adapter = new EntityFrameworkAdapter();
 
-            ConfigureSetting(modelBuilder).MapSingleType();
-            ConfigureTag(modelBuilder).MapSingleType();
-            ConfigureMailTemplate(modelBuilder).MapSingleType();
+            adapter.MapProperties(Entity<WebUser>(modelBuilder));//.MapSingleType();
+            adapter.MapProperties(Entity<WebSite>(modelBuilder));//.MapSingleType();
+            adapter.MapProperties(Entity<RemoteAction>(modelBuilder).HasKey(e => new { e.ObjectId, e.Action }));//.MapSingleType();
 
-            ConfigureContent<Content>(modelBuilder).MapHierarchy();
-            ConfigureContentBase<ContentBase>(modelBuilder).MapHierarchy();
-            ConfigureComment(modelBuilder).MapSingleType();
-            ConfigurePicture(modelBuilder).MapSingleType();
-            ConfigureGallery(modelBuilder).MapSingleType();
-            ConfigureLayout(modelBuilder).MapSingleType();
-            ConfigureNews(modelBuilder).MapSingleType();
-            ConfigureArticle(modelBuilder).MapSingleType();
-            MetadataConfiguration(modelBuilder.Configurations);
+            adapter.MapProperties(ConfigureSetting(modelBuilder));//.MapSingleType();
+            adapter.MapProperties(ConfigureTag(modelBuilder));//.MapSingleType();
+            adapter.MapProperties(ConfigureMailTemplate(modelBuilder));//.MapSingleType();
+
+            adapter.MapProperties(ConfigureContent<Content>(modelBuilder));//.MapHierarchy();
+            adapter.MapProperties(ConfigureContentBase<ContentBase>(modelBuilder));//.MapHierarchy();
+            adapter.MapProperties(ConfigureComment(modelBuilder));//.MapSingleType();
+            adapter.MapProperties(ConfigurePicture(modelBuilder));//.MapSingleType();
+            adapter.MapProperties(ConfigureGallery(modelBuilder));//.MapSingleType();
+            adapter.MapProperties(ConfigureLayout(modelBuilder));//.MapSingleType();
+            adapter.MapProperties(ConfigureNews(modelBuilder));//.MapSingleType();
+            adapter.MapProperties(ConfigureArticle(modelBuilder));//.MapSingleType();
         }
 
-        private EntityConfiguration<Layout> ConfigureLayout(ModelBuilder modelBuilder)
+        private EntityTypeConfiguration<Layout> ConfigureLayout(DbModelBuilder modelBuilder)
         {
             var configuration = Entity<Layout>(modelBuilder);
             return ContentConfiguration(configuration);
         }
 
-        private EntityConfiguration<News> ConfigureNews(ModelBuilder modelBuilder)
+        private EntityTypeConfiguration<News> ConfigureNews(DbModelBuilder modelBuilder)
         {
             return ConfigureContentBase<News>(modelBuilder);
         }
 
-        private EntityConfiguration<Article> ConfigureArticle(ModelBuilder modelBuilder)
+        private EntityTypeConfiguration<Article> ConfigureArticle(DbModelBuilder modelBuilder)
         {
             return ConfigureContentBase<Article>(modelBuilder);
         }
 
-        private EntityConfiguration<T> ConfigureContentBase<T>(ModelBuilder modelBuilder) where T : ContentBase
+        private EntityTypeConfiguration<T> ConfigureContentBase<T>(DbModelBuilder modelBuilder) where T : ContentBase
         {
             var configuration = Entity<T>(modelBuilder);
             //configuration.HasRequired(e => e.Layout);
             return ContentConfiguration(configuration);
         }
 
-        private EntityConfiguration<MailTemplate> ConfigureMailTemplate(ModelBuilder modelBuilder)
+        private EntityTypeConfiguration<MailTemplate> ConfigureMailTemplate(DbModelBuilder modelBuilder)
         {
             var configuration = Entity<MailTemplate>(modelBuilder);
             configuration.HasRequired(e => e.WebSite);
             return configuration;
         }
 
-        private EntityConfiguration<Picture> ConfigurePicture(ModelBuilder modelBuilder)
+        private EntityTypeConfiguration<Picture> ConfigurePicture(DbModelBuilder modelBuilder)
         {
             var configuration = Entity<Picture>(modelBuilder);
             return ContentConfiguration(configuration);
         }
 
-        private EntityConfiguration<Comment> ConfigureComment(ModelBuilder modelBuilder)
+        private EntityTypeConfiguration<Comment> ConfigureComment(DbModelBuilder modelBuilder)
         {
             var configuration = Entity<Comment>(modelBuilder);
             return ContentConfiguration(configuration);
         }
 
-        private EntityConfiguration<Setting> ConfigureSetting(ModelBuilder modelBuilder)
+        private EntityTypeConfiguration<Setting> ConfigureSetting(DbModelBuilder modelBuilder)
         {
             var configuration = Entity<Setting>(modelBuilder);
             configuration.HasRequired(e => e.WebSite);
             return configuration;
         }
 
-        private EntityConfiguration<Tag> ConfigureTag(ModelBuilder modelBuilder)
+        private EntityTypeConfiguration<Tag> ConfigureTag(DbModelBuilder modelBuilder)
         {
             var configuration = Entity<Tag>(modelBuilder);
             configuration.HasRequired(e => e.WebSite);
             return configuration;
         }
 
-        private EntityConfiguration<Gallery> ConfigureGallery(ModelBuilder modelBuilder)
+        private EntityTypeConfiguration<Gallery> ConfigureGallery(DbModelBuilder modelBuilder)
         {
             var configuration = Entity<Gallery>(modelBuilder);
             configuration.HasMany(e => e.Pictures).WithMany();
             return ContentConfiguration(configuration);
         }
 
-        private EntityConfiguration<T> Entity<T>(ModelBuilder modelBuilder)
+        private EntityTypeConfiguration<T> Entity<T>(DbModelBuilder modelBuilder) where T : class
         {
             return modelBuilder.Entity<T>();
         }
 
-        private void MetadataConfiguration(IEnumerable<StructuralTypeConfiguration> configurations)
-        {
-            new EntityFrameworkAdapter().MapProperties(configurations);
-        }
-
-        private EntityConfiguration<T> ConfigureContent<T>(ModelBuilder modelBuilder) where T : Content
+        private EntityTypeConfiguration<T> ConfigureContent<T>(DbModelBuilder modelBuilder) where T : Content
         {
             var configuration = Entity<T>(modelBuilder);
             return ContentConfiguration(configuration);
         }
 
-        private EntityConfiguration<T> ContentConfiguration<T>(EntityConfiguration<T> configuration) where T : Content
+        private EntityTypeConfiguration<T> ContentConfiguration<T>(EntityTypeConfiguration<T> configuration) where T : Content
         {
             configuration.Property(e => e.Title).IsRequired();
             configuration.HasMany(e => e.Comments);

@@ -6,16 +6,16 @@ namespace FluentMetadata.EntityFramework.Specs.DomainObjects
     {
         protected DomainObject()
         {
-            
+
         }
         public virtual void Initialize()
         {
             Created = DateTime.UtcNow;
-            Updated = Created;           
+            Updated = Created;
         }
-        public int Id { get;  private set; }
+        public int Id { get; private set; }
 
-        public DateTime Created { get;  private set; }
+        public DateTime Created { get; private set; }
 
         public DateTime Updated { get; private set; }
 
@@ -40,14 +40,15 @@ namespace FluentMetadata.EntityFramework.Specs.DomainObjects
             {
                 return true;
             }
-            if (!typeof(DomainObject).IsAssignableFrom(obj.GetType()))
+            if (!(obj is DomainObject))
             {
                 return false;
             }
-            return Equals((DomainObject) obj);
+            return Equals((DomainObject)obj);
         }
 
-        public override int GetHashCode() {
+        public override int GetHashCode()
+        {
             return string.Format("{0}({1})", GetType().Name, Id).GetHashCode();
         }
 
