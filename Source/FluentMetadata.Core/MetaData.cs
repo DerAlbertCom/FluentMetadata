@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentMetadata.Rules;
 
 namespace FluentMetadata
@@ -11,6 +12,7 @@ namespace FluentMetadata
 
         public Metadata()
         {
+            ConvertEmptyStringToNull = true;
             ShowDisplay = true;
             ShowEditor = true;
             rules = new List<IRule>();
@@ -28,21 +30,32 @@ namespace FluentMetadata
 
         internal void CopyMetaDataFrom(Metadata metadata)
         {
-            Required = metadata.Required;
-            StringLength = metadata.StringLength;
-            ErrorMessage = metadata.ErrorMessage;
+            //TODO write tests for CopyMetaDataFrom: properties commented here have not associated tests yet
+            //ContainerType = metadata.ContainerType;
+            ConvertEmptyStringToNull = metadata.ConvertEmptyStringToNull;
             DataTypeName = metadata.DataTypeName;
+            Description = metadata.Description;
+            DisplayFormat = metadata.DisplayFormat;
+            DisplayName = metadata.DisplayName;
+            EditorFormat = metadata.EditorFormat;
+            HideSurroundingHtml = metadata.HideSurroundingHtml;
             Readonly = metadata.Readonly;
+            Required = metadata.Required;
+            //ModelType = metadata.ModelType;
+            NullDisplayText = metadata.NullDisplayText;
+            //Properties = metadata.Properties;
+            //ModelName = metadata.ModelName;
             ShowDisplay = metadata.ShowDisplay;
             ShowEditor = metadata.ShowEditor;
             TemplateHint = metadata.TemplateHint;
-            NullDisplayText = metadata.NullDisplayText;
-            DisplayName = metadata.DisplayName;
+            Watermark = metadata.Watermark;
+            //ErrorMessage = metadata.ErrorMessage;
+            Hidden = metadata.Hidden;
+
             foreach (var rule in metadata.Rules)
             {
                 AddRule(rule);
             }
-
         }
 
         #region properties corresponding to System.Web.Mvc.ModelMetadata
@@ -52,7 +65,7 @@ namespace FluentMetadata
         //
         // Returns:
         //     A dictionary that contains additional metadata about the model.
-        // TODO MVC2 public virtual Dictionary<string, object> AdditionalValues { get; }
+        // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public virtual Dictionary<string, object> AdditionalValues { get; }
 
         // ~ System.Web.Mvc.ModelMetadata.ContainerType
         /// <summary>
@@ -63,15 +76,15 @@ namespace FluentMetadata
         /// </value>
         public Type ContainerType { get; set; }
 
-        //
-        // Summary:
-        //     Gets or sets a value that indicates whether empty strings that are posted
-        //     back in forms should be converted to null.
-        //
-        // Returns:
-        //     true if empty strings that are posted back in forms should be converted to
-        //     null; otherwise, false. The default value is true.
-        // TODO MVC2 public virtual bool ConvertEmptyStringToNull { get; set; }
+        /// <summary>
+        /// Gets or sets a value that indicates whether empty strings that are posted
+        /// back in forms should be converted to null.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if empty strings that are posted back in forms should be
+        /// 	converted to null; otherwise, <c>false</c>. The default value is <c>true</c>
+        /// </value>
+        public bool ConvertEmptyStringToNull { get; set; }
 
         // ~ System.Web.Mvc.ModelMetadata.DataTypeName
         /// <summary>
@@ -136,7 +149,7 @@ namespace FluentMetadata
         // Returns:
         //     A value that indicates whether the model is considered a complex type by
         //     the MVC framework.
-        // TODO MVC2 ? public virtual bool IsComplexType { get; }
+        // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public virtual bool IsComplexType { get; }
 
         //
         // Summary:
@@ -144,7 +157,7 @@ namespace FluentMetadata
         //
         // Returns:
         //     true if the type is nullable; otherwise, false.
-        // TODO MVC2 ? public bool IsNullableValueType { get; }
+        // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public bool IsNullableValueType { get; }
 
         // ~ System.Web.Mvc.ModelMetadata.IsReadOnly
         /// <summary>
@@ -172,7 +185,7 @@ namespace FluentMetadata
         //     The value of the model. For more information about System.Web.Mvc.ModelMetadata,
         //     see the entry ASP.NET MVC 2 Templates, Part 2: ModelMetadata on Brad Wilson's
         //     blog
-        // TODO MVC2 ? public object Model { get; set; }
+        // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public object Model { get; set; }
 
         // ~ System.Web.Mvc.ModelMetadata.ModelType
         /// <summary>
@@ -198,7 +211,7 @@ namespace FluentMetadata
         //
         // Returns:
         //     The order value of the current metadata.
-        // TODO MVC3 public virtual int Order { get; set; }
+        // TODO MVC3 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public virtual int Order { get; set; }
 
         // ~ System.Web.Mvc.ModelMetadata.Properties
         /// <summary>
@@ -229,7 +242,7 @@ namespace FluentMetadata
         //
         // Returns:
         //     The short display name.
-        // TODO MVC2 public virtual string ShortDisplayName { get; set; }
+        // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public virtual string ShortDisplayName { get; set; }
 
         // ~ System.Web.Mvc.ModelMetadata.ShowForDisplay
         /// <summary>
@@ -255,7 +268,7 @@ namespace FluentMetadata
         //
         // Returns:
         //     The simple display string for the model.
-        // TODO MVC2 public virtual string SimpleDisplayText { get; set; }
+        // TODO MVC2 [in order to complete properties corresponding to System.Web.Mvc.ModelMetadata] public virtual string SimpleDisplayText { get; set; }
 
         /// <summary>
         /// Gets or sets the template hint.
@@ -275,8 +288,6 @@ namespace FluentMetadata
 
         #endregion
 
-        // TODO add StringLengthRule to rules automatically on set
-        public int? StringLength { get; set; }
         public string ErrorMessage { get; set; }
         public bool? Hidden { get; set; }
 
@@ -288,6 +299,43 @@ namespace FluentMetadata
         public void AddRule(IRule rule)
         {
             rules.Add(rule);
+        }
+
+        public object GetRangeMinimum()
+        {
+            var rangeRule = GetLastRuleOfType<RangeRule>();
+            return rangeRule == null ? null : rangeRule.Minimum;
+        }
+
+        public object GetRangeMaximum()
+        {
+            var rangeRule = GetLastRuleOfType<RangeRule>();
+            return rangeRule == null ? null : rangeRule.Maximum;
+        }
+
+        public int? GetMaximumLength()
+        {
+            var lengthRule = GetLastRuleOfType<StringLengthRule>();
+            if (lengthRule == null)
+            {
+                return null;
+            }
+            return lengthRule.Maximum;
+        }
+
+        public int? GetMinimumLength()
+        {
+            var lengthRule = GetLastRuleOfType<StringLengthRule>();
+            if (lengthRule == null)
+            {
+                return null;
+            }
+            return lengthRule.Minimum;
+        }
+
+        T GetLastRuleOfType<T>()
+        {
+            return Rules.OfType<T>().LastOrDefault();
         }
     }
 }

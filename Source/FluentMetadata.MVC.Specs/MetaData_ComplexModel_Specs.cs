@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace FluentMetadata.MVC.Specs
@@ -28,7 +25,7 @@ namespace FluentMetadata.MVC.Specs
         }
     }
 
-    [Concern(typeof (FluentMetadataProvider))]
+    [Concern(typeof(FluentMetadataProvider))]
     public class When_getting_the_Metadata_of_the_Type_ComplexModel : ConcernOfComplexModel
     {
         public override void CreateMetadata()
@@ -38,7 +35,7 @@ namespace FluentMetadata.MVC.Specs
         }
     }
 
-    [Concern(typeof (FluentMetadataProvider))]
+    [Concern(typeof(FluentMetadataProvider))]
     public class When_getting_the_Metadata_of_ComplexModel_Property_FirstName : ConcernOfComplexModel
     {
         public override void CreateMetadata()
@@ -47,7 +44,7 @@ namespace FluentMetadata.MVC.Specs
         }
     }
 
-    [Concern(typeof (FluentMetadataProvider))]
+    [Concern(typeof(FluentMetadataProvider))]
     public class When_getting_the_Metadata_of_ComplexModel_Property_LastName : ConcernOfComplexModel
     {
         public override void CreateMetadata()
@@ -56,7 +53,7 @@ namespace FluentMetadata.MVC.Specs
         }
     }
 
-    [Concern(typeof (FluentMetadataProvider))]
+    [Concern(typeof(FluentMetadataProvider))]
     public class When_getting_the_Metadata_of_ComplexModel_Property_Sex : ConcernOfComplexModel
     {
         public override void CreateMetadata()
@@ -65,12 +62,21 @@ namespace FluentMetadata.MVC.Specs
         }
     }
 
-    [Concern(typeof (FluentMetadataProvider))]
+    [Concern(typeof(FluentMetadataProvider))]
     public class When_getting_the_Metadata_of_ComplexModel_Property_Amount : ConcernOfComplexModel
     {
         public override void CreateMetadata()
         {
             CreatePropertyMetadata("Amount");
+        }
+    }
+
+    [Concern(typeof(FluentMetadataProvider))]
+    public class When_getting_the_Metadata_of_ComplexModel_Property_Age : ConcernOfComplexModel
+    {
+        public override void CreateMetadata()
+        {
+            CreatePropertyMetadata("Age");
         }
     }
 }

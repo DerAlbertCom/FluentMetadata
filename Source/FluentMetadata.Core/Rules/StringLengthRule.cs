@@ -3,33 +3,66 @@ using System;
 namespace FluentMetadata.Rules
 {
     // ~ System.ComponentModel.DataAnnotations.StringLengthAttribute.MaximumLength
+    // ~ System.ComponentModel.DataAnnotations.StringLengthAttribute.MinimumLength    
     public class StringLengthRule : Rule
     {
-        private readonly int maxLength;
+        readonly int? minLength, maxLength;
+
+        internal int? Minimum
+        {
+            get
+            {
+                return minLength;
+            }
+        }
+
+        internal int? Maximum
+        {
+            get
+            {
+                return maxLength;
+            }
+        }
 
         public StringLengthRule(int maxLength)
-            : base("the string for {0} should be longer than {1} characters")
+            : base("the string for '{0}' should not be longer than {1} characters")
         {
+            this.maxLength = maxLength;
+        }
+
+        public StringLengthRule(int minLength, int? maxLength)
+            : base("'{0}' must be " +
+                (maxLength.HasValue ? " between {2} and {1}" : " at least {2}") +
+                " characters long")
+        {
+            this.minLength = minLength;
             this.maxLength = maxLength;
         }
 
         public override bool IsValid(object value)
         {
-            if (value == null)
+            var valueAsString = value as string;
+            if (valueAsString == null)
             {
-                return true;
+                return minLength.HasValue ? false : true;
             }
-            var strValue = (string)value;
-            return strValue.Length <= maxLength;
+
+            var length = valueAsString.Length;
+            if (maxLength.HasValue && length > maxLength ||
+                minLength.HasValue && length < minLength)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public override string FormatErrorMessage(string name)
         {
-            return string.Format(ErrorMessageFormat, name, maxLength);
+            return string.Format(ErrorMessageFormat, name, maxLength, minLength);
         }
     }
 
-    // TODO rule equivalent to System.ComponentModel.DataAnnotations.StringLengthAttribute.MinimumLength
     // TODO rule equivalent to System.ComponentModel.DataAnnotations.RegularExpressionAttribute
 
     // TODO implement or delete: What does this rule validate?

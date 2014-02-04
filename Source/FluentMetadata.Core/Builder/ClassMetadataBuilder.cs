@@ -1,5 +1,6 @@
 using System;
-
+using System.Linq.Expressions;
+using FluentMetadata.Rules;
 namespace FluentMetadata.Builder
 {
     internal class ClassMetadataBuilder<T> : IClassBuilder<T>
@@ -11,18 +12,16 @@ namespace FluentMetadata.Builder
         public ClassMetadataBuilder(Metadata metadata)
         {
             this.metadata = metadata;
-            metadata.ModelType = typeof (T);
-//            metadata.ModelName = typeof (T).Name;
+            metadata.ModelType = typeof(T);
             InitPropertyMetadata();
         }
 
         private void InitPropertyMetadata()
         {
-            string a;
-            var builder = FluentMetadataBuilder.GetTypeBuilder(typeof (T));
-            foreach (var propertyInfo in typeof (T).GetProperties())
+            var builder = FluentMetadataBuilder.GetTypeBuilder(typeof(T));
+            foreach (var propertyInfo in typeof(T).GetProperties())
             {
-                if (propertyInfo.GetIndexParameters().Length==0)
+                if (propertyInfo.GetIndexParameters().Length == 0)
                 {
                     var propertyMetadata = builder.MapProperty(typeof(T), propertyInfo.Name, propertyInfo.PropertyType);
                     metadata.Properties.Add(propertyMetadata);
@@ -43,6 +42,13 @@ namespace FluentMetadata.Builder
         public Metadata Metadata
         {
             get { return metadata; }
+        }
+
+        public IClassBuilder<T> PropertiesShouldMatch(Expression<Func<T, object>> expression,
+            Expression<Func<T, object>> confirmExpression)
+        {
+            metadata.AddRule(new PropertyMustMatchRule<T>(expression, confirmExpression));
+            return this;
         }
     }
 }

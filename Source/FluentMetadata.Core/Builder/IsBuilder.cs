@@ -17,7 +17,7 @@ namespace FluentMetadata.Builder
             this.propertyMetaDataBuilder = propertyMetaDataBuilder;
         }
 
-        public IProperty<T,TResult> Required()
+        public IProperty<T, TResult> Required()
         {
             Metadata.Required = !notted;
             notted = false;
@@ -28,7 +28,7 @@ namespace FluentMetadata.Builder
             return propertyMetaDataBuilder;
         }
 
-        public IProperty<T,TResult> ReadOnly()
+        public IProperty<T, TResult> ReadOnly()
         {
             Metadata.Readonly = !notted;
             notted = false;
@@ -43,6 +43,13 @@ namespace FluentMetadata.Builder
                 notted = true;
                 return this;
             }
+        }
+
+        public IProperty<T, TResult> ConvertEmptyStringToNull()
+        {
+            Metadata.ConvertEmptyStringToNull = !notted;
+            notted = false;
+            return propertyMetaDataBuilder;
         }
     }
 }

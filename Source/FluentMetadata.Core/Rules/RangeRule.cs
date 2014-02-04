@@ -5,26 +5,31 @@ namespace FluentMetadata.Rules
 {
     public class RangeRule : Rule
     {
-        private Func<object, object> valueConversion;
-        private object valueMaximum;
-        private object valueMinimum;
+        private IComparable valueMaximum;
+        private IComparable valueMinimum;
+
+        internal object Minimum
+        {
+            get
+            {
+                return valueMinimum;
+            }
+        }
+
+        internal object Maximum
+        {
+            get
+            {
+                return valueMaximum;
+            }
+        }
 
         private RangeRule()
-            : base("the value of {0} must be between {0} and {1}")
+            : base("the value of '{0}' must be between {1} and {2}")
         {
         }
 
-        public RangeRule(double minimum, double maximum) : this()
-        {
-            Initialize(minimum, maximum, o => Convert.ToDouble(o));
-        }
-
-        public RangeRule(int minimum, int maximum) : this()
-        {
-            Initialize(minimum, maximum, o => Convert.ToInt32(o));
-        }
-
-        public RangeRule(DateTime minimum, DateTime maximum)
+        public RangeRule(IComparable minimum, IComparable maximum)
             : this()
         {
             Initialize(minimum, maximum, o => Convert.ToDateTime(o));
@@ -34,14 +39,19 @@ namespace FluentMetadata.Rules
         {
             if (minimum.CompareTo(maximum) > 0)
             {
-                throw new ArgumentOutOfRangeException("maximum", maximum,
-                                                      string.Format(CultureInfo.CurrentCulture,
-                                                                    "the minimum vallue {1} is higher then the maximum value {0}",
-                                                                    minimum, maximum));
+                throw new ArgumentOutOfRangeException(
+                    "maximum",
+                    maximum,
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "the minimum value {0} is higher then the maximum value {1}",
+                        minimum,
+                        maximum
+                    )
+                );
             }
             valueMinimum = minimum;
             valueMaximum = maximum;
-            valueConversion = conversion;
         }
 
         public override bool IsValid(object value)
@@ -50,14 +60,13 @@ namespace FluentMetadata.Rules
             {
                 return true;
             }
-            if ((value is string) && string.IsNullOrEmpty((string) value))
+            if ((value is string) && string.IsNullOrEmpty(value as string))
             {
                 return true;
             }
-            object currentValue = valueConversion(value);
-            var min = (IComparable) valueMinimum;
-            var max = (IComparable) valueMaximum;
-            return ((min.CompareTo(currentValue) <= 0) && (max.CompareTo(currentValue) >= 0));
+            var min = (IComparable)valueMinimum;
+            var max = (IComparable)valueMaximum;
+            return ((min.CompareTo(value) <= 0) && (max.CompareTo(value) >= 0));
         }
 
         public override string FormatErrorMessage(string name)
