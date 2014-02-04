@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using FluentMetadata.Rules;
 
@@ -45,9 +44,11 @@ namespace FluentMetadata.MVC
             this.rule = rule;
         }
 
+        // TODO: write a test for this method using System.Web.Mvc.DefaultModelBinder.BindModel
         public override IEnumerable<ModelValidationResult> Validate(object container)
         {
-            if (rule.IsValid(container))
+            // container is useless because System.Web.Mvc.DefaultModelBinder passes null for it
+            if (rule.IsValid(container ?? Metadata.Model))
             {
                 yield break;
             }
