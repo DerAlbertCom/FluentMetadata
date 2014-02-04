@@ -11,8 +11,8 @@ namespace FluentMetadata.Specs
         public PropertyMedata_with_Person()
         {
             var query = new QueryFluentMetadata();
-            firstName = query.GetMetadataFor(typeof (Person), "FirstName");
-            lastName = query.GetMetadataFor(typeof (Person), "LastName");
+            firstName = query.GetMetadataFor(typeof(Person), "FirstName");
+            lastName = query.GetMetadataFor(typeof(Person), "LastName");
         }
 
         [Fact]
@@ -24,7 +24,7 @@ namespace FluentMetadata.Specs
         [Fact]
         public void FirstName_ModelType_is_string()
         {
-            Assert.Equal(typeof (string), firstName.ModelType);
+            Assert.Equal(typeof(string), firstName.ModelType);
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace FluentMetadata.Specs
         [Fact]
         public void LastName_ModelType_is_string()
         {
-            Assert.Equal(typeof (string), lastName.ModelType);
+            Assert.Equal(typeof(string), lastName.ModelType);
         }
 
         [Fact]

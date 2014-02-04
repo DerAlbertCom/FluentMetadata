@@ -24,7 +24,6 @@ namespace FluentMetadata.MVC.Specs
 
         public abstract void CreateMetadata();
 
-
         [Observation]
         public void Equals_ModelMetadata_Properties_Count()
         {
@@ -81,12 +80,13 @@ namespace FluentMetadata.MVC.Specs
             Assert.Equal(Expected.DisplayFormatString, Fluent.DisplayFormatString);
         }
 
-        [Observation]
-        public void Equals_Description()
-        {
-            Console.WriteLine(Expected.Description);
-            Assert.Equal(Expected.Description, Fluent.Description);
-        }
+        //TODO [MVC3] ModelMetadata.Description cannot be used with the default provider in MVC2
+        //[Observation]
+        //public void Equals_Description()
+        //{
+        //    Console.WriteLine(Expected.Description);
+        //    Assert.Equal(Expected.Description, Fluent.Description);
+        //}
 
         [Observation]
         public void Equals_EditFormatString()
@@ -102,5 +102,61 @@ namespace FluentMetadata.MVC.Specs
             Assert.Equal(Expected.HideSurroundingHtml, Fluent.HideSurroundingHtml);
         }
 
+        [Observation]
+        public void Equals_IsReadOnly()
+        {
+            Console.WriteLine(Expected.IsReadOnly);
+            Assert.Equal(Expected.IsReadOnly, Fluent.IsReadOnly);
+        }
+
+        [Observation]
+        public void Equals_IsRequired()
+        {
+            Console.WriteLine(Expected.IsRequired);
+            Assert.Equal(Expected.IsRequired, Fluent.IsRequired);
+        }
+
+        [Observation]
+        public void Equals_ModelType()
+        {
+            Console.WriteLine(Expected.ModelType);
+            Assert.Equal(Expected.ModelType, Fluent.ModelType);
+        }
+
+        [Observation]
+        public void Equals_NullDisplayText()
+        {
+            Console.WriteLine(Expected.NullDisplayText);
+            Assert.Equal(Expected.NullDisplayText, Fluent.NullDisplayText);
+        }
+
+        [Observation]
+        public void Equals_ShowForDisplay()
+        {
+            Console.WriteLine(Expected.ShowForDisplay);
+            Assert.Equal(Expected.ShowForDisplay, Fluent.ShowForDisplay);
+        }
+
+        [Observation]
+        public void Equals_ShowForEdit()
+        {
+            Console.WriteLine(Expected.ShowForEdit);
+            Assert.Equal(Expected.ShowForEdit, Fluent.ShowForEdit);
+        }
+
+        [Observation]
+        public void Equals_TemplateHint()
+        {
+            Console.WriteLine(Expected.TemplateHint);
+            Assert.Equal(Expected.TemplateHint, Fluent.TemplateHint);
+        }
+
+        //TODO [MVC3] ModelMetadata.Watermark cannot be used with the default provider in MVC2
+        //[Observation]
+        //public void Equals_Watermark()
+        //{
+        //    Console.WriteLine(Expected.Watermark);
+        //    Assert.Equal(Expected.Watermark, Fluent.Watermark);
+        //}
     }
 }

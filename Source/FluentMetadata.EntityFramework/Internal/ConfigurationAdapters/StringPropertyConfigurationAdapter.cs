@@ -4,17 +4,19 @@ namespace FluentMetadata.EntityFramework.Internal.ConfigurationAdapters
 {
     internal class StringPropertyConfigurationAdapter : ConfigurationAdapter<StringPropertyConfiguration>
     {
-        public StringPropertyConfigurationAdapter() : base(new OptionalPrimitivePropertyConfigurationAdapter())
+        public StringPropertyConfigurationAdapter()
+            : base(new OptionalPrimitivePropertyConfigurationAdapter())
         {
         }
 
         protected override void ConvertToConfiguration(Metadata data)
         {
-            if (!data.StringLength.HasValue)
+            var maxLength = data.GetMaximumLength();
+            if (!maxLength.HasValue)
             {
                 return;
             }
-            Configuration.MaxLength = data.StringLength;
+            Configuration.MaxLength = maxLength.Value;
         }
     }
 }

@@ -1,3 +1,4 @@
+
 *.user
 *.obj
 *.lib
@@ -5,7 +6,6 @@
 *.ncb
 *.cache
 *.gem
-[Ll]ib
 [Oo]bj
 [Bb]in
 [Bb]uild
@@ -15,3 +15,6 @@ _ReSharper*/
 *.vs10x
 Source/Gallio Reports
 Source/TestResults
+Source/_UpgradeReport_Files/
+*.orig
+Source/UpgradeLog*

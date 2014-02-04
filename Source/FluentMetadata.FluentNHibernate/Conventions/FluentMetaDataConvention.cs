@@ -3,35 +3,34 @@ using FluentNHibernate.Conventions.Instances;
 
 namespace FluentMetadata.FluentNHibernate.Conventions
 {
-    public class FluentMetaDataConvention : IPropertyConvention
+    public class FluentMetaDataConvention : IPropertyConvention, IReferenceConvention
     {
-        private readonly QueryFluentMetadata query = new QueryFluentMetadata();
+        readonly QueryFluentMetadata query = new QueryFluentMetadata();
+
         public void Apply(IPropertyInstance instance)
         {
-            var meta = query.GetMetadataFor(instance.EntityType,instance.Property.Name);
-            if (meta.Required.HasValue)
+            var meta = query.FindMetadataFor(instance.EntityType, instance.Property.Name);
+            if (meta != null)
             {
-                ApplyRequired(meta.Required.Value, instance);
-            }
-            if (meta.StringLength.HasValue)
-            {
-                ApplyStringLength(meta.StringLength.Value, instance);
+                if (meta.Required.HasValue && meta.Required.Value)
+                {
+                    instance.Not.Nullable();
+                }
+
+                var maxLength = meta.GetMaximumLength();
+                if (maxLength.HasValue && maxLength.Value > 0)
+                {
+                    instance.Length(maxLength.Value);
+                }
             }
         }
 
-        private static void ApplyStringLength(int stringLength, IPropertyInstance target)
+        public void Apply(IManyToOneInstance instance)
         {
-            if (stringLength > 0)
+            var meta = query.FindMetadataFor(instance.EntityType, instance.Property.Name);
+            if (meta != null && meta.Required.HasValue && meta.Required.Value)
             {
-                target.Length(stringLength);
-            }
-        }
-
-        private static void ApplyRequired(bool required, IPropertyInstance target)
-        {
-            if (required)
-            {
-                target.Not.Nullable();
+                instance.Not.Nullable();
             }
         }
     }

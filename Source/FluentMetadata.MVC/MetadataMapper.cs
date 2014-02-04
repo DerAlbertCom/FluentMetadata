@@ -6,33 +6,36 @@ namespace FluentMetadata.MVC
     {
         public static void CopyMetadata(Metadata source, ModelMetadata destination)
         {
-            destination.DisplayName = source.DisplayName;
+            //TODO map missing Metadata properties
+            destination.ConvertEmptyStringToNull = source.ConvertEmptyStringToNull;
+            destination.DataTypeName = source.DataTypeName;
+            //TODO [MVC3] destination.Description = source.Description;
+            destination.DisplayFormatString = source.DisplayFormat;
+            destination.DisplayName = source.GetDisplayName();
+            destination.EditFormatString = source.EditorFormat;
+            if (source.HideSurroundingHtml.HasValue)
+            {
+                destination.HideSurroundingHtml = source.HideSurroundingHtml.Value;
+            }
+            destination.IsReadOnly = source.Readonly;
+            if (source.Required.HasValue)
+            {
+                destination.IsRequired = source.Required.Value;
+            }
+            destination.NullDisplayText = source.NullDisplayText;
             destination.ShowForDisplay = source.ShowDisplay;
-            destination.DataTypeName = GetDataTypeName(source);
+            destination.ShowForEdit = source.ShowEditor;
+            destination.TemplateHint = GetTemplateHint(source);
+            //TODO [MVC3] destination.Watermark = source.Watermark;
         }
 
-        private static string GetDataTypeName(Metadata metadata)
+        private static string GetTemplateHint(Metadata metadata)
         {
             if (metadata.Hidden.HasValue && metadata.Hidden.Value)
             {
                 return "HiddenInput";
             }
-            return metadata.DataTypeName;
+            return metadata.TemplateHint;
         }
-
-
-        //               DisplayName = metaData.DisplayName,
-        //               ShowForDisplay = metaData.ShowDisplay.Value,
-        //               ShowForEdit = metaData.ShowEditor,
-        //               TemplateHint = metaData.TemplateHint,
-        //               IsReadOnly = metaData.Readonly,
-        //               DataTypeName = GetDataTypeName(metaData),
-        //               NullDisplayText = metaData.NullDisplayText,
-        //               DisplayFormatString = metaData.DisplayFormat,
-        //               EditFormatString = metaData.EditorFormat,
-        //               Description = metaData.Description,
-        //               IsRequired = metaData.Required,
-        //               Watermark = metaData.Watermark,
-        //               HideSurroundingHtml = metaData.HideSurroundingHtml
     }
 }

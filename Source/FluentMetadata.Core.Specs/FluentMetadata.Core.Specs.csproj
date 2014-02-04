@@ -13,7 +13,8 @@
     <AssemblyName>FluentMetadata.Core.Specs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>0</FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
@@ -87,9 +88,12 @@
     <Compile Include="MetadataSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyMedata_with_WebUser.cs" />
+    <Compile Include="Rules\PropertyMustMatchRegexRuleSpecs.cs" />
+    <Compile Include="Rules\PropertyMustMatchRuleSpecs.cs" />
     <Compile Include="Rules\RangeRuleSpecs.cs" />
     <Compile Include="Rules\RequiredRuleSpecs.cs" />
     <Compile Include="Rules\StringLengthRuleSpecs.cs" />
+    <Compile Include="Rules\PropertyMustBeLessThanOtherRuleSpecs.cs" />
     <Compile Include="SampleClasses\DerivedClass.cs" />
     <Compile Include="SampleClasses\DomainModel.cs" />
     <Compile Include="SampleClasses\DomainObject.cs" />
