@@ -1,18 +1,21 @@
-﻿using FluentMetadata.Specs.SampleClasses;
+﻿using System;
+using FluentMetadata.Specs.SampleClasses;
 using Xunit;
 
 namespace FluentMetadata.Specs
 {
     public class PropertyMedata_with_WebUser : MetadataTestBase
     {
-        private Metadata username;
-        private Metadata id;
+        Metadata lastLogin, username, id, passWordHash, role;
 
         public PropertyMedata_with_WebUser()
         {
             var query = new QueryFluentMetadata();
             username = query.GetMetadataFor(typeof(WebUser), "Username");
             id = query.GetMetadataFor(typeof(WebUser), "Id");
+            lastLogin = query.GetMetadataFor(typeof(WebUser), "LastLogin");
+            passWordHash = query.GetMetadataFor(typeof(WebUser), "PasswordHash");
+            role = query.GetMetadataFor(typeof(WebUser), "Role");
         }
 
         [Fact]
@@ -40,6 +43,42 @@ namespace FluentMetadata.Specs
         }
 
         [Fact]
+        public void Username_MinLength_is_3()
+        {
+            Assert.Equal(3, username.GetMinimumLength());
+        }
+
+        [Fact]
+        public void Username_MaxLength_is_256()
+        {
+            Assert.Equal(256, username.GetMaximumLength());
+        }
+
+        [Fact]
+        public void PassWordHash_MinLength_is_32()
+        {
+            Assert.Equal(32, passWordHash.GetMinimumLength());
+        }
+
+        [Fact]
+        public void PassWordHash_MaxLength_is_null()
+        {
+            Assert.Null(passWordHash.GetMaximumLength());
+        }
+
+        [Fact]
+        public void Role_MinLength_is_null()
+        {
+            Assert.Null(role.GetMinimumLength());
+        }
+
+        [Fact]
+        public void Role_MaxLength_is_256()
+        {
+            Assert.Equal(256, role.GetMaximumLength());
+        }
+
+        [Fact]
         public void Id_ModelName_is_Id()
         {
             Assert.Equal("Id", id.ModelName);
@@ -55,6 +94,18 @@ namespace FluentMetadata.Specs
         public void Id_Required_is_false()
         {
             Assert.False(id.Required.HasValue);
+        }
+
+        [Fact]
+        public void Last_Login_Minimum_is_2010_1_23()
+        {
+            Assert.Equal(new DateTime(2010, 1, 23), lastLogin.GetRangeMinimum());
+        }
+
+        [Fact]
+        public void Last_Login_Maximum_is_DoomsDay()
+        {
+            Assert.Equal(DateTime.MaxValue, lastLogin.GetRangeMaximum());
         }
     }
 }

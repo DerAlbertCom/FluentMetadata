@@ -5,16 +5,16 @@ namespace FluentMetadata.Specs
 {
     public class PropertyMedata_with_WebUserIndexModel : MetadataTestBase
     {
-        private Metadata username;
-        private Metadata id;
-        private Metadata autorName;
+        Metadata username, id, autorName, email, role;
 
         public PropertyMedata_with_WebUserIndexModel()
         {
             var query = new QueryFluentMetadata();
             username = query.GetMetadataFor(typeof(WebUserIndexModel), "Username");
             id = query.GetMetadataFor(typeof(WebUserIndexModel), "Id");
+            email = query.GetMetadataFor(typeof(WebUserIndexModel), "EMail");
             autorName = query.GetMetadataFor(typeof(WebUserIndexModel), "AutorName");
+            role = query.GetMetadataFor(typeof(WebUserIndexModel), "Role");
         }
 
         [Fact]
@@ -62,7 +62,101 @@ namespace FluentMetadata.Specs
         [Fact]
         public void AutorName_DisplayName_is_emaN()
         {
-            Assert.Equal("emaN",autorName.DisplayName);
+            Assert.Equal("emaN", autorName.DisplayName);
+        }
+
+        [Fact]
+        public void EMail_DataTypeName_is_EmailAddress()
+        {
+            Assert.Equal("EmailAddress", email.DataTypeName);
+        }
+
+        [Fact]
+        public void Username_Description_is_Name_des_Benutzers()
+        {
+            Assert.Equal("Name des Benutzers", username.Description);
+        }
+
+        [Fact]
+        public void EMail_DisplayFormat_is_MailtoLink()
+        {
+            Assert.Equal("<a href='mailto:{0}'>{0}</a>", email.DisplayFormat);
+        }
+
+        [Fact]
+        public void EMail_EditorFormat_is_plain_value()
+        {
+            Assert.Equal("{0}", email.EditorFormat);
+        }
+
+        [Fact]
+        public void Id_HideSurroundingHtml_is_true()
+        {
+            Assert.True(id.HideSurroundingHtml.HasValue);
+            Assert.True(id.HideSurroundingHtml.Value);
+        }
+
+        [Fact]
+        public void Username_ReadOnly_is_true()
+        {
+            Assert.True(username.Readonly);
+        }
+
+        [Fact]
+        public void AutorName_NullDisplayText_is_Anonymous_Autor()
+        {
+            Assert.Equal("Anonymous Autor", autorName.NullDisplayText);
+        }
+
+        [Fact]
+        public void Id_ShowDisplay_is_false()
+        {
+            Assert.False(id.ShowDisplay);
+        }
+
+        [Fact]
+        public void Id_ShowEditor_is_false()
+        {
+            Assert.False(id.ShowEditor);
+        }
+
+        [Fact]
+        public void Role_TemplateHint_is_Roles()
+        {
+            Assert.Equal("Roles", role.TemplateHint);
+        }
+
+        [Fact]
+        public void EMail_Watermark_is_dummy_address()
+        {
+            Assert.Equal("john@doe.com", email.Watermark);
+        }
+
+        [Fact]
+        public void Username_ConvertEmptyStringToNull_is_false()
+        {
+            Assert.False(username.ConvertEmptyStringToNull);
+        }
+
+        [Fact]
+        public void Id_Hidden_is_true()
+        {
+            Assert.True(id.Hidden.HasValue);
+            Assert.True(id.Hidden.Value);
+        }
+
+        [Fact]
+        public void Username_GetMaximumLength_is_256()
+        {
+            var maxLength = username.GetMaximumLength();
+            Assert.True(maxLength.HasValue);
+            Assert.Equal(256, maxLength);
+        }
+
+        [Fact]
+        public void Username_ContainerType_is_WebUserIndexModel()
+        {
+            Assert.Equal(typeof(WebUserIndexModel), username.ContainerType);
         }
     }
 }

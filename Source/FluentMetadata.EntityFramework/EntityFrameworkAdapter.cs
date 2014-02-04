@@ -33,7 +33,7 @@ namespace FluentMetadata.EntityFramework
                 {
                     continue;
                 }
-                if (!data.StringLength.HasValue && !data.Required.HasValue)
+                if (!data.GetMaximumLength().HasValue && !data.Required.HasValue)
                 {
                     continue;
                 }
@@ -47,7 +47,7 @@ namespace FluentMetadata.EntityFramework
                 var lambda = generator.CreateExpressionForProperty(instanceType, data.ModelName);
                 if (lambda != null)
                 {
-                    var propertyConfiguration = (PropertyConfiguration) methodInfo.Invoke(configuration, new[] {lambda});
+                    var propertyConfiguration = (PropertyConfiguration)methodInfo.Invoke(configuration, new[] { lambda });
 
                     factory.Create(propertyConfiguration).Convert(data, propertyConfiguration);
                 }

@@ -5,14 +5,16 @@ using FluentMetadata.Rules;
 
 namespace FluentMetadata.MVC
 {
+    // TODO think of a way to support System.Web.Mvc.IClientValidatable
     public class FluentModelMetadata : ModelMetadata
     {
         private readonly Metadata metadata;
-        
-        public FluentModelMetadata(Metadata metadata , ModelMetadataProvider provider, Func<object> modelAccessor) : base(provider, metadata.ContainerType, modelAccessor, metadata.ModelType, metadata.ModelName)
+
+        public FluentModelMetadata(Metadata metadata, ModelMetadataProvider provider, Func<object> modelAccessor)
+            : base(provider, metadata.ContainerType, modelAccessor, metadata.ModelType, metadata.ModelName)
         {
             this.metadata = metadata;
-            MetadataMapper.CopyMetadata(metadata,this);
+            MetadataMapper.CopyMetadata(metadata, this);
         }
 
         public override IEnumerable<ModelValidator> GetValidators(ControllerContext context)
@@ -21,13 +23,13 @@ namespace FluentMetadata.MVC
             {
                 if (rule is IClassRule)
                 {
-                    yield return new ClassRuleModelValidator((IClassRule) rule, this, context);
+                    yield return new ClassRuleModelValidator((IClassRule)rule, this, context);
                 }
                 else
                 {
                     yield return new RuleModelValidator(rule, this, context);
                 }
-            } 
+            }
         }
     }
 }

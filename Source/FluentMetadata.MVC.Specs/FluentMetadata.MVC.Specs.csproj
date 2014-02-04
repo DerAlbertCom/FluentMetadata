@@ -34,11 +34,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft ASP.NET\ASP.NET MVC 2\Assemblies\System.Web.Mvc.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -54,15 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComplexModel.cs" />
-    <Compile Include="ConcernOfComparingComplexModelMetadata.cs" />
-    <Compile Include="ConcernOfValidationSampleData.cs" />
+    <Compile Include="ConcernOfComparingMetadata.cs" />
+    <Compile Include="ConcernOfValidationComplexData.cs" />
     <Compile Include="ControllerValidationExtensions.cs" />
-    <Compile Include="MetaData_SampleModel_Specs.cs" />
     <Compile Include="DummyController.cs" />
     <Compile Include="FluentMetadataFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SampleModel.cs" />
-    <Compile Include="SampleModelMetaData.cs" />
     <Compile Include="MetaData_ComplexModel_Specs.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +69,9 @@
       <Project>{36C0A3A5-7B0D-4F89-B9BC-C11D0C6A34B5}</Project>
       <Name>FluentMetadata.MVC</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestCaseInheritance.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
