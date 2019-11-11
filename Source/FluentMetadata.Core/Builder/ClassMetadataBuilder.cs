@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using System.Reflection;
 using FluentMetadata.Rules;
 
 namespace FluentMetadata.Builder
@@ -34,7 +35,7 @@ namespace FluentMetadata.Builder
         {
             var builder = FluentMetadataBuilder.GetTypeBuilder(typeof(T));
 
-            foreach (var propertyInfo in typeof(T).GetProperties())
+            foreach (var propertyInfo in typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
             {
                 if (propertyInfo.GetIndexParameters().Length == 0)
                 {

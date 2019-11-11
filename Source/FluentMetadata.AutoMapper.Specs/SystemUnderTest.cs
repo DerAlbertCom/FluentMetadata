@@ -5,6 +5,7 @@ namespace FluentMetadata.AutoMapper.Specs
     internal class Source
     {
         public string MyProperty { get; set; }
+        internal string NonPublic { get; set; }
         public int Named { get; set; }
         public Nested Nested { get; set; }
         public string StringField { get; set; }
@@ -23,6 +24,7 @@ namespace FluentMetadata.AutoMapper.Specs
     internal class Destination
     {
         public string MyProperty { get; set; }
+        internal string NonPublic { get; set; }
         public int Renamed { get; set; }
         public int NestedFurtherNestedId { get; set; }
         public int IntProperty { get; set; }
@@ -42,6 +44,7 @@ namespace FluentMetadata.AutoMapper.Specs
         {
             Class.Display.Name("rzjsfghgafsdfh");
             Property(x => x.MyProperty).Display.Name("pockänsdfsdf");
+            Property(x => x.NonPublic).Description("non-public");
             Property(x => x.Named).Description("adföoiulkanhsda");
             Property(x => x.StringField).UIHint("üoicvnqwnb");
         }

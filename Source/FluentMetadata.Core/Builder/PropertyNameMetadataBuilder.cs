@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace FluentMetadata.Builder
 {
@@ -15,7 +16,7 @@ namespace FluentMetadata.Builder
 
         private IEnumerable<NameMetaData> GetNamedMetaData(Type type, string prefix)
         {
-            foreach (var propertyInfo in type.GetProperties())
+            foreach (var propertyInfo in type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
             {
                 var metadata = QueryFluentMetadata.FindMetadataFor(type, propertyInfo.Name);
 
@@ -61,6 +62,9 @@ namespace FluentMetadata.Builder
                 PropertyName = propertyName;
                 Metadata = metadata;
             }
+
+            //for easy debugging
+            public override string ToString() { return PropertyName; }
         }
     }
 }

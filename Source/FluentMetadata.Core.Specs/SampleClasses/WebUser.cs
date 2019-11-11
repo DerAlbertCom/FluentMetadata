@@ -11,7 +11,7 @@ namespace FluentMetadata.Specs.SampleClasses
     {
         public string Username { get; internal set; }
         public string EMail { get; private set; }
-        public string PasswordHash { get; private set; }
+        internal string PasswordHash { get; private set; }
         public bool Confirmed { get; private set; }
         public bool Active { get; private set; }
         public int BounceCount { get; private set; }

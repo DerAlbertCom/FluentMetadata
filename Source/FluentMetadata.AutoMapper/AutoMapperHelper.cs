@@ -22,12 +22,19 @@ namespace FluentMetadata.AutoMapper
             {
                 if (propertyMap.SourceMember != null)
                 {
-                    // just plain property maps, there's no interesting metadata on a custom mapping function
                     maps.Add(new MemberMap
                     {
                         SourceName = propertyMap.SourceMembers.Count() > 1 ?
                             propertyMap.SourceMembers.Aggregate(string.Empty, (result, svr) => result + svr.Name) :
                             propertyMap.SourceMember.Name,
+                        DestinationName = propertyMap.DestinationProperty.Name
+                    });
+                }
+                else if (propertyMap.ValueResolverConfig != null)
+                {
+                    maps.Add(new MemberMap
+                    {
+                        SourceName = propertyMap.ValueResolverConfig.SourceMemberName ?? ExpressionHelper.GetPropertyName(propertyMap.ValueResolverConfig.SourceMember),
                         DestinationName = propertyMap.DestinationProperty.Name
                     });
                 }

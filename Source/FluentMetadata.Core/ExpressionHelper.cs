@@ -2,7 +2,7 @@
 
 namespace FluentMetadata
 {
-    internal static class ExpressionHelper
+    public static class ExpressionHelper
     {
         public static string GetPropertyName(LambdaExpression expression)
         {

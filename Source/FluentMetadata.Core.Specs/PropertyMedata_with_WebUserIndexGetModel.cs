@@ -72,6 +72,7 @@ namespace FluentMetadata.Specs
             Assert.Equal(0, passwordHash.Rules.OfType<RequiredRule>().Count());
         }
 
+        [Fact] public void LengthIsCopiedFromNonPublicProperty() { Assert.Equal(32, passwordHash.GetMinimumLength()); }
         [Fact] public void DisplayNameOfPropertyWithComplexTypeIsCopied() { Assert.Equal("Secondaly lores", secondaryRoles.GetDisplayName()); }
     }
 }

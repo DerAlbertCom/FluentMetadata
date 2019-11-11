@@ -14,6 +14,8 @@ namespace FluentMetadata.AutoMapper.Specs
 
             Mapper.Initialize(cfg =>
             {
+                cfg.ShouldMapProperty = pi => true; //in order to test NonPublic member mapping as well
+
                 cfg.CreateMap<Source, Destination>()
                     .ForMember(d => d.Renamed, o => o.MapFrom(s => s.Named))
                     .ForMember(d => d.IntProperty, o => o.ResolveUsing<FakeResolver, string>(s => s.StringField));
@@ -29,6 +31,12 @@ namespace FluentMetadata.AutoMapper.Specs
         public void a_destination_property_should_have_metadata_from_the_source_property_it_is_mapped_to()
         {
             Assert.Equal("pockänsdfsdf", destinationMetadata.Properties[nameof(Destination.MyProperty)].GetDisplayName());
+        }
+
+        [Fact]
+        public void a_non_public_destination_property_should_have_metadata_from_the_source_property_it_is_mapped_to()
+        {
+            Assert.Equal("non-public", destinationMetadata.Properties[nameof(Destination.NonPublic)].GetDescription());
         }
 
         [Fact]
