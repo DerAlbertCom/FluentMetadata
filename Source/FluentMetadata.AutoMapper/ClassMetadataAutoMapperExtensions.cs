@@ -17,11 +17,7 @@ namespace FluentMetadata.AutoMapper
         public static void CopyAutoMappedMetadataFrom<TDestination>(this ClassMetadata<TDestination> to, Type from)
         {
             var destinationType = typeof(TDestination);
-            MetadataHelper.CopyMappedMetadata(
-                from,
-                destinationType,
-                AutoMapperHelper.GetMemberMapsOf(from, destinationType)
-            );
+            MetadataHelper.CopyMappedMetadata(from, destinationType, AutoMapperHelper.GetMemberMapsOf(from, destinationType));
         }
     }
 }

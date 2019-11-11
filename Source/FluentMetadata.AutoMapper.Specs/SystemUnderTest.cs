@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+
 namespace FluentMetadata.AutoMapper.Specs
 {
-    class Source
+    internal class Source
     {
         public string MyProperty { get; set; }
         public int Named { get; set; }
@@ -9,17 +10,17 @@ namespace FluentMetadata.AutoMapper.Specs
         public string StringField { get; set; }
     }
 
-    class Nested
+    internal class Nested
     {
         public FurtherNested FurtherNested { get; set; }
     }
 
-    class FurtherNested
+    internal class FurtherNested
     {
         public int Id { get; set; }
     }
 
-    class Destination
+    internal class Destination
     {
         public string MyProperty { get; set; }
         public int Renamed { get; set; }
@@ -27,7 +28,7 @@ namespace FluentMetadata.AutoMapper.Specs
         public int IntProperty { get; set; }
     }
 
-    class FakeResolver : ValueResolver<string, int>
+    internal class FakeResolver : ValueResolver<string, int>
     {
         protected override int ResolveCore(string source)
         {
@@ -35,7 +36,7 @@ namespace FluentMetadata.AutoMapper.Specs
         }
     }
 
-    class SourceMetaData : ClassMetadata<Source>
+    internal class SourceMetaData : ClassMetadata<Source>
     {
         public SourceMetaData()
         {
@@ -46,7 +47,7 @@ namespace FluentMetadata.AutoMapper.Specs
         }
     }
 
-    class FurtherNestedMetaData : ClassMetadata<FurtherNested>
+    internal class FurtherNestedMetaData : ClassMetadata<FurtherNested>
     {
         public FurtherNestedMetaData()
         {
@@ -54,7 +55,7 @@ namespace FluentMetadata.AutoMapper.Specs
         }
     }
 
-    class TargetMetaData : ClassMetadata<Destination>
+    internal class TargetMetaData : ClassMetadata<Destination>
     {
         public TargetMetaData()
         {

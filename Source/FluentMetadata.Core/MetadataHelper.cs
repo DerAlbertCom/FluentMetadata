@@ -34,6 +34,7 @@ namespace FluentMetadata
             foreach (var sourcePropertyMetaData in new PropertyNameMetadataBuilder(source).NamedMetaData)
             {
                 var memberMap = memberMaps.SingleOrDefault(mm => mm.SourceName == sourcePropertyMetaData.PropertyName);
+
                 if (memberMap != null)
                 {
                     targetBuilder.MapProperty(target, memberMap.DestinationName, sourcePropertyMetaData.Metadata);

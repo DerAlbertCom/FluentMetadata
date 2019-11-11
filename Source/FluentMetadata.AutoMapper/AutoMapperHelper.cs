@@ -44,7 +44,7 @@ namespace FluentMetadata.AutoMapper
         /// <param name="source">The source type.</param>
         /// <param name="destination">The destination type.</param>
         /// <returns></returns>
-        static IEnumerable<PropertyMap> GetRelevantMappedMembersOf(Type source, Type destination)
+        private static IEnumerable<PropertyMap> GetRelevantMappedMembersOf(Type source, Type destination)
         {
             var typeMap = Mapper.FindTypeMapFor(source, destination);
             return

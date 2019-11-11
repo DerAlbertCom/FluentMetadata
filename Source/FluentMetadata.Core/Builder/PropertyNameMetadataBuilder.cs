@@ -1,30 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace FluentMetadata.Builder
 {
-    class PropertyNameMetadataBuilder
+    internal class PropertyNameMetadataBuilder
     {
-        const int MaxLevel = 5;
-        readonly Type modelType;
-        int currentLevel;
+        private const int MaxLevel = 5;
+        private readonly Type modelType;
+        private int currentLevel;
 
-        internal PropertyNameMetadataBuilder(Type modelType)
-        {
-            this.modelType = modelType;
-        }
+        internal PropertyNameMetadataBuilder(Type modelType) { this.modelType = modelType; }
 
-        internal IEnumerable<NameMetaData> NamedMetaData
-        {
-            get { return GetNamedMetaData(modelType, string.Empty); }
-        }
+        internal IEnumerable<NameMetaData> NamedMetaData => GetNamedMetaData(modelType, string.Empty);
 
-        IEnumerable<NameMetaData> GetNamedMetaData(Type type, string prefix)
+        private IEnumerable<NameMetaData> GetNamedMetaData(Type type, string prefix)
         {
-            foreach (PropertyInfo propertyInfo in type.GetProperties())
+            foreach (var propertyInfo in type.GetProperties())
             {
                 var metadata = QueryFluentMetadata.FindMetadataFor(type, propertyInfo.Name);
+
                 if (metadata != null)
                 {
                     yield return new NameMetaData(prefix + propertyInfo.Name, metadata);
@@ -33,6 +27,7 @@ namespace FluentMetadata.Builder
                 if (!IsSimpleType(propertyInfo.PropertyType))
                 {
                     currentLevel++;
+
                     if (currentLevel <= MaxLevel)
                     {
                         foreach (var named in GetNamedMetaData(propertyInfo.PropertyType, prefix + propertyInfo.Name))
@@ -40,17 +35,19 @@ namespace FluentMetadata.Builder
                             yield return named;
                         }
                     }
+
                     currentLevel--;
                 }
             }
         }
 
-        static bool IsSimpleType(Type type)
+        private static bool IsSimpleType(Type type)
         {
             if (type.IsValueType || type == typeof(string))
             {
                 return true;
             }
+
             return !type.IsClass;
         }
 

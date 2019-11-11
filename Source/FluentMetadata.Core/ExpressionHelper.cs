@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-using System.Reflection;
+﻿using System.Linq.Expressions;
 
 namespace FluentMetadata
 {
@@ -11,16 +9,14 @@ namespace FluentMetadata
             return GetMemberName(expression.Body);
         }
 
-        static string GetMemberName(Expression expression)
+        private static string GetMemberName(Expression expression)
         {
-            var unaryExpression = expression as UnaryExpression;
-            if (unaryExpression != null)
+            if (expression is UnaryExpression unaryExpression)
             {
                 return GetMemberName(unaryExpression.Operand);
             }
 
-            var memberExpression = expression as MemberExpression;
-            if (memberExpression != null)
+            if (expression is MemberExpression memberExpression)
             {
                 return memberExpression.Member.Name;
             }

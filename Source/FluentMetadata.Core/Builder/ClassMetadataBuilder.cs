@@ -4,33 +4,11 @@ using FluentMetadata.Rules;
 
 namespace FluentMetadata.Builder
 {
-    class ClassMetadataBuilder<T> : IClassBuilder<T>
+    internal class ClassMetadataBuilder<T> : IClassBuilder<T>
     {
-        IDisplayClass<T> displayBuilder;
-        readonly Metadata metadata;
+        private IDisplayClass<T> displayBuilder;
 
-        internal ClassMetadataBuilder(Metadata metadata)
-        {
-            this.metadata = metadata;
-            metadata.ModelType = typeof(T);
-            InitPropertyMetadata();
-        }
-
-        void InitPropertyMetadata()
-        {
-            var builder = FluentMetadataBuilder.GetTypeBuilder(typeof(T));
-            foreach (var propertyInfo in typeof(T).GetProperties())
-            {
-                if (propertyInfo.GetIndexParameters().Length == 0)
-                {
-                    metadata.Properties.Add(
-                        builder.MapProperty(
-                            typeof(T),
-                            propertyInfo.Name,
-                            propertyInfo.PropertyType));
-                }
-            }
-        }
+        public Metadata Metadata { get; }
 
         public IDisplayClass<T> Display
         {
@@ -40,13 +18,33 @@ namespace FluentMetadata.Builder
                 {
                     displayBuilder = new DisplayBuilder<T>(this);
                 }
+
                 return displayBuilder;
             }
         }
 
-        public Metadata Metadata
+        internal ClassMetadataBuilder(Metadata metadata)
         {
-            get { return metadata; }
+            Metadata = metadata;
+            metadata.ModelType = typeof(T);
+            InitPropertyMetadata();
+        }
+
+        private void InitPropertyMetadata()
+        {
+            var builder = FluentMetadataBuilder.GetTypeBuilder(typeof(T));
+
+            foreach (var propertyInfo in typeof(T).GetProperties())
+            {
+                if (propertyInfo.GetIndexParameters().Length == 0)
+                {
+                    Metadata.Properties.Add(
+                        builder.MapProperty(
+                            typeof(T),
+                            propertyInfo.Name,
+                            propertyInfo.PropertyType));
+                }
+            }
         }
 
         public IClassBuilder<T> AssertThat(Func<T, bool> assertFunc, string errorMessageFormat)
@@ -57,7 +55,7 @@ namespace FluentMetadata.Builder
 
         public IClassBuilder<T> AssertThat(Func<T, bool> assertFunc, Func<string> errorMessageFormatFunc)
         {
-            metadata.AddRule(new GenericClassRule<T>(assertFunc, errorMessageFormatFunc));
+            Metadata.AddRule(new GenericClassRule<T>(assertFunc, errorMessageFormatFunc));
             return this;
         }
 
