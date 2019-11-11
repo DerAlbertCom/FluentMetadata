@@ -12,9 +12,12 @@ namespace FluentMetadata.AutoMapper.Specs
             FluentMetadataBuilder.Reset();
             Mapper.Reset();
 
-            Mapper.CreateMap<Source, Destination>()
-                .ForMember(d => d.Renamed, o => o.MapFrom(s => s.Named))
-                .ForMember(d => d.IntProperty, o => o.ResolveUsing<FakeResolver>().FromMember(s => s.StringField));
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Source, Destination>()
+                    .ForMember(d => d.Renamed, o => o.MapFrom(s => s.Named))
+                    .ForMember(d => d.IntProperty, o => o.ResolveUsing<FakeResolver, string>(s => s.StringField));
+            });
 
             Mapper.AssertConfigurationIsValid();
             FluentMetadataBuilder.ForAssemblyOfType<Source>();

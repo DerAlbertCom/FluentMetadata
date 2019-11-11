@@ -28,9 +28,9 @@ namespace FluentMetadata.AutoMapper.Specs
         public int IntProperty { get; set; }
     }
 
-    internal class FakeResolver : ValueResolver<string, int>
+    internal class FakeResolver : IMemberValueResolver<Source, Destination, string, int>
     {
-        protected override int ResolveCore(string source)
+        public int Resolve(Source source, Destination destination, string sourceMember, int destMember, ResolutionContext context)
         {
             return default(int);
         }

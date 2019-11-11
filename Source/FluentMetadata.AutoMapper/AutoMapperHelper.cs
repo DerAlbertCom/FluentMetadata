@@ -23,11 +23,10 @@ namespace FluentMetadata.AutoMapper
                 if (propertyMap.SourceMember != null)
                 {
                     // just plain property maps, there's no interesting metadata on a custom mapping function
-                    var sourceValueResolvers = propertyMap.GetSourceValueResolvers().OfType<IMemberGetter>();
                     maps.Add(new MemberMap
                     {
-                        SourceName = sourceValueResolvers.Count() > 1 ?
-                            sourceValueResolvers.Aggregate(string.Empty, (result, svr) => result + svr.Name) :
+                        SourceName = propertyMap.SourceMembers.Count() > 1 ?
+                            propertyMap.SourceMembers.Aggregate(string.Empty, (result, svr) => result + svr.Name) :
                             propertyMap.SourceMember.Name,
                         DestinationName = propertyMap.DestinationProperty.Name
                     });
@@ -46,12 +45,9 @@ namespace FluentMetadata.AutoMapper
         /// <returns></returns>
         private static IEnumerable<PropertyMap> GetRelevantMappedMembersOf(Type source, Type destination)
         {
-            var typeMap = Mapper.FindTypeMapFor(source, destination);
-            return
-                typeMap != null ?
-                // filter by non-ignored PropertyMaps
-                    typeMap.GetPropertyMaps().Where(m => m.IsIgnored() == false) :
-                    Enumerable.Empty<PropertyMap>();
+            var typeMap = Mapper.Configuration.FindTypeMapFor(source, destination);
+            // filter by non-ignored PropertyMaps
+            return typeMap != null ? typeMap.GetPropertyMaps().Where(m => !m.Ignored) : Enumerable.Empty<PropertyMap>();
         }
     }
 }
