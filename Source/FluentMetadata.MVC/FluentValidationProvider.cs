@@ -15,6 +15,7 @@ namespace FluentMetadata.MVC
             {
                 var isPropertyMetadata = !string.IsNullOrEmpty(metadata.PropertyName);
                 var rules = (metadata as FluentModelMetadata).Metadata.Rules;
+
                 if (isPropertyMetadata)
                 {
                     validators.AddRange(

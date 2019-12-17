@@ -7,8 +7,7 @@ namespace FluentMetadata
 {
     public class Metadata
     {
-        readonly List<IRule> rules;
-        readonly PropertiesMetadataCollection properties;
+        private readonly List<IRule> rules;
 
         public Metadata()
         {
@@ -17,11 +16,10 @@ namespace FluentMetadata
             ShowEditor = true;
             ModelType = typeof(object);
             rules = new List<IRule>();
-            properties = new PropertiesMetadataCollection();
+            Properties = new PropertiesMetadataCollection();
         }
 
-        public Metadata(Metadata metadata, Type containerType)
-            : this()
+        public Metadata(Metadata metadata, Type containerType) : this()
         {
             ContainerType = containerType;
             ModelName = metadata.ModelName;
@@ -165,7 +163,7 @@ namespace FluentMetadata
         /// </value>
         internal bool ReadOnly { get; set; }
 
-        bool? required;
+        private bool? required;
         /// <summary>
         /// Gets or sets a value that indicates whether the model is required.
         /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.IsRequired"/>.
@@ -175,10 +173,7 @@ namespace FluentMetadata
         /// </value>
         public bool? Required
         {
-            get
-            {
-                return required;
-            }
+            get => required;
             set
             {
                 required = value;
@@ -234,7 +229,7 @@ namespace FluentMetadata
         /// of the model.
         /// Corresponds to <see cref="System.Web.Mvc.ModelMetadata.Properties"/>.
         /// </summary>
-        public PropertiesMetadataCollection Properties { get { return properties; } }
+        public PropertiesMetadataCollection Properties { get; }
 
         /// <summary>
         /// Gets or sets the name of the model.
@@ -316,10 +311,7 @@ namespace FluentMetadata
         /// </value>
         public bool? Hidden { get; set; }
 
-        public IEnumerable<IRule> Rules
-        {
-            get { return rules; }
-        }
+        public IEnumerable<IRule> Rules => rules;
 
         internal void AddRule(IRule rule)
         {
@@ -408,7 +400,7 @@ namespace FluentMetadata
             return lengthRule.Minimum;
         }
 
-        T GetLastRuleOfType<T>()
+        private T GetLastRuleOfType<T>()
         {
             return Rules.OfType<T>().LastOrDefault();
         }

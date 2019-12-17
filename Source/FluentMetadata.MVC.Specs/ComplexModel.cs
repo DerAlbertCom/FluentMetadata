@@ -10,6 +10,7 @@ namespace FluentMetadata.MVC.Specs
         public ComplexModelMetadata()
         {
             CopyMetadataFrom<ComplexDomainModel>();
+
             Class
                 .Display.Name("Komplex")
                 .AssertThat(
@@ -48,21 +49,26 @@ namespace FluentMetadata.MVC.Specs
         [ReadOnly(true)]
         [ScaffoldColumn(false)]
         public int Id { get; set; }
+
         [DisplayName("Vorname")]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         [Required]
         public string FirstName { get; set; }
+
         [DisplayFormat(NullDisplayText = "No lastname set")]
         [RegularExpression("^[A-Z]'?[- a-zA-Z]+$")]
         [StringLength(50)]
         public string LastName { get; set; }
+
         [DataType("Years")]
         [UIHint("Spinner")]
         [Range(0, 123)]
         public int Age { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:c}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Currency)]
         public new decimal Amount { get; set; }
+
         public char Sex { get; set; }
     }
 
@@ -70,7 +76,7 @@ namespace FluentMetadata.MVC.Specs
     {
         public double Amount { get; set; }
 
-        class Metadata : ClassMetadata<ComplexDomainModel>
+        private class Metadata : ClassMetadata<ComplexDomainModel>
         {
             public Metadata()
             {

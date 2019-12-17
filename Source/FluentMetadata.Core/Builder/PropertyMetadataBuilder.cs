@@ -4,32 +4,16 @@ using FluentMetadata.Rules;
 
 namespace FluentMetadata.Builder
 {
-    abstract class PropertyMetadataBuilder
+    internal abstract class PropertyMetadataBuilder
     {
-        private readonly Metadata metadata;
-
-        protected PropertyMetadataBuilder()
-            : this(new Metadata())
-        {
-        }
-
-        protected PropertyMetadataBuilder(Metadata metadata)
-        {
-            this.metadata = metadata;
-        }
-
-        public Metadata Metadata
-        {
-            get { return metadata; }
-        }
+        public Metadata Metadata { get; }
+        protected PropertyMetadataBuilder() : this(new Metadata()) { }
+        protected PropertyMetadataBuilder(Metadata metadata) { Metadata = metadata; }
     }
 
-    class PropertyMetadataBuilder<T, TResult> : PropertyMetadataBuilder, IProperty<T, TResult>
+    internal class PropertyMetadataBuilder<T, TResult> : PropertyMetadataBuilder, IProperty<T, TResult>
     {
-        public PropertyMetadataBuilder(Metadata metadata)
-            : base(metadata)
-        {
-        }
+        public PropertyMetadataBuilder(Metadata metadata) : base(metadata) { }
 
         public PropertyMetadataBuilder(Expression<Func<T, TResult>> expression)
         {
@@ -80,30 +64,15 @@ namespace FluentMetadata.Builder
             return this;
         }
 
-        public IEditorProperty<T, TResult> Editor
-        {
-            get { return new EditorBuilder<T, TResult>(this); }
-        }
+        public IEditorProperty<T, TResult> Editor => new EditorBuilder<T, TResult>(this);
 
-        public IDisplayProperty<T, TResult> Display
-        {
-            get { return new DisplayBuilder<T, TResult>(this); }
-        }
+        public IDisplayProperty<T, TResult> Display => new DisplayBuilder<T, TResult>(this);
 
-        public IAsProperty<T, TResult> As
-        {
-            get { return new AsBuilder<T, TResult>(this); }
-        }
+        public IAsProperty<T, TResult> As => new AsBuilder<T, TResult>(this);
 
-        public IIsProperty<T, TResult> Is
-        {
-            get { return new IsBuilder<T, TResult>(this); }
-        }
+        public IIsProperty<T, TResult> Is => new IsBuilder<T, TResult>(this);
 
-        public IShouldProperty<T, TResult> Should
-        {
-            get { return new ShouldBuilder<T, TResult>(this); }
-        }
+        public IShouldProperty<T, TResult> Should => new ShouldBuilder<T, TResult>(this);
 
         public IProperty<T, TResult> Range(IComparable minimum, IComparable maximum)
         {

@@ -5,9 +5,7 @@ using System.Web.Mvc;
 
 namespace FluentMetadata.MVC
 {
-    /// <summary>
-    /// A custom metadata provider for FluentMetadata.
-    /// </summary>
+    /// <summary>A custom metadata provider for FluentMetadata.</summary>
     public class FluentMetadataProvider : ModelMetadataProvider
     {
         /// <summary>
@@ -25,10 +23,11 @@ namespace FluentMetadata.MVC
                 .Cast<ModelMetadata>(); //TODO unnecessary for .NET 4
         }
 
-        static Func<object> GetProperyAccessor(object container, Metadata metadata)
+        private static Func<object> GetProperyAccessor(object container, Metadata metadata)
         {
             var properties = container.GetType().GetProperties().Where(p => p.Name == metadata.ModelName).ToArray();
             var count = properties.Length;
+
             if (count == 0)
             {
                 return () => null;
@@ -39,8 +38,7 @@ namespace FluentMetadata.MVC
             }
             else
             {
-                return () => properties.Single(single =>
-                    properties.All(all => single.DeclaringType.Is(all.DeclaringType)));
+                return () => properties.Single(single => properties.All(all => single.DeclaringType.Is(all.DeclaringType)));
             }
         }
 
@@ -53,10 +51,7 @@ namespace FluentMetadata.MVC
         /// <returns>
         /// A <see cref="T:System.Web.Mvc.ModelMetadata"/> object for the property.
         /// </returns>
-        public override ModelMetadata GetMetadataForProperty(Func<object> modelAccessor, Type containerType, string propertyName)
-        {
-            return new FluentModelMetadata(QueryFluentMetadata.GetMetadataFor(containerType, propertyName), this, modelAccessor);
-        }
+        public override ModelMetadata GetMetadataForProperty(Func<object> modelAccessor, Type containerType, string propertyName) => new FluentModelMetadata(QueryFluentMetadata.GetMetadataFor(containerType, propertyName), this, modelAccessor);
 
         /// <summary>
         /// Gets metadata for the specified model accessor and model type.
@@ -66,9 +61,6 @@ namespace FluentMetadata.MVC
         /// <returns>
         /// A <see cref="T:System.Web.Mvc.ModelMetadata"/> object for the specified model accessor and model type.
         /// </returns>
-        public override ModelMetadata GetMetadataForType(Func<object> modelAccessor, Type modelType)
-        {
-            return new FluentModelMetadata(QueryFluentMetadata.GetMetadataFor(modelType), this, modelAccessor);
-        }
+        public override ModelMetadata GetMetadataForType(Func<object> modelAccessor, Type modelType) => new FluentModelMetadata(QueryFluentMetadata.GetMetadataFor(modelType), this, modelAccessor);
     }
 }

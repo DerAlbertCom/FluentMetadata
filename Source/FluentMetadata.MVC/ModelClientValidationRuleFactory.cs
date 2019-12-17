@@ -4,7 +4,7 @@ using FluentMetadata.Rules;
 
 namespace FluentMetadata.MVC
 {
-    static class ModelClientValidationRuleFactory
+    internal static class ModelClientValidationRuleFactory
     {
         internal static IEnumerable<ModelClientValidationRule> Create(IRule rule, string displayName)
         {
@@ -18,30 +18,23 @@ namespace FluentMetadata.MVC
             }
             else if (rule is PropertyMustMatchRegexRule)
             {
-                yield return new ModelClientValidationRegexRule(
-                    rule.FormatErrorMessage(displayName),
-                    (rule as PropertyMustMatchRegexRule).Pattern);
+                yield return new ModelClientValidationRegexRule(rule.FormatErrorMessage(displayName), (rule as PropertyMustMatchRegexRule).Pattern);
             }
+
             else
             {
                 yield break;
             }
         }
 
-        static ModelClientValidationRule GetStringLengthRule(string errorMessage, StringLengthRule stringLengthRule)
+        private static ModelClientValidationRule GetStringLengthRule(string errorMessage, StringLengthRule stringLengthRule)
         {
-            return new ModelClientValidationStringLengthRule(
-                errorMessage,
-                stringLengthRule.Minimum ?? 0,
-                stringLengthRule.Maximum ?? int.MaxValue);
+            return new ModelClientValidationStringLengthRule(errorMessage, stringLengthRule.Minimum ?? 0, stringLengthRule.Maximum ?? int.MaxValue);
         }
 
-        static ModelClientValidationRule GetRangeRule(string errorMessage, RangeRule rangeRule)
+        private static ModelClientValidationRule GetRangeRule(string errorMessage, RangeRule rangeRule)
         {
-            return new ModelClientValidationRangeRule(
-                errorMessage,
-                rangeRule.Minimum,
-                rangeRule.Maximum);
+            return new ModelClientValidationRangeRule(errorMessage, rangeRule.Minimum, rangeRule.Maximum);
         }
     }
 }

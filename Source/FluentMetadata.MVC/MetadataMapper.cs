@@ -13,15 +13,19 @@ namespace FluentMetadata.MVC
             destination.DisplayFormatString = source.GetDisplayFormat();
             destination.DisplayName = source.GetDisplayName();
             destination.EditFormatString = source.GetEditorFormat();
+
             if (source.HideSurroundingHtml.HasValue)
             {
                 destination.HideSurroundingHtml = source.HideSurroundingHtml.Value;
             }
+
             destination.IsReadOnly = source.ReadOnly;
+
             if (source.Required.HasValue)
             {
                 destination.IsRequired = source.Required.Value;
             }
+
             destination.NullDisplayText = source.GetNullDisplayText();
             destination.ShowForDisplay = source.ShowDisplay;
             destination.ShowForEdit = source.ShowEditor;
@@ -29,12 +33,13 @@ namespace FluentMetadata.MVC
             //TODO [MVC3] destination.Watermark = source.GetWatermark();
         }
 
-        static string GetTemplateHint(Metadata metadata)
+        private static string GetTemplateHint(Metadata metadata)
         {
             if (metadata.Hidden.HasValue && metadata.Hidden.Value)
             {
                 return "HiddenInput";
             }
+
             return metadata.TemplateHint;
         }
     }

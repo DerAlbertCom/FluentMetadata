@@ -11,14 +11,8 @@ namespace FluentMetadata.MVC.Specs
         {
             FluentMetadataBuilder.Reset();
 
-            try
-            {
-                FluentMetadataBuilder.ForAssemblyOfType<FluentMetadataFixture>();
-            }
-            catch (Exception ex)
-            {
-                this.Exception = ex;
-            }
+            try { FluentMetadataBuilder.ForAssemblyOfType<FluentMetadataFixture>(); }
+            catch (Exception ex) { Exception = ex; }
 
             ModelMetadataProviders.Current = new FluentMetadataProvider();
         }

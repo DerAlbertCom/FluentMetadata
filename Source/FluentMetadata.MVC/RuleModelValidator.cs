@@ -4,20 +4,13 @@ using FluentMetadata.Rules;
 
 namespace FluentMetadata.MVC
 {
-    class RuleModelValidator : ModelValidator
+    internal class RuleModelValidator : ModelValidator
     {
-        readonly IRule rule;
+        private readonly IRule rule;
 
-        public override bool IsRequired
-        {
-            get
-            {
-                return rule is RequiredRule;
-            }
-        }
+        public override bool IsRequired => rule is RequiredRule;
 
-        internal RuleModelValidator(IRule rule, ModelMetadata metadata, ControllerContext controllerContext)
-            : base(metadata, controllerContext)
+        internal RuleModelValidator(IRule rule, ModelMetadata metadata, ControllerContext controllerContext) : base(metadata, controllerContext)
         {
             this.rule = rule;
         }
@@ -28,6 +21,7 @@ namespace FluentMetadata.MVC
             {
                 yield break;
             }
+
             yield return new ModelValidationResult
             {
                 Message = rule.FormatErrorMessage(Metadata.GetDisplayName())
@@ -40,12 +34,11 @@ namespace FluentMetadata.MVC
         }
     }
 
-    class ClassRuleModelValidator : ModelValidator
+    internal class ClassRuleModelValidator : ModelValidator
     {
-        readonly IClassRule rule;
+        private readonly IClassRule rule;
 
-        internal ClassRuleModelValidator(IClassRule rule, ModelMetadata metadata, ControllerContext controllerContext)
-            : base(metadata, controllerContext)
+        internal ClassRuleModelValidator(IClassRule rule, ModelMetadata metadata, ControllerContext controllerContext) : base(metadata, controllerContext)
         {
             this.rule = rule;
         }
@@ -58,6 +51,7 @@ namespace FluentMetadata.MVC
             {
                 yield break;
             }
+
             yield return new ModelValidationResult
             {
                 Message = rule.FormatErrorMessage(Metadata.GetDisplayName())

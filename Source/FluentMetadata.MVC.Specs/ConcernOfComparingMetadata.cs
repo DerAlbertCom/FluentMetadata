@@ -12,7 +12,7 @@ namespace FluentMetadata.MVC.Specs
 
         protected ModelMetadata Fluent;
         protected ModelMetadata Expected;
-        Exception exception;
+        private Exception exception;
 
         protected override void Because()
         {
@@ -35,8 +35,8 @@ namespace FluentMetadata.MVC.Specs
         [Observation]
         public void Equals_ModelMetadata_Properties_Count()
         {
-            Console.WriteLine(Expected.Properties.ToList().Count);
-            Assert.Equal(Expected.Properties.ToList().Count, Fluent.Properties.ToList().Count);
+            Console.WriteLine(Expected.Properties.Count());
+            Assert.Equal(Expected.Properties.Count(), Fluent.Properties.Count());
         }
 
         [Observation]
@@ -172,6 +172,7 @@ namespace FluentMetadata.MVC.Specs
         {
             var controllerContext = new ControllerContext();
             var dataAnnotationsModelValidatorProvider = new DataAnnotationsModelValidatorProvider();
+
             var expectedValidatorCount = dataAnnotationsModelValidatorProvider
                 .GetValidators(Expected, controllerContext)
                 .Count(v => v.IsRequired);
@@ -196,11 +197,14 @@ namespace FluentMetadata.MVC.Specs
         public void StringLengthValidatorsMatch()
         {
             var controllerContext = new ControllerContext();
+
             var expectedValidatorCount = new DataAnnotationsModelValidatorProvider()
                 .GetValidators(Expected, controllerContext)
                 .OfType<StringLengthAttributeAdapter>()
                 .Count();
+
             Assert.InRange(expectedValidatorCount, 0, 1);
+
             Assert.Equal(
                 expectedValidatorCount,
                 new FluentValidationProvider()

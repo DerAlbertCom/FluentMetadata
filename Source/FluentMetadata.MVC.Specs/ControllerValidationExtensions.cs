@@ -9,13 +9,16 @@ namespace FluentMetadata.MVC.Specs
         {
             if (controller == null)
             {
-                throw new ArgumentNullException("controller");
+                throw new ArgumentNullException(nameof(controller));
             }
+
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
+
             EnsureControllerContext(controller);
+
             foreach (var validationResult in model.GetModelValidator(controller).Validate(model))
             {
                 controller.AddModelError(prefix, validationResult);
@@ -34,15 +37,12 @@ namespace FluentMetadata.MVC.Specs
         {
             return ModelValidator.GetModelValidator(
                 ModelMetadataProviders.Current.GetMetadataForType(() => model, model.GetType()),
-                controller.ControllerContext
-                );
+                controller.ControllerContext);
         }
 
         private static void AddModelError(this Controller controller, string prefix, ModelValidationResult validator)
         {
-            controller.ModelState.AddModelError(
-                CreateSubPropertyName(prefix, validator.MemberName),
-                validator.Message);
+            controller.ModelState.AddModelError(CreateSubPropertyName(prefix, validator.MemberName), validator.Message);
         }
 
         private static string CreateSubPropertyName(string prefix, string propertyName)
@@ -51,11 +51,13 @@ namespace FluentMetadata.MVC.Specs
             {
                 return propertyName;
             }
+
             if (string.IsNullOrEmpty(propertyName))
             {
                 return prefix;
             }
-            return (prefix + "." + propertyName);
+
+            return prefix + "." + propertyName;
         }
     }
 }

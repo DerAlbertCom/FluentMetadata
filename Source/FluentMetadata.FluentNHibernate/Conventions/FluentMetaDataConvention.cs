@@ -8,6 +8,7 @@ namespace FluentMetadata.FluentNHibernate.Conventions
         public void Apply(IPropertyInstance instance)
         {
             var meta = QueryFluentMetadata.FindMetadataFor(instance.EntityType, instance.Property.Name);
+
             if (meta != null)
             {
                 if (meta.Required.HasValue && meta.Required.Value)
@@ -16,6 +17,7 @@ namespace FluentMetadata.FluentNHibernate.Conventions
                 }
 
                 var maxLength = meta.GetMaximumLength();
+
                 if (maxLength.HasValue && maxLength.Value > 0)
                 {
                     instance.Length(maxLength.Value);
@@ -26,6 +28,7 @@ namespace FluentMetadata.FluentNHibernate.Conventions
         public void Apply(IManyToOneInstance instance)
         {
             var meta = QueryFluentMetadata.FindMetadataFor(instance.EntityType, instance.Property.Name);
+
             if (meta != null && meta.Required.HasValue && meta.Required.Value)
             {
                 instance.Not.Nullable();
