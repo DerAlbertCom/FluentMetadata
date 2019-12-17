@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web.Mvc;
 
 namespace FluentMetadata.MVC
@@ -18,27 +19,17 @@ namespace FluentMetadata.MVC
         /// </returns>
         public override IEnumerable<ModelMetadata> GetMetadataForProperties(object container, Type containerType)
         {
-            return QueryFluentMetadata.GetMetadataFor(containerType).Properties
-                .Select(md => new FluentModelMetadata(md, this, GetProperyAccessor(container, md)))
-                .Cast<ModelMetadata>(); //TODO unnecessary for .NET 4
-        }
+            var publicProps = containerType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
-        private static Func<object> GetProperyAccessor(object container, Metadata metadata)
-        {
-            var properties = container.GetType().GetProperties().Where(p => p.Name == metadata.ModelName).ToArray();
-            var count = properties.Length;
+            foreach (var propertyMetadata in QueryFluentMetadata.GetMetadataFor(containerType).Properties)
+            {
+                var props = publicProps.Where(p => p.Name == propertyMetadata.ModelName).ToArray();
+                var prop = props.Length > 1 ? props.GetHiding() : props.SingleOrDefault();
 
-            if (count == 0)
-            {
-                return () => null;
-            }
-            else if (count == 1)
-            {
-                return () => properties[0].GetValue(container, null);
-            }
-            else
-            {
-                return () => properties.Single(single => properties.All(all => single.DeclaringType.Is(all.DeclaringType)));
+                if (prop != null)
+                {
+                    yield return new FluentModelMetadata(propertyMetadata, this, () => prop.GetValue(container, null));
+                }
             }
         }
 

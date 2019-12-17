@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Xunit;
@@ -58,7 +60,14 @@ namespace FluentMetadata.MVC.Specs
         [Observation]
         public void Getting_metadata_for_all_properties_does_not_throw_an_exception()
         {
-            Assert.DoesNotThrow(() => Sut.GetMetadataForProperties(model, model.GetType()));
+            Exception error = null;
+            IEnumerable<ModelMetadata> properties = null;
+
+            try { properties = Sut.GetMetadataForProperties(model, model.GetType()); }
+            catch (Exception ex) { error = ex; }
+
+            Assert.Null(error);
+            Assert.Equal(OriginalProvider.GetMetadataForProperties(model, model.GetType()).Count(), properties.Count());
         }
     }
 

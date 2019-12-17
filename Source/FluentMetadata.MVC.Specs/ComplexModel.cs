@@ -43,7 +43,7 @@ namespace FluentMetadata.MVC.Specs
     }
 
     [DisplayName("Komplex")]
-    public class ComplexModel : ComplexDomainModel
+    public class ComplexModelBase : ComplexDomainModel
     {
         [HiddenInput(DisplayValue = false)]
         [ReadOnly(true)]
@@ -70,7 +70,10 @@ namespace FluentMetadata.MVC.Specs
         public new decimal Amount { get; set; }
 
         public char Sex { get; set; }
+        internal bool IsComplex => Sex != 'm';
     }
+
+    public class ComplexModel : ComplexModelBase { }
 
     public class ComplexDomainModel
     {
@@ -78,13 +81,11 @@ namespace FluentMetadata.MVC.Specs
 
         private class Metadata : ClassMetadata<ComplexDomainModel>
         {
-            public Metadata()
-            {
+            public Metadata() =>
                 Property(e => e.Amount)
                     .As.Custom(DataType.Currency)
                     .Display.Format(() => "{0:c}")
                     .Editor.Format(() => "{0:c}");
-            }
         }
     }
 }
