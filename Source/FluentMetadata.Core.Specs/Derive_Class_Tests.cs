@@ -5,12 +5,11 @@ namespace FluentMetadata.Specs
 {
     public class BaseClass_Tests : MetadataTestBase
     {
-        private Metadata id;
+        readonly Metadata id;
 
         public BaseClass_Tests()
         {
-            var query = new QueryFluentMetadata();
-            id = query.GetMetadataFor(typeof(BaseClass), "Id");
+            id = QueryFluentMetadata.GetMetadataFor(typeof(BaseClass), "Id");
         }
 
         [Fact]
@@ -19,18 +18,15 @@ namespace FluentMetadata.Specs
             id.Required.Value.ShouldBeTrue();
         }
     }
-
 
     public class DerivedClass_Tests : MetadataTestBase
     {
-        private Metadata id;
-        private Metadata title;
+        readonly Metadata id, title;
 
         public DerivedClass_Tests()
         {
-            var query = new QueryFluentMetadata();
-            id = query.GetMetadataFor(typeof (DerivedClass), "Id");
-            title = query.GetMetadataFor(typeof(DerivedClass), "Title");
+            id = QueryFluentMetadata.GetMetadataFor(typeof(DerivedClass), "Id");
+            title = QueryFluentMetadata.GetMetadataFor(typeof(DerivedClass), "Title");
         }
 
         [Fact]
@@ -40,24 +36,20 @@ namespace FluentMetadata.Specs
         }
 
         [Fact]
-
         public void Id_Required_is_True()
         {
             id.Required.Value.ShouldBeTrue();
         }
     }
 
-
     public class DerivedDerivedClass_Tests : MetadataTestBase
     {
-        private Metadata id;
-        private Metadata title;
+        readonly Metadata id, title;
 
         public DerivedDerivedClass_Tests()
         {
-            var query = new QueryFluentMetadata();
-            id = query.GetMetadataFor(typeof(DerivedDerivedClass), "Id");
-            title = query.GetMetadataFor(typeof(DerivedDerivedClass), "Title");
+            id = QueryFluentMetadata.GetMetadataFor(typeof(DerivedDerivedClass), "Id");
+            title = QueryFluentMetadata.GetMetadataFor(typeof(DerivedDerivedClass), "Title");
         }
 
         [Fact]
@@ -67,7 +59,6 @@ namespace FluentMetadata.Specs
         }
 
         [Fact]
-
         public void Id_Required_is_True()
         {
             id.Required.Value.ShouldBeTrue();

@@ -2,32 +2,22 @@ using System;
 
 namespace FluentMetadata
 {
-    public class QueryFluentMetadata
+    public static class QueryFluentMetadata
     {
-        public Metadata GetMetadataFor(Type type)
+        public static Metadata GetMetadataFor(Type type) { return FluentMetadataBuilder.GetTypeBuilder(type).Metadata; }
+
+        public static Metadata GetMetadataFor(Type type, string propertyName)
         {
-            var builder = FluentMetadataBuilder.GetTypeBuilder(type);
-            return builder.Metadata;
+            var metadataProperties = GetMetadataFor(type).Properties;
+
+            if (!metadataProperties.Contains(propertyName))
+            {
+                throw new ArgumentOutOfRangeException(nameof(propertyName), "Unknown Property");
+            }
+
+            return metadataProperties[propertyName];
         }
 
-        public Metadata GetMetadataFor(Type type, string propertyName)
-        {
-            var metadata = GetMetadataFor(type);
-            if (!metadata.Properties.Contains(propertyName))
-            {
-                throw new ArgumentOutOfRangeException("propertyName","Unknow Property");
-            }
-            return metadata.Properties[propertyName];
-        }
-
-        public Metadata FindMetadataFor(Type type, string propertyName)
-        {
-            var metadata = GetMetadataFor(type);
-            if (!metadata.Properties.Contains(propertyName))
-            {
-                return null;
-            }
-            return metadata.Properties[propertyName];
-        }
+        public static Metadata FindMetadataFor(Type type, string propertyName) { return GetMetadataFor(type).Properties.Find(propertyName); }
     }
 }

@@ -14,17 +14,7 @@ public class Shift {
 function Get-Git-Commit
 {
 	$gitLog = git log --oneline -1
-	$tmpString = $gitLog.Split('m') 
-	$index = 0
-	if ($tmpString.Length -gt 2)
-	{
-		$index=1
-	} else 
-	{
-		$tmpString = $gitLog.Split('') 
-	}
-		
-	return $tmpString[$index].SubString(0,6)
+	return $gitLog.SubString(0,6)
 }
 
 function Generate-Revision

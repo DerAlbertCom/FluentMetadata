@@ -5,7 +5,7 @@ properties {
   $base_dir  = resolve-path .
   $revision =  Generate-Revision(2010)
   $lib_dir = "$base_dir\external"
-  $build_dir = "$base_dir\lib" 
+  $build_dir = "$base_dir\build" 
   $buildartifacts_dir = "$build_dir\" 
   $sln_file = "$base_dir\Source\FluentMetadata.sln" 
   $version = "0.5.1.$revision"
@@ -38,13 +38,12 @@ task Compile -depends Init {
   copy-item readme.txt $build_dir\readme.txt
 } 
 
-task Test20 -depends Compile  {
-  exec { & $tools_dir\xUnit\xunit.console.exe $build_dir\FluentMetadata.Core.Specs.dll }
-  exec { & $tools_dir\xUnit\xunit.console.exe $build_dir\FluentMetadata.MVC.Specs.dll }  
-}
-
-task Test40 -depends Test20  {
+task Test40 -depends Compile {
   exec { & $tools_dir\xUnit\xunit.console.clr4.exe $build_dir\FluentMetadata.EntityFramework.Specs.dll }
+  exec { & $tools_dir\xUnit\xunit.console.clr4.exe $build_dir\FluentMetadata.Core.Specs.dll }
+  exec { & $tools_dir\xUnit\xunit.console.clr4.exe $build_dir\FluentMetadata.AutoMapper.Specs.dll }
+  exec { & $tools_dir\xUnit\xunit.console.clr4.exe $build_dir\FluentMetadata.MVC.Specs.dll }
+  exec { & $tools_dir\xUnit\xunit.console.clr4.exe $build_dir\FluentMetadata.FluentNHibernate.Specs.dll }
 }
 
 task Test -depends Test40

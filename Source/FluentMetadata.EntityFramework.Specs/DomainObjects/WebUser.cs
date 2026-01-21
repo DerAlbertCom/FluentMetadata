@@ -1,10 +1,19 @@
 using System;
-using System.Globalization;
 
 namespace FluentMetadata.EntityFramework.Specs.DomainObjects
 {
     public class WebUser : DomainObject
     {
+        public string Username { get; private set; }
+        public string EMail { get; private set; }
+        public string PasswordHash { get; private set; }
+        public bool Confirmed { get; private set; }
+        public bool Active { get; private set; }
+        public int BounceCount { get; private set; }
+        public DateTime? LastLogin { get; private set; }
+        public Guid? ConfirmationKey { get; private set; }
+        public string Role { get; private set; }
+
         private WebUser()
         {
         }
@@ -16,30 +25,17 @@ namespace FluentMetadata.EntityFramework.Specs.DomainObjects
             Confirmed = false;
             Active = false;
         }
-        public string Username { get; private set; }
-
-        public string EMail { get; private set; }
-
-        public string PasswordHash { get; private set; }
-        public bool Confirmed { get; private set; }
-        public bool Active { get; private set; }
-
-        public int BounceCount { get; private set; }
-        public DateTime? LastLogin { get; private set; }
-        public Guid? ConfirmationKey { get; private set; }
-        public string Role { get; private set; }
-
 
         public void SetEMailAddress(string emailAddress)
         {
             emailAddress = emailAddress.ToLower();
+
             if (string.CompareOrdinal(EMail, emailAddress) != 0)
             {
                 EMail = emailAddress;
                 Modified();
             }
         }
-
 
         public void Activate()
         {
@@ -73,9 +69,9 @@ namespace FluentMetadata.EntityFramework.Specs.DomainObjects
             {
                 return;
             }
+
             ConfirmationKey = Guid.NewGuid();
         }
-
 
         public void LoggedIn()
         {
@@ -85,11 +81,13 @@ namespace FluentMetadata.EntityFramework.Specs.DomainObjects
 
         public bool ConfirmationKeyIsValid(Guid confirmationKey)
         {
-            bool isValid = false;
+            var isValid = false;
+
             if (ConfirmationKey.HasValue)
             {
                 isValid = ConfirmationKey.Value == confirmationKey;
             }
+
             return isValid;
         }
 
@@ -100,8 +98,8 @@ namespace FluentMetadata.EntityFramework.Specs.DomainObjects
                 Username = userName;
                 return;
             }
+
             throw new InvalidOperationException("Username is already set");
         }
-
     }
 }

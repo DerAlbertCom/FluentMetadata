@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xunit>
+  <assemblies>
+    <assembly filename="FluentMetadata.Core.Specs\bin\Debug\FluentMetadata.Core.Specs.dll" shadow-copy="true" />
+    <assembly filename="FluentMetadata.EntityFramework.Specs\bin\Debug\FluentMetadata.EntityFramework.Specs.dll" shadow-copy="true" />
+    <assembly filename="FluentMetadata.FluentNHibernate.Specs\bin\Debug\FluentMetadata.FluentNHibernate.Specs.dll" shadow-copy="true" />
+    <assembly filename="FluentMetadata.MVC.Specs\bin\Debug\FluentMetadata.MVC.Specs.dll" shadow-copy="true" />
+    <assembly filename="FluentMetadata.AutoMapper.Specs\bin\Debug\FluentMetadata.AutoMapper.Specs.dll" shadow-copy="true" />
+  </assemblies>
+</xunit>

@@ -1,4 +1,6 @@
-﻿namespace FluentMetadata.Builder
+﻿using System;
+
+namespace FluentMetadata.Builder
 {
     internal class DisplayBuilder<T> : IDisplayClass<T>
     {
@@ -11,41 +13,71 @@
 
         public IClassBuilder<T> Name(string displayName)
         {
-            classBuilder.Metadata.DisplayName = displayName;
+            classBuilder.Metadata.DisplayNameFunc = () => displayName;
+            return classBuilder;
+        }
+
+        public IClassBuilder<T> Name(Func<string> displayNameFunc)
+        {
+            classBuilder.Metadata.DisplayNameFunc = displayNameFunc;
             return classBuilder;
         }
 
         public IClassBuilder<T> Format(string displayFormat)
         {
-            classBuilder.Metadata.DisplayFormat = displayFormat;
+            classBuilder.Metadata.DisplayFormatFunc = () => displayFormat;
+            return classBuilder;
+        }
+
+        public IClassBuilder<T> Format(Func<string> displayFormatFunc)
+        {
+            classBuilder.Metadata.DisplayFormatFunc = displayFormatFunc;
             return classBuilder;
         }
     }
 
-    internal class DisplayBuilder<T,TResult> : IDisplayProperty<T,TResult>
+    internal class DisplayBuilder<T, TResult> : IDisplayProperty<T, TResult>
     {
-        private readonly PropertyMetadataBuilder<T,TResult> propertyMetaDataBuilder;
+        private readonly PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder;
 
-        public DisplayBuilder(PropertyMetadataBuilder<T,TResult> propertyMetaDataBuilder)
+        public DisplayBuilder(PropertyMetadataBuilder<T, TResult> propertyMetaDataBuilder)
         {
             this.propertyMetaDataBuilder = propertyMetaDataBuilder;
         }
 
-        public IProperty<T,TResult> NullText(string nullDisplayText)
+        public IProperty<T, TResult> NullText(string nullDisplayText)
         {
-            propertyMetaDataBuilder.Metadata.NullDisplayText = nullDisplayText;
+            propertyMetaDataBuilder.Metadata.NullDisplayTextFunc = () => nullDisplayText;
             return propertyMetaDataBuilder;
         }
 
-        public IProperty<T,TResult> Name(string displayName)
+        public IProperty<T, TResult> NullText(Func<string> nullDisplayTextFunc)
         {
-            propertyMetaDataBuilder.Metadata.DisplayName = displayName;
+            propertyMetaDataBuilder.Metadata.NullDisplayTextFunc = nullDisplayTextFunc;
             return propertyMetaDataBuilder;
         }
 
-        public IProperty<T,TResult> Format(string displayFormat)
+        public IProperty<T, TResult> Name(string displayName)
         {
-            propertyMetaDataBuilder.Metadata.DisplayFormat = displayFormat;
+            propertyMetaDataBuilder.Metadata.DisplayNameFunc = () => displayName;
+            return propertyMetaDataBuilder;
+        }
+
+        public IProperty<T, TResult> Name(Func<string> displayNameFunc)
+        {
+            propertyMetaDataBuilder.Metadata.DisplayNameFunc = displayNameFunc;
+            return propertyMetaDataBuilder;
+        }
+
+        public IProperty<T, TResult> Format(string displayFormat)
+        {
+            propertyMetaDataBuilder.Metadata.DisplayFormatFunc = () => displayFormat;
+            return propertyMetaDataBuilder;
+        }
+
+        public IProperty<T, TResult> Format(Func<string> displayFormatFunc)
+        {
+            propertyMetaDataBuilder.Metadata.DisplayFormatFunc = displayFormatFunc;
             return propertyMetaDataBuilder;
         }
     }

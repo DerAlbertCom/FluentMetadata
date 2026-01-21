@@ -1,10 +1,11 @@
-﻿using System.Data.Entity.ModelConfiguration;
+﻿using System.Data.Entity.ModelConfiguration.Configuration;
 
 namespace FluentMetadata.EntityFramework.Internal.ConfigurationAdapters
 {
-    internal class PropertyConfigurationAdapter : ConfigurationAdapter<PropertyConfiguration>
+    internal class PropertyConfigurationAdapter : ConfigurationAdapter<PrimitivePropertyConfiguration>
     {
-        public PropertyConfigurationAdapter() : base(null)
+        public PropertyConfigurationAdapter()
+            : base(null)
         {
         }
 

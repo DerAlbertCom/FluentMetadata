@@ -2,69 +2,85 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net.Mime;
 using System.Reflection;
 using FluentMetadata.Builder;
-using FluentMetadata;
 
 namespace FluentMetadata
 {
     public static class FluentMetadataBuilder
     {
-        private static readonly Dictionary<Type, TypeMetadataBuilder> TypeBuilders =
-            new Dictionary<Type, TypeMetadataBuilder>();
+        private static readonly IDictionary<Type, TypeMetadataBuilder> typeBuilders = new Dictionary<Type, TypeMetadataBuilder>();
+        private static readonly MetadataDefinitionSorter metadataDefinitionSorter = new MetadataDefinitionSorter();
+        internal readonly static List<Type> BuiltMetadataDefininitions = new List<Type>();
 
         public static void Reset()
         {
-            TypeBuilders.Clear();
+            typeBuilders.Clear();
+            metadataDefinitionSorter.Clear();
+            BuiltMetadataDefininitions.Clear();
         }
 
         internal static TypeMetadataBuilder GetTypeBuilder(Type type)
         {
             if (type == null)
-                return null;
-            TypeMetadataBuilder builder;
-            if (!TypeBuilders.TryGetValue(type, out builder))
             {
-                builder = (TypeMetadataBuilder) typeof (TypeMetadataBuilder<>).CreateGenericInstance(type);
-                TypeBuilders[type] = builder;
+                return null;
+            }
+
+            if (!typeBuilders.TryGetValue(type, out var builder))
+            {
+                builder = typeof(TypeMetadataBuilder<>).CreateGenericInstance(type) as TypeMetadataBuilder;
+                typeBuilders[type] = builder;
                 builder.Init();
             }
+
             return builder;
         }
 
-        internal static TypeMetadataBuilder<T> GetTypeBuilder<T>()
-        {
-            return (TypeMetadataBuilder<T>) GetTypeBuilder(typeof (T));
-        }
+        internal static TypeMetadataBuilder<T> GetTypeBuilder<T>() { return (TypeMetadataBuilder<T>)GetTypeBuilder(typeof(T)); }
+        internal static void RegisterDependency(Type dependency, Type depender) { metadataDefinitionSorter.Register(dependency, depender); }
+        public static void ForAssemblyOfType<T>() { ForAssembly(typeof(T).Assembly); }
+        public static void ForAssembly(Assembly assembly) { BuildMetadataDefinitions(assembly.GetTypes()); }
 
-        public static void ForAssemblyOfType<T>()
+        internal static void BuildMetadataDefinitions(IEnumerable<Type> metadataDefinitionsToBuild)
         {
-            ForAssembly(typeof (T).Assembly);
-        }
+            metadataDefinitionSorter.AddMetadataDefinitionsToSort(metadataDefinitionsToBuild.Where(t => t.Is<IClassMetadata>()));
 
-        public static void ForAssembly(Assembly assembly)
-        {
-            foreach (Type type in PublicMetadataDefinitionsFrom(assembly))
+            List<Type> metadataDefinitions;
+
+            while ((metadataDefinitions = metadataDefinitionSorter.GetNextUnbuiltDefinitions(BuiltMetadataDefininitions)).Count > 0)
             {
-                if (type.IsAbstract)
-                {
-                    throw new InvalidOperationException("The " + type.FullName + " may not abstract");
-                }
-                if (type.ContainsGenericParameters)
-                {
-                    CreateWithGenericParameters(type);
-                }
-                else
-                {
-                    Activator.CreateInstance(type);
-                }
+                metadataDefinitions.ForEach(CreateMetadataDefinitionInstance);
+            }
+        }
+
+        private static void CreateMetadataDefinitionInstance(Type type)
+        {
+            BuiltMetadataDefininitions.Add(type);
+
+            if (type.IsAbstract)
+            {
+                throw new InvalidOperationException(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        "The type '{0}' may not abstract. Use generic classes for inheritance.",
+                        type.FullName));
+            }
+            if (type.ContainsGenericParameters)
+            {
+                CreateWithGenericParameters(type);
+            }
+            else
+            {
+                try { Activator.CreateInstance(type); }
+                catch (TargetInvocationException ex) { throw ex.InnerException is MetadataDefinitionSorter.NoMetadataDefinedException ? ex.InnerException : ex; }
             }
         }
 
         private static void CreateWithGenericParameters(Type type)
         {
             var constraints = new List<Type>();
+
             foreach (var genericArgument in type.GetGenericArguments())
             {
                 constraints.Add(genericArgument.GetGenericParameterConstraints()[0]);
@@ -73,23 +89,20 @@ namespace FluentMetadata
             var genericType = type.MakeGenericType(constraints.ToArray());
             var constructors = genericType.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
             var invoked = false;
+
             foreach (var constructorInfo in constructors)
             {
-                if (constructorInfo.GetParameters().Length==0)
+                if (constructorInfo.GetParameters().Length == 0)
                 {
-                    constructorInfo.Invoke(BindingFlags.NonPublic | BindingFlags.Public,null, new object[0],CultureInfo.CurrentCulture); 
+                    constructorInfo.Invoke(BindingFlags.NonPublic | BindingFlags.Public, null, new object[0], CultureInfo.CurrentCulture);
                     invoked = true;
                 }
             }
+
             if (!invoked)
             {
                 throw new InvalidOperationException("No Constructor without parameters on  " + type.FullName);
             }
-        }
-
-        private static IEnumerable<Type> PublicMetadataDefinitionsFrom(Assembly assembly)
-        {
-            return assembly.GetTypes().Where(t => typeof (IClassMetadata).IsAssignableFrom(t));
         }
     }
 }

@@ -9,31 +9,29 @@ namespace FluentMetadata.Specs.SampleClasses
 
     public class WebUser : DomainObject
     {
-        private WebUser()
+        public string Username { get; internal set; }
+        public string EMail { get; private set; }
+        internal string PasswordHash { get; private set; }
+        public bool Confirmed { get; private set; }
+        public bool Active { get; private set; }
+        public int BounceCount { get; private set; }
+        public DateTime? LastLogin { get; private set; }
+        public Guid? ConfirmationKey { get; private set; }
+        public string Role { get; private set; }
+        public Autor Autor { get; internal set; }
+        public string Comment { get; set; }
+
+        internal WebUser()
         {
         }
 
-        public override  void Initialize()
+        public override void Initialize()
         {
             base.Initialize();
             PasswordHash = string.Empty;
             Confirmed = false;
             Active = false;
         }
-
-        public string Username { get; private set; }
-
-        public string EMail { get; private set; }
-
-        public string PasswordHash { get; private set; }
-        public bool Confirmed { get; private set; }
-        public bool Active { get; private set; }
-
-        public int BounceCount { get; private set; }
-        public DateTime? LastLogin { get; private set; }
-        public Guid? ConfirmationKey { get; private set; }
-        public string Role { get; private set; }
-        public Autor Autor { get; private set; }
 
         public void SetEMailAddress(string emailAddress)
         {
@@ -45,10 +43,9 @@ namespace FluentMetadata.Specs.SampleClasses
             }
         }
 
-
         private string GetUserSalt()
         {
-            return (Created.Second*Created.DayOfYear).ToString();
+            return (Created.Second * Created.DayOfYear).ToString();
         }
 
         public void MailHasBounced()
@@ -89,6 +86,7 @@ namespace FluentMetadata.Specs.SampleClasses
             {
                 return;
             }
+
             ConfirmationKey = Guid.NewGuid();
         }
 
@@ -100,11 +98,13 @@ namespace FluentMetadata.Specs.SampleClasses
 
         public bool ConfirmationKeyIsValid(Guid confirmationKey)
         {
-            bool isValid = false;
+            var isValid = false;
+
             if (ConfirmationKey.HasValue)
             {
                 isValid = ConfirmationKey.Value == confirmationKey;
             }
+
             return isValid;
         }
     }

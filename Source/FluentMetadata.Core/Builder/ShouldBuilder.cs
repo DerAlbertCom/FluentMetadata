@@ -1,4 +1,6 @@
-﻿namespace FluentMetadata.Builder
+﻿using FluentMetadata.Rules;
+
+namespace FluentMetadata.Builder
 {
     internal class ShouldBuilder<T, TResult> : IShouldProperty<T, TResult>
     {
@@ -12,7 +14,7 @@
 
         private Metadata Metadata { get { return propertyMetaDataBuilder.Metadata; } }
 
-        public IProperty<T,TResult> HiddenInput()
+        public IProperty<T, TResult> HiddenInput()
         {
             Metadata.Hidden = !notted;
             Metadata.HideSurroundingHtml = !notted;
@@ -20,23 +22,32 @@
             return propertyMetaDataBuilder;
         }
 
-        public IProperty<T,TResult> ShowInDisplay()
+        public IProperty<T, TResult> ShowInDisplay()
         {
             Metadata.ShowDisplay = !notted;
             notted = false;
             return propertyMetaDataBuilder;
         }
 
-        public IProperty<T,TResult> ShowInEditor()
+        public IProperty<T, TResult> ShowInEditor()
         {
             Metadata.ShowEditor = !notted;
             notted = false;
             return propertyMetaDataBuilder;
         }
 
-        public IProperty<T,TResult> HideSurroundingHtml()
+        public IProperty<T, TResult> HideSurroundingHtml()
         {
             Metadata.HideSurroundingHtml = !notted;
+            notted = false;
+            return propertyMetaDataBuilder;
+        }
+
+        public IProperty<T, TResult> MatchRegex(string pattern)
+        {
+            Metadata.AddRule(notted ?
+                new PropertyMustNotMatchRegexRule(pattern) :
+                new PropertyMustMatchRegexRule(pattern));
             notted = false;
             return propertyMetaDataBuilder;
         }
